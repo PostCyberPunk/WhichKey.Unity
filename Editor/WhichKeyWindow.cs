@@ -14,12 +14,28 @@ namespace PCP.Tools.WhichKey
 		{
 			GetWindow<WhichKeyWindow>();
 		}
+		private void OnEnable()
+		{
+			keyReleased = true;
+		}
+		private bool keyReleased;
 		private KeyCode prevKey;
 		public void OnGUI()
 		{
 			DummyWindow();
 			Event e = Event.current;
 			if (e == null) return;
+			if (e.isKey)
+				KeyHandler(e);
+		}
+		private void KeyHandler(Event e)
+		{
+
+			if (e.type == EventType.KeyUp)
+			{
+				keyReleased = true;
+				return;
+			}
 			if (e.type == EventType.KeyDown)
 			{
 				switch (e.keyCode)
@@ -30,9 +46,10 @@ namespace PCP.Tools.WhichKey
 						Close(e);
 						break;
 					default:
-						if (prevKey != e.keyCode)
+						if (e.keyCode != prevKey || keyReleased)
 						{
 							prevKey = e.keyCode;
+							keyReleased = false;
 							if (WhichKey.instance.ProcessRawKey(e.keyCode))
 								Close(e);
 						}
