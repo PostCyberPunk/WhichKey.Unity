@@ -12,6 +12,7 @@ namespace PCP.Tools.WhichKey
 		[SerializeField] public List<KeySet> keySets = new();
 		[SerializeField] public bool ShowHint;
 		[SerializeField] public float HintDelayTime;
+		[SerializeField] public bool LogUnregisteredKey;
 		private Dictionary<int, KeySet> mKeySetDict;
 		private StringBuilder mKeySeq;
 		public void Init()
@@ -40,7 +41,8 @@ namespace PCP.Tools.WhichKey
 
 			if (keySet == null)
 			{
-				Debug.LogError($"Key {mKeySeq} not found");
+				if (LogUnregisteredKey)
+					Debug.LogError($"Key {mKeySeq} not found");
 				Complete();
 				return true;
 			}

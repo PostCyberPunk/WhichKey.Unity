@@ -18,6 +18,7 @@ namespace PCP.Tools.WhichKey
 					var settings = WhichKey.instance;
 					settings.ShowHint = EditorGUILayout.Toggle("Show Hint", settings.ShowHint);
 					settings.HintDelayTime = EditorGUILayout.FloatField("Hint Delay Time", settings.HintDelayTime);
+					settings.LogUnregisteredKey = EditorGUILayout.Toggle("Log Unregistered Key", settings.LogUnregisteredKey);
 
 					mKeySetList = new(settings.keySets, typeof(KeySet), true, true, true, true)
 					{
