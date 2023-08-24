@@ -54,28 +54,5 @@ namespace PCP.Tools.WhichKey
 		private void Deactive() => Close();
 	}
 
-	[Serializable]
-	public class KeySet
-	{
-		public string key;
-		public KeyCmdType type;
-		public string HintText;
-		public string CmdArg0;
-		public string CmdArg1;
-	}
-	[Serializable]
-	public class Settings
-	{
-		public KeySet[] KeySets;
-		public bool ShowHint;
-		public float HintDelayText;
-	}
-	public enum KeyCmdType
-	{
-		Layer,
-		Menu,
-		File,
-		ChangeRoot,
-	}
 }
 
