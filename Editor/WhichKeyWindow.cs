@@ -12,7 +12,7 @@ namespace PCP.Tools.WhichKey
 		[MenuItem("Tools/WhichKey/Active")]
 		public static void Active()
 		{
-			var win = GetWindow<WhichKeyWindow>();
+			GetWindow<WhichKeyWindow>();
 		}
 
 		public void OnGUI()
@@ -28,7 +28,7 @@ namespace PCP.Tools.WhichKey
 						Close(e);
 						break;
 					default:
-						if (WhichKey.instance.ProcessRawKey(e.keyCode, e)) 
+						if (WhichKey.instance.ProcessRawKey(e.keyCode))
 							Close(e);
 						break;
 				}

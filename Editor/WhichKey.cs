@@ -9,7 +9,7 @@ namespace PCP.Tools.WhichKey
 	[FilePath("Preferences/WhichKey.asset", FilePathAttribute.Location.PreferencesFolder)]
 	public class WhichKey : ScriptableSingleton<WhichKey>
 	{
-		[SerializeField] public List<KeySet> keySets = new List<KeySet>();
+		[SerializeField] public List<KeySet> keySets = new();
 		[SerializeField] public bool ShowHint;
 		[SerializeField] public float HintDelayTime;
 		private Dictionary<int, KeySet> mKeySetDict;
@@ -25,12 +25,7 @@ namespace PCP.Tools.WhichKey
 			}
 		}
 		private void Complete() => mKeySeq.Clear();
-		public bool ProcessRawKey(KeyCode keyCode, Event e)
-		{
-
-			return ProcessKeySeq(keyCode.ToString().ToLower());
-
-		}
+		public bool ProcessRawKey(KeyCode keyCode) => ProcessKeySeq(keyCode.ToString().ToLower());
 		private bool ProcessKeySeq(string key)
 		{
 			mKeySeq.Replace("alpha", "");
