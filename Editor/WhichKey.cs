@@ -36,8 +36,8 @@ namespace PCP.Tools.WhichKey
 			mKeySeq.Replace("alpha", "");
 			mKeySeq.Append(key);
 			//find key in keyset
-			KeySet keySet;
-			mKeySetDict.TryGetValue(mKeySeq.ToString().GetHashCode(), out keySet);
+			mKeySetDict.TryGetValue(mKeySeq.ToString().GetHashCode(), out KeySet keySet);
+
 			if (keySet == null)
 			{
 				Debug.LogError($"Key {mKeySeq} not found");
