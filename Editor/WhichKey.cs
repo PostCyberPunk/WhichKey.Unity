@@ -28,8 +28,11 @@ namespace PCP.Tools.WhichKey
 		public bool ProcessRawKey(KeyCode keyCode) => ProcessKeySeq(keyCode.ToString().ToLower());
 		private bool ProcessKeySeq(string key)
 		{
-			mKeySeq.Replace("alpha", "");
+			if (mKeySeq == null)
+				mKeySeq = new();
+			Debug.Log(key);
 			mKeySeq.Append(key);
+			mKeySeq.Replace("alpha", "");
 			//find key in keyset
 			//wooo this is bad , maybe use some kind of tree to store keyset
 			//OPT
