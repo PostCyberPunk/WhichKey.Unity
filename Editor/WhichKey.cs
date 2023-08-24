@@ -6,24 +6,13 @@ using UnityEngine;
 
 namespace PCP.Tools.WhichKey
 {
-	public class WhichKey : Editor
+	public class WhichKey : EditorWindow
 	{
-		private static WhichKeyManger whichKeyManger;
 		//when whichkey is active disable all other key event,process key event and show hint
-		[InitializeOnLoadMethod]
-		private static void Init()
-		{
-			if (whichKeyManger != null)
-			{
-				Debug.LogError("Multiple WhichKey Instance");
-			}
-			whichKeyManger = new WhichKeyManger();
-			LoadSetting();
-		}
 		[MenuItem("Tools/WhichKey/Active")]
 		public static void Active()
 		{
-			EditorApplication.update += whichKeyManger.Update;
+            GetWindow<WhichKey>();
 		}
 
 		[MenuItem("Tools/WhichKey/ReloadSettings")]
@@ -37,10 +26,7 @@ namespace PCP.Tools.WhichKey
 			}
 			KeySet[] keySets = JsonUtility.FromJson<KeySet[]>(jsonFile.text);
 		}
-	}
-	public class WhichKeyManger
-	{
-		public void Update()
+		public void OnGUI()
 		{
 			Event e = Event.current;
 			if (e == null) return;
@@ -60,7 +46,6 @@ namespace PCP.Tools.WhichKey
 		private void ProcessKey(KeyCode keyCode, Event e)
 		{
 			Debug.Log(keyCode.ToString());
-			Deactive();
 			e.Use();
 		}
 		private void Close(Event e)
@@ -69,7 +54,7 @@ namespace PCP.Tools.WhichKey
 			Deactive();
 			e.Use();
 		}
-		private void Deactive() => EditorApplication.update -= Update;
+		private void Deactive() =>GetWindow<WhichKey>().Close();
 	}
 
 	[Serializable]
