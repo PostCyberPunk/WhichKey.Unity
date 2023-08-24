@@ -80,7 +80,13 @@ namespace PCP.Tools.WhichKey
 		public string CmdArg0;
 		public string CmdArg1;
 	}
-
+	[Serializable]
+	public class Settings
+	{
+		public KeySet[] KeySets;
+		public bool ShowHint;
+		public float HintDelayText;
+	}
 	public enum KeyCmdType
 	{
 		Layer,
