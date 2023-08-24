@@ -8,7 +8,6 @@ namespace PCP.Tools.WhichKey
 {
 	public static class WhichKey
 	{
-		public static WhichKeySettings mSettings { private set; get; }
 		[InitializeOnLoadMethod]
 		private static void Init()
 		{
@@ -19,9 +18,22 @@ namespace PCP.Tools.WhichKey
 			Debug.Log(keyCode.ToString());
 			e.Use();
 		}
-		[MenuItem("Tools/WhichKey/ReloadSettings")]
-		public static void LoadSetting()
+		[MenuItem("Tools/WhichKey/LoadSettingFromJSON")]
+		public static void LoadSettingFromJSON()
 		{
+			TextAsset jsonFile =  AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/WhichKeySettings.json");
+			if(jsonFile==null)
+			{
+				Debug.LogError("WhichKeySettings.json not found");
+				return;
+			}
+			WhichKeySettings.instance.keySets = JsonUtility.FromJson<WhichKeySettings>(jsonFile.text).keySets;
+		}
+		[MenuItem("Tools/WhichKey/SaveSettingToJSON")]
+		public static void SaveSettingToJSON()
+		{
+			string json = JsonUtility.ToJson(WhichKeySettings.instance);
+			System.IO.File.WriteAllText("Assets/WhichKeySettings.json", json);
 		}
 	}
 	[Serializable]

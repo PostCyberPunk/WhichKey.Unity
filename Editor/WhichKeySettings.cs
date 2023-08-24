@@ -61,6 +61,14 @@ namespace PCP.Tools.WhichKey
 
 					};
 					mKeySetList.DoLayoutList();
+					if (GUILayout.Button("Save to JSON"))
+					{
+						WhichKey.SaveSettingToJSON();
+					}
+					if (GUILayout.Button("Load from JSON"))
+					{
+						WhichKey.LoadSettingFromJSON();
+					}
 				},
 				keywords = new HashSet<string>(new[] { "WhichKey" })
 			};
