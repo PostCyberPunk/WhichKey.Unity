@@ -42,7 +42,7 @@ namespace PCP.Tools.WhichKey
 			if (keySet == null)
 			{
 				if (LogUnregisteredKey)
-					Debug.LogError($"Key {mKeySeq} not found");
+					LogWarning($"Key {mKeySeq} not found");
 				Complete();
 				return true;
 			}
@@ -77,7 +77,7 @@ namespace PCP.Tools.WhichKey
 			}
 			else
 			{
-				Debug.LogError($"Menu {menuName} not found");
+		LogError($"Menu {menuName} not found");
 			}
 		}
 		public static void ApplySettins()
@@ -90,7 +90,7 @@ namespace PCP.Tools.WhichKey
 			TextAsset jsonFile = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/WhichKey.json");
 			if (jsonFile == null)
 			{
-				Debug.LogError("WhichKey.json not found");
+				LogError("WhichKey.json not found");
 				return;
 			}
 			WhichKey.instance.keySets = JsonUtility.FromJson<WhichKey>(jsonFile.text).keySets;
@@ -101,5 +101,7 @@ namespace PCP.Tools.WhichKey
 			string json = JsonUtility.ToJson(WhichKey.instance);
 			System.IO.File.WriteAllText("Assets/WhichKey.json", json);
 		}
+		private static void LogError(string msg) => Debug.LogError("Whichkey:" + msg);
+		private static void LogWarning(string msg) => Debug.LogWarning("Whichkey:" + msg);
 	}
 }
