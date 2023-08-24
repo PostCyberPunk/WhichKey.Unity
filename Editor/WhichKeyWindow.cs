@@ -14,7 +14,7 @@ namespace PCP.Tools.WhichKey
 		{
 			GetWindow<WhichKeyWindow>();
 		}
-
+		private KeyCode prevKey;
 		public void OnGUI()
 		{
 			DummyWindow();
@@ -24,12 +24,18 @@ namespace PCP.Tools.WhichKey
 			{
 				switch (e.keyCode)
 				{
+					case KeyCode.None:
+						break;
 					case KeyCode.Escape:
 						Close(e);
 						break;
 					default:
-						if (WhichKey.instance.ProcessRawKey(e.keyCode))
-							Close(e);
+						if (prevKey != e.keyCode)
+						{
+							prevKey = e.keyCode;
+							if (WhichKey.instance.ProcessRawKey(e.keyCode))
+								Close(e);
+						}
 						break;
 				}
 			}
