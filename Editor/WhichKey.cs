@@ -12,7 +12,7 @@ namespace PCP.Tools.WhichKey
 		[MenuItem("Tools/WhichKey/Active")]
 		public static void Active()
 		{
-            GetWindow<WhichKey>();
+			var win = GetWindow<WhichKey>();
 		}
 
 		[MenuItem("Tools/WhichKey/ReloadSettings")]
@@ -28,6 +28,7 @@ namespace PCP.Tools.WhichKey
 		}
 		public void OnGUI()
 		{
+			DummyWindow();
 			Event e = Event.current;
 			if (e == null) return;
 			if (e.type == EventType.KeyDown)
@@ -38,10 +39,24 @@ namespace PCP.Tools.WhichKey
 						Close(e);
 						break;
 					default:
+						this.ShowNotification(new GUIContent("WhichKey Active"));
 						ProcessKey(e.keyCode, e);
 						break;
 				}
 			}
+		}
+		//This will lost focus of unity editor,need fix
+		private void OnLostFocus()
+		{
+			Deactive();
+		}
+		private void DummyWindow()
+		{
+			minSize = new Vector2(1, 1);
+			maxSize = minSize;
+			// EditorWindow.GetWindow<SceneView>().ShowNotification(new GUIContent("WhichKey Active"));
+			EditorGUILayout.LabelField("WhichKey");
+			EditorGUILayout.LabelField("Press ESC to close");
 		}
 		private void ProcessKey(KeyCode keyCode, Event e)
 		{
@@ -50,11 +65,10 @@ namespace PCP.Tools.WhichKey
 		}
 		private void Close(Event e)
 		{
-            Debug.Log("Quit");
 			Deactive();
 			e.Use();
 		}
-		private void Deactive() =>GetWindow<WhichKey>().Close();
+		private void Deactive() => GetWindow<WhichKey>().Close();
 	}
 
 	[Serializable]
