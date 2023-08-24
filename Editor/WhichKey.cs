@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -35,21 +34,5 @@ namespace PCP.Tools.WhichKey
 			string json = JsonUtility.ToJson(WhichKeySettings.instance);
 			System.IO.File.WriteAllText("Assets/WhichKeySettings.json", json);
 		}
-	}
-	[Serializable]
-	public class KeySet
-	{
-		public string key;
-		public KeyCmdType type;
-		public string HintText;
-		public string CmdArg0;
-		public string CmdArg1;
-	}
-	public enum KeyCmdType
-	{
-		Layer,
-		Menu,
-		File,
-		ChangeRoot,
 	}
 }
