@@ -15,6 +15,10 @@ namespace PCP.Tools.WhichKey
 		[SerializeField] public bool LogUnregisteredKey;
 		private Dictionary<int, KeySet> mKeySetDict;
 		private StringBuilder mKeySeq;
+		private void Awake()
+		{
+			Init();
+		}
 		public void Init()
 		{
 			mKeySetDict = new Dictionary<int, KeySet>();
