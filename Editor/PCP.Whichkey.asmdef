@@ -1,5 +1,5 @@
 {
-    "name": "PCP.Whicikey",
+    "name": "PCP.Whichkey",
     "rootNamespace": "PCP.Tools.WhichKey",
     "references": [],
     "includePlatforms": [
