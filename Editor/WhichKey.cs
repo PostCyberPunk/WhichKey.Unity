@@ -14,7 +14,7 @@ namespace PCP.Tools.WhichKey
 		[SerializeField] public float HintDelayTime;
 		private Dictionary<int, KeySet> mKeySetDict;
 		private StringBuilder mKeySeq;
-		private void Init()
+		public void Init()
 		{
 			mKeySetDict = new Dictionary<int, KeySet>();
 			mKeySeq = new StringBuilder();

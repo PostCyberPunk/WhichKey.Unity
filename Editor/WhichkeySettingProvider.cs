@@ -48,6 +48,10 @@ namespace PCP.Tools.WhichKey
 						}
 					};
 					mKeySetList.DoLayoutList();
+					if (GUILayout.Button("Apply"))
+					{
+						WhichKey.instance.Init();
+					}
 					if (GUILayout.Button("Save to JSON"))
 					{
 						WhichKey.SaveSettingToJSON();
