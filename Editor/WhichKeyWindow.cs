@@ -28,7 +28,8 @@ namespace PCP.Tools.WhichKey
 						Close(e);
 						break;
 					default:
-						WhichKey.ProcessKey(e.keyCode, e);
+						if (WhichKey.instance.ProcessRawKey(e.keyCode, e)) 
+							Close(e);
 						break;
 				}
 			}

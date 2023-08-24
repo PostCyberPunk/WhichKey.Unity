@@ -10,12 +10,12 @@ namespace PCP.Tools.WhichKey
 		[SettingsProvider]
 		public static SettingsProvider CreateSettings()
 		{
-			var provider = new SettingsProvider("Preferences/WhichKeySettings", SettingsScope.User)
+			var provider = new SettingsProvider("Preferences/WhichKey", SettingsScope.User)
 			{
 				label = "WhichKey",
 				guiHandler = (searchContext) =>
 				{
-					var settings = WhichKeySettings.instance;
+					var settings = WhichKey.instance;
 					settings.ShowHint = EditorGUILayout.Toggle("Show Hint", settings.ShowHint);
 					settings.HintDelayTime = EditorGUILayout.FloatField("Hint Delay Time", settings.HintDelayTime);
 
