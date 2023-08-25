@@ -26,7 +26,15 @@ namespace PCP.Tools.WhichKey
 
 			foreach (var keySet in keySets)
 			{
-				mKeySetDict.Add(keySet.key.GetHashCode(), keySet);
+				try
+				{
+					mKeySetDict.Add(keySet.key.GetHashCode(), keySet);
+				}
+				catch (System.Exception e)
+				{
+					LogWarning(e.Message);
+					continue;
+				}
 			}
 		}
 		private void Complete() => mKeySeq.Clear();
