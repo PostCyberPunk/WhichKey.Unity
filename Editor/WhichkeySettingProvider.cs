@@ -35,18 +35,16 @@ namespace PCP.Tools.WhichKey
 							KeySet element = settings.keySets[index];
 
 							float lineHeight = EditorGUIUtility.singleLineHeight;
-							float padding = 2f;
+							float padding = 1f;
 
 							EditorGUI.LabelField(new Rect(rect.x, rect.y + padding, 50, lineHeight), "Key");
-							element.key = EditorGUI.TextField(new Rect(rect.x + 50, rect.y + padding, 50, lineHeight), element.key);
+							element.key = EditorGUI.TextField(new Rect(rect.x + 50, rect.y + padding, 40, lineHeight), element.key);
 							EditorGUI.LabelField(new Rect(rect.x + 100, rect.y + padding, 50, lineHeight), "Type");
-							element.type = (KeyCmdType)EditorGUI.EnumPopup(new Rect(rect.x + 150, rect.y + padding, 100, lineHeight), element.type);
+							element.type = (KeyCmdType)EditorGUI.EnumPopup(new Rect(rect.x + 150, rect.y + padding, 80, lineHeight), element.type);
 							EditorGUI.LabelField(new Rect(rect.x + 250, rect.y + padding, 50, lineHeight), "Hint");
-							element.HintText = EditorGUI.TextField(new Rect(rect.x + 300, rect.y + padding, 100, lineHeight), element.HintText);
-							EditorGUI.LabelField(new Rect(rect.x + 400, rect.y + padding, 50, lineHeight), "Arg0");
-							element.CmdArg0 = EditorGUI.TextField(new Rect(rect.x + 450, rect.y + padding, 100, lineHeight), element.CmdArg0);
-							EditorGUI.LabelField(new Rect(rect.x + 550, rect.y + padding, 50, lineHeight), "Arg1");
-							element.CmdArg1 = EditorGUI.TextField(new Rect(rect.x + 600, rect.y + padding, 100, lineHeight), element.CmdArg1);
+							element.HintText = EditorGUI.TextField(new Rect(rect.x + 300, rect.y + padding, 200, lineHeight), element.HintText);
+							EditorGUI.LabelField(new Rect(rect.x + 510, rect.y + padding, 50, lineHeight), "Arg");
+							element.CmdArg = EditorGUI.TextField(new Rect(rect.x + 550, rect.y + padding, 250, lineHeight), element.CmdArg);
 
 						}
 					};
