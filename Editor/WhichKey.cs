@@ -28,9 +28,12 @@ namespace PCP.Tools.WhichKey
 			mHintDict = new();
 			sb = new();
 
+			List<int> layerList = new();
+
 			foreach (var keySet in keySets)
 			{
 				sb.Clear();
+				//Check for duplicated key
 				try
 				{
 					mKeySetDict.Add(keySet.key.GetHashCode(), keySet);
@@ -40,9 +43,11 @@ namespace PCP.Tools.WhichKey
 					LogWarning(e.Message);
 					continue;
 				}
+				//Get parent Hash
 				sb.Append(keySet.key);
 				sb.Remove(sb.Length - 1, 1);
 				int hash = sb.ToString().GetHashCode();
+				//Add hint
 				if (mHintDict.ContainsKey(hash))
 					mHintDict[hash] = RawHintHandler(keySet, mHintDict[hash]);
 				else
@@ -167,3 +172,4 @@ namespace PCP.Tools.WhichKey
 		private static void LogWarning(string msg) => Debug.LogWarning("Whichkey:" + msg);
 	}
 }
+
