@@ -5,6 +5,12 @@
 <!-- 4. change arg to string[] -->
 <!-- 5. check keycode length to exclude unwanted keys -->
 <!-- 6. upper case key -->
+8. layer refector
+9. show hint
+10. change root
 7. Sep settings and manager? do i really need it?
 # Extra
 piemenu
+# bug
+!todo tree
+load
