@@ -27,9 +27,10 @@ namespace PCP.Tools.WhichKey
 			Children = new List<KeyNode>();
 		}
 
-		public void AddChild(KeyNode child)
+		public KeyNode AddChild(KeyNode child)
 		{
 			Children.Add(child);
+			return child;
 		}
 
 		public void UpdateKeySet(KeySet keySet)
