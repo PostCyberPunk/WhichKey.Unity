@@ -8,7 +8,7 @@ namespace PCP.Tools.WhichKey
 {
 	public class WhichKeyWindow : EditorWindow
 	{
-		//when whichkey is active disable all other key event,process key event and show hint
+		//when whichkey is active disable all other KeySeq event,process KeySeq event and show hint
 		[MenuItem("Tools/WhichKey/Active")]
 		public static void Active()
 		{

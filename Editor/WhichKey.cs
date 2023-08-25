@@ -49,11 +49,11 @@ namespace PCP.Tools.WhichKey
 		private void AddKeySetToTree(KeySet keyset)
 		{
 			mCurrentNode = mRoot;
-			for (int i = 0; i < keyset.key.Length; i++)
+			for (int i = 0; i < keyset.KeySeq.Length; i++)
 			{
-				char key = keyset.key[i];
+				char key = keyset.KeySeq[i];
 				KeyNode childNode = mCurrentNode.GetChildByKey(key.ToString());
-				if (i == keyset.key.Length - 1)
+				if (i == keyset.KeySeq.Length - 1)
 				{
 					if (childNode == null)
 						childNode=mCurrentNode.AddChild(new KeyNode(keyset));
@@ -62,7 +62,7 @@ namespace PCP.Tools.WhichKey
 						if (childNode.Type == KeyCmdType.Layer && keyset.type == KeyCmdType.Layer)
 							childNode.UpdateKeySet(keyset);
 						else
-							LogError($"Key {keyset.key} already registered,skip Hint: {keyset.HintText},args: {keyset.CmdArg}");
+							LogError($"KeySeq {keyset.KeySeq} already registered,skip Hint: {keyset.HintText},args: {keyset.CmdArg}");
 					}
 					return;
 				}
@@ -102,7 +102,7 @@ namespace PCP.Tools.WhichKey
 			if (kn == null)
 			{
 				if (LogUnregisteredKey)
-					LogWarning($"Key {mKeySeq} not found(You can disable this warning in preference)");
+					LogWarning($"KeySeq {mKeySeq} not found(You can disable this warning in preference)");
 				return true;
 			}
 			switch (kn.Type)
@@ -174,7 +174,7 @@ namespace PCP.Tools.WhichKey
 		}
 		private void DebugShowHints()
 		{
-			// Debug.Log($"{item.Key}:{item.Value}");
+			// Debug.Log($"{item.KeySeq}:{item.Value}");
 		}
 	}
 }

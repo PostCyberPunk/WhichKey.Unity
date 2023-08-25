@@ -20,7 +20,7 @@ namespace PCP.Tools.WhichKey
 					var settings = WhichKey.instance;
 					settings.ShowHint = EditorGUILayout.Toggle("Show KeyHint", settings.ShowHint);
 					settings.HintDelayTime = EditorGUILayout.FloatField("KeyHint Delay Time", settings.HintDelayTime);
-					settings.LogUnregisteredKey = EditorGUILayout.Toggle("Log Unregistered Key", settings.LogUnregisteredKey);
+					settings.LogUnregisteredKey = EditorGUILayout.Toggle("Log Unregistered KeySeq", settings.LogUnregisteredKey);
 
 					mKeySetList = new(settings.keySets, typeof(KeySet), true, true, true, true)
 					{
@@ -37,8 +37,8 @@ namespace PCP.Tools.WhichKey
 							float lineHeight = EditorGUIUtility.singleLineHeight;
 							float padding = 1f;
 
-							EditorGUI.LabelField(new Rect(rect.x, rect.y + padding, 50, lineHeight), "Key");
-							element.key = EditorGUI.TextField(new Rect(rect.x + 50, rect.y + padding, 40, lineHeight), element.key);
+							EditorGUI.LabelField(new Rect(rect.x, rect.y + padding, 50, lineHeight), "KeySeq");
+							element.KeySeq = EditorGUI.TextField(new Rect(rect.x + 50, rect.y + padding, 40, lineHeight), element.KeySeq);
 							EditorGUI.LabelField(new Rect(rect.x + 100, rect.y + padding, 50, lineHeight), "Type");
 							element.type = (KeyCmdType)EditorGUI.EnumPopup(new Rect(rect.x + 150, rect.y + padding, 80, lineHeight), element.type);
 							EditorGUI.LabelField(new Rect(rect.x + 250, rect.y + padding, 50, lineHeight), "KeyHint");

@@ -4,7 +4,7 @@ namespace PCP.Tools.WhichKey
 {
 	internal class KeyNode
 	{
-		public string Key { private set; get; }
+		public string KeySeq { private set; get; }
 		public string Hint { private set; get; }
 		public string CmdArg { private set; get; }
 		public KeyCmdType Type { private set; get; }
@@ -15,14 +15,14 @@ namespace PCP.Tools.WhichKey
 
 		public KeyNode(string key, string hintText)
 		{
-			Key = key;
+			KeySeq = key;
 			Hint = hintText;
 			Type = KeyCmdType.Layer;
 			Children = new List<KeyNode>();
 		}
 		public KeyNode(KeySet keySet)
 		{
-			Key = keySet.key[keySet.key.Length - 1].ToString();
+			KeySeq = keySet.KeySeq[keySet.KeySeq.Length - 1].ToString();
 			UpdateKeySet(keySet);
 			Children = new List<KeyNode>();
 		}
@@ -46,7 +46,7 @@ namespace PCP.Tools.WhichKey
 		{
 			foreach (var child in Children)
 			{
-				if (child.Key == key)
+				if (child.KeySeq == key)
 				{
 					return child;
 				}
@@ -61,7 +61,7 @@ namespace PCP.Tools.WhichKey
 			sb.Clear();
 			foreach (var child in Children)
 			{
-				sb.Append(child.Key);
+				sb.Append(child.KeySeq);
 				sb.Append(": ");
 				sb.Append(child.Hint);
 				sb.Append("...");
