@@ -5,7 +5,7 @@ namespace PCP.Tools.WhichKey
 	internal class KeyNode
 	{
 		public string KeySeq { private set; get; }
-		public char Key {get=>KeySeq[KeySeq.Length-1];}
+		public char Key { get => KeySeq[KeySeq.Length - 1]; }
 		public string Hint { private set; get; }
 		public string CmdArg { private set; get; }
 		public KeyCmdType Type { private set; get; }
