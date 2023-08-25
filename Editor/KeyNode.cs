@@ -22,7 +22,7 @@ namespace PCP.Tools.WhichKey
 		}
 		public KeyNode(KeySet keySet)
 		{
-			Key = keySet.key;
+			Key = keySet.key[keySet.key.Length - 1].ToString();
 			UpdateKeySet(keySet);
 			Children = new List<KeyNode>();
 		}
@@ -63,7 +63,7 @@ namespace PCP.Tools.WhichKey
 				sb.Append(child.Key);
 				sb.Append(": ");
 				sb.Append(child.Hint);
-				sb.Append("\n");
+				sb.Append("...");
 				child.SetLayerHints(sb);
 			}
 			LayerHints = sb.ToString();
