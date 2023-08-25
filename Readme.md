@@ -5,8 +5,12 @@
 <!-- 4. change arg to string[] -->
 <!-- 5. check keycode length to exclude unwanted keys -->
 <!-- 6. upper case key -->
-8. layer refector
-9. show hint
+<!-- 8. layer refector -->
+<!-- 9. show hint -->
+11. better way to find duplicated key
+12. set set Hint Window Size Correctly
+13. setting 
+14. space
 10. change root
 7. Sep settings and manager? do i really need it?
 # Extra
