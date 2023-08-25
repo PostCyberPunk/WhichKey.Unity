@@ -14,18 +14,23 @@ namespace PCP.Tools.WhichKey
 		[SerializeField] public float HintDelayTime;
 		[SerializeField] public bool LogUnregisteredKey;
 		private Dictionary<int, KeySet> mKeySetDict;
+		private Dictionary<int, string> mHintDict;
 		private StringBuilder mKeySeq;
+		private StringBuilder sb;
 		private void Awake()
 		{
 			Init();
 		}
 		public void Init()
 		{
-			mKeySetDict = new Dictionary<int, KeySet>();
-			mKeySeq = new StringBuilder();
+			mKeySetDict = new();
+			mKeySeq = new();
+			mHintDict = new();
+			sb = new();
 
 			foreach (var keySet in keySets)
 			{
+				sb.Clear();
 				try
 				{
 					mKeySetDict.Add(keySet.key.GetHashCode(), keySet);
@@ -35,9 +40,33 @@ namespace PCP.Tools.WhichKey
 					LogWarning(e.Message);
 					continue;
 				}
+				sb.Append(keySet.key);
+				sb.Remove(sb.Length - 1, 1);
+				int hash = sb.ToString().GetHashCode();
+				if (mHintDict.ContainsKey(hash))
+					mHintDict[hash] = RawHintHandler(keySet, mHintDict[hash]);
+				else
+					mHintDict.Add(hash, RawHintHandler(keySet, string.Empty));
 			}
 		}
+		private string RawHintHandler(KeySet keySet, string ctx)
+		{
+			sb.Clear();
+			sb.Append(ctx);
+			sb.Append("...");
+			sb.Append(keySet.key);
+			sb.Append(" : ");
+			sb.Append(keySet.HintText);
+			return sb.ToString();
+		}
 		private void Complete() => mKeySeq.Clear();
+		private void DebugShowHints()
+		{
+			foreach (var item in mHintDict)
+			{
+				Debug.Log($"{item.Key}:{item.Value}");
+			}
+		}
 		public bool ProcessRawKey(KeyCode keyCode, bool shift)
 		{
 			//Oh bad bad bad code
@@ -109,8 +138,8 @@ namespace PCP.Tools.WhichKey
 		}
 		public static void ApplySettins()
 		{
+			// instance.Save();
 			instance.Init();
-			instance.Save();
 		}
 		internal void Save()
 		{
