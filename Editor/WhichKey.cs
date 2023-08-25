@@ -17,7 +17,7 @@ namespace PCP.Tools.WhichKey
 		private KeyNode mRoot;
 		private KeyNode mCurrentNode;
 		private StringBuilder sb;
-		public string mLayerHint {get => mCurrentNode.LayerHints;}
+		public string mLayerHint { get => mCurrentNode.LayerHints; }
 		private void Awake()
 		{
 			Init();
@@ -42,8 +42,9 @@ namespace PCP.Tools.WhichKey
 			{
 				AddKeySetToTree(keySet);
 			}
-			
 			mRoot.SetLayerHints(sb);
+			Complete();
+			Debug.Log(mCurrentNode.Children.Count);
 		}
 		public bool KeyHandler(KeyCode keyCode, bool shift)
 		{
@@ -147,7 +148,7 @@ namespace PCP.Tools.WhichKey
 		}
 		public static void ApplySettins()
 		{
-			// instance.Save();
+			instance.Save();
 			instance.Init();
 		}
 		internal void Save()
