@@ -67,18 +67,19 @@ namespace PCP.Tools.WhichKey
 				if (i == 0)
 				{
 					if (childNode == null)
-						childNode = new KeyNode(keyset);
+						mCurrentNode.AddChild(new KeyNode(keyset));
 					else
+					{
 						if (childNode.Type == KeyCmdType.Layer && keyset.type == KeyCmdType.Layer)
-						childNode.UpdateKeySet(keyset);
-					else
-						LogError($"Key {keyset.key} already registered,skip Hint: {keyset.HintText},args: {keyset.CmdArg}");
+							childNode.UpdateKeySet(keyset);
+						else
+							LogError($"Key {keyset.key} already registered,skip Hint: {keyset.HintText},args: {keyset.CmdArg}");
+					}
 					return;
 				}
 				if (childNode == null)
 				{
-					childNode = new KeyNode(key.ToString(), "");
-					mCurrentNode.AddChild(childNode);
+					mCurrentNode.AddChild(new KeyNode(key.ToString(), ""));
 				}
 				mCurrentNode = childNode;
 			}
