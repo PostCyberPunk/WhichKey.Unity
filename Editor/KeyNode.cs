@@ -4,10 +4,10 @@ namespace PCP.Tools.WhichKey
 {
 	public class KeyNode
 	{
-		public string Key { get; }
-		public string Hint { get; }
-		public string CmdArg { get; }
-		public KeyCmdType Type { get; }
+		public string Key;
+		public string Hint;
+		public string CmdArg;
+		public KeyCmdType Type;
 		public KeyNode Parent { get; }
 		public string HintsOfChildren { private set; get; }
 		public List<KeyNode> Children { get; }
@@ -23,9 +23,7 @@ namespace PCP.Tools.WhichKey
 		public KeyNode(KeySet keySet)
 		{
 			Key = keySet.key;
-			Hint = keySet.HintText;
-			CmdArg = keySet.CmdArg;
-			Type = keySet.type;
+			UpdateKeySet(keySet);
 			Children = new List<KeyNode>();
 		}
 
@@ -34,6 +32,15 @@ namespace PCP.Tools.WhichKey
 			Children.Add(child);
 		}
 
+		public void UpdateKeySet(KeySet keySet)
+		{
+			if (Hint != string.Empty)
+				Hint += "/" + keySet.HintText;
+			else
+				Hint = keySet.HintText;
+			CmdArg = keySet.CmdArg;
+			Type = keySet.type;
+		}
 		public KeyNode GetChildByKey(string key)
 		{
 			foreach (var child in Children)
