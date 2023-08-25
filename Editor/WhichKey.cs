@@ -54,10 +54,10 @@ namespace PCP.Tools.WhichKey
 			switch (keySet.type)
 			{
 				case KeyCmdType.Layer:
-					ProcessLayer(keySet.CmdArg0);
+					ProcessLayer(keySet.CmdArg);
 					return false;
 				case KeyCmdType.Menu:
-					ProcessMenu(keySet.CmdArg0);
+					ProcessMenu(keySet.CmdArg);
 					return true;
 				// case KeyCmdType.File:
 				// 	WhichKey.ProcessFile(keySet.CmdArg0);

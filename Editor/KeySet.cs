@@ -8,7 +8,6 @@ namespace PCP.Tools.WhichKey
 		public string key;
 		public KeyCmdType type;
 		public string HintText;
-		public string CmdArg0;
-		public string CmdArg1;
+		public string CmdArg;
 	}
 }
