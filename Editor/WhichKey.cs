@@ -30,14 +30,34 @@ namespace PCP.Tools.WhichKey
 			}
 		}
 		private void Complete() => mKeySeq.Clear();
-		public bool ProcessRawKey(KeyCode keyCode) => ProcessKeySeq(keyCode.ToString().ToLower());
+		public bool ProcessRawKey(KeyCode keyCode, bool shift)
+		{
+			//Oh bad bad bad code
+			string key = keyCode.ToString();
+			if (key.Length > 1)
+			{
+				if (key.StartsWith("Alpha"))
+				{
+					key = key.Replace("Alpha", "");
+				}
+				else if (key.StartsWith("Keypad"))
+				{
+					key = key.Replace("Keypad", "");
+				}
+				else
+				{
+					LogError($"Key {key} not supported");
+					return true;
+				}
+			}
+			return ProcessKeySeq(shift ? key : key.ToLower());
+		}
+
 		private bool ProcessKeySeq(string key)
 		{
-			if (mKeySeq == null)
-				mKeySeq = new();
+			mKeySeq ??= new();
 			Debug.Log(key);
 			mKeySeq.Append(key);
-			mKeySeq.Replace("alpha", "");
 			//find key in keyset
 			//wooo this is bad , maybe use some kind of tree to store keyset
 			//OPT
@@ -46,7 +66,7 @@ namespace PCP.Tools.WhichKey
 			if (keySet == null)
 			{
 				if (LogUnregisteredKey)
-					LogWarning($"Key {mKeySeq} not found");
+					LogWarning($"Key {mKeySeq} not found(You can disable this warning in prefecence)");
 				Complete();
 				return true;
 			}

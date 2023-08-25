@@ -50,7 +50,7 @@ namespace PCP.Tools.WhichKey
 						{
 							prevKey = e.keyCode;
 							keyReleased = false;
-							if (WhichKey.instance.ProcessRawKey(e.keyCode))
+							if (WhichKey.instance.ProcessRawKey(e.keyCode, e.shift))
 								Close(e);
 						}
 						break;
