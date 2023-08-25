@@ -24,8 +24,8 @@ namespace PCP.Tools.WhichKey
 		[InitializeOnLoadMethod]
 		public static void DebugInit()
 		{
-			if(instance.mRoot==null)
-				instance.Init();;
+			if (instance.mRoot == null)
+				instance.Init(); ;
 		}
 		private void DebugShowHints()
 		{
@@ -41,6 +41,16 @@ namespace PCP.Tools.WhichKey
 			{
 				AddKeySetToTree(keySet);
 			}
+		}
+		public bool KeyHandler(KeyCode keyCode, bool shift)
+		{
+			if (ProcessRawKey(keyCode, shift))
+			{
+				Complete();
+				return true;
+			}
+			else
+				return false;
 		}
 		private void AddKeySetToTree(KeySet keyset)
 		{
@@ -89,46 +99,33 @@ namespace PCP.Tools.WhichKey
 					return true;
 				}
 			}
-			return ProcessKeySeq(shift ? key : key.ToLower());
+			return ProcessKey(shift ? key : key.ToLower());
 		}
-		private bool ProcessKeySeq(string key)
+		private bool ProcessKey(string key)
 		{
-			mKeySeq ??= new();
-			Debug.Log(key);
 			mKeySeq.Append(key);
-			//find key in keyset
-			//wooo this is bad , maybe use some kind of tree to store keyset
-			//OPT
-			// mKeySetDict.TryGetValue(mKeySeq.ToString().GetHashCode(), out KeySet keySet);
-
-			// if (keySet == null)
-			// {
-			// 	if (LogUnregisteredKey)
-			// 		LogWarning($"Key {mKeySeq} not found(You can disable this warning in prefecence)");
-			// 	Complete();
-			// 	return true;
-			// }
-			// //process key
-			// switch (keySet.type)
-			// {
-			// 	case KeyCmdType.Layer:
-			// 		ProcessLayer(keySet.CmdArg);
-			// 		return false;
-			// 	case KeyCmdType.Menu:
-			// 		ProcessMenu(keySet.CmdArg);
-			// 		return true;
-			// 	// case KeyCmdType.File:
-			// 	// 	WhichKey.ProcessFile(keySet.CmdArg0);
-			// 	// 	break;
-			// 	// case KeyCmdType.ChangeRoot:
-			// 	// 	WhichKey.ProcessChangeRoot(keySet.CmdArg0);
-			// 	// 	break;
-			// 	default:
-			return true;
+			KeyNode kn = mCurrentNode.GetChildByKey(key);
+			if (kn == null)
+			{
+				if (LogUnregisteredKey)
+					LogWarning($"Key {mKeySeq} not found(You can disable this warning in preference)");
+				return true;
+			}
+			switch(kn.Type)
+			{
+				case KeyCmdType.Layer:
+					ProcessLayer(kn);
+					return false;
+				case KeyCmdType.Menu:
+					ProcessMenu(kn.CmdArg);
+					return true;
+				default:
+					return true;
+			}
 		}
-		void ProcessLayer(string layerName)
+		void ProcessLayer(KeyNode kn)
 		{
-			// LayerManager.instance.SetLayer(layerName);
+			mCurrentNode = kn;
 		}
 		void ProcessMenu(string menuName)
 		{
@@ -136,7 +133,15 @@ namespace PCP.Tools.WhichKey
 				LogError($"Menu {menuName} not found");
 			Complete();
 		}
-		private void Complete() => mKeySeq.Clear();
+		private void Complete()
+		{
+			mKeySeq.Clear();
+			ResetRoot();
+		}
+		private void ResetRoot()
+		{
+			mCurrentNode = mRoot;
+		}
 		public static void ApplySettins()
 		{
 			// instance.Save();
