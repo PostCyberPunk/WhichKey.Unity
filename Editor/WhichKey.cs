@@ -21,6 +21,16 @@ namespace PCP.Tools.WhichKey
 		{
 			Init();
 		}
+		[InitializeOnLoadMethod]
+		public static void DebugInit()
+		{
+			if(instance.mRoot==null)
+				instance.Init();;
+		}
+		private void DebugShowHints()
+		{
+			// Debug.Log($"{item.Key}:{item.Value}");
+		}
 		public void Init()
 		{
 			mKeySetDict = new();
