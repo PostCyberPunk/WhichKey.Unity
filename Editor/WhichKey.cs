@@ -49,15 +49,14 @@ namespace PCP.Tools.WhichKey
 		private void AddKeySetToTree(KeySet keyset)
 		{
 			mCurrentNode = mRoot;
-			for (int i = keyset.key.Length - 1; i >= 0; i--)
+			for (int i = 0; i < keyset.key.Length; i++)
 			{
 				char key = keyset.key[i];
 				KeyNode childNode = mCurrentNode.GetChildByKey(key.ToString());
-
-				if (i == 0)
+				if (i == keyset.key.Length - 1)
 				{
 					if (childNode == null)
-						mCurrentNode.AddChild(new KeyNode(keyset));
+						childNode=mCurrentNode.AddChild(new KeyNode(keyset));
 					else
 					{
 						if (childNode.Type == KeyCmdType.Layer && keyset.type == KeyCmdType.Layer)
@@ -69,7 +68,7 @@ namespace PCP.Tools.WhichKey
 				}
 				if (childNode == null)
 				{
-					mCurrentNode.AddChild(new KeyNode(key.ToString(), ""));
+					childNode=mCurrentNode.AddChild(new KeyNode(key.ToString(), ""));
 				}
 				mCurrentNode = childNode;
 			}
@@ -139,7 +138,7 @@ namespace PCP.Tools.WhichKey
 		}
 		public static void ApplySettins()
 		{
-			instance.Save();
+			// instance.Save();
 			instance.Init();
 		}
 		internal void Save()
