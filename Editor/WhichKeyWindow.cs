@@ -24,15 +24,15 @@ namespace PCP.Tools.WhichKey
 		private float hideTill;
 		public void OnGUI()
 		{
+			HintsWindow();
+			// if (WhichKey.instance.ShowHint && hideTill < Time.realtimeSinceStartup)
+			// 	Debug.Log(WhichKey.instance.mLayerHint);
+			// else
+			// 	DummyWindow();
 			Event e = Event.current;
 			if (e == null) return;
 			if (e.isKey)
 				KeyHandler(e);
-			if (WhichKey.instance.ShowHint && hideTill < Time.realtimeSinceStartup)
-				Debug.Log(WhichKey.instance.mLayerHint);
-				// HintsWindow();
-			else
-				DummyWindow();
 		}
 		private void KeyHandler(Event e)
 		{
