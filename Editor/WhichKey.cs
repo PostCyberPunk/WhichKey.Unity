@@ -168,8 +168,8 @@ namespace PCP.Tools.WhichKey
 			string json = JsonUtility.ToJson(WhichKey.instance);
 			System.IO.File.WriteAllText("Assets/WhichKey.json", json);
 		}
-		private static void LogError(string msg) => Debug.LogError("Whichkey:" + msg);
-		private static void LogWarning(string msg) => Debug.LogWarning("Whichkey:" + msg);
+		internal static void LogError(string msg) => Debug.LogError("Whichkey:" + msg);
+		internal static void LogWarning(string msg) => Debug.LogWarning("Whichkey:" + msg);
 		//Debug
 		[InitializeOnLoadMethod]
 		public static void DebugInit()
