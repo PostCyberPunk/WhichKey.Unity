@@ -24,7 +24,6 @@ namespace PCP.Tools.WhichKey
 		private float hideTill;
 		public void OnGUI()
 		{
-			HintsWindow();
 			// if (WhichKey.instance.ShowHint && hideTill < Time.realtimeSinceStartup)
 			// 	Debug.Log(WhichKey.instance.mLayerHint);
 			// else
@@ -32,7 +31,11 @@ namespace PCP.Tools.WhichKey
 			Event e = Event.current;
 			if (e == null) return;
 			if (e.isKey)
+			{
 				KeyHandler(e);
+				// Debug.Log(WhichKey.instance.mLayerHint);
+			}
+			HintsWindow();
 		}
 		private void KeyHandler(Event e)
 		{
@@ -84,10 +87,12 @@ namespace PCP.Tools.WhichKey
 			EditorGUILayout.LabelField("Press ESC to close");
 
 			EditorGUILayout.LabelField(WhichKey.instance.mLayerHint);
+			Repaint();
 		}
 		private void Close(Event e)
 		{
 			Deactive();
+			WhichKey.instance.Complete();
 			e.Use();
 		}
 		private void Deactive() => Close();

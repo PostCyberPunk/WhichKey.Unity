@@ -132,7 +132,7 @@ namespace PCP.Tools.WhichKey
 				LogError($"Menu {menuName} not found");
 			Complete();
 		}
-		private void Complete()
+		internal void Complete()
 		{
 			mKeySeq.Clear();
 			ResetRoot();
