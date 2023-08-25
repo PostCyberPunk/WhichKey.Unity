@@ -14,6 +14,8 @@ namespace PCP.Tools.WhichKey
 		[SerializeField] public float HintDelayTime;
 		[SerializeField] public bool LogUnregisteredKey;
 		private StringBuilder mKeySeq;
+		private KeyNode mRoot;
+		private KeyNode mCurrentNode;
 		private StringBuilder sb;
 		private void Awake()
 		{
@@ -34,12 +36,37 @@ namespace PCP.Tools.WhichKey
 			mKeySeq = new();
 			sb = new();
 
+			mRoot = new KeyNode("", "");
 			foreach (var keySet in keySets)
 			{
+				AddKeySetToTree(keySet);
 			}
 		}
+		private void AddKeySetToTree(KeySet keyset)
 		{
+			mCurrentNode = mRoot;
+			for (int i = keyset.key.Length - 1; i >= 0; i--)
 			{
+				char key = keyset.key[i];
+				KeyNode childNode = mCurrentNode.GetChildByKey(key.ToString());
+
+				if (i == 0)
+				{
+					if (childNode == null)
+						childNode = new KeyNode(keyset);
+					else
+						if (childNode.Type == KeyCmdType.Layer && keyset.type == KeyCmdType.Layer)
+						childNode.UpdateKeySet(keyset);
+					else
+						LogError($"Key {keyset.key} already registered,skip Hint: {keyset.HintText},args: {keyset.CmdArg}");
+					return;
+				}
+				if (childNode == null)
+				{
+					childNode = new KeyNode(key.ToString(), "");
+					mCurrentNode.AddChild(childNode);
+				}
+				mCurrentNode = childNode;
 			}
 		}
 		public bool ProcessRawKey(KeyCode keyCode, bool shift)
@@ -72,6 +99,7 @@ namespace PCP.Tools.WhichKey
 			//find key in keyset
 			//wooo this is bad , maybe use some kind of tree to store keyset
 			//OPT
+			// mKeySetDict.TryGetValue(mKeySeq.ToString().GetHashCode(), out KeySet keySet);
 
 			// if (keySet == null)
 			// {
