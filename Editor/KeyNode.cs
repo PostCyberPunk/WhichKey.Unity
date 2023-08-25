@@ -2,15 +2,15 @@ using System.Collections.Generic;
 using System.Text;
 namespace PCP.Tools.WhichKey
 {
-	public class KeyNode
+	internal class KeyNode
 	{
-		public string Key;
-		public string Hint;
-		public string CmdArg;
-		public KeyCmdType Type;
+		public string Key { private set; get; }
+		public string Hint { private set; get; }
+		public string CmdArg { private set; get; }
+		public KeyCmdType Type { private set; get;}
 		public KeyNode Parent { get; }
 		public string HintsOfChildren { private set; get; }
-		public List<KeyNode> Children { get; }
+		private List<KeyNode> Children;
 		public bool hasChildren { get => Children.Count > 0; }
 
 		public KeyNode(string key, string hintText)
