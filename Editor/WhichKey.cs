@@ -22,16 +22,6 @@ namespace PCP.Tools.WhichKey
 		{
 			Init();
 		}
-		[InitializeOnLoadMethod]
-		public static void DebugInit()
-		{
-			if (instance.mRoot == null)
-				instance.Init(); ;
-		}
-		private void DebugShowHints()
-		{
-			// Debug.Log($"{item.Key}:{item.Value}");
-		}
 		public void Init()
 		{
 			mKeySeq = new();
@@ -176,6 +166,17 @@ namespace PCP.Tools.WhichKey
 		}
 		private static void LogError(string msg) => Debug.LogError("Whichkey:" + msg);
 		private static void LogWarning(string msg) => Debug.LogWarning("Whichkey:" + msg);
+		//Debug
+		[InitializeOnLoadMethod]
+		public static void DebugInit()
+		{
+			if (instance.mRoot == null)
+				instance.Init(); ;
+		}
+		private void DebugShowHints()
+		{
+			// Debug.Log($"{item.Key}:{item.Value}");
+		}
 	}
 }
 
