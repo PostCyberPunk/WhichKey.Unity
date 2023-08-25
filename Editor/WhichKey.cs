@@ -36,16 +36,6 @@ namespace PCP.Tools.WhichKey
 			Complete();
 			Debug.Log(mCurrentNode.Children.Count);
 		}
-		public bool KeyHandler(KeyCode keyCode, bool shift)
-		{
-			if (ProcessRawKey(keyCode, shift))
-			{
-				Complete();
-				return true;
-			}
-			else
-				return false;
-		}
 		private void AddKeySetToTree(KeySet keyset)
 		{
 			mCurrentNode = mRoot;
@@ -72,6 +62,16 @@ namespace PCP.Tools.WhichKey
 				}
 				mCurrentNode = childNode;
 			}
+		}
+		public bool KeyHandler(KeyCode keyCode, bool shift)
+		{
+			if (ProcessRawKey(keyCode, shift))
+			{
+				Complete();
+				return true;
+			}
+			else
+				return false;
 		}
 		public bool ProcessRawKey(KeyCode keyCode, bool shift)
 		{
