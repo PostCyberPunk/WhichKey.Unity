@@ -129,7 +129,7 @@ namespace PCP.Tools.WhichKey
 		void ProcessMenu(string menuName)
 		{
 			if (!EditorApplication.ExecuteMenuItem(menuName))
-				LogError($"Menu {menuName} not found");
+				LogWarning($"Menu {menuName} not available");
 			Complete();
 		}
 		internal void Complete()
