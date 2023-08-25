@@ -103,14 +103,9 @@ namespace PCP.Tools.WhichKey
 		}
 		void ProcessMenu(string menuName)
 		{
-			if (EditorApplication.ExecuteMenuItem(menuName))
-			{
-				Complete();
-			}
-			else
-			{
+			if (!EditorApplication.ExecuteMenuItem(menuName))
 				LogError($"Menu {menuName} not found");
-			}
+			Complete();
 		}
 		public static void ApplySettins()
 		{
