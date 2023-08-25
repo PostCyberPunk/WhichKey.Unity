@@ -9,33 +9,39 @@ namespace PCP.Tools.WhichKey
 	public class WhichKeyWindow : EditorWindow
 	{
 		//when whichkey is active disable all other KeySeq event,process KeySeq event and show hint
+		private bool keyReleased;
+		private KeyCode prevKey;
+		private float hideTill;
+		private bool showHint;
+
 		[MenuItem("Tools/WhichKey/Active")]
 		public static void Active()
 		{
-			var win = GetWindow<WhichKeyWindow>();
+			// var win = GetWindow<WhichKeyWindow>();
+			WhichKeyWindow win = ScriptableObject.CreateInstance<WhichKeyWindow>();
+			minSize = new Vector2(1, 1);
+			win.showHint = false;
 			win.UpdateDelayTimer();
+			win.ShowPopup();
 		}
 		private void OnEnable()
 		{
 			keyReleased = true;
 		}
-		private bool keyReleased;
-		private KeyCode prevKey;
-		private float hideTill;
 		public void OnGUI()
 		{
-			// if (WhichKey.instance.ShowHint && hideTill < Time.realtimeSinceStartup)
-			// 	Debug.Log(WhichKey.instance.mLayerHint);
+			// CheckDelayTiemr();
+			// if (showHint)
+			// 	HintsWindow();
 			// else
-			// 	DummyWindow();
+			// DummyWindow();
+			HintsWindow();
+			Repaint();
 			Event e = Event.current;
 			if (e == null) return;
-			if (e.isKey)
-			{
-				KeyHandler(e);
-				// Debug.Log(WhichKey.instance.mLayerHint);
-			}
-			HintsWindow();
+			if (!e.isKey)
+				return;
+			KeyHandler(e);
 		}
 		private void KeyHandler(Event e)
 		{
@@ -64,7 +70,16 @@ namespace PCP.Tools.WhichKey
 				}
 			}
 		}
-		private void UpdateDelayTimer() => hideTill = Time.realtimeSinceStartup + WhichKey.instance.HintDelayTime;
+		private void UpdateDelayTimer()
+		{
+			if (!showHint)
+				hideTill = Time.realtimeSinceStartup + WhichKey.instance.HintDelayTime;
+		}
+		private void CheckDelayTiemr()
+		{
+			if (showHint) return;
+			showHint = Time.realtimeSinceStartup > hideTill;
+		}
 		//This will lost focus of unity editor,need fix
 		private void OnLostFocus()
 		{
@@ -78,13 +93,15 @@ namespace PCP.Tools.WhichKey
 		}
 		private void HintsWindow()
 		{
-			minSize = new Vector2(200, 200);
-			maxSize = minSize;
-			EditorGUILayout.LabelField("WhichKey");
-			EditorGUILayout.LabelField("Press ESC to close");
+			string text = WhichKey.instance.mLayerHint;
+			GUIStyle style = new GUIStyle(GUI.skin.label);
+			style.richText = true;
+			style.fontSize =30;
 
-			EditorGUILayout.LabelField(WhichKey.instance.mLayerHint);
-			Repaint();
+			GUIContent content = new GUIContent(text);
+			float height = style.CalcHeight(content, position.width);
+
+			EditorGUILayout.LabelField(text, style, GUILayout.Height(height));
 		}
 		private void Close(Event e)
 		{

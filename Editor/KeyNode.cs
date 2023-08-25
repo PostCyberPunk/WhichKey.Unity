@@ -66,7 +66,7 @@ namespace PCP.Tools.WhichKey
 				sb.Append(child.Key);
 				sb.Append(": ");
 				sb.Append(child.Hint);
-				sb.Append("...");
+				sb.Append("\n");
 			}
 			LayerHints = sb.ToString();
 		}
