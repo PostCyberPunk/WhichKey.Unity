@@ -50,9 +50,6 @@ namespace PCP.Tools.WhichKey
 				{
 					case KeyCode.None:
 						break;
-					case KeyCode.Escape:
-						Close(e);
-						break;
 					default:
 						if (e.keyCode != prevKey || keyReleased)
 						{
@@ -92,7 +89,6 @@ namespace PCP.Tools.WhichKey
 		private void Close(Event e)
 		{
 			Deactive();
-			WhichKey.instance.Complete();
 			e.Use();
 		}
 		private void Deactive() => Close();

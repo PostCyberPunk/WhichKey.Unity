@@ -79,6 +79,8 @@ namespace PCP.Tools.WhichKey
 			string key = keyCode.ToString();
 			if (key.Length > 1)
 			{
+				if (key.StartsWith("Escape"))
+					return true;
 				if (key.StartsWith("Alpha"))
 				{
 					key = key.Replace("Alpha", "");
