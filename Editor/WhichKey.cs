@@ -32,7 +32,7 @@ namespace PCP.Tools.WhichKey
 			{
 				AddKeySetToTree(keySet);
 			}
-			mRoot.SetLayerHints(sb);
+			mRoot.SetLayerHints();
 			Complete();
 			Debug.Log(mRoot.LayerHints);
 		}

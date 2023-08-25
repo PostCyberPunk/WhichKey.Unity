@@ -55,18 +55,18 @@ namespace PCP.Tools.WhichKey
 
 			return null;
 		}
-		public void SetLayerHints(StringBuilder sb)
+		public void SetLayerHints()
 		{
 
 			if (!hasChildren) return;
-			sb.Clear();
+			StringBuilder sb = new StringBuilder();
 			foreach (var child in Children)
 			{
+				child.SetLayerHints();
 				sb.Append(child.Key);
 				sb.Append(": ");
 				sb.Append(child.Hint);
 				sb.Append("...");
-				child.SetLayerHints(sb);
 			}
 			LayerHints = sb.ToString();
 		}
