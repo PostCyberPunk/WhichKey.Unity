@@ -81,12 +81,18 @@ namespace PCP.Tools.WhichKey
 			}
 			else
 			{
-		LogError($"Menu {menuName} not found");
+				LogError($"Menu {menuName} not found");
 			}
 		}
 		public static void ApplySettins()
 		{
 			instance.Init();
+			instance.Save();
+		}
+		internal void Save()
+		{
+			Undo.RegisterCompleteObjectUndo(this, "Save WhichKey Settings");
+			base.Save(true);
 		}
 		[MenuItem("Tools/WhichKey/LoadSettingFromJSON")]
 		public static void LoadSettingFromJSON()

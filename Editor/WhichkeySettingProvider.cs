@@ -7,10 +7,12 @@ namespace PCP.Tools.WhichKey
 	static class WhichkeySettingProvider
 	{
 		private static ReorderableList mKeySetList;
+		public const string SettingPath = "Preferences/WhichKey";
 		[SettingsProvider]
 		public static SettingsProvider CreateSettings()
 		{
-			var provider = new SettingsProvider("Preferences/WhichKey", SettingsScope.User)
+			WhichKey.instance.Save();
+			var provider = new SettingsProvider(SettingPath, SettingsScope.User)
 			{
 				label = "WhichKey",
 				guiHandler = (searchContext) =>
@@ -51,7 +53,7 @@ namespace PCP.Tools.WhichKey
 					mKeySetList.DoLayoutList();
 					if (GUILayout.Button("Apply"))
 					{
-						WhichKey.instance.Init();
+						WhichKey.ApplySettins();
 					}
 					if (GUILayout.Button("Save to JSON"))
 					{
