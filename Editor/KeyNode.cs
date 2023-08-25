@@ -5,6 +5,7 @@ namespace PCP.Tools.WhichKey
 	internal class KeyNode
 	{
 		public string KeySeq { private set; get; }
+		public char Key {get=>KeySeq[KeySeq.Length-1];}
 		public string Hint { private set; get; }
 		public string CmdArg { private set; get; }
 		public KeyCmdType Type { private set; get; }
@@ -42,11 +43,11 @@ namespace PCP.Tools.WhichKey
 			CmdArg = keySet.CmdArg;
 			Type = keySet.type;
 		}
-		public KeyNode GetChildByKey(string key)
+		public KeyNode GetChildByKey(char key)
 		{
 			foreach (var child in Children)
 			{
-				if (child.KeySeq == key)
+				if (child.Key == key)
 				{
 					return child;
 				}
@@ -61,7 +62,7 @@ namespace PCP.Tools.WhichKey
 			sb.Clear();
 			foreach (var child in Children)
 			{
-				sb.Append(child.KeySeq);
+				sb.Append(child.Key);
 				sb.Append(": ");
 				sb.Append(child.Hint);
 				sb.Append("...");

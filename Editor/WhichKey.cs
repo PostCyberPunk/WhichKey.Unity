@@ -34,7 +34,7 @@ namespace PCP.Tools.WhichKey
 			}
 			mRoot.SetLayerHints(sb);
 			Complete();
-			Debug.Log(mCurrentNode.Children.Count);
+			Debug.Log(mRoot.LayerHints);
 		}
 		private void AddKeySetToTree(KeySet keyset)
 		{
@@ -42,11 +42,11 @@ namespace PCP.Tools.WhichKey
 			for (int i = 0; i < keyset.KeySeq.Length; i++)
 			{
 				char key = keyset.KeySeq[i];
-				KeyNode childNode = mCurrentNode.GetChildByKey(key.ToString());
+				KeyNode childNode = mCurrentNode.GetChildByKey(key);
 				if (i == keyset.KeySeq.Length - 1)
 				{
 					if (childNode == null)
-						childNode=mCurrentNode.AddChild(new KeyNode(keyset));
+						childNode = mCurrentNode.AddChild(new KeyNode(keyset));
 					else
 					{
 						if (childNode.Type == KeyCmdType.Layer && keyset.type == KeyCmdType.Layer)
@@ -58,7 +58,7 @@ namespace PCP.Tools.WhichKey
 				}
 				if (childNode == null)
 				{
-					childNode=mCurrentNode.AddChild(new KeyNode(key.ToString(), ""));
+					childNode = mCurrentNode.AddChild(new KeyNode(key.ToString(), ""));
 				}
 				mCurrentNode = childNode;
 			}
@@ -93,9 +93,14 @@ namespace PCP.Tools.WhichKey
 					return true;
 				}
 			}
-			return ProcessKey(shift ? key : key.ToLower());
+			if (key.Length > 1)
+			{
+				LogError($"Unsupported key found :{key}");
+				return true;
+			}
+			return ProcessKey(shift ? key[0] : key.ToLower()[0]);
 		}
-		private bool ProcessKey(string key)
+		private bool ProcessKey(char key)
 		{
 			mKeySeq.Append(key);
 			KeyNode kn = mCurrentNode.GetChildByKey(key);
