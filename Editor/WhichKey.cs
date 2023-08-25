@@ -13,8 +13,6 @@ namespace PCP.Tools.WhichKey
 		[SerializeField] public bool ShowHint;
 		[SerializeField] public float HintDelayTime;
 		[SerializeField] public bool LogUnregisteredKey;
-		private Dictionary<int, KeySet> mKeySetDict;
-		private Dictionary<int, string> mHintDict;
 		private StringBuilder mKeySeq;
 		private StringBuilder sb;
 		private void Awake()
@@ -33,53 +31,15 @@ namespace PCP.Tools.WhichKey
 		}
 		public void Init()
 		{
-			mKeySetDict = new();
 			mKeySeq = new();
-			mHintDict = new();
 			sb = new();
-
-			List<int> layerList = new();
 
 			foreach (var keySet in keySets)
 			{
-				sb.Clear();
-				//Check for duplicated key
-				try
-				{
-					mKeySetDict.Add(keySet.key.GetHashCode(), keySet);
-				}
-				catch (System.Exception e)
-				{
-					LogWarning(e.Message);
-					continue;
-				}
-				//Get parent Hash
-				sb.Append(keySet.key);
-				sb.Remove(sb.Length - 1, 1);
-				int hash = sb.ToString().GetHashCode();
-				//Add hint
-				if (mHintDict.ContainsKey(hash))
-					mHintDict[hash] = RawHintHandler(keySet, mHintDict[hash]);
-				else
-					mHintDict.Add(hash, RawHintHandler(keySet, string.Empty));
 			}
 		}
-		private string RawHintHandler(KeySet keySet, string ctx)
 		{
-			sb.Clear();
-			sb.Append(ctx);
-			sb.Append("...");
-			sb.Append(keySet.key);
-			sb.Append(" : ");
-			sb.Append(keySet.HintText);
-			return sb.ToString();
-		}
-		private void Complete() => mKeySeq.Clear();
-		private void DebugShowHints()
-		{
-			foreach (var item in mHintDict)
 			{
-				Debug.Log($"{item.Key}:{item.Value}");
 			}
 		}
 		public bool ProcessRawKey(KeyCode keyCode, bool shift)
@@ -104,7 +64,6 @@ namespace PCP.Tools.WhichKey
 			}
 			return ProcessKeySeq(shift ? key : key.ToLower());
 		}
-
 		private bool ProcessKeySeq(string key)
 		{
 			mKeySeq ??= new();
@@ -113,33 +72,31 @@ namespace PCP.Tools.WhichKey
 			//find key in keyset
 			//wooo this is bad , maybe use some kind of tree to store keyset
 			//OPT
-			mKeySetDict.TryGetValue(mKeySeq.ToString().GetHashCode(), out KeySet keySet);
 
-			if (keySet == null)
-			{
-				if (LogUnregisteredKey)
-					LogWarning($"Key {mKeySeq} not found(You can disable this warning in prefecence)");
-				Complete();
-				return true;
-			}
-			//process key
-			switch (keySet.type)
-			{
-				case KeyCmdType.Layer:
-					ProcessLayer(keySet.CmdArg);
-					return false;
-				case KeyCmdType.Menu:
-					ProcessMenu(keySet.CmdArg);
-					return true;
-				// case KeyCmdType.File:
-				// 	WhichKey.ProcessFile(keySet.CmdArg0);
-				// 	break;
-				// case KeyCmdType.ChangeRoot:
-				// 	WhichKey.ProcessChangeRoot(keySet.CmdArg0);
-				// 	break;
-				default:
-					return true;
-			}
+			// if (keySet == null)
+			// {
+			// 	if (LogUnregisteredKey)
+			// 		LogWarning($"Key {mKeySeq} not found(You can disable this warning in prefecence)");
+			// 	Complete();
+			// 	return true;
+			// }
+			// //process key
+			// switch (keySet.type)
+			// {
+			// 	case KeyCmdType.Layer:
+			// 		ProcessLayer(keySet.CmdArg);
+			// 		return false;
+			// 	case KeyCmdType.Menu:
+			// 		ProcessMenu(keySet.CmdArg);
+			// 		return true;
+			// 	// case KeyCmdType.File:
+			// 	// 	WhichKey.ProcessFile(keySet.CmdArg0);
+			// 	// 	break;
+			// 	// case KeyCmdType.ChangeRoot:
+			// 	// 	WhichKey.ProcessChangeRoot(keySet.CmdArg0);
+			// 	// 	break;
+			// 	default:
+			return true;
 		}
 		void ProcessLayer(string layerName)
 		{
@@ -151,6 +108,7 @@ namespace PCP.Tools.WhichKey
 				LogError($"Menu {menuName} not found");
 			Complete();
 		}
+		private void Complete() => mKeySeq.Clear();
 		public static void ApplySettins()
 		{
 			// instance.Save();
