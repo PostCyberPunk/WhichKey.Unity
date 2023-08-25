@@ -7,10 +7,10 @@ namespace PCP.Tools.WhichKey
 		public string Key { private set; get; }
 		public string Hint { private set; get; }
 		public string CmdArg { private set; get; }
-		public KeyCmdType Type { private set; get;}
+		public KeyCmdType Type { private set; get; }
 		public KeyNode Parent { get; }
-		public string HintsOfChildren { private set; get; }
-		private List<KeyNode> Children;
+		public string LayerHints { private set; get; }
+		public List<KeyNode> Children { private set; get; }
 		public bool hasChildren { get => Children.Count > 0; }
 
 		public KeyNode(string key, string hintText)
@@ -53,19 +53,20 @@ namespace PCP.Tools.WhichKey
 
 			return null;
 		}
-		public void SetHintsOfChildren()
+		public void SetLayerHints(StringBuilder sb)
 		{
-			StringBuilder sb = new StringBuilder();
 
+			if (!hasChildren) return;
+			sb.Clear();
 			foreach (var child in Children)
 			{
 				sb.Append(child.Key);
 				sb.Append(": ");
 				sb.Append(child.Hint);
 				sb.Append("\n");
+				child.SetLayerHints(sb);
 			}
-
-			HintsOfChildren = sb.ToString();
+			LayerHints = sb.ToString();
 		}
 	}
 }

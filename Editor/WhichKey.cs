@@ -17,6 +17,7 @@ namespace PCP.Tools.WhichKey
 		private KeyNode mRoot;
 		private KeyNode mCurrentNode;
 		private StringBuilder sb;
+		public string mLayerHint {get => mCurrentNode.LayerHints;}
 		private void Awake()
 		{
 			Init();
@@ -41,6 +42,8 @@ namespace PCP.Tools.WhichKey
 			{
 				AddKeySetToTree(keySet);
 			}
+			
+			mRoot.SetLayerHints(sb);
 		}
 		public bool KeyHandler(KeyCode keyCode, bool shift)
 		{
@@ -111,7 +114,7 @@ namespace PCP.Tools.WhichKey
 					LogWarning($"Key {mKeySeq} not found(You can disable this warning in preference)");
 				return true;
 			}
-			switch(kn.Type)
+			switch (kn.Type)
 			{
 				case KeyCmdType.Layer:
 					ProcessLayer(kn);
