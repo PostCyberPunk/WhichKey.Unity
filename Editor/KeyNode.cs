@@ -36,7 +36,7 @@ namespace PCP.Tools.WhichKey
 
 		public void UpdateKeySet(KeySet keySet)
 		{
-			if (Hint != string.Empty)
+			if (Hint != null&&keySet.HintText!=null)
 				Hint += "/" + keySet.HintText;
 			else
 				Hint = keySet.HintText;
@@ -63,9 +63,13 @@ namespace PCP.Tools.WhichKey
 			foreach (var child in Children)
 			{
 				child.SetLayerHints();
+				sb.Append("<size=15>");
+				sb.Append("<color=yellow>");
 				sb.Append(child.Key);
+				sb.Append("</color>");
 				sb.Append(": ");
 				sb.Append(child.Hint);
+				sb.Append("</size>");
 				sb.Append("\n");
 			}
 			LayerHints = sb.ToString();
