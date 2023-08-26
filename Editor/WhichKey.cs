@@ -34,7 +34,6 @@ namespace PCP.Tools.WhichKey
 			}
 			mRoot.SetLayerHints();
 			Complete();
-			Debug.Log(mRoot.LayerHints);
 		}
 		private void AddKeySetToTree(KeySet keyset)
 		{
