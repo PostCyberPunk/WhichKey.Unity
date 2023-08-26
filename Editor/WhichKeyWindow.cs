@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace PCP.Tools.WhichKey
 {
@@ -13,13 +14,14 @@ namespace PCP.Tools.WhichKey
 		private KeyCode prevKey;
 		private float hideTill;
 		private bool showHint;
-
+		private string hintText;
 		[MenuItem("Tools/WhichKey/Active")]
 		public static void Active()
 		{
 			// var win = GetWindow<WhichKeyWindow>();
 			WhichKeyWindow win = ScriptableObject.CreateInstance<WhichKeyWindow>();
-			minSize = new Vector2(1, 1);
+			Vector2 mousePos = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
+			win.position = new(mousePos.x+10, mousePos.y+10, 200, 100);
 			win.showHint = false;
 			win.UpdateDelayTimer();
 			win.ShowPopup();
@@ -28,20 +30,28 @@ namespace PCP.Tools.WhichKey
 		{
 			keyReleased = true;
 		}
+		private Label label;
+		private void CreateGUI()
+		{
+			label = new Label(hintText);
+			rootVisualElement.Add(label);
+		}
 		public void OnGUI()
 		{
-			// CheckDelayTiemr();
-			// if (showHint)
-			// 	HintsWindow();
-			// else
-			// DummyWindow();
-			HintsWindow();
-			Repaint();
+			if (showHint)
+				HintsWindow();
+			else
+				DummyWindow();
 			Event e = Event.current;
 			if (e == null) return;
 			if (!e.isKey)
 				return;
 			KeyHandler(e);
+
+		}
+		private void Update()
+		{
+			CheckDelayTimer();
 		}
 		private void KeyHandler(Event e)
 		{
@@ -75,10 +85,15 @@ namespace PCP.Tools.WhichKey
 			if (!showHint)
 				hideTill = Time.realtimeSinceStartup + WhichKey.instance.HintDelayTime;
 		}
-		private void CheckDelayTiemr()
+		private void CheckDelayTimer()
 		{
 			if (showHint) return;
 			showHint = Time.realtimeSinceStartup > hideTill;
+			if (showHint)
+			{
+				//OPT cant get mouse position here,need to find a way to get mouse position
+				Repaint();
+			}
 		}
 		//This will lost focus of unity editor,need fix
 		private void OnLostFocus()
@@ -87,21 +102,14 @@ namespace PCP.Tools.WhichKey
 		}
 		private void DummyWindow()
 		{
-			minSize = new Vector2(1, 1);
+			minSize = Vector2.zero;
 			maxSize = minSize;
-			// EditorWindow.GetWindow<SceneView>().ShowNotification(new GUIContent("WhichKey Active"));
 		}
 		private void HintsWindow()
 		{
-			string text = WhichKey.instance.mLayerHint;
-			GUIStyle style = new GUIStyle(GUI.skin.label);
-			style.richText = true;
-			style.fontSize =30;
-
-			GUIContent content = new GUIContent(text);
-			float height = style.CalcHeight(content, position.width);
-
-			EditorGUILayout.LabelField(text, style, GUILayout.Height(height));
+			label.text = WhichKey.instance.mLayerHint;
+			minSize = new Vector2(200, 200);
+			maxSize = minSize;
 		}
 		private void Close(Event e)
 		{
