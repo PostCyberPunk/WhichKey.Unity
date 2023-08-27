@@ -21,6 +21,7 @@ namespace PCP.Tools.WhichKey
 		#region Elements
 		private VisualElement mainFrame;
 		private Label TestLabel;
+		private float mFontSize = 12;
 		#endregion
 		[MenuItem("Tools/WhichKey/Active")]
 		public static void Active()
@@ -28,15 +29,19 @@ namespace PCP.Tools.WhichKey
 			// var win = GetWindow<WhichKeyWindow>();
 			WhichKeyWindow win = ScriptableObject.CreateInstance<WhichKeyWindow>();
 			win.showHint = false;
+			// win.minSize =Vector2.one*1;
 			win.UpdateDelayTimer();
 			win.ShowPopup();
-			win._changeUI = true;
+			// win.position = new Rect(0, 0, 5, 50);
+			win.maxSize = new Vector2(5, 50);
+			// win._changeUI = true;
 		}
 		private void CreateGUI()
 		{
 			mainFrame = new VisualElement();
-			TestLabel = new Label("<size=20>WhichKey</size>");
+			TestLabel = new Label("a");
 			mainFrame.Add(TestLabel);
+			TestLabel.style.fontSize = mFontSize;
 			rootVisualElement.Add(mainFrame);
 		}
 		private void OnEnable()
@@ -108,40 +113,48 @@ namespace PCP.Tools.WhichKey
 		private void OnLostFocus() => Deactive();
 		private void CalculateLineHeight()
 		{
-			position = new Rect(0, 0, 1000,1000);
-			minSize = new Vector2(1000, 1000);
-			maxSize = new Vector2(1000, 1000);
 			mainFrame.Clear();
+			// position = new Rect(0, 0, 1000, 1000);
+			// mainFrame.style.width = 200;
+			// mainFrame.style.height = 200;
 			mainFrame.Add(TestLabel);
+			// TestLabel.style.fontSize = 20;
 			lineHeight = TestLabel.resolvedStyle.height;
-			TestLabel.resolvedStyle.
 			Debug.Log(lineHeight);
 		}
 		private void DummyWindow()
 		{
 			mainFrame.Clear();
-			position = new Rect(0, 0, 1, 1);
+			position = new Rect(0, 0, 0, 0);
 		}
 		private string DebugGetHints()
 		{
-			string s = "<size=20>";
+			string s = string.Empty;
+			// string s = "<size=20>";
 			for (int i = 10; i > 0; i--)
 			{
 				s += (i.ToString() + "\n");
 			}
-			s += "</size>";
+			// s += "</size>";
 			return s;
 		}
 		private void HintsWindow()
 		{
 			CalculateLineHeight();
 			mainFrame.Clear();
-			mHeight = lineHeight * 10+6;
+			mHeight = lineHeight * 20;
+			mainFrame.style.flexDirection = FlexDirection.Row;
 			mWidth = 200;
-			maxSize=new Vector2(mWidth,mHeight);
+			maxSize = new Vector2(mWidth, mHeight);
 			Vector2 mousePos = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
-			position = new Rect(mousePos.x, mousePos.y, mWidth, mHeight);
-			mainFrame.Add(new Label(DebugGetHints()));
+			position = new Rect(mousePos.x - mWidth / 2, mousePos.y - mHeight / 2, mWidth, mHeight);
+			for (int i = 0; i < 2; i++)
+			{
+				Label label = new Label(DebugGetHints());
+				label.style.fontSize = mFontSize;
+				label.style.width = 100;
+				mainFrame.Add(label);
+			}
 		}
 		private bool _changeUI;
 		private void CheckUI()
