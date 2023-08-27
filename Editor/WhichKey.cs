@@ -94,7 +94,7 @@ namespace PCP.Tools.WhichKey
 				}
 				else
 				{
-					LogError($"Key {key} not supported");
+					LogWarning($"Key {key} not supported");
 					return true;
 				}
 			}
