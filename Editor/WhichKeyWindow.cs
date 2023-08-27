@@ -18,26 +18,24 @@ namespace PCP.Tools.WhichKey
 		private float mHeight;
 		private float mWidth;
 		private float lineHeight;
-		#region Elements
-		private VisualElement mainFrame;
-		private Label TestLabel;
-		#endregion
+		private GUIStyle style;
 		[MenuItem("Tools/WhichKey/Active")]
 		public static void Active()
 		{
 			// var win = GetWindow<WhichKeyWindow>();
 			WhichKeyWindow win = ScriptableObject.CreateInstance<WhichKeyWindow>();
 			win.showHint = false;
+			win.position= new Rect(0, 0, 0, 0);
 			win.UpdateDelayTimer();
 			win.ShowPopup();
 			win._changeUI = true;
 		}
 		private void CreateGUI()
 		{
-			mainFrame = new VisualElement();
-			TestLabel = new Label("<size=20>WhichKey</size>");
-			mainFrame.Add(TestLabel);
-			rootVisualElement.Add(mainFrame);
+			style = new GUIStyle();
+			style.richText = true;
+			style.fontSize = 20;
+			lineHeight = style.CalcHeight(new GUIContent("Hello"), 100);
 		}
 		private void OnEnable()
 		{
@@ -47,7 +45,7 @@ namespace PCP.Tools.WhichKey
 		{
 			Event e = Event.current;
 			if (e == null) return;
-			CheckUI();
+			HintsWindow();
 			if (!e.isKey)
 				return;
 			KeyHandler(e);
@@ -106,20 +104,8 @@ namespace PCP.Tools.WhichKey
 		}
 		//This will lost focus of unity editor,need fix
 		private void OnLostFocus() => Deactive();
-		private void CalculateLineHeight()
-		{
-			position = new Rect(0, 0, 1000,1000);
-			minSize = new Vector2(1000, 1000);
-			maxSize = new Vector2(1000, 1000);
-			mainFrame.Clear();
-			mainFrame.Add(TestLabel);
-			lineHeight = TestLabel.resolvedStyle.height;
-			TestLabel.resolvedStyle.
-			Debug.Log(lineHeight);
-		}
 		private void DummyWindow()
 		{
-			mainFrame.Clear();
 			position = new Rect(0, 0, 1, 1);
 		}
 		private string DebugGetHints()
@@ -134,14 +120,16 @@ namespace PCP.Tools.WhichKey
 		}
 		private void HintsWindow()
 		{
-			CalculateLineHeight();
-			mainFrame.Clear();
-			mHeight = lineHeight * 10+6;
+			GUILayout.BeginHorizontal();
+			string text = DebugGetHints();
+			GUIContent content = new GUIContent(text);
+			GUILayout.Label(content,style);
+			GUILayout.Label(content,style);
+			GUILayout.EndHorizontal();
+			mHeight = 10*lineHeight;
 			mWidth = 200;
-			maxSize=new Vector2(mWidth,mHeight);
 			Vector2 mousePos = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
-			position = new Rect(mousePos.x, mousePos.y, mWidth, mHeight);
-			mainFrame.Add(new Label(DebugGetHints()));
+			position = new Rect(0, 0, mWidth, mHeight);
 		}
 		private bool _changeUI;
 		private void CheckUI()
