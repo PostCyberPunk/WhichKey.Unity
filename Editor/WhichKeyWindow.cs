@@ -15,39 +15,42 @@ namespace PCP.Tools.WhichKey
 		private float hideTill;
 		private bool showHint;
 		private string hintText;
+		private float mHeight;
+		private float mWidth;
+		private float lineHeight;
+		#region Elements
+		private VisualElement mainFrame;
+		private Label TestLabel;
+		#endregion
 		[MenuItem("Tools/WhichKey/Active")]
 		public static void Active()
 		{
 			// var win = GetWindow<WhichKeyWindow>();
 			WhichKeyWindow win = ScriptableObject.CreateInstance<WhichKeyWindow>();
-			Vector2 mousePos = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
-			win.position = new(mousePos.x+10, mousePos.y+10, 200, 100);
 			win.showHint = false;
 			win.UpdateDelayTimer();
 			win.ShowPopup();
+			win._changeUI = true;
+		}
+		private void CreateGUI()
+		{
+			mainFrame = new VisualElement();
+			TestLabel = new Label("<size=20>WhichKey</size>");
+			mainFrame.Add(TestLabel);
+			rootVisualElement.Add(mainFrame);
 		}
 		private void OnEnable()
 		{
 			keyReleased = true;
 		}
-		private Label label;
-		private void CreateGUI()
-		{
-			label = new Label(hintText);
-			rootVisualElement.Add(label);
-		}
 		public void OnGUI()
 		{
-			if (showHint)
-				HintsWindow();
-			else
-				DummyWindow();
 			Event e = Event.current;
 			if (e == null) return;
+			CheckUI();
 			if (!e.isKey)
 				return;
 			KeyHandler(e);
-
 		}
 		private void Update()
 		{
@@ -72,9 +75,14 @@ namespace PCP.Tools.WhichKey
 							prevKey = e.keyCode;
 							keyReleased = false;
 							if (WhichKey.instance.KeyHandler(e.keyCode, e.shift))
+							{
 								Close(e);
+							}
 							else
+							{
+								_changeUI = true;
 								UpdateDelayTimer();
+							}
 						}
 						break;
 				}
@@ -92,25 +100,62 @@ namespace PCP.Tools.WhichKey
 			if (showHint)
 			{
 				//OPT cant get mouse position here,need to find a way to get mouse position
+				_changeUI = true;
 				Repaint();
 			}
 		}
 		//This will lost focus of unity editor,need fix
-		private void OnLostFocus()
+		private void OnLostFocus() => Deactive();
+		private void CalculateLineHeight()
 		{
-			Deactive();
+			position = new Rect(0, 0, 1000,1000);
+			minSize = new Vector2(1000, 1000);
+			maxSize = new Vector2(1000, 1000);
+			mainFrame.Clear();
+			mainFrame.Add(TestLabel);
+			lineHeight = TestLabel.resolvedStyle.height;
+			TestLabel.resolvedStyle.
+			Debug.Log(lineHeight);
 		}
 		private void DummyWindow()
 		{
-			minSize = Vector2.zero;
-			maxSize = minSize;
+			mainFrame.Clear();
+			position = new Rect(0, 0, 1, 1);
+		}
+		private string DebugGetHints()
+		{
+			string s = "<size=20>";
+			for (int i = 10; i > 0; i--)
+			{
+				s += (i.ToString() + "\n");
+			}
+			s += "</size>";
+			return s;
 		}
 		private void HintsWindow()
 		{
-			label.text = WhichKey.instance.mLayerHint;
-			minSize = new Vector2(200, 200);
-			maxSize = minSize;
+			CalculateLineHeight();
+			mainFrame.Clear();
+			mHeight = lineHeight * 10+6;
+			mWidth = 200;
+			maxSize=new Vector2(mWidth,mHeight);
+			Vector2 mousePos = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
+			position = new Rect(mousePos.x, mousePos.y, mWidth, mHeight);
+			mainFrame.Add(new Label(DebugGetHints()));
 		}
+		private bool _changeUI;
+		private void CheckUI()
+		{
+			if (_changeUI)
+			{
+				_changeUI = false;
+				if (showHint)
+					HintsWindow();
+				else
+					DummyWindow();
+			}
+		}
+
 		private void Close(Event e)
 		{
 			Deactive();
