@@ -13,6 +13,10 @@ namespace PCP.Tools.WhichKey
 		[SerializeField] public bool ShowHint;
 		[SerializeField] public float HintDelayTime;
 		[SerializeField] public bool LogUnregisteredKey;
+		[SerializeField] public bool WindowFollowMouse;
+		[SerializeField] public Vector2 FixedPosition;
+		[SerializeField] public int MaxHintLines;
+		[SerializeField] public float MaxColWidth;
 		private StringBuilder mKeySeq;
 		private KeyNode mRoot;
 		private KeyNode mCurrentNode;
