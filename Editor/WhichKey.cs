@@ -55,7 +55,7 @@ namespace PCP.Tools.WhichKey
 						if (childNode.Type == KeyCmdType.Layer && keyset.type == KeyCmdType.Layer)
 							childNode.UpdateKeySet(keyset);
 						else
-							LogError($"KeySeq {keyset.KeySeq} already registered,skip Hint: {keyset.HintText},args: {keyset.CmdArg}");
+							LogAnyway($"KeySeq {keyset.KeySeq} already registered,skip Hint: {keyset.HintText},args: {keyset.CmdArg}");
 					}
 					return;
 				}
@@ -175,6 +175,7 @@ namespace PCP.Tools.WhichKey
 		}
 		internal static void LogError(string msg) => Debug.LogError("Whichkey:" + msg);
 		internal static void LogWarning(string msg) => Debug.LogWarning("Whichkey:" + msg);
+		internal static void LogAnyway(string msg) => Debug.LogError("Whichkey:" + msg);
 		//Debug
 		[InitializeOnLoadMethod]
 		public static void DebugInit()
