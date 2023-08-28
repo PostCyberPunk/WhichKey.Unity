@@ -73,13 +73,16 @@ namespace PCP.Tools.WhichKey
 				sb.Append(": ");
 				sb.Append(child.Hint);
 				sb.Append("\n");
-				if(i == maxLine)
+				if (i % maxLine == 0)
 				{
-					LayerHints[i - 1] = sb.ToString();
+					LayerHints[i/maxLine - 1] = sb.ToString();
 					sb.Clear();
-					i = 0;
 				}
 				i++;
+			}
+			if (i%maxLine!=0)
+			{
+				LayerHints[Mathf.FloorToInt(i/maxLine)] = sb.ToString();
 			}
 		}
 	}
