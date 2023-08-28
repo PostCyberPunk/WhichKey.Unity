@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 namespace PCP.Tools.WhichKey
@@ -10,11 +11,11 @@ namespace PCP.Tools.WhichKey
 	public class WhichKeyWindow : EditorWindow
 	{
 		//when whichkey is active disable all other KeySeq event,process KeySeq event and show hint
+		public static WhichKeyWindow inistance;
 		private bool keyReleased;
 		private KeyCode prevKey;
 		private float hideTill;
 		private bool showHint;
-		private string hintText;
 		private float mHeight;
 		private float mWidth;
 		private float lineHeight;
@@ -23,18 +24,43 @@ namespace PCP.Tools.WhichKey
 		private Label TestLabel;
 		private float mFontSize = 12;
 		#endregion
+		#region Data
+		//OPT
+		//Maybe a structure
+		private float hintDelayTime;
+		private bool followMouse;
+		private Vector2 fixedPosition;
+		private int maxHintLines;
+		private float maxColWidth;
+		private bool showKeyHint;
+		#endregion
 		[MenuItem("Tools/WhichKey/Active")]
 		public static void Active()
 		{
 			// var win = GetWindow<WhichKeyWindow>();
 			WhichKeyWindow win = ScriptableObject.CreateInstance<WhichKeyWindow>();
 			win.showHint = false;
-			// win.minSize =Vector2.one*1;
+			win.titleContent = new GUIContent("WhichKey");
 			win.UpdateDelayTimer();
+			win.Init();
+			//?
 			win.ShowPopup();
-			// win.position = new Rect(0, 0, 5, 50);
 			win.maxSize = new Vector2(5, 50);
-			// win._changeUI = true;
+		}
+		private void Init()
+		{
+			if (WhichKey.instance == null)
+			{
+				WhichKey.LogError("WhichKey instance is null");
+				return;
+			}
+			var settings = WhichKey.instance;
+			showKeyHint = settings.ShowHint;
+			followMouse = settings.WindowFollowMouse;
+			fixedPosition = settings.FixedPosition;
+			maxHintLines = settings.MaxHintLines;
+			maxColWidth = settings.MaxColWidth;
+			hintDelayTime = settings.HintDelayTime;
 		}
 		private void CreateGUI()
 		{
@@ -96,10 +122,11 @@ namespace PCP.Tools.WhichKey
 		private void UpdateDelayTimer()
 		{
 			if (!showHint)
-				hideTill = Time.realtimeSinceStartup + WhichKey.instance.HintDelayTime;
+				hideTill = Time.realtimeSinceStartup + hintDelayTime;
 		}
 		private void CheckDelayTimer()
 		{
+			if(!showKeyHint) return;
 			if (showHint) return;
 			showHint = Time.realtimeSinceStartup > hideTill;
 			if (showHint)
@@ -120,7 +147,6 @@ namespace PCP.Tools.WhichKey
 			mainFrame.Add(TestLabel);
 			// TestLabel.style.fontSize = 20;
 			lineHeight = TestLabel.resolvedStyle.height;
-			Debug.Log(lineHeight);
 		}
 		private void DummyWindow()
 		{
@@ -141,16 +167,26 @@ namespace PCP.Tools.WhichKey
 		private void HintsWindow()
 		{
 			CalculateLineHeight();
+			string[] hints = WhichKey.instance.mLayerHint;
 			mainFrame.Clear();
-			mHeight = lineHeight * 20;
+			mHeight = lineHeight * maxHintLines;
 			mainFrame.style.flexDirection = FlexDirection.Row;
-			mWidth = 200;
+			mWidth = hints.Length * maxColWidth;
 			maxSize = new Vector2(mWidth, mHeight);
-			Vector2 mousePos = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
-			position = new Rect(mousePos.x - mWidth / 2, mousePos.y - mHeight / 2, mWidth, mHeight);
-			for (int i = 0; i < 2; i++)
+
+			if (followMouse)
 			{
-				Label label = new Label(DebugGetHints());
+				Vector2 mousePos = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
+				position = new Rect(mousePos.x - mWidth / 2, mousePos.y - mHeight / 2, mWidth, mHeight);
+			}
+			else
+			{
+				position = new Rect(fixedPosition.x, fixedPosition.y, mWidth, mHeight);
+			}
+
+			for (int i = 0; i < hints.Length; i++)
+			{
+				Label label = new Label(hints[i]);
 				label.style.fontSize = mFontSize;
 				label.style.width = 100;
 				mainFrame.Add(label);
