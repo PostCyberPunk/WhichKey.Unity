@@ -126,6 +126,10 @@ namespace PCP.Tools.WhichKey
 
 			var cmdArgField = element.ElementAt(3) as TextField;
 			cmdArgField.value = keySet.CmdArg;
+			keySeqField.RegisterValueChangedCallback(evt => keySet.KeySeq = evt.newValue);
+			typeField.RegisterValueChangedCallback(evt => keySet.type = (KeyCmdType)evt.newValue);
+			hintTextField.RegisterValueChangedCallback(evt => keySet.HintText = evt.newValue);
+			cmdArgField.RegisterValueChangedCallback(evt => keySet.CmdArg = evt.newValue);
 		}
 	}
 }
