@@ -55,7 +55,7 @@ namespace PCP.Tools.WhichKey
 						if (childNode.Type == KeyCmdType.Layer && keyset.type == KeyCmdType.Layer)
 							childNode.UpdateKeySet(keyset);
 						else
-							LogAnyway($"KeySeq {keyset.KeySeq} already registered,skip Hint: {keyset.HintText},args: {keyset.CmdArg}");
+							SettingLogError($"KeySeq {keyset.KeySeq} already registered,skip Hint: {keyset.HintText},args: {keyset.CmdArg}");
 					}
 					return;
 				}
@@ -146,10 +146,11 @@ namespace PCP.Tools.WhichKey
 		{
 			mCurrentNode = mRoot;
 		}
-		public static void ApplySettins()
+		public static void ApplySettings()
 		{
-			// instance.Save();
+			instance.Save();
 			instance.Init();
+			SettingLogInfo("WhichKey settings applied");
 		}
 		internal void Save()
 		{
@@ -165,17 +166,18 @@ namespace PCP.Tools.WhichKey
 				LogError("WhichKey.json not found");
 				return;
 			}
-			WhichKey.instance.keySets = JsonUtility.FromJson<WhichKey>(jsonFile.text).keySets;
+			WhichKey.instance.keySets = JsonUtility.FromJson<List<KeySet>>(jsonFile.text);
 		}
 		[MenuItem("Tools/WhichKey/SaveSettingToJSON")]
 		public static void SaveSettingToJSON()
 		{
-			string json = JsonUtility.ToJson(WhichKey.instance);
+			string json = JsonUtility.ToJson(WhichKey.instance.keySets);
 			System.IO.File.WriteAllText("Assets/WhichKey.json", json);
 		}
 		internal static void LogError(string msg) => Debug.LogError("Whichkey:" + msg);
 		internal static void LogWarning(string msg) => Debug.LogWarning("Whichkey:" + msg);
-		internal static void LogAnyway(string msg) => Debug.LogError("Whichkey:" + msg);
+		internal static void SettingLogError(string msg) => Debug.LogError("Whichkey:" + msg);
+		internal static void SettingLogInfo(string msg) => Debug.Log("Whichkey:" + msg);
 		//Debug
 		[InitializeOnLoadMethod]
 		public static void DebugInit()

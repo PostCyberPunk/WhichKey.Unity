@@ -50,7 +50,7 @@ namespace PCP.Tools.WhichKey
 					root.Add(scrollView);
 
 					// Create the Apply button
-					var applyButton = new Button(WhichKey.ApplySettins);
+					var applyButton = new Button(WhichKey.ApplySettings);
 					applyButton.text = "Apply";
 					root.Add(applyButton);
 
@@ -69,7 +69,7 @@ namespace PCP.Tools.WhichKey
 				},
 				deactivateHandler = () =>
 				{
-					WhichKey.ApplySettins();
+					WhichKey.ApplySettings();
 				},
 				keywords = new HashSet<string>(new[] { "WhichKey" })
 
