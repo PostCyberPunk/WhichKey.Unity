@@ -13,7 +13,7 @@ namespace PCP.Tools.WhichKey
 		[SettingsProvider]
 		public static SettingsProvider CreateSettings()
 		{
-			WhichKey.instance.Save();
+			// WhichKey.instance.Save();
 
 			var provider = new SettingsProvider(SettingPath, SettingsScope.User)
 			{
@@ -49,10 +49,13 @@ namespace PCP.Tools.WhichKey
 					root.Add(logUnregisteredToggle);
 
 					// Create the KeySets list view
-					var keySetsListView = new ListView(settings.keySets, 22, MakeKeySetItem, BindKeySetItem);
+					var scrollView = new ScrollView();
+					scrollView.style.flexGrow = 1;
+					var keySetsListView = new ListView(settings.keySets, -1, MakeKeySetItem, BindKeySetItem);
 					keySetsListView.reorderable = true;
 					keySetsListView.showAddRemoveFooter = true;
-					root.Add(keySetsListView);
+					scrollView.Add(keySetsListView);
+					root.Add(scrollView);
 
 					// Create the Apply button
 					var applyButton = new Button(WhichKey.ApplySettins);
@@ -72,7 +75,12 @@ namespace PCP.Tools.WhichKey
 					// Add the root visual element to the settings window
 					rootElement.Add(root);
 				},
+				deactivateHandler = () =>
+				{
+					WhichKey.ApplySettins();
+				},
 				keywords = new HashSet<string>(new[] { "WhichKey" })
+				
 			};
 
 			return provider;
@@ -81,11 +89,11 @@ namespace PCP.Tools.WhichKey
 		{
 			var container = new VisualElement();
 			container.style.flexDirection = FlexDirection.Row;
-			container.style.paddingTop = 5;
-			container.style.paddingBottom = 5;
+			// container.style.paddingTop = 5;
+			// container.style.paddingBottom = 5;
 
 			var keySeqField = new TextField();
-			keySeqField.style.width = 100;
+			keySeqField.style.width = 50;
 			container.Add(keySeqField);
 
 			var typeField = new EnumField(KeyCmdType.Layer);
@@ -98,6 +106,7 @@ namespace PCP.Tools.WhichKey
 
 			var cmdArgField = new TextField();
 			cmdArgField.style.width = 250;
+			cmdArgField.style.flexGrow = 1;
 			container.Add(cmdArgField);
 
 			return container;
