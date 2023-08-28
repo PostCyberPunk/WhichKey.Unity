@@ -166,12 +166,14 @@ namespace PCP.Tools.WhichKey
 				LogError("WhichKey.json not found");
 				return;
 			}
-			WhichKey.instance.keySets = JsonUtility.FromJson<List<KeySet>>(jsonFile.text);
+			WhichKey.instance.keySets = JsonUtility.FromJson<KeySetsWrapper>(jsonFile.text).keySets;
 		}
 		[MenuItem("Tools/WhichKey/SaveSettingToJSON")]
 		public static void SaveSettingToJSON()
 		{
-			string json = JsonUtility.ToJson(WhichKey.instance.keySets);
+			KeySetsWrapper keySetsWrapper= new KeySetsWrapper(WhichKey.instance.keySets);
+			string json = JsonUtility.ToJson(keySetsWrapper, true);
+			Debug.Log(json);
 			System.IO.File.WriteAllText("Assets/WhichKey.json", json);
 		}
 		internal static void LogError(string msg) => Debug.LogError("Whichkey:" + msg);
@@ -190,5 +192,15 @@ namespace PCP.Tools.WhichKey
 			// Debug.Log($"{item.KeySeq}:{item.Value}");
 		}
 	}
+	public class KeySetsWrapper
+	{
+		public List<KeySet> keySets;
+		public KeySetsWrapper(List<KeySet> keySets)
+		{
+			this.keySets = keySets;
+		}
+	}
 }
+
+
 
