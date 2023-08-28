@@ -3,7 +3,7 @@ using System;
 namespace PCP.Tools.WhichKey
 {
 	[Serializable]
-	public struct KeySet
+	public class KeySet
 	{
 		public string KeySeq;
 		public KeyCmdType type;
