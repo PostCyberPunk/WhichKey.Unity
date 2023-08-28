@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
+
 namespace PCP.Tools.WhichKey
 {
 	internal class KeyNode
@@ -10,7 +12,7 @@ namespace PCP.Tools.WhichKey
 		public string CmdArg { private set; get; }
 		public KeyCmdType Type { private set; get; }
 		public KeyNode Parent { get; }
-		public string LayerHints { private set; get; }
+		public string[] LayerHints { private set; get; }
 		public List<KeyNode> Children { private set; get; }
 		public bool hasChildren { get => Children.Count > 0; }
 
@@ -36,7 +38,7 @@ namespace PCP.Tools.WhichKey
 
 		public void UpdateKeySet(KeySet keySet)
 		{
-			if (Hint != null&&keySet.HintText!=null)
+			if (Hint != null && keySet.HintText != null)
 				Hint += "/" + keySet.HintText;
 			else
 				Hint = keySet.HintText;
@@ -57,22 +59,28 @@ namespace PCP.Tools.WhichKey
 		}
 		public void SetLayerHints()
 		{
-
+			int maxLine = WhichKey.instance.MaxHintLines;
+			LayerHints = new string[Mathf.CeilToInt(Children.Count / (float)maxLine)];
 			if (!hasChildren) return;
 			StringBuilder sb = new StringBuilder();
+			int i = 1;
 			foreach (var child in Children)
 			{
 				child.SetLayerHints();
-				sb.Append("<size=15>");
 				sb.Append("<color=yellow>");
 				sb.Append(child.Key);
 				sb.Append("</color>");
 				sb.Append(": ");
 				sb.Append(child.Hint);
-				sb.Append("</size>");
 				sb.Append("\n");
+				if(i == maxLine)
+				{
+					LayerHints[i - 1] = sb.ToString();
+					sb.Clear();
+					i = 0;
+				}
+				i++;
 			}
-			LayerHints = sb.ToString();
 		}
 	}
 }

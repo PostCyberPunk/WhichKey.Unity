@@ -21,7 +21,7 @@ namespace PCP.Tools.WhichKey
 		private KeyNode mRoot;
 		private KeyNode mCurrentNode;
 		private StringBuilder sb;
-		public string mLayerHint { get => mCurrentNode.LayerHints; }
+		public string[] mLayerHint { get => mCurrentNode.LayerHints; }
 		private void Awake()
 		{
 			Init();
