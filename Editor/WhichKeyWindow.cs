@@ -173,7 +173,6 @@ namespace PCP.Tools.WhichKey
 			mainFrame.style.flexDirection = FlexDirection.Row;
 			mWidth = hints.Length * maxColWidth;
 			maxSize = new Vector2(mWidth, mHeight);
-
 			if (followMouse)
 			{
 				Vector2 mousePos = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
@@ -188,7 +187,7 @@ namespace PCP.Tools.WhichKey
 			{
 				Label label = new Label(hints[i]);
 				label.style.fontSize = mFontSize;
-				label.style.width = 100;
+				label.style.width = maxColWidth;
 				mainFrame.Add(label);
 			}
 		}
