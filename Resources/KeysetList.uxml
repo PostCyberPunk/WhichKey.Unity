@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns="UnityEngine.UIElements" ue="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:ListView virtualization-method="DynamicHeight" reorder-mode="Animated" show-add-remove-footer="true" show-border="true" show-foldout-header="true" header-title="Switches" binding-path="switches" />
+</ui:UXML>
