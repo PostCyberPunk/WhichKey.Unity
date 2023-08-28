@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System;
 
 namespace PCP.Tools.WhichKey
 {
@@ -31,22 +32,13 @@ namespace PCP.Tools.WhichKey
 					root.style.paddingBottom = 10;
 
 					// Create the Show KeyHint toggle
-					var showHintToggle = new Toggle("Show KeyHint");
-					showHintToggle.value = settings.ShowHint;
-					showHintToggle.RegisterValueChangedCallback(evt => settings.ShowHint = evt.newValue);
-					root.Add(showHintToggle);
-
-					// Create the KeyHint Delay Time field
-					var hintDelayField = new FloatField("KeyHint Delay Time");
-					hintDelayField.value = settings.HintDelayTime;
-					hintDelayField.RegisterValueChangedCallback(evt => settings.HintDelayTime = evt.newValue);
-					root.Add(hintDelayField);
-
-					// Create the Log Unregistered KeySeq toggle
-					var logUnregisteredToggle = new Toggle("Log Unregistered KeySeq");
-					logUnregisteredToggle.value = settings.LogUnregisteredKey;
-					logUnregisteredToggle.RegisterValueChangedCallback(evt => settings.LogUnregisteredKey = evt.newValue);
-					root.Add(logUnregisteredToggle);
+					AddControlToRoot<Toggle, bool>("Show KeyHint", settings.ShowHint, root, (value) => settings.ShowHint = value);
+					AddControlToRoot<FloatField, float>("Hint dealy time", settings.HintDelayTime, root, (value) => settings.HintDelayTime = value);
+					AddControlToRoot<Toggle, bool>("Window follow mouse", settings.WindowFollowMouse, root, (value) => settings.WindowFollowMouse = value);
+					if (!settings.WindowFollowMouse)
+						AddControlToRoot<Vector2Field, Vector2>("Window postions", settings.FixedPosition, root, (value) => settings.FixedPosition = value);
+					AddControlToRoot<IntegerField, int>("Max hint lines", settings.MaxHintLines, root, (value) => settings.MaxHintLines = value);
+					AddControlToRoot<FloatField, float>("Max col width", settings.MaxColWidth, root, (value) => settings.MaxColWidth = value);
 
 					// Create the KeySets list view
 					var scrollView = new ScrollView();
@@ -80,10 +72,18 @@ namespace PCP.Tools.WhichKey
 					WhichKey.ApplySettins();
 				},
 				keywords = new HashSet<string>(new[] { "WhichKey" })
-				
+
 			};
 
 			return provider;
+		}
+		private static void AddControlToRoot<T, U>(string label, U value, VisualElement root, Action<U> callback) where T : BaseField<U>, new()
+		{
+			var field = new T();
+			field.label = label;
+			field.value = value;
+			field.RegisterValueChangedCallback(evt => callback(evt.newValue));
+			root.Add(field);
 		}
 		private static VisualElement MakeKeySetItem()
 		{
@@ -111,7 +111,6 @@ namespace PCP.Tools.WhichKey
 
 			return container;
 		}
-
 		private static void BindKeySetItem(VisualElement element, int index)
 		{
 			var keySet = WhichKey.instance.keySets[index];
