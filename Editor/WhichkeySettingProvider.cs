@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.UIElements;
+
 namespace PCP.Tools.WhichKey
 {
 	static class WhichkeySettingProvider
@@ -12,59 +14,110 @@ namespace PCP.Tools.WhichKey
 		public static SettingsProvider CreateSettings()
 		{
 			WhichKey.instance.Save();
+
 			var provider = new SettingsProvider(SettingPath, SettingsScope.User)
 			{
 				label = "WhichKey",
-				guiHandler = (searchContext) =>
+				activateHandler = (searchContext, rootElement) =>
 				{
 					var settings = WhichKey.instance;
-					settings.ShowHint = EditorGUILayout.Toggle("Show KeyHint", settings.ShowHint);
-					settings.HintDelayTime = EditorGUILayout.FloatField("KeyHint Delay Time", settings.HintDelayTime);
-					settings.LogUnregisteredKey = EditorGUILayout.Toggle("Log Unregistered KeySeq", settings.LogUnregisteredKey);
 
-					mKeySetList = new(settings.keySets, typeof(KeySet), true, true, true, true)
-					{
-						drawHeaderCallback = (Rect rect) =>
-					{
-						EditorGUI.LabelField(rect, "KeySets");
-					},
-						drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
-						{
-							//FIX
-							// need to fix this method to use property
-							KeySet element = settings.keySets[index];
+					// Create the root visual element
+					var root = new VisualElement();
+					root.style.flexDirection = FlexDirection.Column;
+					root.style.paddingLeft = 10;
+					root.style.paddingRight = 10;
+					root.style.paddingTop = 10;
+					root.style.paddingBottom = 10;
 
-							float lineHeight = EditorGUIUtility.singleLineHeight;
-							float padding = 1f;
+					// Create the Show KeyHint toggle
+					var showHintToggle = new Toggle("Show KeyHint");
+					showHintToggle.value = settings.ShowHint;
+					showHintToggle.RegisterValueChangedCallback(evt => settings.ShowHint = evt.newValue);
+					root.Add(showHintToggle);
 
-							EditorGUI.LabelField(new Rect(rect.x, rect.y + padding, 50, lineHeight), "KeySeq");
-							element.KeySeq = EditorGUI.TextField(new Rect(rect.x + 50, rect.y + padding, 40, lineHeight), element.KeySeq);
-							EditorGUI.LabelField(new Rect(rect.x + 100, rect.y + padding, 50, lineHeight), "Type");
-							element.type = (KeyCmdType)EditorGUI.EnumPopup(new Rect(rect.x + 150, rect.y + padding, 80, lineHeight), element.type);
-							EditorGUI.LabelField(new Rect(rect.x + 250, rect.y + padding, 50, lineHeight), "KeyHint");
-							element.HintText = EditorGUI.TextField(new Rect(rect.x + 300, rect.y + padding, 200, lineHeight), element.HintText);
-							EditorGUI.LabelField(new Rect(rect.x + 510, rect.y + padding, 50, lineHeight), "Arg");
-							element.CmdArg = EditorGUI.TextField(new Rect(rect.x + 550, rect.y + padding, 250, lineHeight), element.CmdArg);
+					// Create the KeyHint Delay Time field
+					var hintDelayField = new FloatField("KeyHint Delay Time");
+					hintDelayField.value = settings.HintDelayTime;
+					hintDelayField.RegisterValueChangedCallback(evt => settings.HintDelayTime = evt.newValue);
+					root.Add(hintDelayField);
 
-						}
-					};
-					mKeySetList.DoLayoutList();
-					if (GUILayout.Button("Apply"))
-					{
-						WhichKey.ApplySettins();
-					}
-					if (GUILayout.Button("Save to JSON"))
-					{
-						WhichKey.SaveSettingToJSON();
-					}
-					if (GUILayout.Button("Load from JSON"))
-					{
-						WhichKey.LoadSettingFromJSON();
-					}
+					// Create the Log Unregistered KeySeq toggle
+					var logUnregisteredToggle = new Toggle("Log Unregistered KeySeq");
+					logUnregisteredToggle.value = settings.LogUnregisteredKey;
+					logUnregisteredToggle.RegisterValueChangedCallback(evt => settings.LogUnregisteredKey = evt.newValue);
+					root.Add(logUnregisteredToggle);
+
+					// Create the KeySets list view
+					var keySetsListView = new ListView(settings.keySets, 22, MakeKeySetItem, BindKeySetItem);
+					keySetsListView.reorderable = true;
+					keySetsListView.showAddRemoveFooter = true;
+					root.Add(keySetsListView);
+
+					// Create the Apply button
+					var applyButton = new Button(WhichKey.ApplySettins);
+					applyButton.text = "Apply";
+					root.Add(applyButton);
+
+					// Create the Save to JSON button
+					var saveButton = new Button(WhichKey.SaveSettingToJSON);
+					saveButton.text = "Save to JSON";
+					root.Add(saveButton);
+
+					// Create the Load from JSON button
+					var loadButton = new Button(WhichKey.LoadSettingFromJSON);
+					loadButton.text = "Load from JSON";
+					root.Add(loadButton);
+
+					// Add the root visual element to the settings window
+					rootElement.Add(root);
 				},
 				keywords = new HashSet<string>(new[] { "WhichKey" })
 			};
+
 			return provider;
+		}
+		private static VisualElement MakeKeySetItem()
+		{
+			var container = new VisualElement();
+			container.style.flexDirection = FlexDirection.Row;
+			container.style.paddingTop = 5;
+			container.style.paddingBottom = 5;
+
+			var keySeqField = new TextField();
+			keySeqField.style.width = 100;
+			container.Add(keySeqField);
+
+			var typeField = new EnumField(KeyCmdType.Layer);
+			typeField.style.width = 80;
+			container.Add(typeField);
+
+			var hintTextField = new TextField();
+			hintTextField.style.width = 200;
+			container.Add(hintTextField);
+
+			var cmdArgField = new TextField();
+			cmdArgField.style.width = 250;
+			container.Add(cmdArgField);
+
+			return container;
+		}
+
+		private static void BindKeySetItem(VisualElement element, int index)
+		{
+			var keySet = WhichKey.instance.keySets[index];
+
+			var keySeqField = element.ElementAt(0) as TextField;
+			keySeqField.value = keySet.KeySeq;
+
+			var typeField = element.ElementAt(1) as EnumField;
+			typeField.value = keySet.type;
+
+			var hintTextField = element.ElementAt(2) as TextField;
+			hintTextField.value = keySet.HintText;
+
+			var cmdArgField = element.ElementAt(3) as TextField;
+			cmdArgField.value = keySet.CmdArg;
 		}
 	}
 }
