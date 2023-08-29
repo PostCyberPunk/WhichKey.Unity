@@ -15,6 +15,8 @@ namespace PCP.Tools.WhichKey
 		public void Init()
 		{
 			SaveSettings();
+			WhichKeyWindow.Init();
+
 			mKeySeq = new();
 			sb = new();
 
@@ -141,7 +143,7 @@ namespace PCP.Tools.WhichKey
 		{
 			SaveSettings();
 			instance.Init();
-			SettingLogInfo("WhichKey settings applied");
+			// SettingLogInfo("WhichKey settings applied");
 		}
 		public static void SaveSettings()
 		{

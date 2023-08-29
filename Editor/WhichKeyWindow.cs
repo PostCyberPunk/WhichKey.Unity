@@ -18,41 +18,43 @@ namespace PCP.Tools.WhichKey
 		private bool showHint;
 		private float mHeight;
 		private float mWidth;
-		private float lineHeight;
 		#region Elements
 		private VisualElement mainFrame;
-		private Label TestLabel;
-		private float mFontSize;
 		#endregion
 		#region Data
 		//OPT
 		//Maybe a structure
-		private float hintDelayTime;
-		private bool followMouse;
-		private Vector2 fixedPosition;
-		private int maxHintLines;
-		private float maxColWidth;
-		private bool showKeyHint;
+		private static float mFontSize;
+		//OPT
+		internal static float lineHeight;
+		private static float hintDelayTime;
+		private static bool followMouse;
+		private static Vector2 fixedPosition;
+		private static int maxHintLines;
+		private static float maxColWidth;
+		private static bool showKeyHint;
 		#endregion
 		[MenuItem("Tools/WhichKey/Active")]
 		public static void Active()
 		{
 			// var win = GetWindow<WhichKeyWindow>();
 			WhichKeyWindow win = ScriptableObject.CreateInstance<WhichKeyWindow>();
-			win.Init();
 
 			win.showHint = false;
 			win.titleContent = new GUIContent("WhichKey");
 			win.UpdateDelayTimer();
 			//?
 			win.ShowPopup();
-			win.maxSize = new Vector2(5, 50);
+			win.minSize = new(0, 0);
+			win.position = new Rect(0, 0, 0, 0);
 		}
-		private void Init()
+
+		internal static void Init()
 		{
-			if (WhichKey.instance == null)
+			// Setup Settings
+			if (WhichKeySettings.instance == null)
 			{
-				WhichKey.LogError("WhichKey instance is null");
+				WhichKey.LogError("WhichKey Setting instance is null");
 				return;
 			}
 			var settings = WhichKeySettings.instance;
@@ -63,13 +65,13 @@ namespace PCP.Tools.WhichKey
 			maxColWidth = settings.MaxColWidth;
 			hintDelayTime = settings.HintDelayTime;
 			mFontSize = settings.FontSize;
+
+			//Calculate line height
+			WKTestWindow.Test(mFontSize);
 		}
 		private void CreateGUI()
 		{
 			mainFrame = new VisualElement();
-			TestLabel = new Label("a");
-			mainFrame.Add(TestLabel);
-			TestLabel.style.fontSize = mFontSize;
 			rootVisualElement.Add(mainFrame);
 		}
 		private void OnEnable()
@@ -140,16 +142,7 @@ namespace PCP.Tools.WhichKey
 		}
 		//This will lost focus of unity editor,need fix
 		private void OnLostFocus() => Deactive();
-		private void CalculateLineHeight()
-		{
-			mainFrame.Clear();
-			// position = new Rect(0, 0, 1000, 1000);
-			// mainFrame.style.width = 200;
-			// mainFrame.style.height = 200;
-			mainFrame.Add(TestLabel);
-			// TestLabel.style.fontSize = 20;
-			lineHeight = TestLabel.resolvedStyle.height;
-		}
+
 		private void DummyWindow()
 		{
 			mainFrame.Clear();
@@ -175,7 +168,6 @@ namespace PCP.Tools.WhichKey
 				WhichKey.instance.Complete();
 				return;
 			}
-			CalculateLineHeight();
 			mainFrame.Clear();
 			mHeight = lineHeight * maxHintLines;
 			mainFrame.style.flexDirection = FlexDirection.Row;
