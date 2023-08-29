@@ -11,7 +11,7 @@ namespace PCP.Tools.WhichKey
 	public class WhichKeyWindow : EditorWindow
 	{
 		//when whichkey is active disable all other KeySeq event,process KeySeq event and show hint
-		public static WhichKeyWindow inistance;
+		// public static WhichKeyWindow inistance;
 		private bool keyReleased;
 		private KeyCode prevKey;
 		private float hideTill;
@@ -40,6 +40,8 @@ namespace PCP.Tools.WhichKey
 			// var win = GetWindow<WhichKeyWindow>();
 			WhichKeyWindow win = ScriptableObject.CreateInstance<WhichKeyWindow>();
 
+			if(lineHeight==0)
+				WKTestWindow.Test(mFontSize);
 			win.showHint = false;
 			win.titleContent = new GUIContent("WhichKey");
 			win.UpdateDelayTimer();
@@ -52,6 +54,7 @@ namespace PCP.Tools.WhichKey
 		internal static void Init()
 		{
 			// Setup Settings
+			Debug.Log("init window");
 			if (WhichKeySettings.instance == null)
 			{
 				WhichKey.LogError("WhichKey Setting instance is null");
