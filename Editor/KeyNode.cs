@@ -6,6 +6,8 @@ namespace PCP.Tools.WhichKey
 {
 	internal class KeyNode
 	{
+		public static int maxLine;
+		private static readonly string layerHintFormat = "<color=yellow>{0}</color>  {1}\n";
 		public string KeySeq { private set; get; }
 		public char Key { get => KeySeq[KeySeq.Length - 1]; }
 		public string Hint { private set; get; }
@@ -57,18 +59,17 @@ namespace PCP.Tools.WhichKey
 
 			return null;
 		}
+		//OPT
 		public void SetLayerHints()
 		{
 			if (!hasChildren) return;
-			//OPT
-			int maxLine = WhichKeySettings.instance.MaxHintLines;
 			LayerHints = new string[Mathf.CeilToInt(Children.Count / (float)maxLine)];
 			StringBuilder sb = new StringBuilder();
 			int i = 1;
 			foreach (var child in Children)
 			{
 				child.SetLayerHints();
-				sb.AppendFormat("<color=yellow>{0}</color>  {1}\n", child.Key, child.Hint);
+				sb.AppendFormat(layerHintFormat, child.Key, child.Hint);
 				if (i % maxLine == 0)
 				{
 					LayerHints[i / maxLine - 1] = sb.ToString();
@@ -79,6 +80,7 @@ namespace PCP.Tools.WhichKey
 			if (sb.Length > 0)
 			{
 				LayerHints[Mathf.FloorToInt(i / maxLine)] = sb.ToString();
+				sb.Clear();
 			}
 		}
 	}

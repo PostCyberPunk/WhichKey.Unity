@@ -22,6 +22,7 @@ namespace PCP.Tools.WhichKey
 			{
 				AddKeySetToTree(keySet);
 			}
+			KeyNode.maxLine = WhichKeySettings.instance.MaxHintLines;
 			mRoot.SetLayerHints();
 			Complete();
 		}
