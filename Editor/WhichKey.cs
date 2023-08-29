@@ -206,14 +206,6 @@ namespace PCP.Tools.WhichKey
 			// Debug.Log($"{item.KeySeq}:{item.Value}");
 		}
 	}
-	public class KeySetsWrapper
-	{
-		public List<KeySet> keySets;
-		public KeySetsWrapper(List<KeySet> keySets)
-		{
-			this.keySets = keySets;
-		}
-	}
 }
 
 
