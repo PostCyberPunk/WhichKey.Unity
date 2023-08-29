@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEditor.UIElements;
 using System;
 
 namespace PCP.Tools.WhichKey
@@ -22,7 +23,7 @@ namespace PCP.Tools.WhichKey
 				activateHandler = (searchContext, rootElement) =>
 				{
 					var settings = WhichKey.instance;
-
+					
 					// Create the root visual element
 					var root = new VisualElement();
 					root.style.flexDirection = FlexDirection.Column;
@@ -43,9 +44,17 @@ namespace PCP.Tools.WhichKey
 					// Create the KeySets list view
 					var scrollView = new ScrollView();
 					scrollView.style.flexGrow = 1;
-					var keySetsListView = new ListView(settings.keySets, -1, MakeKeySetItem, BindKeySetItem);
+					var keySetsListView = new ListView();
+
 					keySetsListView.reorderable = true;
 					keySetsListView.showAddRemoveFooter = true;
+					keySetsListView.reorderMode = ListViewReorderMode.Animated;
+					keySetsListView.showFoldoutHeader = true;
+					
+					keySetsListView.bindingPath = "keySets";
+					keySetsListView.BindProperty(settings.GetSerializedObject().FindProperty("keySets"));
+					VisualTreeAsset keyItem = Resources.Load<VisualTreeAsset>("KeySets");
+					keySetsListView.makeItem = keyItem.CloneTree;
 					scrollView.Add(keySetsListView);
 					root.Add(scrollView);
 
