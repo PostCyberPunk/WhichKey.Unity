@@ -54,7 +54,6 @@ namespace PCP.Tools.WhichKey
 		internal static void Init()
 		{
 			// Setup Settings
-			Debug.Log("init window");
 			if (WhichKeySettings.instance == null)
 			{
 				WhichKey.LogError("WhichKey Setting instance is null");
