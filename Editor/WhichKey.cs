@@ -98,6 +98,10 @@ namespace PCP.Tools.WhichKey
 				{
 					key = key.Replace("Keypad", "");
 				}
+				else if (key.StartsWith("Space"))
+				{
+					key = " ";
+				}
 				else
 				{
 					LogWarning($"Key {key} not supported");
