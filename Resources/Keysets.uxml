@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns="UnityEngine.UIElements" ue="UnityEditor.UIElements" editor-extension-mode="True">
     <ui:Box style="flex-direction: row;">
-        <ui:TextField bindingPath="KeySeq" label="Key Sequence" style="flex-grow: 1;" />
-        <ui:EnumField bindingPath="type" label="Command Type" style="flex-grow: 1;" />
-        <ui:TextField bindingPath="HintText" label="Hint Text" style="flex-grow: 1;" />
-        <ui:TextField bindingPath="CmdArg" label="Command Argument" style="flex-grow: 1;" />
+        <ui:TextField bindingPath="KeySeq" label="KeySeq" binding-path="KeySeq" style="width: 10%; flex-grow: 1;" />
+        <ui:EnumField bindingPath="type" label="Type" binding-path="type" style="width: 10%; flex-grow: 1;" />
+        <ui:TextField bindingPath="HintText" label="Hint Text" binding-path="HintText" style="width: 30%;" />
+        <ui:TextField bindingPath="CmdArg" label="Arg" binding-path="CmdArg" style="width: auto; flex-grow: 1;" />
     </ui:Box>
 </ui:UXML>
