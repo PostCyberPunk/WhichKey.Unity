@@ -146,6 +146,10 @@ namespace PCP.Tools.WhichKey
 		{
 			mCurrentNode = mRoot;
 		}
+		public SerializedObject GetSerializedObject()
+		{
+			return new SerializedObject(this);
+		}
 		public static void ApplySettings()
 		{
 			instance.Save();
