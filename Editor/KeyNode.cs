@@ -70,7 +70,7 @@ namespace PCP.Tools.WhichKey
 				sb.Append("<color=yellow>");
 				sb.Append(child.Key);
 				sb.Append("</color>");
-				sb.Append(": ");
+				sb.Append("  ");
 				sb.Append(child.Hint);
 				sb.Append("\n");
 				if (i % maxLine == 0)
