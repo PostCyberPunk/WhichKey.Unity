@@ -22,7 +22,7 @@ namespace PCP.Tools.WhichKey
 		#region Elements
 		private VisualElement mainFrame;
 		private Label TestLabel;
-		private float mFontSize = 12;
+		private float mFontSize;
 		#endregion
 		#region Data
 		//OPT
@@ -62,6 +62,7 @@ namespace PCP.Tools.WhichKey
 			maxHintLines = settings.MaxHintLines;
 			maxColWidth = settings.MaxColWidth;
 			hintDelayTime = settings.HintDelayTime;
+			mFontSize = settings.FontSize;
 		}
 		private void CreateGUI()
 		{

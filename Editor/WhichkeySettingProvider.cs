@@ -23,7 +23,7 @@ namespace PCP.Tools.WhichKey
 				activateHandler = (searchContext, rootElement) =>
 				{
 					var settings = WhichKey.instance;
-					
+
 					// Create the root visual element
 					var root = new VisualElement();
 					root.style.flexDirection = FlexDirection.Column;
@@ -40,6 +40,7 @@ namespace PCP.Tools.WhichKey
 						AddControlToRoot<Vector2Field, Vector2>("Window postions", settings.FixedPosition, root, (value) => settings.FixedPosition = value);
 					AddControlToRoot<IntegerField, int>("Max hint lines", settings.MaxHintLines, root, (value) => settings.MaxHintLines = value);
 					AddControlToRoot<FloatField, float>("Max col width", settings.MaxColWidth, root, (value) => settings.MaxColWidth = value);
+					AddControlToRoot<FloatField, float>("Font size", settings.FontSize, root, (value) => settings.FontSize = value);
 
 					// Create the KeySets list view
 					var scrollView = new ScrollView();
@@ -50,7 +51,7 @@ namespace PCP.Tools.WhichKey
 					keySetsListView.showAddRemoveFooter = true;
 					keySetsListView.reorderMode = ListViewReorderMode.Animated;
 					keySetsListView.showFoldoutHeader = true;
-					
+
 					keySetsListView.bindingPath = "keySets";
 					keySetsListView.BindProperty(settings.GetSerializedObject().FindProperty("keySets"));
 					VisualTreeAsset keyItem = Resources.Load<VisualTreeAsset>("KeySets");

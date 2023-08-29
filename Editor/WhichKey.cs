@@ -17,6 +17,7 @@ namespace PCP.Tools.WhichKey
 		[SerializeField] public Vector2 FixedPosition;
 		[SerializeField] public int MaxHintLines;
 		[SerializeField] public float MaxColWidth;
+		[SerializeField] public float FontSize;
 		private StringBuilder mKeySeq;
 		private KeyNode mRoot;
 		private KeyNode mCurrentNode;
