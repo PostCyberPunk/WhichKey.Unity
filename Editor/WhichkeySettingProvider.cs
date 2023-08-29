@@ -41,7 +41,9 @@ namespace PCP.Tools.WhichKey
 					AddControlToRoot<IntegerField, int>("Max hint lines", settings.MaxHintLines, root, (value) => settings.MaxHintLines = value);
 					AddControlToRoot<FloatField, float>("Max col width", settings.MaxColWidth, root, (value) => settings.MaxColWidth = value);
 					AddControlToRoot<FloatField, float>("Font size", settings.FontSize, root, (value) => settings.FontSize = value);
-
+					var logLevelField = new EnumField("Log level", settings.LogLevel);
+					logLevelField.RegisterValueChangedCallback(evt => settings.LogLevel = (LoggingLevel)evt.newValue);
+					root.Add(logLevelField);
 					// Create the KeySets list view
 					var scrollView = new ScrollView();
 					scrollView.style.flexGrow = 1;

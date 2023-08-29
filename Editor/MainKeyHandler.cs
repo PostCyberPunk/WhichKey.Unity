@@ -4,12 +4,13 @@ using UnityEngine;
 
 namespace PCP.Tools.WhichKey
 {
-	internal class MainKeyHandler
+	internal class MainKeyHandler : IWhichKeyHandler
 	{
 		private StringBuilder mKeySeq;
 		private KeyNode mRoot;
 		private KeyNode mCurrentNode;
 		private StringBuilder sb;
+		private IWhichKeyHandler mCurrentHandler;
 		public bool isInitialized { get => mRoot != null; }
 
 		public void Init()
@@ -43,7 +44,7 @@ namespace PCP.Tools.WhichKey
 						if (childNode.Type == KeyCmdType.Layer && keyset.type == KeyCmdType.Layer)
 							childNode.UpdateKeySet(keyset);
 						else
-							WhichKey.SettingLogError($"KeySeq {keyset.KeySeq} already registered,skip Hint: {keyset.HintText},args: {keyset.CmdArg}");
+							WhichKey.LogError($"KeySeq {keyset.KeySeq} already registered,skip Hint: {keyset.HintText},args: {keyset.CmdArg}");
 					}
 					return;
 				}
@@ -88,7 +89,7 @@ namespace PCP.Tools.WhichKey
 				}
 				else
 				{
-					WhichKey.LogWarning($"Key {key} not supported");
+					WhichKey.LogInfo($"Key {key} not supported");
 					return true;
 				}
 			}
@@ -97,16 +98,16 @@ namespace PCP.Tools.WhichKey
 				WhichKey.LogError($"Unsupported key found :{key}");
 				return true;
 			}
-			return ProcessKey(shift ? key[0] : key.ToLower()[0]);
+			return mCurrentHandler.ProcessKey(shift ? key[0] : key.ToLower()[0]);
 		}
 
-		private bool ProcessKey(char key)
+		public bool ProcessKey(char key)
 		{
 			mKeySeq.Append(key);
 			KeyNode kn = mCurrentNode.GetChildByKey(key);
 			if (kn == null)
 			{
-				if (WhichKeySettings.instance.LogUnregisteredKey) WhichKey.LogWarning($"KeySeq {mKeySeq} not found(You can disable this warning in preference)");
+				WhichKey.LogWarning($"KeySeq {mKeySeq} not found");
 				return true;
 			}
 			switch (kn.Type)
@@ -140,6 +141,7 @@ namespace PCP.Tools.WhichKey
 		public void Complete()
 		{
 			mKeySeq.Clear();
+			mCurrentHandler = this;
 			ResetRoot();
 		}
 

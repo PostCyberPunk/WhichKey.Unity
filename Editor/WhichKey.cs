@@ -8,7 +8,7 @@ namespace PCP.Tools.WhichKey
 	public class WhichKey : ScriptableSingleton<WhichKey>
 	{
 		private readonly MainKeyHandler mainKeyHandler = new MainKeyHandler();
-
+		private static int loggingLevel;
 
 		[InitializeOnLoadMethod]
 		public static void Init()
@@ -20,6 +20,7 @@ namespace PCP.Tools.WhichKey
 		}
 		public static void Refresh()
 		{
+			loggingLevel = (int)WhichKeySettings.instance.LogLevel;
 			instance.mainKeyHandler.Init();
 			WhichKeyWindow.Init();
 		}
@@ -55,10 +56,21 @@ namespace PCP.Tools.WhichKey
 			Debug.Log(json);
 			System.IO.File.WriteAllText("Assets/WhichKey.json", json);
 		}
-		internal static void LogError(string msg) => Debug.LogError("Whichkey:" + msg);
-		internal static void LogWarning(string msg) => Debug.LogWarning("Whichkey:" + msg);
-		internal static void SettingLogError(string msg) => Debug.LogError("Whichkey:" + msg);
-		internal static void SettingLogInfo(string msg) => Debug.Log("Whichkey:" + msg);
+		internal static void LogInfo(string msg)
+		{
+			if (loggingLevel == 0)
+				Debug.Log("Whichkey:" + msg);
+		}
+		internal static void LogWarning(string msg)
+		{
+			if (loggingLevel <= 1)
+				Debug.LogWarning("Whichkey:" + msg);
+		}
+		internal static void LogError(string msg)
+		{
+			if(loggingLevel<=2)
+			Debug.LogError("Whichkey:" + msg);
+		}
 		public bool Input(KeyCode keyCode, bool shift) => mainKeyHandler.KeyHandler(keyCode, shift);
 		public void Complete() => mainKeyHandler.Complete();
 		public string[] GetHints() => mainKeyHandler.GetLayerHints();
