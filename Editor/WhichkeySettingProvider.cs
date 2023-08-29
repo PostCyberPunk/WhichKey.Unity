@@ -57,6 +57,7 @@ namespace PCP.Tools.WhichKey
 					keySetsListView.BindProperty(settings.GetSerializedObject().FindProperty("keySets"));
 					VisualTreeAsset keyItem = Resources.Load<VisualTreeAsset>("KeySets");
 					keySetsListView.makeItem = keyItem.CloneTree;
+
 					scrollView.Add(keySetsListView);
 					root.Add(scrollView);
 
@@ -96,51 +97,6 @@ namespace PCP.Tools.WhichKey
 			field.RegisterValueChangedCallback(evt => callback(evt.newValue));
 			root.Add(field);
 		}
-		private static VisualElement MakeKeySetItem()
-		{
-			var container = new VisualElement();
-			container.style.flexDirection = FlexDirection.Row;
-			// container.style.paddingTop = 5;
-			// container.style.paddingBottom = 5;
 
-			var keySeqField = new TextField();
-			keySeqField.style.width = 50;
-			container.Add(keySeqField);
-
-			var typeField = new EnumField(KeyCmdType.Layer);
-			typeField.style.width = 80;
-			container.Add(typeField);
-
-			var hintTextField = new TextField();
-			hintTextField.style.width = 200;
-			container.Add(hintTextField);
-
-			var cmdArgField = new TextField();
-			cmdArgField.style.width = 250;
-			cmdArgField.style.flexGrow = 1;
-			container.Add(cmdArgField);
-
-			return container;
-		}
-		private static void BindKeySetItem(VisualElement element, int index)
-		{
-			var keySet = WhichKey.instance.keySets[index];
-
-			var keySeqField = element.ElementAt(0) as TextField;
-			keySeqField.value = keySet.KeySeq;
-
-			var typeField = element.ElementAt(1) as EnumField;
-			typeField.value = keySet.type;
-
-			var hintTextField = element.ElementAt(2) as TextField;
-			hintTextField.value = keySet.HintText;
-
-			var cmdArgField = element.ElementAt(3) as TextField;
-			cmdArgField.value = keySet.CmdArg;
-			keySeqField.RegisterValueChangedCallback(evt => keySet.KeySeq = evt.newValue);
-			typeField.RegisterValueChangedCallback(evt => keySet.type = (KeyCmdType)evt.newValue);
-			hintTextField.RegisterValueChangedCallback(evt => keySet.HintText = evt.newValue);
-			cmdArgField.RegisterValueChangedCallback(evt => keySet.CmdArg = evt.newValue);
-		}
 	}
 }
