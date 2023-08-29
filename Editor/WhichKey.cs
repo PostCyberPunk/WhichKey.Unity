@@ -5,40 +5,21 @@ using UnityEditor;
 using UnityEngine;
 namespace PCP.Tools.WhichKey
 {
-	//
-	[FilePath("Preferences/WhichKey.asset", FilePathAttribute.Location.PreferencesFolder)]
 	public class WhichKey : ScriptableSingleton<WhichKey>
 	{
-		[SerializeField] public List<KeySet> keySets = new();
-		[SerializeField] public bool ShowHint;
-		[SerializeField] public float HintDelayTime;
-		[SerializeField] public bool LogUnregisteredKey;
-		[SerializeField] public bool WindowFollowMouse;
-		[SerializeField] public Vector2 FixedPosition;
-		[SerializeField] public int MaxHintLines;
-		[SerializeField] public float MaxColWidth;
-		[SerializeField] public float FontSize;
 		private StringBuilder mKeySeq;
 		private KeyNode mRoot;
 		private KeyNode mCurrentNode;
 		private StringBuilder sb;
 		public string[] mLayerHint { get => mCurrentNode.LayerHints; }
-		private void Awake()
-		{
-			Init();
-		}
-		void OnEnable()
-		{
-			//梦里寻他千百度...
-			hideFlags &= ~HideFlags.NotEditable;
-		}
 		public void Init()
 		{
+			SaveSettings();
 			mKeySeq = new();
 			sb = new();
 
 			mRoot = new KeyNode("", "");
-			foreach (var keySet in keySets)
+			foreach (var keySet in WhichKeySettings.instance.keySets)
 			{
 				AddKeySetToTree(keySet);
 			}
@@ -121,7 +102,7 @@ namespace PCP.Tools.WhichKey
 			KeyNode kn = mCurrentNode.GetChildByKey(key);
 			if (kn == null)
 			{
-				if (LogUnregisteredKey)
+				if (WhichKeySettings.instance.LogUnregisteredKey)
 					LogWarning($"KeySeq {mKeySeq} not found(You can disable this warning in preference)");
 				return true;
 			}
@@ -156,20 +137,18 @@ namespace PCP.Tools.WhichKey
 		{
 			mCurrentNode = mRoot;
 		}
-		public SerializedObject GetSerializedObject()
-		{
-			return new SerializedObject(this);
-		}
 		public static void ApplySettings()
 		{
-			instance.Save();
+			SaveSettings();
 			instance.Init();
 			SettingLogInfo("WhichKey settings applied");
 		}
-		internal void Save()
+		public static void SaveSettings()
 		{
-			Undo.RegisterCompleteObjectUndo(this, "Save WhichKey Settings");
-			base.Save(true);
+
+			if (WhichKeySettings.instance == null)
+				CreateInstance<WhichKeySettings>();
+			WhichKeySettings.instance.Save();
 		}
 		[MenuItem("Tools/WhichKey/LoadSettingFromJSON")]
 		public static void LoadSettingFromJSON()
@@ -180,12 +159,12 @@ namespace PCP.Tools.WhichKey
 				LogError("WhichKey.json not found");
 				return;
 			}
-			WhichKey.instance.keySets = JsonUtility.FromJson<KeySetsWrapper>(jsonFile.text).keySets;
+			WhichKeySettings.instance.keySets = JsonUtility.FromJson<KeySetsWrapper>(jsonFile.text).keySets;
 		}
 		[MenuItem("Tools/WhichKey/SaveSettingToJSON")]
 		public static void SaveSettingToJSON()
 		{
-			KeySetsWrapper keySetsWrapper = new KeySetsWrapper(WhichKey.instance.keySets);
+			KeySetsWrapper keySetsWrapper = new KeySetsWrapper(WhichKeySettings.instance.keySets);
 			string json = JsonUtility.ToJson(keySetsWrapper, true);
 			Debug.Log(json);
 			System.IO.File.WriteAllText("Assets/WhichKey.json", json);
@@ -199,7 +178,7 @@ namespace PCP.Tools.WhichKey
 		public static void DebugInit()
 		{
 			if (instance.mRoot == null)
-				instance.Init(); ;
+				instance.Init();
 		}
 		private void DebugShowHints()
 		{

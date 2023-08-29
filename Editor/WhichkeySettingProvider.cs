@@ -22,7 +22,7 @@ namespace PCP.Tools.WhichKey
 				label = "WhichKey",
 				activateHandler = (searchContext, rootElement) =>
 				{
-					var settings = WhichKey.instance;
+					var settings = WhichKeySettings.instance;
 
 					// Create the root visual element
 					var root = new VisualElement();

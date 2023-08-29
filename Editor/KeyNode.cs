@@ -60,7 +60,8 @@ namespace PCP.Tools.WhichKey
 		public void SetLayerHints()
 		{
 			if (!hasChildren) return;
-			int maxLine = WhichKey.instance.MaxHintLines;
+			//OPT
+			int maxLine = WhichKeySettings.instance.MaxHintLines;
 			LayerHints = new string[Mathf.CeilToInt(Children.Count / (float)maxLine)];
 			StringBuilder sb = new StringBuilder();
 			int i = 1;

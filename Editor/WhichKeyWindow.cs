@@ -55,7 +55,7 @@ namespace PCP.Tools.WhichKey
 				WhichKey.LogError("WhichKey instance is null");
 				return;
 			}
-			var settings = WhichKey.instance;
+			var settings = WhichKeySettings.instance;
 			showKeyHint = settings.ShowHint;
 			followMouse = settings.WindowFollowMouse;
 			fixedPosition = settings.FixedPosition;
