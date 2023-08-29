@@ -39,10 +39,11 @@ namespace PCP.Tools.WhichKey
 		{
 			// var win = GetWindow<WhichKeyWindow>();
 			WhichKeyWindow win = ScriptableObject.CreateInstance<WhichKeyWindow>();
+			win.Init();
+
 			win.showHint = false;
 			win.titleContent = new GUIContent("WhichKey");
 			win.UpdateDelayTimer();
-			win.Init();
 			//?
 			win.ShowPopup();
 			win.maxSize = new Vector2(5, 50);
@@ -126,7 +127,7 @@ namespace PCP.Tools.WhichKey
 		}
 		private void CheckDelayTimer()
 		{
-			if(!showKeyHint) return;
+			if (!showKeyHint) return;
 			if (showHint) return;
 			showHint = Time.realtimeSinceStartup > hideTill;
 			if (showHint)
@@ -166,8 +167,14 @@ namespace PCP.Tools.WhichKey
 		}
 		private void HintsWindow()
 		{
-			CalculateLineHeight();
 			string[] hints = WhichKey.instance.mLayerHint;
+			if (hints == null)
+			{
+				Close();
+				WhichKey.instance.Complete();
+				return;
+			}
+			CalculateLineHeight();
 			mainFrame.Clear();
 			mHeight = lineHeight * maxHintLines;
 			mainFrame.style.flexDirection = FlexDirection.Row;
