@@ -26,6 +26,11 @@ namespace PCP.Tools.WhichKey
 		{
 			Init();
 		}
+		void OnEnable()
+		{
+			//梦里寻他千百度...
+			hideFlags &= ~HideFlags.NotEditable;
+		}
 		public void Init()
 		{
 			mKeySeq = new();
