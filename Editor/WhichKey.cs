@@ -171,7 +171,7 @@ namespace PCP.Tools.WhichKey
 		[MenuItem("Tools/WhichKey/SaveSettingToJSON")]
 		public static void SaveSettingToJSON()
 		{
-			KeySetsWrapper keySetsWrapper= new KeySetsWrapper(WhichKey.instance.keySets);
+			KeySetsWrapper keySetsWrapper = new KeySetsWrapper(WhichKey.instance.keySets);
 			string json = JsonUtility.ToJson(keySetsWrapper, true);
 			Debug.Log(json);
 			System.IO.File.WriteAllText("Assets/WhichKey.json", json);
