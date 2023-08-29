@@ -75,14 +75,14 @@ namespace PCP.Tools.WhichKey
 				sb.Append("\n");
 				if (i % maxLine == 0)
 				{
-					LayerHints[i/maxLine - 1] = sb.ToString();
+					LayerHints[i / maxLine - 1] = sb.ToString();
 					sb.Clear();
 				}
 				i++;
 			}
-			if (i%maxLine!=0)
+			if ((i - 1) % maxLine != 0)
 			{
-				LayerHints[Mathf.FloorToInt(i/maxLine)] = sb.ToString();
+				LayerHints[Mathf.FloorToInt(i / maxLine)] = sb.ToString();
 			}
 		}
 	}
