@@ -68,12 +68,7 @@ namespace PCP.Tools.WhichKey
 			foreach (var child in Children)
 			{
 				child.SetLayerHints();
-				sb.Append("<color=yellow>");
-				sb.Append(child.Key);
-				sb.Append("</color>");
-				sb.Append("  ");
-				sb.Append(child.Hint);
-				sb.Append("\n");
+				sb.AppendFormat("<color=yellow>{0}</color>  {1}\n", child.Key, child.Hint);
 				if (i % maxLine == 0)
 				{
 					LayerHints[i / maxLine - 1] = sb.ToString();
@@ -81,7 +76,7 @@ namespace PCP.Tools.WhichKey
 				}
 				i++;
 			}
-			if ((i - 1) % maxLine != 0)
+			if (sb.Length > 0)
 			{
 				LayerHints[Mathf.FloorToInt(i / maxLine)] = sb.ToString();
 			}
