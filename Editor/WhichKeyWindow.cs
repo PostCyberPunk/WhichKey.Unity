@@ -40,7 +40,7 @@ namespace PCP.Tools.WhichKey
 			// var win = GetWindow<WhichKeyWindow>();
 			WhichKeyWindow win = ScriptableObject.CreateInstance<WhichKeyWindow>();
 
-			if(lineHeight==0)
+			if (lineHeight == 0)
 				WKTestWindow.Test(mFontSize);
 			win.showHint = false;
 			win.titleContent = new GUIContent("WhichKey");
@@ -112,7 +112,7 @@ namespace PCP.Tools.WhichKey
 						{
 							prevKey = e.keyCode;
 							keyReleased = false;
-							if (WhichKey.instance.KeyHandler(e.keyCode, e.shift))
+							if (WhichKey.instance.Input(e.keyCode, e.shift))
 							{
 								Close(e);
 							}
@@ -164,7 +164,7 @@ namespace PCP.Tools.WhichKey
 		}
 		private void HintsWindow()
 		{
-			string[] hints = WhichKey.instance.mLayerHint;
+			string[] hints = WhichKey.instance.GetHints();
 			if (hints == null)
 			{
 				Close();
