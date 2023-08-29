@@ -81,28 +81,6 @@ namespace PCP.Tools.WhichKey
 				LayerHints[Mathf.FloorToInt(i / maxLine)] = sb.ToString();
 			}
 		}
-
-		public void LoopSetLayerHints()
-		{
-			if (!hasChildren) return;
-			int maxLine = WhichKeySettings.instance.MaxHintLines;
-			LayerHints = new string[Mathf.CeilToInt(Children.Count / (float)maxLine)];
-			for (int i = 0, j = 0; i < Children.Count; i += maxLine, j++)
-			{
-				int count = Mathf.Min(maxLine, Children.Count - i);
-				string[] hints = new string[count];
-				for (int k = 0; k < count; k++)
-				{
-					var child = Children[i + k];
-					child.SetLayerHints();
-					hints[k] = $"<color=yellow>{child.Key}</color>  {child.Hint}";
-				}
-				LayerHints[j] = string.Concat(hints, "\n");
-			}
-		}
-		
-
-
 	}
 }
 
