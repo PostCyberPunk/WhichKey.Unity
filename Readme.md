@@ -8,7 +8,7 @@
 <!-- 8. layer refector -->
 <!-- 9. show hint -->
 11. better way to find duplicated key
-12. setting followmosue
+<!-- 12. setting followmosue -->
 13. log level ,
 15. overRideshowHints
 <!-- 12. set set Hint Window Size Correctly -->
@@ -23,3 +23,5 @@ piemenu
 load
 # todo 
 <!-- UI Elements cant calculate actual size properly(01245f7a) -->
+backward compatibility
+Command mode design pattern
