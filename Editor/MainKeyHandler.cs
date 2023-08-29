@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using UnityEditor;
 using UnityEngine;
-using UnityEditor;
+
 namespace PCP.Tools.WhichKey
 {
 	internal class MainKeyHandler
