@@ -51,6 +51,7 @@ namespace PCP.Tools.WhichKey
 					keySetsListView.showAddRemoveFooter = true;
 					keySetsListView.reorderMode = ListViewReorderMode.Animated;
 					keySetsListView.showFoldoutHeader = true;
+					keySetsListView.selectionType = SelectionType.Multiple;
 
 					keySetsListView.bindingPath = "keySets";
 					keySetsListView.BindProperty(settings.GetSerializedObject().FindProperty("keySets"));
