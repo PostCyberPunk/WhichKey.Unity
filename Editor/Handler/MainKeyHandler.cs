@@ -155,11 +155,39 @@ namespace PCP.Tools.WhichKey
 			mCurrentNode = mRoot;
 		}
 
-		private void ResetRoot()
+		public void ResetRoot()
 		{
 			mRoot = mTreeRoot;
+			Complete();
 		}
 
+		public void ChagneRoot(string key)
+		{
+			if (key.Length == 0)
+			{
+				ResetRoot();
+				return;
+			}
+			KeyNode kn = mTreeRoot;
+
+			for (int i = 0; i < key.Length; i++)
+			{
+				kn = mCurrentNode.GetChildByKey(key[i]);
+				if (kn == null)
+				{
+					WhichKey.LogWarning($"KeySeq {mKeySeq} not found @key {key[i]}");
+					return;
+				}
+			}
+			if (kn.Type != KeyCmdType.Layer)
+			{
+				WhichKey.LogWarning($"KeySeq {mKeySeq} not a layer");
+				return;
+			}
+			mRoot = kn;
+			Complete();
+			WhichKey.LogInfo($"Change root to {key}");
+		}
 		private void DebugShowHints()
 		{
 			// Debug.Log($"{item.KeySeq}:{item.Value}");
