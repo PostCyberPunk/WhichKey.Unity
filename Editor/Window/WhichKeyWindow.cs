@@ -34,7 +34,6 @@ namespace PCP.Tools.WhichKey
 		private static float maxColWidth;
 		private static bool showKeyHint;
 		#endregion
-		[MenuItem("Tools/WhichKey/Active")]
 		public static void Active()
 		{
 			// var win = GetWindow<WhichKeyWindow>();
@@ -59,6 +58,8 @@ namespace PCP.Tools.WhichKey
 				WhichKey.LogError("WhichKey Setting instance is null");
 				return;
 			}
+			WhichKey.instance.ShowHintWindow = Active;
+
 			var settings = WhichKeySettings.instance;
 			showKeyHint = settings.ShowHint;
 			followMouse = settings.WindowFollowMouse;

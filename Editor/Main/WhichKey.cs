@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace PCP.Tools.WhichKey
 		private readonly MainKeyHandler mainKeyHandler = new MainKeyHandler();
 		private static int loggingLevel;
 
+		public Action ShowHintWindow;
 		[InitializeOnLoadMethod]
 		public static void Init()
 		{
@@ -18,7 +20,12 @@ namespace PCP.Tools.WhichKey
 			SaveSettings();
 			Refresh();
 		}
-		
+
+		[MenuItem("Tools/WhichKey/Active")]
+		public static void ShowWindow()
+		{
+			instance.ShowHintWindow();
+		}
 
 		[MenuItem("WhichKey/Refresh")]
 		public static void Refresh()
@@ -37,7 +44,7 @@ namespace PCP.Tools.WhichKey
 		{
 			instance.mainKeyHandler.ChagneRoot(key);
 		}
-		
+
 		[MenuItem("WhichKey/ResetRoot")]
 		public static void ResetRoot()
 		{
