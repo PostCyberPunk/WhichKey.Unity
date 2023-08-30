@@ -170,8 +170,7 @@ namespace PCP.Tools.WhichKey
 			string[] hints = WhichKey.instance.GetHints();
 			if (hints == null)
 			{
-				Close();
-				WhichKey.instance.Complete();
+				Deactive();
 				return;
 			}
 			mainFrame.Clear();
@@ -215,7 +214,11 @@ namespace PCP.Tools.WhichKey
 			Deactive();
 			e.Use();
 		}
-		private void Deactive() => Close();
+		private void Deactive()
+		{
+			Close();
+			WhichKey.instance.Complete();
+		}
 	}
 
 }
