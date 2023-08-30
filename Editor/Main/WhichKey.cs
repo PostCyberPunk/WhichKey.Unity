@@ -18,6 +18,7 @@ namespace PCP.Tools.WhichKey
 			SaveSettings();
 			Refresh();
 		}
+		[MenuItem("WhichKey/Refresh")]
 		public static void Refresh()
 		{
 			loggingLevel = (int)WhichKeySettings.instance.LogLevel;
