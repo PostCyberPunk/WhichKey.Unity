@@ -8,11 +8,12 @@ namespace PCP.Tools.WhichKey
 	internal class MainKeyHandler : IWhichKeyHandler
 	{
 		private StringBuilder mKeySeq;
+		private KeyNode mTreeRoot;
 		private KeyNode mRoot;
 		private KeyNode mCurrentNode;
 		private StringBuilder sb;
 		private IWhichKeyHandler mCurrentHandler;
-		public bool isInitialized { get => mRoot != null; }
+		public bool isInitialized { get => mTreeRoot != null; }
 
 		private static readonly Dictionary<KeyCode, string> mKeyMap = new Dictionary<KeyCode, string>
 		{
@@ -43,19 +44,21 @@ namespace PCP.Tools.WhichKey
 			mKeySeq = new();
 			sb = new();
 
-			mRoot = new KeyNode("", "");
+			mTreeRoot = new KeyNode("", "");
 			foreach (var keySet in WhichKeySettings.instance.keySets)
 			{
 				AddKeySetToTree(keySet);
 			}
 			KeyNode.maxLine = WhichKeySettings.instance.MaxHintLines;
-			mRoot.SetLayerHints();
+			mTreeRoot.SetLayerHints();
+
+			ResetRoot();
 			Complete();
 		}
 
 		private void AddKeySetToTree(KeySet keyset)
 		{
-			mCurrentNode = mRoot;
+			mCurrentNode = mTreeRoot;
 			for (int i = 0; i < keyset.KeySeq.Length; i++)
 			{
 				char key = keyset.KeySeq[i];
@@ -149,12 +152,12 @@ namespace PCP.Tools.WhichKey
 		{
 			mKeySeq.Clear();
 			mCurrentHandler = this;
-			ResetRoot();
+			mCurrentNode = mRoot;
 		}
 
 		private void ResetRoot()
 		{
-			mCurrentNode = mRoot;
+			mRoot = mTreeRoot;
 		}
 
 		private void DebugShowHints()
