@@ -11,13 +11,14 @@ namespace PCP.Tools.WhichKey
 	static class WhichkeySettingProvider
 	{
 		private static ReorderableList mKeySetList;
-		public const string SettingPath = "Preferences/WhichKey";
+		public const string PreferencePath = "Preferences/WhichKey";
+		public const string ProjectSettingPath = "Project/WhichKey";
 		[SettingsProvider]
-		public static SettingsProvider CreateSettings()
+		public static SettingsProvider CreatePreference()
 		{
 			// WhichKey.instance.Save();
 
-			var provider = new SettingsProvider(SettingPath, SettingsScope.User)
+			var provider = new SettingsProvider(PreferencePath, SettingsScope.User)
 			{
 				label = "WhichKey",
 				activateHandler = (searchContext, rootElement) =>
@@ -91,6 +92,77 @@ namespace PCP.Tools.WhichKey
 
 			return provider;
 		}
+		[SettingsProvider]
+		public static SettingsProvider CreateProjectSettings()
+		{
+			// WhichKey.instance.Save();
+
+			var provider = new SettingsProvider(ProjectSettingPath, SettingsScope.Project)
+			{
+				label = "WhichKey",
+				activateHandler = (searchContext, rootElement) =>
+				{
+					var settings = WhichkeyProjectSettings.instance.GetSerializedObject();
+
+					// Create the root visual element
+					var root = new VisualElement();
+					root.style.flexDirection = FlexDirection.Column;
+					root.style.paddingLeft = 10;
+					root.style.paddingRight = 10;
+					root.style.paddingTop = 10;
+					root.style.paddingBottom = 10;
+
+					// Create the Show KeyHint toggle
+					AddControlToRoot<Toggle, bool>("Show", "showHintInstant", root);
+					// Create the KeySets list view
+					var scrollView = new ScrollView();
+					scrollView.style.flexGrow = 1;
+					var keySetsListView = new ListView();
+
+					keySetsListView.reorderable = true;
+					keySetsListView.showAddRemoveFooter = true;
+					keySetsListView.reorderMode = ListViewReorderMode.Animated;
+					keySetsListView.showFoldoutHeader = true;
+					keySetsListView.selectionType = SelectionType.Multiple;
+
+					keySetsListView.bindingPath = "keySets";
+					VisualTreeAsset keyItem = Resources.Load<VisualTreeAsset>("KeySets");
+					keySetsListView.makeItem = keyItem.CloneTree;
+
+					scrollView.Add(keySetsListView);
+					root.Add(scrollView);
+
+					// Create the Apply button
+					var applyButton = new Button(WhichKey.ApplySettings);
+					applyButton.text = "Apply";
+					root.Add(applyButton);
+
+					// Create the Save to JSON button
+					var saveButton = new Button(WhichKey.SaveSettingToJSON);
+					saveButton.text = "Save to JSON";
+					root.Add(saveButton);
+
+					// Create the Load from JSON button
+					var loadButton = new Button(WhichKey.LoadSettingFromJSON);
+					loadButton.text = "Load from JSON";
+					root.Add(loadButton);
+
+					// Add the root visual element to the settings window
+					root.Bind(settings);
+					rootElement.Add(root);
+				},
+				deactivateHandler = () =>
+				{
+					WhichkeyProjectSettings.Save();
+					WhichKey.Refresh();
+				},
+				keywords = new HashSet<string>(new[] { "WhichKey" })
+
+			};
+
+			return provider;
+		}
+
 		private static void AddControlToRoot<T, U>(string label, U value, VisualElement root, Action<U> callback) where T : BaseField<U>, new()
 		{
 			var field = new T();
@@ -100,5 +172,12 @@ namespace PCP.Tools.WhichKey
 			root.Add(field);
 		}
 
+		private static void AddControlToRoot<T, U>(string label, string bindPath, VisualElement root) where T : BaseField<U>, new()
+		{
+			var field = new T();
+			field.label = label;
+			field.bindingPath = bindPath;
+			root.Add(field);
+		}
 	}
 }
