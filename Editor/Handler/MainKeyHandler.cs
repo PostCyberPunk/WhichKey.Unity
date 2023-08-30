@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using UnityEditor;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace PCP.Tools.WhichKey
 {
@@ -13,6 +14,30 @@ namespace PCP.Tools.WhichKey
 		private IWhichKeyHandler mCurrentHandler;
 		public bool isInitialized { get => mRoot != null; }
 
+		private static readonly Dictionary<KeyCode, string> mKeyMap = new Dictionary<KeyCode, string>
+		{
+		{ KeyCode.Space, " " },
+		{ KeyCode.Alpha0, "0" },
+		{ KeyCode.Alpha1, "1" },
+		{ KeyCode.Alpha2, "2" },
+		{ KeyCode.Alpha3, "3" },
+		{ KeyCode.Alpha4, "4" },
+		{ KeyCode.Alpha5, "5" },
+		{ KeyCode.Alpha6, "6" },
+		{ KeyCode.Alpha7, "7" },
+		{ KeyCode.Alpha8, "8" },
+		{ KeyCode.Alpha9, "9" },
+		{ KeyCode.Keypad0, "0" },
+		{ KeyCode.Keypad1, "1" },
+		{ KeyCode.Keypad2, "2" },
+		{ KeyCode.Keypad3, "3" },
+		{ KeyCode.Keypad4, "4" },
+		{ KeyCode.Keypad5, "5" },
+		{ KeyCode.Keypad6, "6" },
+		{ KeyCode.Keypad7, "7" },
+		{ KeyCode.Keypad8, "8" },
+		{ KeyCode.Keypad9, "9" },
+		};
 		public void Init()
 		{
 			mKeySeq = new();
@@ -70,33 +95,15 @@ namespace PCP.Tools.WhichKey
 		public bool ProcessRawKey(KeyCode keyCode, bool shift)
 		{
 			//Oh bad bad bad code
+
 			string key = keyCode.ToString();
 			if (key.Length > 1)
 			{
-				if (key.StartsWith("Escape"))
-					return true;
-				if (key.StartsWith("Alpha"))
-				{
-					key = key.Replace("Alpha", "");
-				}
-				else if (key.StartsWith("Keypad"))
-				{
-					key = key.Replace("Keypad", "");
-				}
-				else if (key.StartsWith("Space"))
-				{
-					key = " ";
-				}
-				else
+				if (!mKeyMap.TryGetValue(keyCode, out key))
 				{
 					WhichKey.LogInfo($"Key {key} not supported");
 					return true;
 				}
-			}
-			if (key.Length > 1)
-			{
-				WhichKey.LogError($"Unsupported key found :{key}");
-				return true;
 			}
 			return mCurrentHandler.ProcessKey(shift ? key[0] : key.ToLower()[0]);
 		}
