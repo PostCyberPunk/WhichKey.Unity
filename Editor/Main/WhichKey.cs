@@ -38,7 +38,6 @@ namespace PCP.Tools.WhichKey
 				CreateInstance<WhichKeySettings>();
 			WhichKeySettings.instance.Save();
 		}
-		[MenuItem("Tools/WhichKey/LoadSettingFromJSON")]
 		public static void LoadSettingFromJSON()
 		{
 			TextAsset jsonFile = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/WhichKey.json");
@@ -49,7 +48,6 @@ namespace PCP.Tools.WhichKey
 			}
 			WhichKeySettings.instance.keySets = JsonUtility.FromJson<KeySetsWrapper>(jsonFile.text).keySets;
 		}
-		[MenuItem("Tools/WhichKey/SaveSettingToJSON")]
 		public static void SaveSettingToJSON()
 		{
 			KeySetsWrapper keySetsWrapper = new KeySetsWrapper(WhichKeySettings.instance.keySets);
