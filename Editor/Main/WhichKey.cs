@@ -18,12 +18,30 @@ namespace PCP.Tools.WhichKey
 			SaveSettings();
 			Refresh();
 		}
+		
+
 		[MenuItem("WhichKey/Refresh")]
 		public static void Refresh()
 		{
 			loggingLevel = (int)WhichKeySettings.instance.LogLevel;
 			instance.mainKeyHandler.Init();
 			WhichKeyWindow.Init();
+		}
+
+		[MenuItem("WhichKey/ChangeRoot")]
+		public static void ChangeRoot()
+		{
+			FloatingTextField.ShowInputField(ChangeRoot, "Change Root To:");
+		}
+		public static void ChangeRoot(string key)
+		{
+			instance.mainKeyHandler.ChagneRoot(key);
+		}
+		
+		[MenuItem("WhichKey/ResetRoot")]
+		public static void ResetRoot()
+		{
+			instance.mainKeyHandler.ResetRoot();
 		}
 		public static void ApplySettings()
 		{
@@ -67,8 +85,8 @@ namespace PCP.Tools.WhichKey
 		}
 		internal static void LogError(string msg)
 		{
-			if(loggingLevel<=2)
-			Debug.LogError("Whichkey:" + msg);
+			if (loggingLevel <= 2)
+				Debug.LogError("Whichkey:" + msg);
 		}
 		public bool Input(KeyCode keyCode, bool shift) => mainKeyHandler.KeyHandler(keyCode, shift);
 		public void Complete() => mainKeyHandler.Complete();
