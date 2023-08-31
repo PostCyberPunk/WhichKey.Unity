@@ -31,6 +31,16 @@ namespace PCP.Tools.WhichKey
 					var root = new VisualElement();
 					root = rootvt.CloneTree();
 					root.Q<ListView>("KeyMap").makeItem = keyItem.CloneTree;
+
+					//Show/Hide position field by FollowMouse toggle
+					var winPosElement = root.Q<Vector2Field>("FixedPosition");
+					winPosElement.style.display = settings.WindowFollowMouse ? DisplayStyle.None : DisplayStyle.Flex;
+					root.Q<Toggle>("WindowFollowMouse").RegisterValueChangedCallback(evt =>
+					{
+						winPosElement.style.display = evt.newValue ? DisplayStyle.None : DisplayStyle.Flex;
+						winPosElement.MarkDirtyRepaint();
+					});
+
 					// Create the Apply button
 					var applyButton = new Button(WhichKey.ApplyPreferences);
 					applyButton.text = "Apply";
