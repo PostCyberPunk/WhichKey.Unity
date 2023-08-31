@@ -1,0 +1,26 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.postcyberpunk.whichkey/Resources/Settings/Preferences.uss?fileID=7433441132597879392&amp;guid=e3c4c5602f121bd4c9791f48b6528ea2&amp;type=3#Preferences" />
+    <ui:VisualElement name="Root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+        <ui:Foldout text="Hint Window Setting" name="hwinsetting">
+            <ui:VisualElement class="Horizontal">
+                <ui:Toggle label="Show hint" binding-path="ShowHint" name="ShowHint" />
+                <ui:FloatField label="Timeout" value="1" binding-path="Timeout" name="Timeout" style="width: 91px; margin-left: 23px;" />
+            </ui:VisualElement>
+            <ui:Toggle label="Hint window follow mouse" binding-path="WindowFollowMouse" name="WindowFollowMouse" />
+            <ui:Vector2Field label="Hint Window Position" name="FixedPosition" binding-path="FixedPosition" />
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                <ui:IntegerField label="Max Hints Lines" value="42" name="MaxHintLines" binding-path="MaxHintLines" style="width: 150px;" />
+                <ui:FloatField label="Colunm Width" value="42" name="ColWidth" binding-path="ColWidth" style="width: 150px;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                <uie:ObjectField label="Font" name="Font" binding-path="Font" />
+                <ui:FloatField label="Font Size" value="42" name="FontSize" binding-path="FontSize" style="width: 150px;" />
+            </ui:VisualElement>
+        </ui:Foldout>
+        <ui:Foldout text="Key Mappings" name="Mapping">
+            <ui:ScrollView>
+                <ui:ListView focusable="true" binding-path="KeyMap" show-border="true" reorderable="true" reorder-mode="Animated" show-add-remove-footer="true" name="KeyMap" show-foldout-header="true" header-title="Mapping" horizontal-scrolling="true" virtualization-method="DynamicHeight" />
+            </ui:ScrollView>
+        </ui:Foldout>
+    </ui:VisualElement>
+</ui:UXML>

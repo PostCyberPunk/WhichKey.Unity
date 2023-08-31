@@ -1,0 +1,21 @@
+.custom-label {
+    font-size: 20px;
+    -unity-font-style: bold;
+    color: rgb(68, 138, 255);
+}
+
+.Label {
+    min-width: 15px;
+}
+
+.Horizontal {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    flex-direction: row;
+}
+.unity-toggle__label {
+    min-width: 10px;
+}
+.unity-base-field__label {
+    min-width:10px;
+}
