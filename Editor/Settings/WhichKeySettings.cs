@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 namespace PCP.Tools.WhichKey
 {
-	[FilePath("Preferences/Whichkey.asset", FilePathAttribute.Location.PreferencesFolder)]
+	[FilePath("Preferences/WhichkeyPreferences.asset", FilePathAttribute.Location.PreferencesFolder)]
 	public class WhichKeyPreferences : ScriptableSingleton<WhichKeyPreferences>
 	{
 		[SerializeField] public List<KeySet> keySets = new();
