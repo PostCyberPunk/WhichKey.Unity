@@ -6,8 +6,8 @@ namespace PCP.Tools.WhichKey
 {
 	public class KeyMapWrapper
 	{
-		public List<KeySet> KeyMap;
-		public KeyMapWrapper(List<KeySet> KeyMap)
+		public KeySet[] KeyMap;
+		public KeyMapWrapper(KeySet[] KeyMap)
 		{
 			this.KeyMap = KeyMap;
 		}

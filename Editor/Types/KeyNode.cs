@@ -15,7 +15,7 @@ namespace PCP.Tools.WhichKey
 		public KeyCmdType Type { private set; get; }
 		public KeyNode Parent { get; }
 		public string[] LayerHints { private set; get; }
-		public List<KeyNode> Children { private set; get; }
+		public List<KeyNode> Children { private set; get; } //OPT :Lets keep this list,maybe useful for fast reloading
 		public bool hasChildren { get => Children.Count > 0; }
 
 		public KeyNode(string key, string hintText)
