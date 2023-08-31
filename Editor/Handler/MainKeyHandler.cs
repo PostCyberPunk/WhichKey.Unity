@@ -15,7 +15,7 @@ namespace PCP.Tools.WhichKey
 		private IWhichKeyHandler mCurrentHandler;
 		public bool isInitialized { get => mTreeRoot != null; }
 
-		private static readonly Dictionary<KeyCode, string> mKeyMap = new Dictionary<KeyCode, string>
+		private static readonly Dictionary<KeyCode, string> mKeycodeMap = new Dictionary<KeyCode, string>
 		{
 		{ KeyCode.Space, " " },
 		{ KeyCode.Alpha0, "0" },
@@ -53,7 +53,7 @@ namespace PCP.Tools.WhichKey
 			mTreeRoot.SetLayerHints();
 
 			ResetRoot();
-			Complete();
+			Reset();
 		}
 
 		private void AddKeySetToTree(KeySet keyset)
@@ -86,13 +86,7 @@ namespace PCP.Tools.WhichKey
 
 		public bool KeyHandler(KeyCode keyCode, bool shift)
 		{
-			if (ProcessRawKey(keyCode, shift))
-			{
-				Complete();
-				return true;
-			}
-			else
-				return false;
+			return ProcessRawKey(keyCode, shift);
 		}
 
 		public bool ProcessRawKey(KeyCode keyCode, bool shift)
@@ -102,7 +96,7 @@ namespace PCP.Tools.WhichKey
 			string key = keyCode.ToString();
 			if (key.Length > 1)
 			{
-				if (!mKeyMap.TryGetValue(keyCode, out key))
+				if (!mKeycodeMap.TryGetValue(keyCode, out key))
 				{
 					WhichKey.LogInfo($"Key {key} not supported");
 					return true;
@@ -141,14 +135,13 @@ namespace PCP.Tools.WhichKey
 		private void ProcessMenu(string menuName)
 		{
 			if (!EditorApplication.ExecuteMenuItem(menuName)) WhichKey.LogWarning($"Menu {menuName} not available");
-			Complete();
 		}
 
 		public string[] GetLayerHints()
 		{
 			return mCurrentNode.LayerHints;
 		}
-		public void Complete()
+		public void Reset()
 		{
 			mKeySeq.Clear();
 			mCurrentHandler = this;
@@ -158,7 +151,6 @@ namespace PCP.Tools.WhichKey
 		public void ResetRoot()
 		{
 			mRoot = mTreeRoot;
-			Complete();
 		}
 
 		public void ChagneRoot(string key)
@@ -185,7 +177,6 @@ namespace PCP.Tools.WhichKey
 				return;
 			}
 			mRoot = kn;
-			Complete();
 			WhichKey.LogInfo($"Change root to {key}");
 		}
 		private void DebugShowHints()

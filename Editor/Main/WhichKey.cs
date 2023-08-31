@@ -26,6 +26,7 @@ namespace PCP.Tools.WhichKey
 		[MenuItem("Tools/WhichKey/Active")]
 		public static void ShowWindow()
 		{
+			instance.mainKeyHandler.Reset();
 			instance.ShowHintWindow();
 		}
 
@@ -97,7 +98,6 @@ namespace PCP.Tools.WhichKey
 				Debug.LogError("Whichkey:" + msg);
 		}
 		public bool Input(KeyCode keyCode, bool shift) => mainKeyHandler.KeyHandler(keyCode, shift);
-		public void Complete() => mainKeyHandler.Complete();
 		public string[] GetHints() => mainKeyHandler.GetLayerHints();
 	}
 }

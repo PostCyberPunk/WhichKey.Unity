@@ -110,7 +110,6 @@ namespace PCP.Tools.WhichKey
 						break;
 					case KeyCode.Escape:
 						Close(e);
-						WhichKey.instance.Complete();
 						break;
 					default:
 						if (e.keyCode != prevKey || keyReleased)
@@ -219,7 +218,6 @@ namespace PCP.Tools.WhichKey
 		private void Deactive()
 		{
 			Close();
-			WhichKey.instance.Complete();
 		}
 	}
 
