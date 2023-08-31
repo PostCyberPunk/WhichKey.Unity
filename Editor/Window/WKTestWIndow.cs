@@ -26,7 +26,7 @@ namespace PCP.Tools.WhichKey
 		private void OnGUI()
 		{
 			if (TestLabel == null) return;
-			WhichKeyWindow.lineHeight = TestLabel.resolvedStyle.height;
+			MainHintsWindow.lineHeight = TestLabel.resolvedStyle.height;
 			Close();
 		}
 

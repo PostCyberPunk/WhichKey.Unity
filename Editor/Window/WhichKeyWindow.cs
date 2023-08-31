@@ -8,10 +8,11 @@ using UnityEngine.UIElements;
 
 namespace PCP.Tools.WhichKey
 {
-	public class WhichKeyWindow : EditorWindow
+	public class MainHintsWindow : EditorWindow
 	{
 		//when whichkey is active disable all other KeySeq event,process KeySeq event and show hint
 		// public static WhichKeyWindow inistance;
+		public static MainHintsWindow instance;
 		private bool keyReleased;
 		private KeyCode prevKey;
 		private float hideTill;
@@ -37,18 +38,24 @@ namespace PCP.Tools.WhichKey
 		public static void Active()
 		{
 			// var win = GetWindow<WhichKeyWindow>();
-			WhichKeyWindow win = ScriptableObject.CreateInstance<WhichKeyWindow>();
+			if (instance = null)
+			{
+				Debug.LogWarning("Multiple WhichKeyWindow instance");
+				instance.Close();
+			}
+
+			instance = ScriptableObject.CreateInstance<MainHintsWindow>();
 
 			if (lineHeight == 0)
 				// WKTestWindow.Test(mFontSize);
-				lineHeight=24;
-			win.showHint = false;
-			win.titleContent = new GUIContent("WhichKey");
-			win.UpdateDelayTimer();
+				lineHeight = 24;
+			instance.showHint = false;
+			instance.titleContent = new GUIContent("WhichKey");
+			instance.UpdateDelayTimer();
 			//?
-			win.ShowPopup();
-			win.minSize = new(0, 0);
-			win.position = new Rect(0, 0, 0, 0);
+			instance.ShowPopup();
+			instance.minSize = new(0, 0);
+			instance.position = new Rect(0, 0, 0, 0);
 		}
 
 		internal static void Init()
@@ -218,6 +225,15 @@ namespace PCP.Tools.WhichKey
 		private void Deactive()
 		{
 			Close();
+		}
+		public void ForceActive()
+		{
+			if (instance == null)
+			{
+				Debug.LogWarning("Found no WhichKeyWindow instance");
+				return;
+			}
+			instance.showHint = true;
 		}
 	}
 

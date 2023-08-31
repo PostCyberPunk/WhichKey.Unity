@@ -23,7 +23,7 @@ namespace PCP.Tools.WhichKey
 			Refresh();
 		}
 
-		[MenuItem("Tools/WhichKey/Active")]
+		[MenuItem("WhichKey/Active")]
 		public static void ShowWindow()
 		{
 			instance.mainKeyHandler.Reset();
@@ -35,7 +35,7 @@ namespace PCP.Tools.WhichKey
 		{
 			loggingLevel = (int)Preferences.LogLevel;
 			instance.mainKeyHandler.Init();
-			WhichKeyWindow.Init();
+			MainHintsWindow.Init();
 		}
 
 		[MenuItem("WhichKey/ChangeRoot")]
