@@ -34,16 +34,16 @@ namespace PCP.Tools.WhichKey
 					root.style.paddingBottom = 10;
 
 					// Create the Show KeyHint toggle
-					AddControlToRoot<Toggle, bool>("Show KeyHint", settings.Preferences.ShowHint, root, (value) => settings.Preferences.ShowHint = value);
-					AddControlToRoot<FloatField, float>("Hint dealy time", settings.Preferences.HintDelayTime, root, (value) => settings.Preferences.HintDelayTime = value);
-					AddControlToRoot<Toggle, bool>("Window follow mouse", settings.Preferences.WindowFollowMouse, root, (value) => settings.Preferences.WindowFollowMouse = value);
-					if (!settings.Preferences.WindowFollowMouse)
-						AddControlToRoot<Vector2Field, Vector2>("Window postions", settings.Preferences.FixedPosition, root, (value) => settings.Preferences.FixedPosition = value);
-					AddControlToRoot<IntegerField, int>("Max hint lines", settings.Preferences.MaxHintLines, root, (value) => settings.Preferences.MaxHintLines = value);
-					AddControlToRoot<FloatField, float>("Max col width", settings.Preferences.MaxColWidth, root, (value) => settings.Preferences.MaxColWidth = value);
-					AddControlToRoot<FloatField, float>("Font size", settings.Preferences.FontSize, root, (value) => settings.Preferences.FontSize = value);
-					var logLevelField = new EnumField("Log level", settings.Preferences.LogLevel);
-					logLevelField.RegisterValueChangedCallback(evt => settings.Preferences.LogLevel = (LoggingLevel)evt.newValue);
+					AddControlToRoot<Toggle, bool>("Show KeyHint", settings.ShowHint, root, (value) => settings.ShowHint = value);
+					AddControlToRoot<FloatField, float>("Hint dealy time", settings.HintDelayTime, root, (value) => settings.HintDelayTime = value);
+					AddControlToRoot<Toggle, bool>("Window follow mouse", settings.WindowFollowMouse, root, (value) => settings.WindowFollowMouse = value);
+					if (!settings.WindowFollowMouse)
+						AddControlToRoot<Vector2Field, Vector2>("Window postions", settings.FixedPosition, root, (value) => settings.FixedPosition = value);
+					AddControlToRoot<IntegerField, int>("Max hint lines", settings.MaxHintLines, root, (value) => settings.MaxHintLines = value);
+					AddControlToRoot<FloatField, float>("Max col width", settings.MaxColWidth, root, (value) => settings.MaxColWidth = value);
+					AddControlToRoot<FloatField, float>("Font size", settings.FontSize, root, (value) => settings.FontSize = value);
+					var logLevelField = new EnumField("Log level", settings.LogLevel);
+					logLevelField.RegisterValueChangedCallback(evt => settings.LogLevel = (LoggingLevel)evt.newValue);
 					root.Add(logLevelField);
 					// Create the KeySets list view
 					var scrollView = new ScrollView();

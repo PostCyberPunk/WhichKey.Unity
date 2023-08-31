@@ -9,7 +9,6 @@ namespace PCP.Tools.WhichKey
 	public class WhichKey : ScriptableSingleton<WhichKey>
 	{
 		private readonly MainKeyHandler mainKeyHandler = new MainKeyHandler();
-		public static PreferencesWrapper Preferences { private set; get; }
 		private static int loggingLevel;
 
 		public Action ShowHintWindow;
@@ -19,7 +18,6 @@ namespace PCP.Tools.WhichKey
 			if (instance.mainKeyHandler.isInitialized)
 				return;
 			SavePreferences();
-			Preferences = WhichKeyPreferences.instance.Preferences;
 			Refresh();
 		}
 
@@ -32,7 +30,7 @@ namespace PCP.Tools.WhichKey
 		[MenuItem("WhichKey/Refresh")]
 		public static void Refresh()
 		{
-			loggingLevel = (int)Preferences.LogLevel;
+			loggingLevel = (int)WhichKeyPreferences.instance.LogLevel;
 			instance.mainKeyHandler.Init();
 			WhichKeyWindow.Init();
 		}
@@ -72,11 +70,11 @@ namespace PCP.Tools.WhichKey
 				LogError("WhichKey.json not found");
 				return;
 			}
-		Preferences.keySets = JsonUtility.FromJson<KeySetsWrapper>(jsonFile.text).keySets;
+			WhichKeyPreferences.instance.keySets = JsonUtility.FromJson<KeySetsWrapper>(jsonFile.text).keySets;
 		}
 		public static void SavePreferenceToJSON()
 		{
-			KeySetsWrapper keySetsWrapper = new KeySetsWrapper(Preferences.keySets);
+			KeySetsWrapper keySetsWrapper = new KeySetsWrapper(WhichKeyPreferences.instance.keySets);
 			string json = JsonUtility.ToJson(keySetsWrapper, true);
 			Debug.Log(json);
 			System.IO.File.WriteAllText("Assets/WhichKeyPreference.json", json);
