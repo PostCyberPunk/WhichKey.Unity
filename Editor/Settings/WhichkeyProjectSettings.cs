@@ -9,7 +9,7 @@ namespace PCP.Tools.WhichKey
     public class WhichkeyProjectSettings : ScriptableSingleton<WhichkeyProjectSettings>
     {
         [SerializeField] public bool showHintInstant = true;
-        [SerializeField] public KeySet[] keySets;
+        [SerializeField] public KeySet[] KeyMap;
         [SerializeField] public ProjectAssetsData[] projectAssetsDatas;
         public static void Save()
         {

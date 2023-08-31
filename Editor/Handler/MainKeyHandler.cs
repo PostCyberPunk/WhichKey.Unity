@@ -45,7 +45,7 @@ namespace PCP.Tools.WhichKey
 			sb = new();
 
 			mTreeRoot = new KeyNode("", "");
-			foreach (var keySet in WhichKey.Preferences.keySets)
+			foreach (var keySet in WhichKey.Preferences.KeyMap)
 			{
 				AddKeySetToTree(keySet);
 			}

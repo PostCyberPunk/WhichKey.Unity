@@ -72,11 +72,11 @@ namespace PCP.Tools.WhichKey
 				LogError("WhichKey.json not found");
 				return;
 			}
-		Preferences.keySets = JsonUtility.FromJson<KeySetsWrapper>(jsonFile.text).keySets;
+		Preferences.KeyMap = JsonUtility.FromJson<KeyMapWrapper>(jsonFile.text).KeyMap;
 		}
 		public static void SavePreferenceToJSON()
 		{
-			KeySetsWrapper keySetsWrapper = new KeySetsWrapper(Preferences.keySets);
+			KeyMapWrapper keySetsWrapper = new KeyMapWrapper(Preferences.KeyMap);
 			string json = JsonUtility.ToJson(keySetsWrapper, true);
 			Debug.Log(json);
 			System.IO.File.WriteAllText("Assets/WhichKeyPreference.json", json);

@@ -45,23 +45,23 @@ namespace PCP.Tools.WhichKey
 					var logLevelField = new EnumField("Log level", settings.LogLevel);
 					logLevelField.RegisterValueChangedCallback(evt => settings.LogLevel = (LoggingLevel)evt.newValue);
 					root.Add(logLevelField);
-					// Create the KeySets list view
+					// Create the KeyMap list view
 					var scrollView = new ScrollView();
 					scrollView.style.flexGrow = 1;
-					var keySetsListView = new ListView();
+					var keyMapListView = new ListView();
 
-					keySetsListView.reorderable = true;
-					keySetsListView.showAddRemoveFooter = true;
-					keySetsListView.reorderMode = ListViewReorderMode.Animated;
-					keySetsListView.showFoldoutHeader = true;
-					keySetsListView.selectionType = SelectionType.Multiple;
+					keyMapListView.reorderable = true;
+					keyMapListView.showAddRemoveFooter = true;
+					keyMapListView.reorderMode = ListViewReorderMode.Animated;
+					keyMapListView.showFoldoutHeader = true;
+					keyMapListView.selectionType = SelectionType.Multiple;
 
-					keySetsListView.bindingPath = "keySets";
-					keySetsListView.BindProperty(settings.GetSerializedObject().FindProperty("keySets"));
-					VisualTreeAsset keyItem = Resources.Load<VisualTreeAsset>("KeySets");
-					keySetsListView.makeItem = keyItem.CloneTree;
+					keyMapListView.bindingPath = "KeyMap";
+					keyMapListView.BindProperty(settings.GetSerializedObject().FindProperty("KeyMap"));
+					VisualTreeAsset keyItem = Resources.Load<VisualTreeAsset>("KeyMap");
+					keyMapListView.makeItem = keyItem.CloneTree;
 
-					scrollView.Add(keySetsListView);
+					scrollView.Add(keyMapListView);
 					root.Add(scrollView);
 
 					// Create the Apply button
@@ -114,22 +114,22 @@ namespace PCP.Tools.WhichKey
 
 					// Create the Show KeyHint toggle
 					AddControlToRoot<Toggle, bool>("Show", "showHintInstant", root);
-					// Create the KeySets list view
+					// Create the KeyMap list view
 					var scrollView = new ScrollView();
 					scrollView.style.flexGrow = 1;
-					var keySetsListView = new ListView();
+					var keyMapListView = new ListView();
 
-					keySetsListView.reorderable = true;
-					keySetsListView.showAddRemoveFooter = true;
-					keySetsListView.reorderMode = ListViewReorderMode.Animated;
-					keySetsListView.showFoldoutHeader = true;
-					keySetsListView.selectionType = SelectionType.Multiple;
+					keyMapListView.reorderable = true;
+					keyMapListView.showAddRemoveFooter = true;
+					keyMapListView.reorderMode = ListViewReorderMode.Animated;
+					keyMapListView.showFoldoutHeader = true;
+					keyMapListView.selectionType = SelectionType.Multiple;
 
-					keySetsListView.bindingPath = "keySets";
-					VisualTreeAsset keyItem = Resources.Load<VisualTreeAsset>("KeySets");
-					keySetsListView.makeItem = keyItem.CloneTree;
+					keyMapListView.bindingPath = "KeyMap";
+					VisualTreeAsset keyItem = Resources.Load<VisualTreeAsset>("KeyMap");
+					keyMapListView.makeItem = keyItem.CloneTree;
 
-					scrollView.Add(keySetsListView);
+					scrollView.Add(keyMapListView);
 					root.Add(scrollView);
 
 					// Create the Apply button
