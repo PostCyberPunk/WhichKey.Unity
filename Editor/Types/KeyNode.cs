@@ -61,7 +61,7 @@ namespace PCP.Tools.WhichKey
 			return null;
 		}
 		//OPT
-		public void SetLayerHints()
+		public void SetCachedLayerHints()
 		{
 			if (!hasChildren) return;
 			LayerHints = new string[Mathf.CeilToInt(Children.Count / (float)maxLine)];
@@ -69,7 +69,7 @@ namespace PCP.Tools.WhichKey
 			int i = 1;
 			foreach (var child in Children)
 			{
-				child.SetLayerHints();
+				child.SetCachedLayerHints();
 				sb.AppendFormat(layerHintFormat, child.Key, child.Hint);
 				if (i % maxLine == 0)
 				{

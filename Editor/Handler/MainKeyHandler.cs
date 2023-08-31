@@ -49,7 +49,7 @@ namespace PCP.Tools.WhichKey
 			ProcessKeyMap(WhichKeyPreferences.instance.KeyMap);
 			
 			KeyNode.maxLine = WhichKey.Preferences.MaxHintLines;
-			mTreeRoot.SetLayerHints();
+			mTreeRoot.SetCachedLayerHints();
 
 			ResetRoot();
 			Reset();
