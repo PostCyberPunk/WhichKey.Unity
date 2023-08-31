@@ -40,7 +40,8 @@ namespace PCP.Tools.WhichKey
 			WhichKeyWindow win = ScriptableObject.CreateInstance<WhichKeyWindow>();
 
 			if (lineHeight == 0)
-				WKTestWindow.Test(mFontSize);
+				// WKTestWindow.Test(mFontSize);
+				lineHeight=24;
 			win.showHint = false;
 			win.titleContent = new GUIContent("WhichKey");
 			win.UpdateDelayTimer();
