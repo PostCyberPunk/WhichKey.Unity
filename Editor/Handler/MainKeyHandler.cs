@@ -73,7 +73,7 @@ namespace PCP.Tools.WhichKey
 				if (i == keyset.KeySeq.Length - 1)
 				{
 					if (childNode == null)
-						childNode = mCurrentNode.AddChild(new KeyNode(keyset));
+						childNode = mCurrentNode.AddChild(new KeyNode(keyset,mCurrentNode));
 					else
 					{
 						if (childNode.Type == KeyCmdType.Layer && keyset.type == KeyCmdType.Layer)

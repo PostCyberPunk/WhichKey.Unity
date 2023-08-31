@@ -25,8 +25,9 @@ namespace PCP.Tools.WhichKey
 			Type = KeyCmdType.Layer;
 			Children = new List<KeyNode>();
 		}
-		public KeyNode(KeySet keySet)
+		public KeyNode(KeySet keySet, KeyNode parent)
 		{
+			Parent = parent;
 			KeySeq = keySet.KeySeq[keySet.KeySeq.Length - 1].ToString();
 			UpdateKeySet(keySet);
 			Children = new List<KeyNode>();
