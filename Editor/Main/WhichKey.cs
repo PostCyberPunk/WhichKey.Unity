@@ -17,7 +17,7 @@ namespace PCP.Tools.WhichKey
 		{
 			if (instance.mainKeyHandler.isInitialized)
 				return;
-			SaveSettings();
+			SavePreferences();
 			Refresh();
 		}
 
@@ -30,7 +30,7 @@ namespace PCP.Tools.WhichKey
 		[MenuItem("WhichKey/Refresh")]
 		public static void Refresh()
 		{
-			loggingLevel = (int)WhichKeySettings.instance.LogLevel;
+			loggingLevel = (int)WhichKeyPreferences.instance.LogLevel;
 			instance.mainKeyHandler.Init();
 			WhichKeyWindow.Init();
 		}
@@ -50,35 +50,34 @@ namespace PCP.Tools.WhichKey
 		{
 			instance.mainKeyHandler.ResetRoot();
 		}
-		public static void ApplySettings()
+		public static void ApplyPreferences()
 		{
-			SaveSettings();
+			SavePreferences();
 			Refresh();
-			// SettingLogInfo("WhichKey settings applied");
 		}
-		public static void SaveSettings()
+		public static void SavePreferences()
 		{
 
-			if (WhichKeySettings.instance == null)
-				CreateInstance<WhichKeySettings>();
-			WhichKeySettings.instance.Save();
+			if (WhichKeyPreferences.instance == null)
+				LogError("WhichKey Preferences instance is null");
+			WhichKeyPreferences.instance.Save();
 		}
-		public static void LoadSettingFromJSON()
+		public static void LoadPreferenceFromJSON()
 		{
-			TextAsset jsonFile = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/WhichKey.json");
+			TextAsset jsonFile = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/WhichKeyPreference.json");
 			if (jsonFile == null)
 			{
 				LogError("WhichKey.json not found");
 				return;
 			}
-			WhichKeySettings.instance.keySets = JsonUtility.FromJson<KeySetsWrapper>(jsonFile.text).keySets;
+			WhichKeyPreferences.instance.keySets = JsonUtility.FromJson<KeySetsWrapper>(jsonFile.text).keySets;
 		}
-		public static void SaveSettingToJSON()
+		public static void SavePreferenceToJSON()
 		{
-			KeySetsWrapper keySetsWrapper = new KeySetsWrapper(WhichKeySettings.instance.keySets);
+			KeySetsWrapper keySetsWrapper = new KeySetsWrapper(WhichKeyPreferences.instance.keySets);
 			string json = JsonUtility.ToJson(keySetsWrapper, true);
 			Debug.Log(json);
-			System.IO.File.WriteAllText("Assets/WhichKey.json", json);
+			System.IO.File.WriteAllText("Assets/WhichKeyPreference.json", json);
 		}
 		internal static void LogInfo(string msg)
 		{

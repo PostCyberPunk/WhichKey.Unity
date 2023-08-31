@@ -23,7 +23,7 @@ namespace PCP.Tools.WhichKey
 				label = "WhichKey",
 				activateHandler = (searchContext, rootElement) =>
 				{
-					var settings = WhichKeySettings.instance;
+					var settings = WhichKeyPreferences.instance;
 
 					// Create the root visual element
 					var root = new VisualElement();
@@ -65,17 +65,17 @@ namespace PCP.Tools.WhichKey
 					root.Add(scrollView);
 
 					// Create the Apply button
-					var applyButton = new Button(WhichKey.ApplySettings);
+					var applyButton = new Button(WhichKey.ApplyPreferences);
 					applyButton.text = "Apply";
 					root.Add(applyButton);
 
 					// Create the Save to JSON button
-					var saveButton = new Button(WhichKey.SaveSettingToJSON);
+					var saveButton = new Button(WhichKey.SavePreferenceToJSON);
 					saveButton.text = "Save to JSON";
 					root.Add(saveButton);
 
 					// Create the Load from JSON button
-					var loadButton = new Button(WhichKey.LoadSettingFromJSON);
+					var loadButton = new Button(WhichKey.LoadPreferenceFromJSON);
 					loadButton.text = "Load from JSON";
 					root.Add(loadButton);
 
@@ -84,7 +84,7 @@ namespace PCP.Tools.WhichKey
 				},
 				deactivateHandler = () =>
 				{
-					WhichKey.ApplySettings();
+					WhichKey.ApplyPreferences();
 				},
 				keywords = new HashSet<string>(new[] { "WhichKey" })
 
@@ -133,17 +133,17 @@ namespace PCP.Tools.WhichKey
 					root.Add(scrollView);
 
 					// Create the Apply button
-					var applyButton = new Button(WhichKey.ApplySettings);
+					var applyButton = new Button(WhichKey.ApplyPreferences);
 					applyButton.text = "Apply";
 					root.Add(applyButton);
 
 					// Create the Save to JSON button
-					var saveButton = new Button(WhichKey.SaveSettingToJSON);
+					var saveButton = new Button(WhichKey.SavePreferenceToJSON);
 					saveButton.text = "Save to JSON";
 					root.Add(saveButton);
 
 					// Create the Load from JSON button
-					var loadButton = new Button(WhichKey.LoadSettingFromJSON);
+					var loadButton = new Button(WhichKey.LoadPreferenceFromJSON);
 					loadButton.text = "Load from JSON";
 					root.Add(loadButton);
 

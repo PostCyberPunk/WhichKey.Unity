@@ -13,7 +13,7 @@ namespace PCP.Tools.WhichKey
         [SerializeField] public ProjectAssetsData[] projectAssetsDatas;
         public static void Save()
         {
-            Undo.RegisterCompleteObjectUndo(instance, "Save WhichKey Settings");
+            Undo.RegisterCompleteObjectUndo(instance, "Save WhichKey Project Settings");
             instance.Save(true);
         }
         internal SerializedObject GetSerializedObject()

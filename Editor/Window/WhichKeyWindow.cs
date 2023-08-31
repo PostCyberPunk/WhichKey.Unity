@@ -53,14 +53,14 @@ namespace PCP.Tools.WhichKey
 		internal static void Init()
 		{
 			// Setup Settings
-			if (WhichKeySettings.instance == null)
+			if (WhichKeyPreferences.instance == null)
 			{
 				WhichKey.LogError("WhichKey Setting instance is null");
 				return;
 			}
 			WhichKey.instance.ShowHintWindow = Active;
 
-			var settings = WhichKeySettings.instance;
+			var settings = WhichKeyPreferences.instance;
 			showKeyHint = settings.ShowHint;
 			followMouse = settings.WindowFollowMouse;
 			fixedPosition = settings.FixedPosition;

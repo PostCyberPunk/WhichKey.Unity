@@ -45,11 +45,11 @@ namespace PCP.Tools.WhichKey
 			sb = new();
 
 			mTreeRoot = new KeyNode("", "");
-			foreach (var keySet in WhichKeySettings.instance.keySets)
+			foreach (var keySet in WhichKeyPreferences.instance.keySets)
 			{
 				AddKeySetToTree(keySet);
 			}
-			KeyNode.maxLine = WhichKeySettings.instance.MaxHintLines;
+			KeyNode.maxLine = WhichKeyPreferences.instance.MaxHintLines;
 			mTreeRoot.SetLayerHints();
 
 			ResetRoot();

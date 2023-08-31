@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEditor;
 namespace PCP.Tools.WhichKey
 {
-	[FilePath("WhichKey/Settings.asset", FilePathAttribute.Location.PreferencesFolder)]
-	public class WhichKeySettings : ScriptableSingleton<WhichKeySettings>
+	[FilePath("Preferences/Whichkey.asset", FilePathAttribute.Location.PreferencesFolder)]
+	public class WhichKeyPreferences : ScriptableSingleton<WhichKeyPreferences>
 	{
 		[SerializeField] public List<KeySet> keySets = new();
 		[SerializeField] public bool ShowHint=true;
@@ -22,7 +22,7 @@ namespace PCP.Tools.WhichKey
 		}
 		internal void Save()
 		{
-			Undo.RegisterCompleteObjectUndo(this, "Save WhichKey Settings");
+			Undo.RegisterCompleteObjectUndo(this, "Save WhichKey Preferences");
 			base.Save(true);
 		}
 		internal SerializedObject GetSerializedObject()
