@@ -45,10 +45,9 @@ namespace PCP.Tools.WhichKey
 			sb = new();
 
 			mTreeRoot = new KeyNode("", "");
-			foreach (var keySet in WhichKey.Preferences.KeyMap)
-			{
-				AddKeySetToTree(keySet);
-			}
+			
+			ProcessKeyMap(WhichKeyPreferences.instance.KeyMap);
+			
 			KeyNode.maxLine = WhichKey.Preferences.MaxHintLines;
 			mTreeRoot.SetLayerHints();
 
@@ -56,6 +55,14 @@ namespace PCP.Tools.WhichKey
 			Reset();
 		}
 
+		private void ProcessKeyMap(KeySet[] keymap)
+		{
+			for (int i = 0; i < keymap.Length; i++)
+			{
+				KeySet keySet = keymap[i];
+				AddKeySetToTree(keySet);
+			}
+		}
 		private void AddKeySetToTree(KeySet keyset)
 		{
 			mCurrentNode = mTreeRoot;
