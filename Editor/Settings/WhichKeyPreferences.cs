@@ -9,11 +9,11 @@ namespace PCP.Tools.WhichKey
 	{
 		[SerializeField] public List<KeySet> KeyMap = new();
 		[SerializeField] public bool ShowHint=true;
-		[SerializeField] public float HintDelayTime=1;
+		[SerializeField] public float Timeout=1;
 		[SerializeField] public bool WindowFollowMouse=true;
 		[SerializeField] public Vector2 FixedPosition;
 		[SerializeField] public int MaxHintLines=10;
-		[SerializeField] public float MaxColWidth=250;
+		[SerializeField] public float ColWidth=250;
 		[SerializeField] public float FontSize=20;
 		[SerializeField] public LoggingLevel LogLevel=LoggingLevel.Info;
 		private void OnEnable()

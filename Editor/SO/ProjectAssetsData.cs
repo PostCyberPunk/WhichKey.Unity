@@ -12,6 +12,7 @@ namespace PCP.Tools.WhichKey
         private void Awake()
         {
             LayerHints = "LayerHints";
+            Debug.Log(LayerHints);
         }
     }
 }

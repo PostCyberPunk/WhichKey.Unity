@@ -27,7 +27,7 @@ namespace PCP.Tools.WhichKey
 		private static float mFontSize;
 		//OPT
 		internal static float lineHeight;
-		private static float hintDelayTime;
+		private static float timeoutLen;
 		private static bool followMouse;
 		private static Vector2 fixedPosition;
 		private static int maxHintLines;
@@ -65,8 +65,8 @@ namespace PCP.Tools.WhichKey
 			followMouse = pref.WindowFollowMouse;
 			fixedPosition = pref.FixedPosition;
 			maxHintLines = pref.MaxHintLines;
-			maxColWidth = pref.MaxColWidth;
-			hintDelayTime = pref.HintDelayTime;
+			maxColWidth = pref.ColWidth;
+			timeoutLen = pref.Timeout;
 			mFontSize = pref.FontSize;
 
 			//Calculate line height
@@ -133,7 +133,7 @@ namespace PCP.Tools.WhichKey
 		private void UpdateDelayTimer()
 		{
 			if (!showHint)
-				hideTill = Time.realtimeSinceStartup + hintDelayTime;
+				hideTill = Time.realtimeSinceStartup + timeoutLen;
 		}
 		private void CheckDelayTimer()
 		{
