@@ -60,14 +60,14 @@ namespace PCP.Tools.WhichKey
 			}
 			WhichKey.instance.ShowHintWindow = Active;
 
-			var settings = WhichKeyPreferences.instance;
-			showKeyHint = settings.ShowHint;
-			followMouse = settings.WindowFollowMouse;
-			fixedPosition = settings.FixedPosition;
-			maxHintLines = settings.MaxHintLines;
-			maxColWidth = settings.MaxColWidth;
-			hintDelayTime = settings.HintDelayTime;
-			mFontSize = settings.FontSize;
+			var pref = WhichKey.Preferences;
+			showKeyHint = pref.ShowHint;
+			followMouse = pref.WindowFollowMouse;
+			fixedPosition = pref.FixedPosition;
+			maxHintLines = pref.MaxHintLines;
+			maxColWidth = pref.MaxColWidth;
+			hintDelayTime = pref.HintDelayTime;
+			mFontSize = pref.FontSize;
 
 			//Calculate line height
 			WKTestWindow.Test(mFontSize);
