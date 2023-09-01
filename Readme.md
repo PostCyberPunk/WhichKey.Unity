@@ -20,16 +20,24 @@
 <!-- 2.LoadSetting -->
 
 <!-- 1. mkhdl complete to reset; -->
-1. make mkhdl and keynode all serializable
-2. project settings (test Array)
-2. folder manager
+<!-- 1. refactor wk manger -->
+1. rewite list get
+1. try fonts;
+1. benchmarking cached window
+2. keynode encapsulate and clear after init
+2. make mkhdl and keynode all serializable
+3. refesh and init
+3. oh i need a project specific keyset also adtional keymap
+<!-- 2. project settings (test Array) -->
+<!-- 2. folder manager -->
 3. scene manager
-11. oh i need a project specific keyset
-14. static format layer hints
+<!-- 14. static format layer hints -->
 11. better way to find duplicated key
 <!-- 13. follow mouse on change -->
 1. window instance ref should get from manger:Assethandler
-2. ?active by keyseq
+<!-- 2. ?active by keyseq<br> -->
+4. caching labels reuse of hint window
+5. lineheight
 *** a wrapper is bad for gc, also may lose some reAference,so is intend to repalce json,so lets just edit yaml ***
 *** hideflag wont work for first time it created ***
 *** wk to static class singleton to manager ***
