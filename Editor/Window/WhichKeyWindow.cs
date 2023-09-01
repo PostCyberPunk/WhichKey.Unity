@@ -78,7 +78,7 @@ namespace PCP.Tools.WhichKey
 			mFontSize = pref.FontSize;
 
 			//Calculate line height
-			WKTestWindow.Test(mFontSize);
+			// WKTestWindow.Test(mFontSize);
 		}
 		private void CreateGUI()
 		{
