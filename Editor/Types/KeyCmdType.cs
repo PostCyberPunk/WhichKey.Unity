@@ -4,7 +4,8 @@ namespace PCP.Tools.WhichKey
 	{
 		Layer,
 		Menu,
-		File,
 		ChangeRoot,
+		Assets,
+		Scene,
 	}
 }
