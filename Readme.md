@@ -16,24 +16,29 @@
 <!-- 14. space -->
 <!-- 10. change root -->
 <!-- 7. Sep settings and manager? do i really need it?Yes!! -->
-1.wrapper class for setting and preference
-2.LoadSetting
+<!-- 1.wrapper class for setting and preference -->
+<!-- 2.LoadSetting -->
 
-1. mkhdl complete to reset;
+<!-- 1. mkhdl complete to reset; -->
+1. make mkhdl and keynode all serializable
 2. project settings (test Array)
 2. folder manager
 3. scene manager
 11. oh i need a project specific keyset
 14. static format layer hints
 11. better way to find duplicated key
-13. follow mouse on change
+<!-- 13. follow mouse on change -->
+1. window instance ref should get from manger:Assethandler
 2. ?active by keyseq
-***a wrapper is bad for gc, also may lose some reference,so is intend to repalce json,so lets just edit yaml
+*** a wrapper is bad for gc, also may lose some reAference,so is intend to repalce json,so lets just edit yaml ***
+*** hideflag wont work for first time it created ***
+*** wk to static class singleton to manager ***
 # Extra
 piemenu
 # bug
 !todo tree
-load
+!!! load :list vs array for reloading?
+<!-- check for list that can switch to array -->
 # todo 
 <!-- UI Elements cant calculate actual size properly(01245f7a) -->
 backward compatibility
@@ -48,3 +53,4 @@ is typecahce fast enough for bigger project? is there a typecache for specific a
 2. have to think through about layer hints,is sb really good? after sethints the hints can be clear
 3. Maybe Add a setting ,let user choose between sting array and list,it beauty and speed
 4. mkhdl Reset VS Complete? i fogot why i use complete...
+<!-- wk pref property getter if null create instance? no need.  -->
