@@ -25,13 +25,9 @@ namespace PCP.Tools.WhichKey
 				{
 					var settings = WhichKeyPreferences.instance;
 					var vts = WhichKey.instance.mUILoader;
-					Debug.Log(vts==null);
-					VisualTreeAsset rootvt = vts.Preferences;
-					VisualTreeAsset keyItem = vts.KeySet;
 					// Create the root visual element
-					var root = new VisualElement();
-					root = rootvt.CloneTree();
-					root.Q<ListView>("KeyMap").makeItem = keyItem.CloneTree;
+					var root = vts.Preferences.CloneTree();
+					root.Q<ListView>("KeyMap").makeItem = vts.KeySet.CloneTree;
 
 					//Show/Hide position field by FollowMouse toggle
 					var winPosElement = root.Q<Vector2Field>("FixedPosition");
