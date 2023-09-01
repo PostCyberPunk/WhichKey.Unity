@@ -22,6 +22,11 @@ namespace PCP.Tools.WhichKey
 			Preferences = WhichKeyPreferences.instance;
 			Refresh();
 		}
+		public static void Active(string key)
+		{
+			instance.mainKeyHandler.Reset(key);
+			instance.ShowHintWindow();
+		}
 
 		[MenuItem("WhichKey/Active")]
 		public static void ShowWindow()
@@ -73,7 +78,7 @@ namespace PCP.Tools.WhichKey
 				LogError("WhichKey.json not found");
 				return;
 			}
-		Preferences.KeyMap = JsonUtility.FromJson<KeyMapWrapper>(jsonFile.text).KeyMap;
+			Preferences.KeyMap = JsonUtility.FromJson<KeyMapWrapper>(jsonFile.text).KeyMap;
 		}
 		public static void SavePreferenceToJSON()
 		{

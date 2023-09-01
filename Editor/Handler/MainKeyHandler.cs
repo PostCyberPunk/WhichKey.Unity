@@ -2,6 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Xml.Schema;
 
 namespace PCP.Tools.WhichKey
 {
@@ -45,9 +46,9 @@ namespace PCP.Tools.WhichKey
 			sb = new();
 
 			mTreeRoot = new KeyNode("", "");
-			
+
 			ProcessKeyMap(WhichKeyPreferences.instance.KeyMap);
-			
+
 			KeyNode.maxLine = WhichKey.Preferences.MaxHintLines;
 			mTreeRoot.SetCachedLayerHints();
 
@@ -73,7 +74,7 @@ namespace PCP.Tools.WhichKey
 				if (i == keyset.KeySeq.Length - 1)
 				{
 					if (childNode == null)
-						childNode = mCurrentNode.AddChild(new KeyNode(keyset,mCurrentNode));
+						childNode = mCurrentNode.AddChild(new KeyNode(keyset, mCurrentNode));
 					else
 					{
 						if (childNode.Type == KeyCmdType.Layer && keyset.type == KeyCmdType.Layer)
@@ -154,6 +155,11 @@ namespace PCP.Tools.WhichKey
 			mCurrentHandler = this;
 			mCurrentNode = mRoot;
 		}
+		public void Reset(string key)
+		{
+			Reset();
+			mCurrentNode = GetKeyNodebyKeySeq(key);
+		}
 
 		public void ResetRoot()
 		{
@@ -162,10 +168,18 @@ namespace PCP.Tools.WhichKey
 
 		public void ChagneRoot(string key)
 		{
+			var kn = GetKeyNodebyKeySeq(key);
+			if (kn == null) return;
+			mRoot = kn;
+			WhichKey.LogInfo($"Change root to {key}");
+		}
+		private KeyNode GetKeyNodebyKeySeq(string key)
+		{
+
 			if (key.Length == 0)
 			{
 				ResetRoot();
-				return;
+				return null;
 			}
 			KeyNode kn = mTreeRoot;
 
@@ -175,16 +189,15 @@ namespace PCP.Tools.WhichKey
 				if (kn == null)
 				{
 					WhichKey.LogWarning($"KeySeq {mKeySeq} not found @key {key[i]}");
-					return;
+					return null;
 				}
 			}
 			if (kn.Type != KeyCmdType.Layer)
 			{
 				WhichKey.LogWarning($"KeySeq {mKeySeq} not a layer");
-				return;
+				return null;
 			}
-			mRoot = kn;
-			WhichKey.LogInfo($"Change root to {key}");
+			return kn;
 		}
 		private void DebugShowHints()
 		{
