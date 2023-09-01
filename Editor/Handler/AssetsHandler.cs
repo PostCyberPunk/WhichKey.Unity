@@ -18,11 +18,11 @@ namespace PCP.Tools.WhichKey
                 //OPT bad reference
                 if (showHint)
                     MainHintsWindow.instance.ForceActive();
-                return false;
+                return true;
             }
 
             WhichKey.LogError("AssetsHandler: No Assets Data Found For Index: " + index);
-            return true;
+            return false;
         }
         public bool ProcessKey(char key)
         {

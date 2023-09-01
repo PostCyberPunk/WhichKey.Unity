@@ -165,6 +165,8 @@ namespace PCP.Tools.WhichKey
 
 		public string[] GetLayerHints()
 		{
+			if (mCurrentHandler != this && mCurrentHandler != null)
+				return mCurrentHandler.GetLayerHints();
 			return mCurrentNode.LayerHints;
 		}
 		public void Reset()
