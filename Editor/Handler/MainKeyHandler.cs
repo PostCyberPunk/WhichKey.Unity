@@ -14,6 +14,7 @@ namespace PCP.Tools.WhichKey
 		private KeyNode mCurrentNode;
 		private StringBuilder sb;
 		private IWhichKeyHandler mCurrentHandler;
+		private AssetsHandler mAssetsHandler = new();
 		public bool isInitialized { get => mTreeRoot != null; }
 
 		private static readonly Dictionary<KeyCode, string> mKeycodeMap = new Dictionary<KeyCode, string>
@@ -130,6 +131,23 @@ namespace PCP.Tools.WhichKey
 				case KeyCmdType.Menu:
 					ProcessMenu(kn.CmdArg);
 					return true;
+				case KeyCmdType.ChangeRoot:
+					ChagneRoot(kn.CmdArg);
+					return true;
+				case KeyCmdType.Assets:
+					int index = 0;
+					try
+					{
+						index = int.Parse(kn.CmdArg);
+					}
+					catch (System.Exception)
+					{
+						WhichKey.LogError($"AssetsHandler: Invalid Index {kn.CmdArg},Check your project settings for AssetsData");
+						return true;
+					}
+					if (!mAssetsHandler.ProecessArg(index)) return true;
+					mCurrentHandler = mAssetsHandler;
+					return false;
 				default:
 					return true;
 			}
