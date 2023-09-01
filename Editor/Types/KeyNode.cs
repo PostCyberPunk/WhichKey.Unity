@@ -61,6 +61,18 @@ namespace PCP.Tools.WhichKey
 			return null;
 		}
 		//OPT
+		public void SetLayerHints()
+		{
+			if (!hasChildren) return;
+			LayerHints = new string[Children.Count * 2];
+			for (int i = 0; i < Children.Count; i++)
+			{
+				KeyNode child = Children[i];
+				child.SetLayerHints();
+				LayerHints[i * 2] = child.Key.ToString();
+				LayerHints[i * 2 + 1] = child.Hint;
+			}
+		}
 		public void SetCachedLayerHints()
 		{
 			if (!hasChildren) return;
