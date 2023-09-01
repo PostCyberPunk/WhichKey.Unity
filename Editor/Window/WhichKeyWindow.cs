@@ -184,6 +184,56 @@ namespace PCP.Tools.WhichKey
 			mainFrame.Clear();
 			mHeight = lineHeight * maxHintLines;
 			mainFrame.style.flexDirection = FlexDirection.Row;
+			var cols = Mathf.CeilToInt(hints.Length / 2f / maxHintLines);
+			mWidth = cols * maxColWidth;
+			maxSize = new Vector2(mWidth, mHeight);
+			if (followMouse)
+			{
+				Vector2 mousePos = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
+				position = new Rect(mousePos.x - mWidth / 2, mousePos.y - mHeight / 2, mWidth, mHeight);
+			}
+			else
+			{
+				position = new Rect(fixedPosition.x, fixedPosition.y, mWidth, mHeight);
+			}
+
+			for (int j = 0; j < cols; j++)
+			{
+				var col = new VisualElement();
+				col.style.flexDirection = FlexDirection.Column;
+				col.style.width = maxColWidth;
+				col.style.height = mHeight;
+				for (int i = 0; i < maxHintLines; i++)
+				{
+					int ind = i + j * maxHintLines;
+					if (ind * 2 >= hints.Length) break;
+					var e = TestCreateLabel(hints[ind * 2], hints[ind * 2 + 1]);
+					e.style.width = maxColWidth;
+					e.style.height = lineHeight;
+					col.Add(e);
+				}
+				mainFrame.Add(col);
+			}
+		}
+		private VisualElement TestCreateLabel(string key, string hint)
+		{
+			var root = new VisualElement();
+			root.style.flexDirection = FlexDirection.Row;
+			root.Add(new Label(key));
+			root.Add(new Label(hint));
+			return root;
+		}
+		private void CachedHintsWindow()
+		{
+			string[] hints = WhichKey.instance.GetHints();
+			if (hints == null)
+			{
+				Deactive();
+				return;
+			}
+			mainFrame.Clear();
+			mHeight = lineHeight * maxHintLines;
+			mainFrame.style.flexDirection = FlexDirection.Row;
 			mWidth = hints.Length * maxColWidth;
 			maxSize = new Vector2(mWidth, mHeight);
 			if (followMouse)
