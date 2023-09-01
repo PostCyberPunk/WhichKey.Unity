@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/HintLabel.uss?fileID=7433441132597879392&amp;guid=045d0e5bfe4ce4741a884a025a02c7ae&amp;type=3#HintLabel" />
+    <ui:VisualElement name="Base" class="base">
+        <ui:Label tabindex="-1" text="A" display-tooltip-when-elided="true" name="Key" class="key" />
+        <ui:Label tabindex="-1" text="Hello this is a test Hint" display-tooltip-when-elided="true" name="Hint" class="hint" />
+    </ui:VisualElement>
+</ui:UXML>
