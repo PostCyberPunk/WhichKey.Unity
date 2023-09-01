@@ -12,10 +12,12 @@ namespace PCP.Tools.WhichKey
             var vts = WhichKey.mUILoader;
             VisualTreeAsset listvt = vts.List;
             VisualTreeAsset itemvt = vts.AssetData;
-            root.Add(listvt.CloneTree());
-            var list = root.Q<ListView>("List");
+            // root.Add(listvt.CloneTree());
+            var list = listvt.CloneTree().Q<ListView>();
+            root.Add(list);
             list.bindingPath = "AssetsData";
             list.makeItem = itemvt.CloneTree;
+
             return root;
         }
     }
