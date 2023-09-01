@@ -11,7 +11,7 @@ namespace PCP.Tools.WhichKey
         public VisualTreeAsset List { private set; get; }
         public VisualTreeAsset KeySet { private set; get; }
         public VisualTreeAsset AssetData { private set; get; }
-        public UILoader()
+        public void Refresh()
         {
             Preferences = Resources.Load<VisualTreeAsset>("UXML/Settings/Preferences");
             ProjectSettings = Resources.Load<VisualTreeAsset>("UXML/Settings/ProjectSettings");

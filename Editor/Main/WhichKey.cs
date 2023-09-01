@@ -9,8 +9,8 @@ namespace PCP.Tools.WhichKey
 	public class WhichKey : ScriptableSingleton<WhichKey>
 	{
 		private readonly MainKeyHandler mainKeyHandler = new MainKeyHandler();
-		internal UILoader mUILoader;
-		public static WhichKeyPreferences Preferences { private set; get; }
+		internal static UILoader mUILoader = new();
+		internal static WhichKeyPreferences Preferences { private set; get; }
 		private static int loggingLevel;
 
 		public Action ShowHintWindow;
@@ -19,10 +19,22 @@ namespace PCP.Tools.WhichKey
 		{
 			if (instance.mainKeyHandler.isInitialized)
 				return;
-			instance.mUILoader = new UILoader();
+			if (SessionState.GetBool("WhichKeyOnce", false))
+				mUILoader.Refresh();
+			else
+			{
+				SessionState.SetBool("WhichKeyOnce", true);
+				EditorApplication.update += instance.RunOnce;
+			}
 			SavePreferences();
 			Preferences = WhichKeyPreferences.instance;
 			Refresh();
+		}
+		private void RunOnce()
+		{
+			mUILoader.Refresh();
+			// Debug.Log("WhichKey is running for the first time");
+			EditorApplication.update -= instance.RunOnce;
 		}
 		public static void Active(string key)
 		{

@@ -24,7 +24,7 @@ namespace PCP.Tools.WhichKey
 				activateHandler = (searchContext, rootElement) =>
 				{
 					var settings = WhichKeyPreferences.instance;
-					var vts = WhichKey.instance.mUILoader;
+					var vts = WhichKey.mUILoader;
 					// Create the root visual element
 					var root = vts.Preferences.CloneTree();
 					root.Q<ListView>("KeyMap").makeItem = vts.KeySet.CloneTree;
@@ -78,7 +78,7 @@ namespace PCP.Tools.WhichKey
 				activateHandler = (searchContext, rootElement) =>
 				{
 					var settings = WhichkeyProjectSettings.instance.GetSerializedObject();
-					var vts = WhichKey.instance.mUILoader;
+					var vts = WhichKey.mUILoader;
 
 					var root = vts.ProjectSettings.CloneTree();
 
