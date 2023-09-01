@@ -24,7 +24,7 @@ namespace PCP.Tools.WhichKey
 				activateHandler = (searchContext, rootElement) =>
 				{
 					var settings = WhichKeyPreferences.instance;
-					var vts = WhichKey.mUILoader;
+					var vts = WhichKeyManager.mUILoader;
 					// Create the root visual element
 					var root = vts.Preferences.CloneTree();
 					root.Q<ListView>("KeyMap").makeItem = vts.KeySet.CloneTree;
@@ -39,17 +39,17 @@ namespace PCP.Tools.WhichKey
 					});
 
 					// Create the Apply button
-					var applyButton = new Button(WhichKey.ApplyPreferences);
+					var applyButton = new Button(WhichKeyManager.ApplyPreferences);
 					applyButton.text = "Apply";
 					root.Add(applyButton);
 
 					// Create the Save to JSON button
-					var saveButton = new Button(WhichKey.SavePreferenceToJSON);
+					var saveButton = new Button(WhichKeyManager.SavePreferenceToJSON);
 					saveButton.text = "Save to JSON";
 					root.Add(saveButton);
 
 					// Create the Load from JSON button
-					var loadButton = new Button(WhichKey.LoadPreferenceFromJSON);
+					var loadButton = new Button(WhichKeyManager.LoadPreferenceFromJSON);
 					loadButton.text = "Load from JSON";
 					root.Add(loadButton);
 					root.Bind(settings.GetSerializedObject());
@@ -59,7 +59,7 @@ namespace PCP.Tools.WhichKey
 				},
 				deactivateHandler = () =>
 				{
-					WhichKey.ApplyPreferences();
+					WhichKeyManager.ApplyPreferences();
 				},
 				keywords = new HashSet<string>(new[] { "WhichKey" })
 
@@ -78,7 +78,7 @@ namespace PCP.Tools.WhichKey
 				activateHandler = (searchContext, rootElement) =>
 				{
 					var settings = WhichkeyProjectSettings.instance.GetSerializedObject();
-					var vts = WhichKey.mUILoader;
+					var vts = WhichKeyManager.mUILoader;
 
 					var root = vts.ProjectSettings.CloneTree();
 

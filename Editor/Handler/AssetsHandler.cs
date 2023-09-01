@@ -21,7 +21,7 @@ namespace PCP.Tools.WhichKey
                 return true;
             }
 
-            WhichKey.LogError("AssetsHandler: No Assets Data Found For Index: " + index);
+            WhichKeyManager.LogError("AssetsHandler: No Assets Data Found For Index: " + index);
             return false;
         }
         public bool ProcessKey(char key)
@@ -29,7 +29,7 @@ namespace PCP.Tools.WhichKey
             string path = assetsData.GetAssetsPathByKey(key);
             if (string.IsNullOrEmpty(path))
             {
-                WhichKey.LogError("AssetsHandler: No Assets Path Found For Key: " + key);
+                WhichKeyManager.LogError("AssetsHandler: No Assets Path Found For Key: " + key);
                 return true;
             }
             var obj = AssetDatabase.LoadAssetAtPath(path, typeof(UnityEngine.Object));

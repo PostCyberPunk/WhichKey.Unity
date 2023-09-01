@@ -50,7 +50,7 @@ namespace PCP.Tools.WhichKey
 
 			ProcessKeyMap(WhichKeyPreferences.instance.KeyMap);
 
-			KeyNode.maxLine = WhichKey.Preferences.MaxHintLines;
+			KeyNode.maxLine = WhichKeyManager.Preferences.MaxHintLines;
 			mTreeRoot.SetLayerHints();
 
 			ResetRoot();
@@ -81,7 +81,7 @@ namespace PCP.Tools.WhichKey
 						if (childNode.Type == KeyCmdType.Layer && keyset.type == KeyCmdType.Layer)
 							childNode.UpdateKeySet(keyset);
 						else
-							WhichKey.LogError($"KeySeq {keyset.KeySeq} already registered,skip Hint: {keyset.HintText},args: {keyset.CmdArg}");
+							WhichKeyManager.LogError($"KeySeq {keyset.KeySeq} already registered,skip Hint: {keyset.HintText},args: {keyset.CmdArg}");
 					}
 					return;
 				}
@@ -107,7 +107,7 @@ namespace PCP.Tools.WhichKey
 			{
 				if (!mKeycodeMap.TryGetValue(keyCode, out key))
 				{
-					WhichKey.LogInfo($"Key {key} not supported");
+					WhichKeyManager.LogInfo($"Key {key} not supported");
 					return true;
 				}
 			}
@@ -120,7 +120,7 @@ namespace PCP.Tools.WhichKey
 			KeyNode kn = mCurrentNode.GetChildByKey(key);
 			if (kn == null)
 			{
-				WhichKey.LogWarning($"KeySeq {mKeySeq} not found");
+				WhichKeyManager.LogWarning($"KeySeq {mKeySeq} not found");
 				return true;
 			}
 			switch (kn.Type)
@@ -142,7 +142,7 @@ namespace PCP.Tools.WhichKey
 					}
 					catch (System.Exception)
 					{
-						WhichKey.LogError($"AssetsHandler: Invalid Index {kn.CmdArg},Check your project settings for AssetsData");
+						WhichKeyManager.LogError($"AssetsHandler: Invalid Index {kn.CmdArg},Check your project settings for AssetsData");
 						return true;
 					}
 					if (!mAssetsHandler.ProecessArg(index)) return true;
@@ -160,7 +160,7 @@ namespace PCP.Tools.WhichKey
 
 		private void ProcessMenu(string menuName)
 		{
-			if (!EditorApplication.ExecuteMenuItem(menuName)) WhichKey.LogWarning($"Menu {menuName} not available");
+			if (!EditorApplication.ExecuteMenuItem(menuName)) WhichKeyManager.LogWarning($"Menu {menuName} not available");
 		}
 
 		public string[] GetLayerHints()
@@ -191,7 +191,7 @@ namespace PCP.Tools.WhichKey
 			var kn = GetKeyNodebyKeySeq(key);
 			if (kn == null) return;
 			mRoot = kn;
-			WhichKey.LogInfo($"Change root to {key}");
+			WhichKeyManager.LogInfo($"Change root to {key}");
 		}
 		private KeyNode GetKeyNodebyKeySeq(string key)
 		{
@@ -208,13 +208,13 @@ namespace PCP.Tools.WhichKey
 				kn = mCurrentNode.GetChildByKey(key[i]);
 				if (kn == null)
 				{
-					WhichKey.LogWarning($"KeySeq {mKeySeq} not found @key {key[i]}");
+					WhichKeyManager.LogWarning($"KeySeq {mKeySeq} not found @key {key[i]}");
 					return null;
 				}
 			}
 			if (kn.Type != KeyCmdType.Layer)
 			{
-				WhichKey.LogWarning($"KeySeq {mKeySeq} not a layer");
+				WhichKeyManager.LogWarning($"KeySeq {mKeySeq} not a layer");
 				return null;
 			}
 			return kn;

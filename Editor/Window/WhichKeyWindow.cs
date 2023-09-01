@@ -63,12 +63,12 @@ namespace PCP.Tools.WhichKey
 			// Setup Settings
 			if (WhichKeyPreferences.instance == null)
 			{
-				WhichKey.LogError("WhichKey Setting instance is null");
+				WhichKeyManager.LogError("WhichKey Setting instance is null");
 				return;
 			}
-			WhichKey.instance.ShowHintWindow = Active;
+			WhichKeyManager.instance.ShowHintWindow = Active;
 
-			var pref = WhichKey.Preferences;
+			var pref = WhichKeyManager.Preferences;
 			showKeyHint = pref.ShowHint;
 			followMouse = pref.WindowFollowMouse;
 			fixedPosition = pref.FixedPosition;
@@ -123,7 +123,7 @@ namespace PCP.Tools.WhichKey
 						{
 							prevKey = e.keyCode;
 							keyReleased = false;
-							if (WhichKey.instance.Input(e.keyCode, e.shift))
+							if (WhichKeyManager.instance.Input(e.keyCode, e.shift))
 							{
 								Close(e);
 							}
@@ -175,7 +175,7 @@ namespace PCP.Tools.WhichKey
 		}
 		private void HintsWindow()
 		{
-			string[] hints = WhichKey.instance.GetHints();
+			string[] hints = WhichKeyManager.instance.GetHints();
 			if (hints == null)
 			{
 				Deactive();
@@ -225,7 +225,7 @@ namespace PCP.Tools.WhichKey
 		}
 		private void CachedHintsWindow()
 		{
-			string[] hints = WhichKey.instance.GetHints();
+			string[] hints = WhichKeyManager.instance.GetHints();
 			if (hints == null)
 			{
 				Deactive();
