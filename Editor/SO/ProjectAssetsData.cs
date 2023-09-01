@@ -36,8 +36,9 @@ namespace PCP.Tools.WhichKey
         public override VisualElement CreateInspectorGUI()
         {
             VisualElement root = new VisualElement();
-            VisualTreeAsset listvt = Resources.Load<VisualTreeAsset>("Settings/List");
-            VisualTreeAsset itemvt = Resources.Load<VisualTreeAsset>("Settings/AssetData");
+            var vts = WhichKey.instance.mUILoader;
+            VisualTreeAsset listvt = vts.List;
+            VisualTreeAsset itemvt = vts.AssetData;
             root.Add(listvt.CloneTree());
             var list = root.Q<ListView>("List");
             list.bindingPath = "Assets";

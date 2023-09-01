@@ -24,9 +24,10 @@ namespace PCP.Tools.WhichKey
 				activateHandler = (searchContext, rootElement) =>
 				{
 					var settings = WhichKeyPreferences.instance;
-
-					VisualTreeAsset rootvt = Resources.Load<VisualTreeAsset>("Settings/Preferences");
-					VisualTreeAsset keyItem = Resources.Load<VisualTreeAsset>("Settings/KeySet");
+					var vts = WhichKey.instance.mUILoader;
+					Debug.Log(vts==null);
+					VisualTreeAsset rootvt = vts.Preferences;
+					VisualTreeAsset keyItem = vts.KeySet;
 					// Create the root visual element
 					var root = new VisualElement();
 					root = rootvt.CloneTree();

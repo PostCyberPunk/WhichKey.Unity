@@ -9,6 +9,7 @@ namespace PCP.Tools.WhichKey
 	public class WhichKey : ScriptableSingleton<WhichKey>
 	{
 		private readonly MainKeyHandler mainKeyHandler = new MainKeyHandler();
+		internal UILoader mUILoader;
 		public static WhichKeyPreferences Preferences { private set; get; }
 		private static int loggingLevel;
 
@@ -18,6 +19,7 @@ namespace PCP.Tools.WhichKey
 		{
 			if (instance.mainKeyHandler.isInitialized)
 				return;
+			instance.mUILoader = new UILoader();
 			SavePreferences();
 			Preferences = WhichKeyPreferences.instance;
 			Refresh();
