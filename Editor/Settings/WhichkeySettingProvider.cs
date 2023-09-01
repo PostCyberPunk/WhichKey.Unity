@@ -39,17 +39,17 @@ namespace PCP.Tools.WhichKey
 					});
 
 					// Create the Apply button
-					var applyButton = new Button(WhichKeyManager.ApplyPreferences);
+					var applyButton = new Button(WhichKeyManager.instance.ApplyPreferences);
 					applyButton.text = "Apply";
 					root.Add(applyButton);
 
 					// Create the Save to JSON button
-					var saveButton = new Button(WhichKeyManager.SavePreferenceToJSON);
+					var saveButton = new Button(WhichKeyManager.instance.SavePreferenceToJSON);
 					saveButton.text = "Save to JSON";
 					root.Add(saveButton);
 
 					// Create the Load from JSON button
-					var loadButton = new Button(WhichKeyManager.LoadPreferenceFromJSON);
+					var loadButton = new Button(WhichKeyManager.instance.LoadPreferenceFromJSON);
 					loadButton.text = "Load from JSON";
 					root.Add(loadButton);
 					root.Bind(settings.GetSerializedObject());
@@ -59,7 +59,7 @@ namespace PCP.Tools.WhichKey
 				},
 				deactivateHandler = () =>
 				{
-					WhichKeyManager.ApplyPreferences();
+					WhichKeyManager.instance.ApplyPreferences();
 				},
 				keywords = new HashSet<string>(new[] { "WhichKey" })
 

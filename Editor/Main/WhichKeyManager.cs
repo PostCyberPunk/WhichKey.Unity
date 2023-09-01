@@ -6,25 +6,24 @@ using UnityEngine;
 
 namespace PCP.Tools.WhichKey
 {
-	public class WhichKeyManager : ScriptableSingleton<WhichKeyManager>
+	internal class WhichKeyManager : ScriptableSingleton<WhichKeyManager>
 	{
 		private readonly MainKeyHandler mainKeyHandler = new MainKeyHandler();
-		internal static UILoader mUILoader = new();
+		internal readonly static UILoader mUILoader = new();
 		internal static WhichKeyPreferences Preferences { private set; get; }
 		private static int loggingLevel;
 
 		public Action ShowHintWindow;
-		[InitializeOnLoadMethod]
-		public static void Init()
+		public void Init()
 		{
-			if (instance.mainKeyHandler.isInitialized)
+			if (mainKeyHandler.isInitialized)
 				return;
 			if (SessionState.GetBool("WhichKeyOnce", false))
 				mUILoader.Refresh();
 			else
 			{
 				SessionState.SetBool("WhichKeyOnce", true);
-				EditorApplication.update += instance.RunOnce;
+				EditorApplication.update += RunOnce;
 			}
 			SavePreferences();
 			Preferences = WhichKeyPreferences.instance;
@@ -34,57 +33,45 @@ namespace PCP.Tools.WhichKey
 		{
 			mUILoader.Refresh();
 			// Debug.Log("WhichKey is running for the first time");
-			EditorApplication.update -= instance.RunOnce;
+			EditorApplication.update -= RunOnce;
 		}
-		public static void Active(string key)
-		{
-			instance.mainKeyHandler.Reset(key);
-			instance.ShowHintWindow();
-		}
-
-		[MenuItem("WhichKey/Active")]
-		public static void ShowWindow()
-		{
-			instance.mainKeyHandler.Reset();
-			instance.ShowHintWindow();
-		}
-
-		[MenuItem("WhichKey/Refresh")]
-		public static void Refresh()
-		{
-			loggingLevel = (int)Preferences.LogLevel;
-			instance.mainKeyHandler.Init();
-			MainHintsWindow.Init();
-		}
-
-		[MenuItem("WhichKey/ChangeRoot")]
-		public static void ChangeRoot()
-		{
-			FloatingTextField.ShowInputField(ChangeRoot, "Change Root To:");
-		}
-		public static void ChangeRoot(string key)
-		{
-			instance.mainKeyHandler.ChagneRoot(key);
-		}
-
-		[MenuItem("WhichKey/ResetRoot")]
-		public static void ResetRoot()
-		{
-			instance.mainKeyHandler.ResetRoot();
-		}
-		public static void ApplyPreferences()
-		{
-			SavePreferences();
-			Refresh();
-		}
-		public static void SavePreferences()
+		private void SavePreferences()
 		{
 
 			if (WhichKeyPreferences.instance == null)
 				LogError("WhichKey Preferences instance is null");
 			WhichKeyPreferences.instance.Save();
 		}
-		public static void LoadPreferenceFromJSON()
+		public void Active(string key)
+		{
+			mainKeyHandler.Reset(key);
+			ShowHintWindow();
+		}
+		public void ShowWindow()
+		{
+			mainKeyHandler.Reset();
+			ShowHintWindow();
+		}
+		public void Refresh()
+		{
+			loggingLevel = (int)Preferences.LogLevel;
+			mainKeyHandler.Init();
+			MainHintsWindow.Init();
+		}
+		public void ChangeRoot(string key)
+		{
+			mainKeyHandler.ChagneRoot(key);
+		}
+		public void ResetRoot()
+		{
+			mainKeyHandler.ResetRoot();
+		}
+		public void ApplyPreferences()
+		{
+			SavePreferences();
+			Refresh();
+		}
+		public void LoadPreferenceFromJSON()
 		{
 			TextAsset jsonFile = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/WhichKeyPreference.json");
 			if (jsonFile == null)
@@ -94,24 +81,24 @@ namespace PCP.Tools.WhichKey
 			}
 			Preferences.KeyMap = JsonUtility.FromJson<KeyMapWrapper>(jsonFile.text).KeyMap;
 		}
-		public static void SavePreferenceToJSON()
+		public void SavePreferenceToJSON()
 		{
 			KeyMapWrapper keySetsWrapper = new KeyMapWrapper(Preferences.KeyMap);
 			string json = JsonUtility.ToJson(keySetsWrapper, true);
 			Debug.Log(json);
 			System.IO.File.WriteAllText("Assets/WhichKeyPreference.json", json);
 		}
-		internal static void LogInfo(string msg)
+		public static void LogInfo(string msg)
 		{
 			if (loggingLevel == 0)
 				Debug.Log("Whichkey:" + msg);
 		}
-		internal static void LogWarning(string msg)
+		public static void LogWarning(string msg)
 		{
 			if (loggingLevel <= 1)
 				Debug.LogWarning("Whichkey:" + msg);
 		}
-		internal static void LogError(string msg)
+		public static void LogError(string msg)
 		{
 			if (loggingLevel <= 2)
 				Debug.LogError("Whichkey:" + msg);
