@@ -78,58 +78,23 @@ namespace PCP.Tools.WhichKey
 				activateHandler = (searchContext, rootElement) =>
 				{
 					var settings = WhichkeyProjectSettings.instance.GetSerializedObject();
+					var vts = WhichKey.instance.mUILoader;
 
-					// Create the root visual element
-					var root = new VisualElement();
-					root.style.flexDirection = FlexDirection.Column;
-					root.style.paddingLeft = 10;
-					root.style.paddingRight = 10;
-					root.style.paddingTop = 10;
-					root.style.paddingBottom = 10;
+					var root = vts.ProjectSettings.CloneTree();
 
-					// Create the Show KeyHint toggle
-					AddControlToRoot<Toggle, bool>("Show", "showHintInstant", root);
-					// Create the KeyMap list view
-					var scrollView = new ScrollView();
-					scrollView.style.flexGrow = 1;
-					var keyMapListView = new ListView();
+					ListView keymap = root.Q<ListView>("KeyMap");
+					keymap.makeItem = vts.KeySet.CloneTree;
 
-					keyMapListView.reorderable = true;
-					keyMapListView.showAddRemoveFooter = true;
-					keyMapListView.reorderMode = ListViewReorderMode.Animated;
-					keyMapListView.showFoldoutHeader = true;
-					keyMapListView.selectionType = SelectionType.Multiple;
+					ListView assetsData = root.Q<ListView>("AssetsData");
+					assetsData.makeItem = () => { return new PropertyField(); };
 
-					keyMapListView.bindingPath = "KeyMap";
-					VisualTreeAsset keyItem = Resources.Load<VisualTreeAsset>("Settings/keyset");
-					keyMapListView.makeItem = keyItem.CloneTree;
-
-					scrollView.Add(keyMapListView);
-					root.Add(scrollView);
-
-					// Create the Apply button
-					var applyButton = new Button(WhichKey.ApplyPreferences);
-					applyButton.text = "Apply";
-					root.Add(applyButton);
-
-					// Create the Save to JSON button
-					var saveButton = new Button(WhichKey.SavePreferenceToJSON);
-					saveButton.text = "Save to JSON";
-					root.Add(saveButton);
-
-					// Create the Load from JSON button
-					var loadButton = new Button(WhichKey.LoadPreferenceFromJSON);
-					loadButton.text = "Load from JSON";
-					root.Add(loadButton);
-
-					// Add the root visual element to the settings window
 					root.Bind(settings);
 					rootElement.Add(root);
 				},
 				deactivateHandler = () =>
 				{
 					WhichkeyProjectSettings.Save();
-					WhichKey.Refresh();
+					// WhichKey.Refresh();
 				},
 				keywords = new HashSet<string>(new[] { "WhichKey" })
 
