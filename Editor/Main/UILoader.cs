@@ -13,11 +13,11 @@ namespace PCP.Tools.WhichKey
         public VisualTreeAsset AssetData { private set; get; }
         public void Refresh()
         {
-            Preferences = Resources.Load<VisualTreeAsset>("UXML/Settings/Preferences");
-            ProjectSettings = Resources.Load<VisualTreeAsset>("UXML/Settings/ProjectSettings");
-            List = Resources.Load<VisualTreeAsset>("UXML/Templates/List");
-            KeySet = Resources.Load<VisualTreeAsset>("UXML/Templates/KeySet");
-            AssetData = Resources.Load<VisualTreeAsset>("UXML/Templates/AssetData");
+            Preferences = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Settings/Preferences");
+            ProjectSettings = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Settings/ProjectSettings");
+            List = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/List");
+            KeySet = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/KeySet");
+            AssetData = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/AssetData");
         }
     }
 }

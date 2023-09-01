@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <Style src="project://database/Packages/com.postcyberpunk.whichkey/Resources/Settings/Preferences.uss?fileID=7433441132597879392&amp;guid=e3c4c5602f121bd4c9791f48b6528ea2&amp;type=3#Preferences" />
+    <Style src="project://database/Packages/com.postcyberpunk.whichkey/Resources/WhichKey/UXML/Settings/Preferences.uss?fileID=7433441132597879392&amp;guid=e3c4c5602f121bd4c9791f48b6528ea2&amp;type=3#Preferences" />
     <ui:VisualElement name="Root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
         <ui:Foldout text="Hint Window Setting" name="hwinsetting">
             <ui:VisualElement class="Horizontal">
@@ -13,7 +13,7 @@
                 <ui:FloatField label="Colunm Width" value="42" name="ColWidth" binding-path="ColWidth" style="width: 150px;" />
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
-                <uie:ObjectField label="Font" name="Font" binding-path="Font" />
+                <uie:PropertyField label="Font" binding-path="Font" name="Font" />
                 <ui:FloatField label="Font Size" value="42" name="FontSize" binding-path="FontSize" style="width: 150px;" />
             </ui:VisualElement>
         </ui:Foldout>
