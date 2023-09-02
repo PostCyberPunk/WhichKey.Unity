@@ -13,7 +13,6 @@
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;" />
         </ui:Foldout>
-        <uie:ColorField label="BackgroundColor" value="RGBA(0.000, 1.000, 1.000, 1.000)" binding-path="WinBG" style="max-width: 90%;" />
         <ui:Foldout text="Key Mappings" name="Mapping">
             <ui:ScrollView>
                 <ui:ListView focusable="true" binding-path="KeyMap" show-border="true" reorderable="true" reorder-mode="Animated" show-add-remove-footer="true" name="KeyMap" show-foldout-header="true" header-title="Mapping" horizontal-scrolling="true" virtualization-method="DynamicHeight" />
