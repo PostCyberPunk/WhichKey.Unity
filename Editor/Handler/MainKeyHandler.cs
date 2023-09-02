@@ -107,7 +107,7 @@ namespace PCP.Tools.WhichKey
 			{
 				if (!mKeycodeMap.TryGetValue(keyCode, out key))
 				{
-					WhichKeyManager.LogInfo($"Key {key} not supported");
+					WhichKeyManager.LogInfo($"Key {keyCode.ToString()} not supported");
 					return true;
 				}
 			}
@@ -142,7 +142,7 @@ namespace PCP.Tools.WhichKey
 					}
 					catch (System.Exception)
 					{
-						WhichKeyManager.LogError($"AssetsHandler: Invalid Index {kn.CmdArg},Check your project settings for AssetsData");
+						WhichKeyManager.LogError($"AssetsHandler: Invalid Index {kn.CmdArg},Check your argument in mappings for keys: {mKeySeq}");
 						return true;
 					}
 					if (!mAssetsHandler.ProecessArg(index)) return true;
@@ -190,6 +190,11 @@ namespace PCP.Tools.WhichKey
 		{
 			var kn = GetKeyNodebyKeySeq(key);
 			if (kn == null) return;
+			if (kn.Type != KeyCmdType.Layer)
+			{
+				WhichKeyManager.LogWarning($"Change root failed ,KeySeq {mKeySeq} not a layer");
+				return;
+			}
 			mRoot = kn;
 			WhichKeyManager.LogInfo($"Change root to {key}");
 		}
@@ -211,11 +216,6 @@ namespace PCP.Tools.WhichKey
 					WhichKeyManager.LogWarning($"KeySeq {mKeySeq} not found @key {key[i]}");
 					return null;
 				}
-			}
-			if (kn.Type != KeyCmdType.Layer)
-			{
-				WhichKeyManager.LogWarning($"KeySeq {mKeySeq} not a layer");
-				return null;
 			}
 			return kn;
 		}

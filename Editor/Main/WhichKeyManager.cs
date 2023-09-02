@@ -18,29 +18,40 @@ namespace PCP.Tools.WhichKey
 		{
 			if (mainKeyHandler.isInitialized)
 				return;
+			SavePreferences();
+			Preferences = WhichKeyPreferences.instance;
 			if (SessionState.GetBool("WhichKeyOnce", false))
-				mUILoader.Refresh();
+				RefreshUI();
 			else
 			{
 				SessionState.SetBool("WhichKeyOnce", true);
 				EditorApplication.update += RunOnce;
 			}
-			SavePreferences();
-			Preferences = WhichKeyPreferences.instance;
-			Refresh();
+			RefreshDatabase();
 		}
 		private void RunOnce()
 		{
-			mUILoader.Refresh();
+			RefreshUI();
 			// Debug.Log("WhichKey is running for the first time");
 			EditorApplication.update -= RunOnce;
 		}
 		private void SavePreferences()
 		{
 
-			if (WhichKeyPreferences.instance == null)
+			if (WhichKeyPreferences.instance != null)
+				WhichKeyPreferences.instance.Save();
+			else
 				LogError("WhichKey Preferences instance is null");
-			WhichKeyPreferences.instance.Save();
+		}
+		private void RefreshUI()
+		{
+			mUILoader.Refresh();
+			MainHintsWindow.Init();
+		}
+		private void RefreshDatabase()
+		{
+			loggingLevel = (int)Preferences.LogLevel;
+			mainKeyHandler.Init();
 		}
 		public void Active(string key)
 		{
@@ -54,9 +65,8 @@ namespace PCP.Tools.WhichKey
 		}
 		public void Refresh()
 		{
-			loggingLevel = (int)Preferences.LogLevel;
-			mainKeyHandler.Init();
-			MainHintsWindow.Init();
+			RefreshUI();
+			RefreshDatabase();
 		}
 		public void ChangeRoot(string key)
 		{

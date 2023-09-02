@@ -29,7 +29,7 @@ namespace PCP.Tools.WhichKey
             string path = assetsData.GetAssetsPathByKey(key);
             if (string.IsNullOrEmpty(path))
             {
-                WhichKeyManager.LogError("AssetsHandler: No Assets Path Found For Key: " + key);
+                WhichKeyManager.LogError($"AssetsHandler: No Assets Path Found For Key: {key},check your path: {path}");
                 return true;
             }
             var obj = AssetDatabase.LoadAssetAtPath(path, typeof(UnityEngine.Object));
