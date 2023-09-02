@@ -11,6 +11,9 @@ namespace PCP.Tools.WhichKey
         public VisualTreeAsset List { private set; get; }
         public VisualTreeAsset KeySet { private set; get; }
         public VisualTreeAsset AssetData { private set; get; }
+        //For window
+        public VisualTreeAsset HintLabel { private set; get; }
+        public StyleSheet HintLabelSS { private set; get; }
         public void Refresh()
         {
             Preferences = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Settings/Preferences");
@@ -18,6 +21,8 @@ namespace PCP.Tools.WhichKey
             List = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/List");
             KeySet = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/KeySet");
             AssetData = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/AssetData");
+            HintLabel = Resources.Load<VisualTreeAsset>("WhichKey/UXML/UI/HintLabel");
+            HintLabelSS = Resources.Load<StyleSheet>("WhichKey/UXML/UI/HintLabelSS");
         }
     }
 }

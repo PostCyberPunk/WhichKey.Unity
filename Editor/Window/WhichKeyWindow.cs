@@ -1,10 +1,12 @@
-using System;
 using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Xml.Schema;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using UnityEditor.UIElements;
 
 namespace PCP.Tools.WhichKey
 {
@@ -25,7 +27,6 @@ namespace PCP.Tools.WhichKey
 		#region Data
 		//OPT
 		//Maybe a structure
-		private static float mFontSize;
 		//OPT
 		internal static float lineHeight;
 		private static float timeoutLen;
@@ -33,19 +34,16 @@ namespace PCP.Tools.WhichKey
 		private static Vector2 fixedPosition;
 		private static int maxHintLines;
 		private static float maxColWidth;
-		private static bool showKeyHint;
+		private static VisualTreeAsset hintLabel;
+		private static StyleSheet hintLabelSS;
 		#endregion
 		public static void Active()
 		{
 			// var win = GetWindow<WhichKeyWindow>();
-			if (instance = null)
+			if (instance == null)
 			{
-				Debug.LogWarning("Multiple WhichKeyWindow instance");
-				instance.Close();
+				instance = ScriptableObject.CreateInstance<MainHintsWindow>();
 			}
-
-			instance = ScriptableObject.CreateInstance<MainHintsWindow>();
-
 			if (lineHeight == 0)
 				// WKTestWindow.Test(mFontSize);
 				lineHeight = 24;
@@ -69,20 +67,29 @@ namespace PCP.Tools.WhichKey
 			WhichKeyManager.instance.ShowHintWindow = Active;
 
 			var pref = WhichKeyManager.Preferences;
-			showKeyHint = pref.ShowHint;
+			var uil = WhichKeyManager.mUILoader;
 			followMouse = pref.WindowFollowMouse;
 			fixedPosition = pref.FixedPosition;
 			maxHintLines = pref.MaxHintLines;
 			maxColWidth = pref.ColWidth;
 			timeoutLen = pref.Timeout;
-			mFontSize = pref.FontSize;
-
+			hintLabel = uil.HintLabel;
+			hintLabelSS = uil.HintLabelSS;
 			//Calculate line height
 			// WKTestWindow.Test(mFontSize);
+
 		}
 		private void CreateGUI()
 		{
-			mainFrame = new VisualElement();
+			mainFrame = Resources.Load<VisualTreeAsset>("WhichKey/UXML/UI/Blank").CloneTree().Q<VisualElement>();
+			mainFrame.styleSheets.Add(hintLabelSS);
+			mainFrame.AddToClassList("main");
+			var e = hintLabel.CloneTree().ElementAt(0);
+			e.RegisterCallback<GeometryChangedEvent>(evt =>
+			{
+				lineHeight = e.layout.height;
+			});
+			mainFrame.Add(e);
 			rootVisualElement.Add(mainFrame);
 		}
 		private void OnEnable()
@@ -144,7 +151,6 @@ namespace PCP.Tools.WhichKey
 		}
 		private void CheckDelayTimer()
 		{
-			if (!showKeyHint) return;
 			if (showHint) return;
 			showHint = Time.realtimeSinceStartup > hideTill;
 			if (showHint)
@@ -207,21 +213,17 @@ namespace PCP.Tools.WhichKey
 				{
 					int ind = i + j * maxHintLines;
 					if (ind * 2 >= hints.Length) break;
-					var e = TestCreateLabel(hints[ind * 2], hints[ind * 2 + 1]);
-					e.style.width = maxColWidth;
-					e.style.height = lineHeight;
-					col.Add(e);
+					var row = hintLabel.CloneTree().Q<VisualElement>();
+					var k = row.Q<Label>("Key");
+					var h = row.Q<Label>("Hint");
+					k.text = hints[ind * 2];
+					h.text = hints[ind * 2 + 1];
+					row.style.width = maxColWidth;
+					row.style.height = lineHeight;
+					col.Add(row);
 				}
 				mainFrame.Add(col);
 			}
-		}
-		private VisualElement TestCreateLabel(string key, string hint)
-		{
-			var root = new VisualElement();
-			root.style.flexDirection = FlexDirection.Row;
-			root.Add(new Label(key));
-			root.Add(new Label(hint));
-			return root;
 		}
 		private void CachedHintsWindow()
 		{
@@ -249,7 +251,7 @@ namespace PCP.Tools.WhichKey
 			for (int i = 0; i < hints.Length; i++)
 			{
 				Label label = new Label(hints[i]);
-				label.style.fontSize = mFontSize;
+				// label.style.fontSize = mFontSize;
 				label.style.width = maxColWidth;
 				mainFrame.Add(label);
 			}
