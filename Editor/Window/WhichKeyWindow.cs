@@ -125,6 +125,9 @@ namespace PCP.Tools.WhichKey
 					case KeyCode.Escape:
 						Close(e);
 						break;
+					case KeyCode.LeftShift:
+					case KeyCode.RightShift:
+						break;
 					default:
 						if (e.keyCode != prevKey || keyReleased)
 						{
