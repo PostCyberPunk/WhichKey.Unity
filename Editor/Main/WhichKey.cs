@@ -1,5 +1,6 @@
-using UnityEngine;
+using System.Collections.Generic;
 using UnityEditor;
+using System.Text;
 
 namespace PCP.Tools.WhichKey
 {
@@ -25,6 +26,30 @@ namespace PCP.Tools.WhichKey
         [MenuItem("WhichKey/Active")]
         public static void Active() => mManager.ShowWindow();
 
+        [MenuItem("WhichKey/PrintAllMenuItem")]
+        public static void PrintAllMenuItem()
+        {
+
+            var w = new PCP.Utils.BenchMark.StopWatch();
+            var mlist = TypeCache.GetMethodsWithAttribute<MenuItem>();
+            StringBuilder sb = new();
+            var slist = new List<string>();
+            foreach (var item in mlist)
+            {
+                var attribute = (MenuItem)item.GetCustomAttributes(typeof(MenuItem), false)[0];
+                slist.Add(attribute.menuItem);
+            }
+            //sort slist by string
+            slist.Sort();
+            foreach (var item in slist)
+            {
+                sb.AppendLine(item);
+            }
+            //save to file
+            System.IO.File.WriteAllText("Assets/AllMenuItem.txt", sb.ToString());
+            WhichKeyManager.LogInfo("All MenuItem saved to Assets/AllMenuItem.txt");
+            w.Finish();
+        }
         #endregion
 
         #region Pulic Methods
