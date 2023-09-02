@@ -8,12 +8,12 @@ namespace PCP.Tools.WhichKey
 	{
 		public static int maxLine;
 		private static readonly string layerHintFormat = "<color=yellow>{0}</color>  {1}\n";
-		public string KeySeq { private set; get; }
+		private string KeySeq;
 		public char Key { get => KeySeq[KeySeq.Length - 1]; }
 		public string Hint { private set; get; }
 		public string CmdArg { private set; get; }
 		public KeyCmdType Type { private set; get; }
-		public KeyNode Parent { get; }
+		public KeyNode Parent { private set; get; }
 		public string[] LayerHints { private set; get; }
 		public List<KeyNode> Children { private set; get; } //OPT :Lets keep this list,maybe useful for fast reloading
 		public bool hasChildren { get => Children.Count > 0; }
@@ -32,7 +32,6 @@ namespace PCP.Tools.WhichKey
 			UpdateKeySet(keySet);
 			Children = new List<KeyNode>();
 		}
-
 		public KeyNode AddChild(KeyNode child)
 		{
 			Children.Add(child);
@@ -60,7 +59,14 @@ namespace PCP.Tools.WhichKey
 
 			return null;
 		}
-		//OPT
+		public void SetParent(KeyNode parent)
+		{
+			Parent = parent;
+			foreach (var child in Children)
+			{
+				child.SetParent(this);
+			}
+		}
 		public void SetLayerHints()
 		{
 			if (!hasChildren) return;
@@ -68,9 +74,9 @@ namespace PCP.Tools.WhichKey
 			for (int i = 0; i < Children.Count; i++)
 			{
 				KeyNode child = Children[i];
-				child.SetLayerHints();
 				LayerHints[i * 2] = child.Key.ToString();
 				LayerHints[i * 2 + 1] = child.Hint;
+				child.SetLayerHints();
 			}
 		}
 		public void SetCachedLayerHints()
