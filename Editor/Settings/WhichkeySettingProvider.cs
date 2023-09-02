@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditorInternal;
-using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using System;
@@ -86,7 +85,7 @@ namespace PCP.Tools.WhichKey
 					keymap.makeItem = vts.KeySet.CloneTree;
 
 					ListView assetsData = root.Q<ListView>("AssetsData");
-					assetsData.makeItem = () => { return new PropertyField(); };
+					assetsData.makeItem = () => new PropertyField();
 
 					root.Bind(settings);
 					rootElement.Add(root);
