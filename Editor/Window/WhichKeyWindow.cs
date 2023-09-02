@@ -82,6 +82,7 @@ namespace PCP.Tools.WhichKey
 		private void CreateGUI()
 		{
 			mainFrame = Resources.Load<VisualTreeAsset>("WhichKey/UXML/UI/Blank").CloneTree().Q<VisualElement>();
+			if (mainFrame == null) return;
 			mainFrame.styleSheets.Add(hintLabelSS);
 			mainFrame.AddToClassList("main");
 			var e = hintLabel.CloneTree().ElementAt(0);
