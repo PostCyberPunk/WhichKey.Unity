@@ -1,11 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns="UnityEngine.UIElements" ue="UnityEditor.UIElements" editor-extension-mode="True">
     <ui:Box style="flex-direction: row;">
         <ui:Label tabindex="-1" text="KeySeq" display-tooltip-when-elided="true" />
-        <ui:TextField bindingPath="KeySeq" binding-path="KeySeq" style="width: 80px;" />
+        <ui:TextField bindingPath="KeySeq" binding-path="KeySeq" style="width: auto; min-width: 40px; max-width: 90px;" />
         <ui:Label tabindex="-1" text="Type" display-tooltip-when-elided="true" />
-        <ui:EnumField bindingPath="type" binding-path="type" style="width: 80px;" />
+        <ui:EnumField bindingPath="type" binding-path="type" style="width: 80px; max-width: 80px; min-width: 50px;" />
         <ui:Label tabindex="-1" text="Hints" display-tooltip-when-elided="true" />
-        <ui:TextField bindingPath="HintText" binding-path="HintText" style="width: 30%;" />
+        <ui:TextField bindingPath="HintText" binding-path="HintText" style="width: auto; min-width: 20%; max-width: 30%;" />
         <ui:Label tabindex="-1" text="Argument" display-tooltip-when-elided="true" />
         <ui:TextField bindingPath="CmdArg" binding-path="CmdArg" style="width: auto; flex-grow: 1;" />
     </ui:Box>
