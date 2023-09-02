@@ -30,6 +30,21 @@
 .key {
     font-size: 20px;
     color: rgb(203, 166, 247);
+    width: 28px;
+    background-color: rgb(24, 24, 37);
+    -unity-text-align: middle-center;
+    border-left-color: rgb(49, 50, 68);
+    border-right-color: rgb(49, 50, 68);
+    border-top-color: rgb(49, 50, 68);
+    border-bottom-color: rgb(49, 50, 68);
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .hint {

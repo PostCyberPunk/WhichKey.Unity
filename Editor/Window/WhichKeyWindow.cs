@@ -35,6 +35,7 @@ namespace PCP.Tools.WhichKey
 		private static int maxHintLines;
 		private static float maxColWidth;
 		private static VisualTreeAsset hintLabel;
+		private static VisualTreeAsset blankVE;
 		private static StyleSheet hintLabelSS;
 		#endregion
 		public static void Active()
@@ -75,13 +76,14 @@ namespace PCP.Tools.WhichKey
 			timeoutLen = pref.Timeout;
 			hintLabel = uil.HintLabel;
 			hintLabelSS = uil.HintLabelSS;
+			blankVE = uil.BlankVE;
 			//Calculate line height
 			// WKTestWindow.Test(mFontSize);
 
 		}
 		private void CreateGUI()
 		{
-			mainFrame = Resources.Load<VisualTreeAsset>("WhichKey/UXML/UI/Blank").CloneTree().Q<VisualElement>();
+			mainFrame = blankVE.CloneTree().Q<VisualElement>();
 			if (mainFrame == null) return;
 			mainFrame.styleSheets.Add(hintLabelSS);
 			mainFrame.AddToClassList("main");
