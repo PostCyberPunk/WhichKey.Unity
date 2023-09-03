@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+        <ui:Label tabindex="-1" text="Keyseq" display-tooltip-when-elided="true" />
+        <ui:TextField picking-mode="Ignore" value="filler text" name="Key" binding-path="Key" style="width: 50px;" />
+        <ui:Label tabindex="-1" text="Target" display-tooltip-when-elided="true" />
+        <uie:ObjectField name="GO" type="UnityEngine.GameObject, UnityEngine.CoreModule" />
+    </ui:VisualElement>
+</ui:UXML>
