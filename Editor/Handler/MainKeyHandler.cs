@@ -15,6 +15,7 @@ namespace PCP.Tools.WhichKey
 		private StringBuilder sb;
 		private IWhichKeyHandler mCurrentHandler;
 		private AssetsHandler mAssetsHandler = new();
+		private SceneHandler mSceneHandler = new();
 		public bool isInitialized { get => mTreeRoot != null; }
 
 		private static readonly Dictionary<KeyCode, string> mKeycodeMap = new Dictionary<KeyCode, string>
@@ -43,6 +44,7 @@ namespace PCP.Tools.WhichKey
 		};
 		public void Init()
 		{
+
 			mKeySeq = new();
 			sb = new();
 
@@ -147,6 +149,10 @@ namespace PCP.Tools.WhichKey
 					}
 					if (!mAssetsHandler.ProecessArg(index)) return true;
 					mCurrentHandler = mAssetsHandler;
+					return false;
+				case KeyCmdType.Scene:
+					mSceneHandler.Init();
+					mCurrentHandler = mSceneHandler;
 					return false;
 				default:
 					return true;

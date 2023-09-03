@@ -7,7 +7,7 @@ using UnityEditor.SceneManagement;
 namespace PCP.Tools.WhichKey
 {
     [FilePath("Project/WhichkeyProjectSettings", FilePathAttribute.Location.ProjectFolder)]
-    public class WhichkeyProjectSettings : ScriptableSingleton<WhichkeyProjectSettings>
+    internal class WhichkeyProjectSettings : ScriptableSingleton<WhichkeyProjectSettings>
     {
         [SerializeField] public bool showHintInstant = true;
         [SerializeField] public KeySet[] KeyMap;
@@ -18,13 +18,17 @@ namespace PCP.Tools.WhichKey
         {
             EditorSceneManager.sceneOpened += OnSceneOpened;
             var c_scene = SceneManager.GetActiveScene();
-            SetCurrentSceneData(c_scene);
-            Debug.Log($"WhichKey: Init: {c_scene.name},path:{c_scene.path}");
+            SetSceneData(c_scene);
         }
         public static void Save()
         {
             Undo.RegisterCompleteObjectUndo(instance, "Save WhichKey Project Settings");
             instance.Save(true);
+        }
+        public void SaveSceneData()
+        {
+            CurrentSceneData?.SetupKeyHints();
+            Save(true);
         }
         internal SerializedObject GetSerializedObject()
         {
@@ -36,9 +40,9 @@ namespace PCP.Tools.WhichKey
         }
         private void OnSceneOpened(Scene scene, OpenSceneMode mode)
         {
-            SetCurrentSceneData(scene);
+            SetSceneData(scene);
         }
-        private void SetCurrentSceneData(Scene scene)
+        private void SetSceneData(Scene scene)
         {
             if (!scene.IsValid())
                 WhichKeyManager.LogError($"WhichKey: SetCurrentSceneData: Invalid Scene");
@@ -57,5 +61,16 @@ namespace PCP.Tools.WhichKey
             CurrentSceneData = savedSceneDatas.Find(x => x.Scene == c_scene);
             return CurrentSceneData != null;
         }
+        [MenuItem("WhichKey/Test")]
+        public static void test()
+        {
 
+        }
+        [MenuItem("WhichKey/ClearData")]
+        public static void ClearData()
+        {
+            instance.savedSceneDatas.Clear();
+            Save();
+        }
+    }
 }

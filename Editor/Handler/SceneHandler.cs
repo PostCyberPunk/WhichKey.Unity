@@ -1,22 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
+using PCP.Tools.WhichKey;
 using UnityEngine;
 using UnityEditor;
-using UnityEngine.SceneManagement;
-using UnityEditorInternal;
-using System.Linq;
-using System.Text;
-using PCP.Tools.WhichKey;
-public class SceneHandler : ScriptableObject
+namespace PCP.Tools.WhichKey
 {
-    private SceneData? sceneData;
-    public void Init()
+
+    public class SceneHandler : IWhichKeyHandler
     {
-        if (WhichkeyProjectSettings.instance == null)
+        private SceneData sceneData;
+
+        public void Init()
         {
-            WhichKeyManager.LogError("Cant find project settings");
-            return;
+            if (WhichkeyProjectSettings.instance == null)
+            {
+                WhichKeyManager.LogError("Cant find project settings");
+                return;
+            }
+            sceneData = WhichkeyProjectSettings.instance.CurrentSceneData;
         }
-        sceneData = WhichkeyProjectSettings.instance.CurrentSceneData;
+        public bool ProcessKey(char key)
+        {
+            if (sceneData == null)
+            {
+                WhichKeyManager.LogError("No Scene Data,Please Save Scene");
+                return true;
+            }
+            //ping target gameobject by key
+            for (int i = 0; i < sceneData.Targets.Length; i++)
+            {
+                if (sceneData.Targets[i].Key == key)
+                {
+                    var target = sceneData.Targets[i].Target;
+                    if (target == "")
+                    {
+                        WhichKeyManager.LogInfo($"No Reference for {key}");
+                        return true;
+                    }
+                    var go = GameObject.Find(target);
+                    if (go == null)
+                        WhichKeyManager.LogError($"Cant find {target}");
+                    EditorGUIUtility.PingObject(go);
+                }
+            }
+            return true;
+        }
+        public string[] GetLayerHints()
+        {
+            if (sceneData == null)
+                return new string[0];
+            return sceneData.KeyHints;
+        }
     }
 }

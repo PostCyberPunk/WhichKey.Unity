@@ -16,6 +16,11 @@ namespace PCP.Tools.WhichKey
 		public Action ShowHintWindow;
 		public void Init()
 		{
+			if (mainKeyHandler.isInitialized)
+			{
+				LogError("WhichKeyManager is already initialized");
+				return;
+			}
 			WhichkeyProjectSettings.instance?.Init();
 			SavePreferences();
 			Preferences = WhichKeyPreferences.instance;
