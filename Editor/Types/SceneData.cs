@@ -1,20 +1,25 @@
 using UnityEngine;
 using System;
+using UnityEditor;
 
 namespace PCP.Tools.WhichKey
 {
     [Serializable]
-    public struct SceneData
+    public class SceneData
     {
-        [SerializeField]
-        public string Path;
-        [SerializeReference]
-        public GameObject[] Targets;
-
-        public SceneData(string path, GameObject[] targets)
+        // [SerializeField]
+        // [SerializeReference]
+        public SceneAsset Scene;
+        public KeyObject[] Targets;
+        public SceneData(SceneAsset scene)
         {
-            Path = path;
-            Targets = targets;
+            Scene = scene;
         }
+    }
+    [Serializable]
+    public struct KeyObject
+    {
+        public string Target;
+        public char Key;
     }
 }
