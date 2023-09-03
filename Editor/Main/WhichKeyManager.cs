@@ -16,8 +16,7 @@ namespace PCP.Tools.WhichKey
 		public Action ShowHintWindow;
 		public void Init()
 		{
-			if (WhichkeyProjectSettings.instance != null)
-				WhichkeyProjectSettings.instance.Init();
+			WhichkeyProjectSettings.instance?.Init();
 			SavePreferences();
 			Preferences = WhichKeyPreferences.instance;
 			if (SessionState.GetBool("WhichKeyOnce", false))

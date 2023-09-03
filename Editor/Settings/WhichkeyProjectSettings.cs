@@ -12,10 +12,8 @@ namespace PCP.Tools.WhichKey
         [SerializeField] public bool showHintInstant = true;
         [SerializeField] public KeySet[] KeyMap;
         [SerializeField] public ProjectAssetsData[] projectAssetsDatas = new ProjectAssetsData[0];
-        [SerializeField] public SceneData[] savedSceneDatas = new SceneData[0];
-        public Dictionary<int, SceneData?> sceneDatas = new Dictionary<int, SceneData?>();
-        // internal List<SceneData> sceneDataList = new List<SceneData>();
-        internal SceneData? CurrentSceneData;
+        [SerializeField] public List<SceneData> savedSceneDatas = new();
+        public SceneData CurrentSceneData;
         internal void Init()
         {
             EditorSceneManager.sceneOpened += OnSceneOpened;
@@ -23,23 +21,11 @@ namespace PCP.Tools.WhichKey
             SetCurrentSceneData(c_scene);
             Debug.Log($"WhichKey: Init: {c_scene.name},path:{c_scene.path}");
         }
-        private void SetupDict()
-        {
-            foreach (var data in savedSceneDatas)
-            {
-                sceneDatas.Add(data.Path.GetHashCode(), data);
-            }
-        }
         public static void Save()
         {
             Undo.RegisterCompleteObjectUndo(instance, "Save WhichKey Project Settings");
             instance.Save(true);
         }
-        private void SaveDict()
-        {
-
-        }
-
         internal SerializedObject GetSerializedObject()
         {
             return new SerializedObject(this);
@@ -58,20 +44,18 @@ namespace PCP.Tools.WhichKey
                 WhichKeyManager.LogError($"WhichKey: SetCurrentSceneData: Invalid Scene");
             else if (scene.path == "")
                 WhichKeyManager.LogInfo($"WhichKey:Save and reopen the scene to use WhichKey");
-            else if (sceneDatas.TryGetValue(scene.path.GetHashCode(), out var data))
+            else if (!FindScenedata(scene))
             {
-                CurrentSceneData = data;
-                return;
-            }
-            else
-            {
-                CurrentSceneData = new SceneData(scene.path, new GameObject[0]);
-                sceneDatas.Add(scene.path.GetHashCode(), CurrentSceneData);
+                CurrentSceneData = new SceneData(AssetDatabase.LoadAssetAtPath<SceneAsset>(scene.path));
+                savedSceneDatas.Add(CurrentSceneData);
                 Save();
-                return;
             }
-            CurrentSceneData = null;
         }
-    }
+        private bool FindScenedata(Scene scene)
+        {
+            SceneAsset c_scene = AssetDatabase.LoadAssetAtPath<SceneAsset>(scene.path);
+            CurrentSceneData = savedSceneDatas.Find(x => x.Scene == c_scene);
+            return CurrentSceneData != null;
+        }
 
 }
