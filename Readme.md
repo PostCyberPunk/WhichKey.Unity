@@ -46,9 +46,12 @@ button to uxml
 piemenu
 # bug
 setting ui stuck why?
+keybing use int or keycode to char?
+Arg to a class that can be setup with a window
 <!-- !todo tree -->
 !!!!benchmark  chached 0.01 not cached 0.04
 !!! load :list vs array for reloading?
+cmdtype???
 <!-- check for list that can switch to array -->
 # todo 
 <!-- UI Elements cant calculate actual size properly(01245f7a) -->
