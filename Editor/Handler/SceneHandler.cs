@@ -38,6 +38,7 @@ namespace PCP.Tools.WhichKey
                     var go = GameObject.Find(target);
                     if (go == null)
                         WhichKeyManager.LogError($"Cant find {target}");
+                    Selection.activeGameObject = go;
                     EditorGUIUtility.PingObject(go);
                 }
             }

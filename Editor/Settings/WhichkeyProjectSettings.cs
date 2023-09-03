@@ -12,7 +12,7 @@ namespace PCP.Tools.WhichKey
         [SerializeField] public bool showHintInstant = true;
         [SerializeField] public KeySet[] KeyMap;
         [SerializeField] public ProjectAssetsData[] projectAssetsDatas = new ProjectAssetsData[0];
-        [SerializeField] public List<SceneData> savedSceneDatas = new();
+        [SerializeField] private List<SceneData> savedSceneDatas = new();
         public SceneData CurrentSceneData;
         internal void Init()
         {
