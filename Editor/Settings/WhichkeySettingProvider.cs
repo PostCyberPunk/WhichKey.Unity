@@ -33,13 +33,14 @@ namespace PCP.Tools.WhichKey
 					{
 						var visualElement = e as BindableElement;
 						var p = settings.GetSerializedObject().FindProperty("KeyMap").GetArrayElementAtIndex(i);
-						KeySet ks = settings.KeyMap[i];
 						visualElement.BindProperty(p);
 						// ((BindableElement)e).BindProperty(settings.GetSerializedObject().FindProperty("KeyMap").GetArrayElementAtIndex(i));
-						e.Q<Button>("Bind").clicked += () =>
+
+						var btn = e.Q<Button>("Bind"); 
+						btn.clickable = new Clickable(() =>
 						{
-							WhichKeyManager.LogInfo(ks.HintText);
-						};
+							settings.KeyMap[i].Bind();
+						});
 					};
 					// keymap.itemsSource = settings.KeyMap;
 					//Show/Hide position field by FollowMouse toggle

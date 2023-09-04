@@ -1,12 +1,12 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns="UnityEngine.UIElements" ue="UnityEditor.UIElements" editor-extension-mode="True">
-    <ui:Box style="flex-direction: row;">
+    <ui:Box focusable="true" style="flex-direction: row;">
         <ui:Label tabindex="-1" text="KeySeq" display-tooltip-when-elided="true" />
-        <ui:TextField bindingPath="KeySeq" binding-path="KeyLabel" readonly="true" style="width: auto; min-width: 40px; max-width: 90px;" />
+        <ui:Label tabindex="-1" text="None" display-tooltip-when-elided="true" name="KeyLabel" binding-path="KeyLabel" style="color: rgb(136, 245, 10); width: 70px;" />
+        <ui:Button text="Bind" display-tooltip-when-elided="false" name="Bind" focusable="false" />
         <ui:Label tabindex="-1" text="Type" display-tooltip-when-elided="true" />
-        <ui:EnumField bindingPath="type" binding-path="type" style="width: 80px; max-width: 80px; min-width: 50px;" />
+        <ui:EnumField bindingPath="type" binding-path="type" style="width: 80px;" />
         <ui:Label tabindex="-1" text="Hints" display-tooltip-when-elided="true" />
-        <ui:TextField bindingPath="HintText" binding-path="HintText" style="width: auto; min-width: 20%; max-width: 30%;" />
-        <ui:Button text="Bind" display-tooltip-when-elided="true" name="Bind" />
+        <ui:TextField bindingPath="HintText" binding-path="HintText" style="width: 200px;" />
         <ui:Label tabindex="-1" text="Argument" display-tooltip-when-elided="true" />
         <ui:TextField bindingPath="CmdArg" binding-path="CmdArg" style="width: auto; flex-grow: 1;" />
     </ui:Box>

@@ -17,5 +17,13 @@ namespace PCP.Tools.WhichKey
 			else
 				KeyLabel = KeySeq.ToLabel();
 		}
+		public void Bind()
+		{
+			BindingWindow.ShowWindow((ks) =>
+			{
+				KeySeq = ks;
+				SetKeyLabel();
+			});
+		}
 	}
 }
