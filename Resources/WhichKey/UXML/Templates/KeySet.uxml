@@ -6,7 +6,7 @@
         <ui:Label tabindex="-1" text="Type" display-tooltip-when-elided="true" />
         <ui:EnumField bindingPath="type" binding-path="type" style="width: 80px;" />
         <ui:Label tabindex="-1" text="Hints" display-tooltip-when-elided="true" />
-        <ui:TextField bindingPath="HintText" binding-path="HintText" style="width: 200px;" />
+        <ui:TextField bindingPath="HintText" binding-path="HintText" style="width: 150px;" />
         <ui:Label tabindex="-1" text="Argument" display-tooltip-when-elided="true" />
         <ui:TextField bindingPath="CmdArg" binding-path="CmdArg" style="width: auto; flex-grow: 1;" />
     </ui:Box>

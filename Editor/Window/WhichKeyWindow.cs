@@ -23,6 +23,8 @@ namespace PCP.Tools.WhichKey
 		private float mWidth;
 		#region Elements
 		private VisualElement mainFrame;
+		private VisualElement labelFrame;
+		private Label titleLabel;
 		#endregion
 		#region Data
 		//OPT
@@ -45,9 +47,9 @@ namespace PCP.Tools.WhichKey
 			{
 				instance = ScriptableObject.CreateInstance<MainHintsWindow>();
 			}
-			if (lineHeight == 0)
+			// if (lineHeight == 0)
 				// WKTestWindow.Test(mFontSize);
-				lineHeight = 24;
+				// lineHeight = 24;
 			instance.showHint = false;
 			instance.titleContent = new GUIContent("WhichKey");
 			instance.UpdateDelayTimer();
@@ -87,12 +89,23 @@ namespace PCP.Tools.WhichKey
 			if (mainFrame == null) return;
 			mainFrame.styleSheets.Add(hintLabelSS);
 			mainFrame.AddToClassList("main");
+
+			labelFrame = blankVE.CloneTree().Q<VisualElement>();
+			labelFrame.style.flexDirection = FlexDirection.Row;
+
+			titleLabel = new Label("WhichKey");
+			titleLabel.AddToClassList("title");
 			var e = hintLabel.CloneTree().ElementAt(0);
 			e.RegisterCallback<GeometryChangedEvent>(evt =>
 			{
 				lineHeight = e.layout.height;
 			});
-			mainFrame.Add(e);
+			labelFrame.Add(e);
+
+			mainFrame.Clear();
+			mainFrame.Add(titleLabel);
+			mainFrame.Add(labelFrame);
+
 			rootVisualElement.Add(mainFrame);
 		}
 		private void OnEnable()
@@ -171,7 +184,7 @@ namespace PCP.Tools.WhichKey
 
 		private void DummyWindow()
 		{
-			mainFrame.Clear();
+			// labelFrame.Clear();
 			position = new Rect(0, 0, 0, 0);
 		}
 		private string DebugGetHints()
@@ -193,11 +206,10 @@ namespace PCP.Tools.WhichKey
 				Deactive();
 				return;
 			}
-			mainFrame.Clear();
-			mHeight = lineHeight * maxHintLines;
-			mainFrame.style.flexDirection = FlexDirection.Row;
+			labelFrame.Clear();
+			mHeight = lineHeight * (maxHintLines + 1) + 2*mainFrame.resolvedStyle.paddingTop;
 			var cols = Mathf.CeilToInt(hints.Length / 2f / maxHintLines);
-			mWidth = cols * maxColWidth;
+			mWidth = cols * maxColWidth + mainFrame.resolvedStyle.paddingLeft*2;
 			maxSize = new Vector2(mWidth, mHeight);
 			if (followMouse)
 			{
@@ -228,7 +240,7 @@ namespace PCP.Tools.WhichKey
 					row.style.height = lineHeight;
 					col.Add(row);
 				}
-				mainFrame.Add(col);
+				labelFrame.Add(col);
 			}
 		}
 		private void CachedHintsWindow()
