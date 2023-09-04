@@ -40,7 +40,7 @@ public static class KeyCodeExtension
         sb.Clear();
         foreach (var item in list)
         {
-            sb.Append(item.ToLabel());
+            sb.AppendFormat("{0} ", item.ToLabel());
         }
         return sb.ToString();
     }
@@ -50,7 +50,7 @@ public static class KeyCodeExtension
         for (int i = 0; i < array.Length; i++)
         {
             int item = array[i];
-            sb.Append(item.ToLabel());
+            sb.AppendFormat("{0} ", item.ToLabel());
         }
         return sb.ToString();
     }
