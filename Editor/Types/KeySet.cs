@@ -6,6 +6,7 @@ namespace PCP.Tools.WhichKey
 	public class KeySet
 	{
 		public int[] KeySeq=new int[0];
+		public string KeyLabel = "None";
 		public KeyCmdType type;
 		public string HintText;
 		public string CmdArg;
