@@ -25,7 +25,7 @@ namespace PCP.Tools.WhichKey
             KeyHints = new string[Targets.Length * 2];
             for (int i = 0; i < Targets.Length; i++)
             {
-                KeyHints[i * 2] = Targets[i].Key.ToString();
+                KeyHints[i * 2] = Targets[i].Key.ToLabel();
                 KeyHints[i * 2 + 1] = Targets[i].Target;
             }
         }
@@ -33,7 +33,7 @@ namespace PCP.Tools.WhichKey
     [Serializable]
     public struct KeyObject
     {
-        public char Key;
+        public int Key;
         public string Target;
     }
 }

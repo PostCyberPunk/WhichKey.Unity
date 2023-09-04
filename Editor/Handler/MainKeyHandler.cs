@@ -8,7 +8,7 @@ namespace PCP.Tools.WhichKey
 {
 	internal class MainKeyHandler : IWhichKeyHandler
 	{
-		private StringBuilder mKeySeq;
+		private Stack<int> mKeySeq;
 		private KeyNode mTreeRoot;
 		private KeyNode mRoot;
 		private KeyNode mCurrentNode;
@@ -48,7 +48,7 @@ namespace PCP.Tools.WhichKey
 			mKeySeq = new();
 			sb = new();
 
-			mTreeRoot = new KeyNode("", "");
+			mTreeRoot = new KeyNode(0, "");
 
 			ProcessKeyMap(WhichKeyPreferences.instance.KeyMap);
 
@@ -72,26 +72,26 @@ namespace PCP.Tools.WhichKey
 			mCurrentNode = mTreeRoot;
 			for (int i = 0; i < keyset.KeySeq.Length; i++)
 			{
-				char key = keyset.KeySeq[i];
-				KeyNode childNode = mCurrentNode.GetChildByKey(key);
+				int key = keyset.KeySeq[i];
+				KeyNode kn = mCurrentNode.GetChildByKey(key);
 				if (i == keyset.KeySeq.Length - 1)
 				{
-					if (childNode == null)
-						childNode = mCurrentNode.AddChild(new KeyNode(keyset, mCurrentNode));
+					if (kn == null)
+						kn = mCurrentNode.AddChild(new KeyNode(keyset, i, mCurrentNode));
 					else
 					{
-						if (childNode.Type == KeyCmdType.Layer && keyset.type == KeyCmdType.Layer)
-							childNode.UpdateKeySet(keyset);
+						if (kn.Type == KeyCmdType.Layer && keyset.type == KeyCmdType.Layer)
+							kn.UpdateKeySet(keyset);
 						else
-							WhichKeyManager.LogError($"KeySeq {keyset.KeySeq} already registered,skip Hint: {keyset.HintText},args: {keyset.CmdArg}");
+							WhichKeyManager.LogError($"Hint: {keyset.HintText},KeySeq {keyset.KeySeq.ToLabel()} already registered To \"{kn.Hint}\" ,skipped ");
 					}
 					return;
 				}
-				if (childNode == null)
+				if (kn == null)
 				{
-					childNode = mCurrentNode.AddChild(new KeyNode(key.ToString(), ""));
+					kn = mCurrentNode.AddChild(new KeyNode(key, ""));
 				}
-				mCurrentNode = childNode;
+				mCurrentNode = kn;
 			}
 		}
 
@@ -104,25 +104,19 @@ namespace PCP.Tools.WhichKey
 		{
 			//Oh bad bad bad code
 
-			string key = keyCode.ToString();
-			if (key.Length > 1)
-			{
-				if (!mKeycodeMap.TryGetValue(keyCode, out key))
-				{
-					WhichKeyManager.LogInfo($"Key {keyCode.ToString()} not supported");
-					return true;
-				}
-			}
-			return mCurrentHandler.ProcessKey(shift ? key[0] : key.ToLower()[0]);
+			int key = keyCode.ToAscii(shift);
+			if (key == 0)
+				return true;
+			return mCurrentHandler.ProcessKey(key);
 		}
 
-		public bool ProcessKey(char key)
+		public bool ProcessKey(int key)
 		{
-			mKeySeq.Append(key);
+			mKeySeq.Push(key);
 			KeyNode kn = mCurrentNode.GetChildByKey(key);
 			if (kn == null)
 			{
-				WhichKeyManager.LogWarning($"KeySeq {mKeySeq} not found");
+				WhichKeyManager.LogWarning($"KeySeq {mKeySeq.ToArray().ToLabel()} not found");
 				return true;
 			}
 			switch (kn.Type)
@@ -134,7 +128,7 @@ namespace PCP.Tools.WhichKey
 					ProcessMenu(kn.CmdArg);
 					return true;
 				case KeyCmdType.ChangeRoot:
-					ChagneRoot(kn.CmdArg);
+					// ChagneRoot(kn.CmdArg);
 					return true;
 				case KeyCmdType.Assets:
 					int index = 0;
@@ -144,7 +138,7 @@ namespace PCP.Tools.WhichKey
 					}
 					catch (System.Exception)
 					{
-						WhichKeyManager.LogError($"AssetsHandler: Invalid Index {kn.CmdArg},Check your argument in mappings for keys: {mKeySeq}");
+						WhichKeyManager.LogError($"AssetsHandler: Invalid Index {kn.CmdArg},Check your argument in mappings for keys: {mKeySeq.ToArray().ToLabel()}");
 						return true;
 					}
 					if (!mAssetsHandler.ProecessArg(index)) return true;
@@ -181,7 +175,7 @@ namespace PCP.Tools.WhichKey
 			mCurrentHandler = this;
 			mCurrentNode = mRoot;
 		}
-		public void Reset(string key)
+		public void Reset(int[] key)
 		{
 			Reset();
 			mCurrentNode = GetKeyNodebyKeySeq(key);
@@ -192,19 +186,19 @@ namespace PCP.Tools.WhichKey
 			mRoot = mTreeRoot;
 		}
 
-		public void ChagneRoot(string key)
+		public void ChagneRoot(int[] key)
 		{
 			var kn = GetKeyNodebyKeySeq(key);
 			if (kn == null) return;
 			if (kn.Type != KeyCmdType.Layer)
 			{
-				WhichKeyManager.LogWarning($"Change root failed ,KeySeq {mKeySeq} not a layer");
+				WhichKeyManager.LogWarning($"Change root failed ,KeySeq {mKeySeq.ToArray().ToLabel()} not a layer");
 				return;
 			}
 			mRoot = kn;
-			WhichKeyManager.LogInfo($"Change root to {key}");
+			WhichKeyManager.LogInfo($"Change root to {key.ToLabel()}");
 		}
-		private KeyNode GetKeyNodebyKeySeq(string key)
+		private KeyNode GetKeyNodebyKeySeq(int[] key)
 		{
 
 			if (key.Length == 0)
@@ -219,7 +213,7 @@ namespace PCP.Tools.WhichKey
 				kn = mCurrentNode.GetChildByKey(key[i]);
 				if (kn == null)
 				{
-					WhichKeyManager.LogWarning($"KeySeq {mKeySeq} not found @key {key[i]}");
+					WhichKeyManager.LogWarning($"KeySeq {mKeySeq.ToArray().ToLabel()} not found @key {key[i].ToLabel()}");
 					return null;
 				}
 			}

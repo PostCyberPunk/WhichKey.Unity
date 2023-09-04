@@ -57,7 +57,7 @@ namespace PCP.Tools.WhichKey
 			loggingLevel = (int)Preferences.LogLevel;
 			mainKeyHandler.Init();
 		}
-		public void Active(string key)
+		public void Active(int[] key)
 		{
 			mainKeyHandler.Reset(key);
 			ShowHintWindow();
@@ -72,7 +72,7 @@ namespace PCP.Tools.WhichKey
 			RefreshUI();
 			RefreshDatabase();
 		}
-		public void ChangeRoot(string key)
+		public void ChangeRoot(int[] key)
 		{
 			mainKeyHandler.ChagneRoot(key);
 		}

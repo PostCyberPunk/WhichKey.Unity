@@ -17,7 +17,7 @@ namespace PCP.Tools.WhichKey
             }
             sceneData = WhichkeyProjectSettings.instance.CurrentSceneData;
         }
-        public bool ProcessKey(char key)
+        public bool ProcessKey(int key)
         {
             if (sceneData == null)
             {
@@ -32,7 +32,7 @@ namespace PCP.Tools.WhichKey
                     var target = sceneData.Targets[i].Target;
                     if (target == "")
                     {
-                        WhichKeyManager.LogInfo($"No Reference for {key}");
+                        WhichKeyManager.LogInfo($"No Reference for {key.ToLabel()}");
                         return true;
                     }
                     var go = GameObject.Find(target);

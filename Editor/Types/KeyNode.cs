@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -8,8 +9,7 @@ namespace PCP.Tools.WhichKey
 	{
 		public static int maxLine;
 		private static readonly string layerHintFormat = "<color=yellow>{0}</color>  {1}\n";
-		private string KeySeq;
-		public char Key { get => KeySeq[KeySeq.Length - 1]; }
+		public int Key { private set; get; }
 		public string Hint { private set; get; }
 		public string CmdArg { private set; get; }
 		public KeyCmdType Type { private set; get; }
@@ -18,17 +18,17 @@ namespace PCP.Tools.WhichKey
 		public List<KeyNode> Children { private set; get; } //OPT :Lets keep this list,maybe useful for fast reloading
 		public bool hasChildren { get => Children.Count > 0; }
 
-		public KeyNode(string key, string hintText)
+		public KeyNode(int key, string hintText)
 		{
-			KeySeq = key;
+			Key = key;
 			Hint = hintText;
 			Type = KeyCmdType.Layer;
 			Children = new List<KeyNode>();
 		}
-		public KeyNode(KeySet keySet, KeyNode parent)
+		public KeyNode(KeySet keySet, int index, KeyNode parent)
 		{
 			Parent = parent;
-			KeySeq = keySet.KeySeq[keySet.KeySeq.Length - 1].ToString();
+			Key = keySet.KeySeq[index];
 			UpdateKeySet(keySet);
 			Children = new List<KeyNode>();
 		}
@@ -47,7 +47,7 @@ namespace PCP.Tools.WhichKey
 			CmdArg = keySet.CmdArg;
 			Type = keySet.type;
 		}
-		public KeyNode GetChildByKey(char key)
+		public KeyNode GetChildByKey(int key)
 		{
 			foreach (var child in Children)
 			{
@@ -74,7 +74,7 @@ namespace PCP.Tools.WhichKey
 			for (int i = 0; i < Children.Count; i++)
 			{
 				KeyNode child = Children[i];
-				LayerHints[i * 2] = child.Key.ToString();
+				LayerHints[i * 2] = child.Key.ToLabel();
 				LayerHints[i * 2 + 1] = child.Hint;
 				child.SetLayerHints();
 			}

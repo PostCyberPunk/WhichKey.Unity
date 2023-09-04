@@ -7,7 +7,7 @@ namespace PCP.Tools.WhichKey
 		/// </summary>
 		/// <param name="key">key to handle</param>
 		/// <returns>true if you want to close hint window</returns>
-		bool ProcessKey(char key);
+		bool ProcessKey(int key);
 
 		/// <summary>
 		/// the Hints you want to show in hint window

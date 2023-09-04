@@ -24,12 +24,12 @@ namespace PCP.Tools.WhichKey
             WhichKeyManager.LogError("AssetsHandler: No Assets Data Found For Index: " + index);
             return false;
         }
-        public bool ProcessKey(char key)
+        public bool ProcessKey(int key)
         {
             string path = assetsData.GetAssetsPathByKey(key);
             if (string.IsNullOrEmpty(path))
             {
-                WhichKeyManager.LogInfo($"AssetsHandler: No Assets Path Found For Key: {key},check your path: {path}");
+                WhichKeyManager.LogInfo($"AssetsHandler: No Assets Path Found For Key: {key.ToLabel()},check your path: {path}");
                 return true;
             }
             var obj = AssetDatabase.LoadAssetAtPath(path, typeof(UnityEngine.Object));

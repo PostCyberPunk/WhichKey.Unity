@@ -11,7 +11,7 @@ namespace PCP.Tools.WhichKey
     {
         [SerializeField] public string[] LayerHints;
         [SerializeField] private AssetData[] AssetsData = new AssetData[0];
-        public string GetAssetsPathByKey(char key)
+        public string GetAssetsPathByKey(int key)
         {
             foreach (var item in AssetsData)
             {
@@ -29,7 +29,7 @@ namespace PCP.Tools.WhichKey
             LayerHints = new string[AssetsData.Length * 2];
             for (int i = 0; i < AssetsData.Length; i++)
             {
-                LayerHints[i * 2] = AssetsData[i].Key.ToString();
+                LayerHints[i * 2] = AssetsData[i].Key.ToLabel();
                 LayerHints[i * 2 + 1] = AssetsData[i].Hint;
             }
         }
