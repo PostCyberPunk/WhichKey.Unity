@@ -188,6 +188,11 @@ namespace PCP.Tools.WhichKey
 
 		public void ChagneRoot(int[] key)
 		{
+			if(key == null)
+			{
+				ResetRoot();
+				return;
+			}
 			var kn = GetKeyNodebyKeySeq(key);
 			if (kn == null) return;
 			if (kn.Type != KeyCmdType.Layer)

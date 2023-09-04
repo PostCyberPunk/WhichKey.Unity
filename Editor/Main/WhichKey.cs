@@ -20,9 +20,9 @@ namespace PCP.Tools.WhichKey
         [MenuItem("WhichKey/Refresh")]
         public static void Refresh() => mManager.Refresh();
         [MenuItem("WhichKey/ChangeRoot")]
-        public static void ChangeRoot() => FloatingTextField.ShowInputField(mManager.ChangeRoot, "Change Root To:");
+        public static void ChangeRoot() => BindingWindow.ShowWindow((key) => mManager.ChangeRoot(key));
         [MenuItem("WhichKey/ResetRoot")]
-        public static void ResetRoot() => mManager.ChangeRoot("");
+        public static void ResetRoot() => mManager.ChangeRoot(null);
         [MenuItem("WhichKey/Active")]
         public static void Active() => mManager.ShowWindow();
 
@@ -53,7 +53,7 @@ namespace PCP.Tools.WhichKey
         #endregion
 
         #region Pulic Methods
-        public static void Active(string key)
+        public static void Active(int[] key)
         {
             mManager.Active(key);
         }
