@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace PCP.Tools.WhichKey
 {
-	public class KeyMapWrapper
+	public class JSONArrayWrapper<T>
 	{
-		public KeySet[] KeyMap;
-		public KeyMapWrapper(KeySet[] KeyMap)
+		public T[] array;
+		public JSONArrayWrapper(T[] array)
 		{
-			this.KeyMap = KeyMap;
+			this.array = array;
 		}
 	}
 
