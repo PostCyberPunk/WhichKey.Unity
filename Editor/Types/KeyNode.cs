@@ -40,9 +40,7 @@ namespace PCP.Tools.WhichKey
 
 		public void UpdateKeySet(KeySet keySet)
 		{
-			if (Hint != null && keySet.HintText != null)
-				Hint += "/" + keySet.HintText;
-			else
+			if (!string.IsNullOrEmpty(keySet.HintText))
 				Hint = keySet.HintText;
 			CmdArg = keySet.CmdArg;
 			Type = keySet.type;

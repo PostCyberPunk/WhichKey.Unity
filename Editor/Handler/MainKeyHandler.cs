@@ -80,10 +80,12 @@ namespace PCP.Tools.WhichKey
 						kn = mCurrentNode.AddChild(new KeyNode(keyset, i, mCurrentNode));
 					else
 					{
-						if (kn.Type == KeyCmdType.Layer && keyset.type == KeyCmdType.Layer)
+						if (kn.Type == KeyCmdType.Layer && string.IsNullOrEmpty(kn.Hint) && keyset.type == KeyCmdType.Layer)
+						{
 							kn.UpdateKeySet(keyset);
+						}
 						else
-							WhichKeyManager.LogError($"Hint: {keyset.HintText},KeySeq {keyset.KeySeq.ToLabel()} already registered To \"{kn.Hint}\" ,skipped ");
+							WhichKeyManager.LogError($"<color=yellow>Hint: {keyset.HintText}</color>||<color=green>Key:{keyset.KeySeq.ToLabel()}</color> already registered To \"<color=yellow>{kn.Hint}</color>\" ,skipped ");
 					}
 					return;
 				}
@@ -188,7 +190,7 @@ namespace PCP.Tools.WhichKey
 
 		public void ChagneRoot(int[] key)
 		{
-			if(key == null)
+			if (key == null)
 			{
 				ResetRoot();
 				return;
