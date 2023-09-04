@@ -4,6 +4,7 @@ using UnityEditorInternal;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using System;
+using System.Diagnostics;
 
 namespace PCP.Tools.WhichKey
 {
@@ -27,7 +28,20 @@ namespace PCP.Tools.WhichKey
 					// Create the root visual element
 					var root = vts.Preferences.CloneTree();
 					root.Q<ListView>("KeyMap").makeItem = vts.KeySet.CloneTree;
-
+					var keymap = root.Q<ListView>("KeyMap");
+					keymap.bindItem = (e, i) =>
+					{
+						var visualElement = e as BindableElement;
+						var p = settings.GetSerializedObject().FindProperty("KeyMap").GetArrayElementAtIndex(i);
+						KeySet ks = settings.KeyMap[i];
+						visualElement.BindProperty(p);
+						// ((BindableElement)e).BindProperty(settings.GetSerializedObject().FindProperty("KeyMap").GetArrayElementAtIndex(i));
+						e.Q<Button>("Bind").clicked += () =>
+						{
+							WhichKeyManager.LogInfo(ks.HintText);
+						};
+					};
+					// keymap.itemsSource = settings.KeyMap;
 					//Show/Hide position field by FollowMouse toggle
 					var winPosElement = root.Q<Vector2Field>("FixedPosition");
 					winPosElement.style.display = settings.WindowFollowMouse ? DisplayStyle.None : DisplayStyle.Flex;
