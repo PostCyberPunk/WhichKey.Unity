@@ -13,49 +13,40 @@ namespace PCP.Tools.WhichKey
         private static BindingWindow instance;
         private List<int> mKeySeq = new();
         private VisualTreeAsset keyVT { get => WhichKeyManager.mUILoader.KeyLabel; }
+        private VisualTreeAsset winVT { get => WhichKeyManager.mUILoader.BindWindow; }
+
         private VisualElement labelFrame;
         private Action<int[]> OnComplete;
-        private string Hint;
-        public static void ShowWindow(Action<int[]> onComplete, int[] keySeq, string hint = "WhichKey Binding")
+        private string Title;
+        public static void ShowWindow(Action<int[]> onComplete, int[] keySeq, string title = "WhichKey Binding")
         {
-            ShowWindow(onComplete, hint);
+            ShowWindow(onComplete, title);
             instance.mKeySeq = keySeq.ToList();
         }
-        public static void ShowWindow(Action<int[]> onComplete, string hint = "WhichKey Binding")
+        public static void ShowWindow(Action<int[]> onComplete, string title = "WhichKey Binding")
         {
             if (instance == null)
                 instance = ScriptableObject.CreateInstance<BindingWindow>();
 
-            Vector2 size = new(200, 105);
+            Vector2 size = new(200, 150);
             Vector2 center = EditorGUIUtility.GetMainWindowPosition().center;
             instance.position = new Rect(center.x - size.x / 2, center.y - size.y / 2, size.x, size.y);
             instance.mKeySeq.Clear();
             instance.OnComplete = onComplete;
+            instance.Title = title;
             instance.ShowPopup();
         }
         private void CreateGUI()
         {
-            labelFrame = new VisualElement();
-            labelFrame.style.flexDirection = FlexDirection.Row;
-            labelFrame.style.flexWrap = Wrap.Wrap;
-            labelFrame.style.alignItems = Align.Center;
-            labelFrame.style.justifyContent = Justify.Center;
-            labelFrame.style.height = 80;
+            var root = winVT.CloneTree();
+            root.Q<Label>("Title").text = Title;
+            labelFrame = root.Q<VisualElement>("LabelFrame");
             // Button 
-            var buttonFrame = new VisualElement();
-            buttonFrame.style.flexDirection = FlexDirection.Row;
-            buttonFrame.style.justifyContent = Justify.Center;
-            Button confirmButton = new Button(() => Bind());
-            confirmButton.text = "Confirm";
-            Button cancelButton = new Button(() => Cancel());
-            cancelButton.text = "Cancel";
-            buttonFrame.Add(confirmButton);
-            buttonFrame.Add(cancelButton);
-            rootVisualElement.Add(new Label(Hint));
-            rootVisualElement.Add(labelFrame);
-            rootVisualElement.Add(buttonFrame);
+            root.Q<Button>("confirm").clicked += Bind;
+            root.Q<Button>("cancel").clicked += Cancel;
 
-            rootVisualElement.style.alignContent = Align.Center;
+            rootVisualElement.Add(root);
+            // rootVisualElement.style.alignContent = Align.Center;
         }
 
         private void OnGUI()

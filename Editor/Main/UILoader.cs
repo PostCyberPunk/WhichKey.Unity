@@ -12,6 +12,7 @@ namespace PCP.Tools.WhichKey
         public VisualTreeAsset KeySet { private set; get; }
         public VisualTreeAsset AssetData { private set; get; }
         public VisualTreeAsset KeyGO { private set; get; }
+        public VisualTreeAsset BindWindow { private set; get; }
         //For window
         public VisualTreeAsset HintLabel { private set; get; }
         public VisualTreeAsset BlankVE { private set; get; }
@@ -26,6 +27,7 @@ namespace PCP.Tools.WhichKey
             AssetData = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/AssetData");
             KeyGO = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/KeyGO");
             KeyLabel = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/KeyLabel");
+            BindWindow = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/BindWindow");
 
             HintLabel = Resources.Load<VisualTreeAsset>("WhichKey/UXML/UI/HintLabel");
             HintLabelSS = Resources.Load<StyleSheet>("WhichKey/UXML/UI/HintLabelSS");
