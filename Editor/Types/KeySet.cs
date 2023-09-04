@@ -3,9 +3,9 @@ using System;
 namespace PCP.Tools.WhichKey
 {
 	[Serializable]
-	public struct KeySet
+	public class KeySet
 	{
-		public int[] KeySeq;
+		public int[] KeySeq=new int[0];
 		public KeyCmdType type;
 		public string HintText;
 		public string CmdArg;
