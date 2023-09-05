@@ -5,12 +5,10 @@ namespace PCP.Tools.WhichKey
     internal class MenuCommand : WKCommand
     {
 
-        public string Hint { get; }
         private string menuPath;
-        public MenuCommand(KeySet keySet)
+        public MenuCommand(string arg)
         {
-            Hint = keySet.Hint;
-            menuPath = keySet.CmdArg;
+            menuPath = arg;
         }
         public void Execute()
         {

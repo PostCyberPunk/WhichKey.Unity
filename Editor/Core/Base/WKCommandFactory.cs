@@ -1,10 +1,16 @@
+using UnityEditor;
+
 namespace PCP.Tools.WhichKey
 {
-    public interface WKCommandFactory
+    public abstract class WKCommandFactory
     {
-        public int TID { get; }
-        public string CommandName { get; }
-        public WKCommand CreateCommand(KeySet keySet);
+        protected abstract int TID { get; }
+        protected abstract string CommandName { get; }
+        public abstract WKCommand CreateCommand(string arg);
+        [InitializeOnLoadMethod]
+        private static void Register()
+        {
+        }
     }
 
 }
