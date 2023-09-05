@@ -7,7 +7,7 @@ namespace PCP.Tools.WhichKey
         public string Hint { get; }
         public string[] LayerHints { get; set; }
         private KeyNode target;
-        public LayerCommand(WKKeySet keySet)
+        public LayerCommand(KeySet keySet)
         {
             Hint = keySet.Hint;
         }

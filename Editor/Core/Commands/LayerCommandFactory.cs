@@ -4,7 +4,7 @@ namespace PCP.Tools.WhichKey
     {
         public int TID { get; } = 0;
         public string CommandName { get; } = "Layer";
-        public WKCommand CreateCommand(WKKeySet keySet)
+        public WKCommand CreateCommand(KeySet keySet)
         {
             return new LayerCommand(keySet);
         }

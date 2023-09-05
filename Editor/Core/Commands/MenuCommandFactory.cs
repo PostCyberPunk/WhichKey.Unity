@@ -4,7 +4,7 @@ namespace PCP.Tools.WhichKey
     {
         public int TID { get; } = 1;
         public string CommandName { get; } = "Menu";
-        public WKCommand CreateCommand(WKKeySet keySet)
+        public WKCommand CreateCommand(KeySet keySet)
         {
             return new MenuCommand(keySet);
         }

@@ -7,7 +7,7 @@ namespace PCP.Tools.WhichKey
 
         public string Hint { get; }
         private string menuPath;
-        public MenuCommand(WKKeySet keySet)
+        public MenuCommand(KeySet keySet)
         {
             Hint = keySet.Hint;
             menuPath = keySet.CmdArg;

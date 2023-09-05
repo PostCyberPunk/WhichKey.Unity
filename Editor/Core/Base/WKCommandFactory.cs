@@ -4,7 +4,7 @@ namespace PCP.Tools.WhichKey
     {
         public int TID { get; }
         public string CommandName { get; }
-        public WKCommand CreateCommand(WKKeySet keySet);
+        public WKCommand CreateCommand(KeySet keySet);
     }
 
 }

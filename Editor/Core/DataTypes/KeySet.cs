@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 
 namespace PCP.Tools.WhichKey
 {
@@ -7,9 +8,9 @@ namespace PCP.Tools.WhichKey
 	{
 		public int[] KeySeq = new int[0];
 		public string KeyLabel = "None";
-		public KeyCmdType type;
-		public string HintText;
+		public string Hint;
 		public string CmdArg;
+		public int CmdType;
 		public void SetKeyLabel()
 		{
 			if (KeySeq.Length == 0)
@@ -25,5 +26,6 @@ namespace PCP.Tools.WhichKey
 				SetKeyLabel();
 			});
 		}
+		public bool IsLayer => CmdType == 0;
 	}
 }
