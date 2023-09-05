@@ -14,8 +14,8 @@ namespace PCP.Tools.WhichKey
 		private static int loggingLevel;
 
 		public Action ShowHintsWindow;
-
 		public Action CloseHintsWindow;
+		public Action<float> OverrideWindowTimeout;
 		#region Setup
 		public void Init()
 		{

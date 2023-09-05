@@ -23,7 +23,7 @@ namespace PCP.Tools.WhichKey
 				instance = ScriptableObject.CreateInstance<T>();
 			}
 			instance.UpdateDelayTimer();
-
+			WhichKeyManager.instance.OverrideWindowTimeout = instance.OverriderTimeout;
 			instance.minSize = new(0, 0);
 			instance.position = new Rect(0, 0, 0, 0);
 
@@ -122,7 +122,7 @@ namespace PCP.Tools.WhichKey
 			Close();
 		}
 		private void OnLostFocus() => Close();
-		public void ChangeTimeout(float timeout) => timeoutLen = timeout;
+		public void OverriderTimeout(float timeout) => timeoutLen = timeout;
 
 
 	}

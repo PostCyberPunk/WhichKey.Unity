@@ -62,5 +62,9 @@ namespace PCP.Tools.WhichKey
         {
             mManager.CloseHintsWindow();
         }
+        public static void OverrideTimeout(float time)
+        {
+            mManager.OverrideWindowTimeout(time);
+        }
     }
 }
