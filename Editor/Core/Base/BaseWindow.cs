@@ -11,8 +11,10 @@ namespace PCP.Tools.WhichKey
 		private KeyCode prevKey;
 		private float hideTill;
 		private bool showHint;
-		private bool _changeUI;
+		protected bool _changeUI;
 		private float timeoutLen;
+		protected float mWidth;
+		protected float mHeight;
 		private void OnEnable()
 		{
 			keyReleased = true;
