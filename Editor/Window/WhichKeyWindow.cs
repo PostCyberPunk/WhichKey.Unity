@@ -19,6 +19,7 @@ namespace PCP.Tools.WhichKey
 		private KeyCode prevKey;
 		private float hideTill;
 		private bool showHint;
+		private bool _changeUI;
 		private float mHeight;
 		private float mWidth;
 		#region Elements
@@ -274,7 +275,6 @@ namespace PCP.Tools.WhichKey
 				mainFrame.Add(label);
 			}
 		}
-		private bool _changeUI;
 		private void CheckUI()
 		{
 			if (_changeUI)

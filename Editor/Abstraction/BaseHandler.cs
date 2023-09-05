@@ -1,103 +1,50 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Xml.Schema;
-using PCP.Tools.WhichKey;
+using System.Diagnostics;
 using UnityEditor;
-using UnityEngine;
 
-public class BaseHandler : MonoBehaviour
-{
-}
-public interface IWKBasicHandler
-{
-    int TypeID { get; set; }
-    int TypeName { get; set; }
-    void ProcessKey(int key, bool shift);
-}
-public interface IWKBasicHandlerA
-{
-    int TypeID { get; set; }
-    int TypeName { get; set; }
-    bool ProcessKey(int key, bool shift);
-}
-public interface IWKTypeHandler
+public interface HandlerBase
 {
     Dictionary<int, string> TypeMap { get; set; }
-    void ProcessType(int type);
-    void ProcessKey(int key, bool shift);
 }
-public interface IWKTypeHandlerB
+public interface IWKBasicHandlerA : HandlerBase
 {
-    Dictionary<int, string> TypeMap { get; set; }
+    void ProcessKey(int key);
+}
+public interface IWKBasicHandlerB : HandlerBase
+{
+    bool ProcessKey(int key);
+}
+public interface IWKTypeHandlerA : HandlerBase
+{
     void ProcessType(int type);
-    bool ProcessKey(int key, bool shift);
+    void ProcessKey(int key);
+}
+public interface IWKTypeHandlerB : HandlerBase
+{
+    void ProcessType(int type);
+    bool ProcessKey(int key);
 }
 public interface IWKHintSource
 {
     String[] GetHint();
 }
-public interface IWKCustomWindow
+public class WKCoreManager
 {
-    WKHintsWindow win { get; set; }
-    bool ProcessKey(int key, bool shift);
-}
-public abstract class WKHintsWindow : EditorWindow
-{
-}
-public interface IWKArgHandler<T> where T : WKArgsBase
-{
-    void ProcessArg(T arg);
-}
-[Serializable]
-public abstract class WKArgsBase
-{
-    public string args;
-}
-public class WKArgsInline : WKArgsBase { }
-public class WKArgsFloating<T, U> : WKArgsBase where T : WKArgsWindow<U> where U : WKArgsBase
-{
-    public void ShowWindow()
-    {
-        T window = ScriptableObject.CreateInstance<T>();
-        window.Active(this as U);
-    }
-}
-public abstract class WKArgsWindow<T> : EditorWindow where T : WKArgsBase
-{
-    public T args;
-    private void OnLostFocus() => Close();
+    private Dictionary<int, HandlerBase> mHandlers;
 
-    public void Active(T arg)
+    void procesKey(int key, bool shift)
     {
-        args = arg;
-        Init();
-        ShowPopup();
-    }
-    protected abstract void Init();
-}
-public class TestArgWindow : WKArgsWindow<TestArgs>
-{
-    protected override void Init()
-    {
-        Debug.Log(args.mInt);
+
     }
 }
-public class TestArgs : WKArgsFloating<TestArgWindow, TestArgs>
+public struct WKKey
 {
-    public int mInt = 0;
-    public TestArgs(int i)
+    public int key;
+    public bool shift;
+    public WKKey(int key, bool shift)
     {
-        mInt = i;
-    }
-}
-[InitializeOnLoad]
-public static class WKTest
-{
-    static WKTest()
-    {
-        var args = new TestArgs(12);
-        args.ShowWindow();
+        this.key = key;
+        this.shift = shift;
     }
 }
