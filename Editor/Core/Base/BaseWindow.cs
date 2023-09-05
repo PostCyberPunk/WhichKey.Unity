@@ -7,21 +7,45 @@ namespace PCP.Tools.WhichKey
 
 	public abstract class BaseWKWindow<T> : EditorWindow where T : BaseWKWindow<T>
 	{
-		private bool keyReleased;
+		public static T instance;
+		private bool keyReleased = true;
 		private KeyCode prevKey;
 		private float hideTill;
-		private bool showHint;
-		protected bool _changeUI;
+		private bool showHint = false;
+		private bool _changeUI;
 		private float timeoutLen;
 		protected float mWidth;
 		protected float mHeight;
-		private void OnEnable()
+		public static void Active()
 		{
-			keyReleased = true;
+			if (instance == null)
+			{
+				instance = ScriptableObject.CreateInstance<T>();
+			}
+			instance.UpdateDelayTimer();
+
+			instance.minSize = new(0, 0);
+			instance.position = new Rect(0, 0, 0, 0);
+
+			instance.OnActive();
+
+			instance.ShowPopup();
+
 		}
-		private void Update()
+		protected abstract void OnActive();
+		protected virtual void DummyWindow()
 		{
-			CheckDelayTimer();
+			position = new Rect(0, 0, 0, 0);
+		}
+		protected abstract void ShowHints();
+		protected virtual void OnGUI()
+		{
+			Event e = Event.current;
+			if (e == null) return;
+			CheckUI();
+			if (!e.isKey)
+				return;
+			KeyHandler(e);
 		}
 		private void KeyHandler(Event e)
 		{
@@ -62,6 +86,21 @@ namespace PCP.Tools.WhichKey
 				}
 			}
 		}
+		private void CheckUI()
+		{
+			if (_changeUI)
+			{
+				_changeUI = false;
+				if (showHint)
+					ShowHints();
+				else
+					DummyWindow();
+			}
+		}
+		protected virtual void Update()
+		{
+			CheckDelayTimer();
+		}
 		private void UpdateDelayTimer()
 		{
 			if (!showHint)
@@ -78,8 +117,13 @@ namespace PCP.Tools.WhichKey
 				Repaint();
 			}
 		}
+		protected virtual void OnDisable()
+		{
+			Close();
+		}
 		private void OnLostFocus() => Close();
 		public void ChangeTimeout(float timeout) => timeoutLen = timeout;
+
 
 	}
 
