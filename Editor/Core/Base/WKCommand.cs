@@ -1,8 +1,8 @@
 namespace PCP.Tools.WhichKey
 {
-    public interface WKCommand
-    {
-        void Execute();
-    }
+	public interface WKCommand
+	{
+		void Execute();
+	}
 
 }

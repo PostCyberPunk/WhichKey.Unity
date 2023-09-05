@@ -1,12 +1,12 @@
 namespace PCP.Tools.WhichKey
 {
-    internal class MenuCommandFactory : WKCommandFactory
+  internal class MenuCommandFactory : WKCommandFactory
+  {
+    public override int TID => 1;
+    public override string CommandName => "Menu";
+    public override WKCommand CreateCommand(string arg)
     {
-        protected override int TID { get => 1; }
-        protected override string CommandName { get => "Menu"; }
-        public override WKCommand CreateCommand(string arg)
-        {
-            return new MenuCommand(arg);
-        }
+      return new MenuCommand(arg);
     }
+  }
 }
