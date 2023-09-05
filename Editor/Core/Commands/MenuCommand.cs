@@ -4,7 +4,7 @@ namespace PCP.Tools.WhichKey
 {
     internal class MenuCommand : WKCommand
     {
-
+        public bool isEnd => true;
         private string menuPath;
         public MenuCommand(string arg)
         {
