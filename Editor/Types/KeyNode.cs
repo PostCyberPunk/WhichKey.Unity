@@ -18,7 +18,7 @@ namespace PCP.Tools.WhichKey
 		public List<KeyNode> Children { private set; get; } //OPT :Lets keep this list,maybe useful for fast reloading
 		public bool hasChildren { get => Children.Count > 0; }
 		public bool isLayer { get => Type == 0; }
-		private WKCommand mCmd;
+		public WKCommand Command { private set; get; }
 		/// <summary>
 		/// Create a layer node
 		/// </summary>
@@ -41,13 +41,13 @@ namespace PCP.Tools.WhichKey
 			Key = keySet.KeySeq[index];
 			UpdateKeySet(keySet);
 			Children = new List<KeyNode>();
+			Command = cmd;
 		}
 		public KeyNode AddChild(KeyNode child)
 		{
 			Children.Add(child);
 			return child;
 		}
-		public void ExcuteCmd() => mCmd?.Execute();
 		public void UpdateKeySet(KeySet keySet)
 		{
 			if (!string.IsNullOrEmpty(keySet.Hint))
