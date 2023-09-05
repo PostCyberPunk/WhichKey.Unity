@@ -12,20 +12,30 @@ namespace PCP.Tools.WhichKey
 		public int Key { private set; get; }
 		public string Hint { private set; get; }
 		public string CmdArg { private set; get; }
-		public KeyCmdType Type { private set; get; }
+		public int Type { private set; get; }
 		public KeyNode Parent { private set; get; }
 		public string[] LayerHints { private set; get; }
 		public List<KeyNode> Children { private set; get; } //OPT :Lets keep this list,maybe useful for fast reloading
 		public bool hasChildren { get => Children.Count > 0; }
-
+		public bool isLayer { get => Type == 0; }
+		private WKCommand mCmd;
+		/// <summary>
+		/// Create a layer node
+		/// </summary>
+		/// <param name="key"></param>
+		/// <param name="hintText"></param> <summary>
+		/// 
+		/// </summary>
+		/// <param name="key"></param>
+		/// <param name="hintText"></param>
 		public KeyNode(int key, string hintText)
 		{
 			Key = key;
 			Hint = hintText;
-			Type = KeyCmdType.Layer;
+			Type = 0;
 			Children = new List<KeyNode>();
 		}
-		public KeyNode(KeySet keySet, int index, KeyNode parent)
+		public KeyNode(KeySet keySet, int index, KeyNode parent, WKCommand cmd)
 		{
 			Parent = parent;
 			Key = keySet.KeySeq[index];
@@ -37,13 +47,13 @@ namespace PCP.Tools.WhichKey
 			Children.Add(child);
 			return child;
 		}
-
+		public void ExcuteCmd() => mCmd?.Execute();
 		public void UpdateKeySet(KeySet keySet)
 		{
-			if (!string.IsNullOrEmpty(keySet.HintText))
-				Hint = keySet.HintText;
+			if (!string.IsNullOrEmpty(keySet.Hint))
+				Hint = keySet.Hint;
 			CmdArg = keySet.CmdArg;
-			Type = keySet.type;
+			Type = keySet.CmdType;
 		}
 		public KeyNode GetChildByKey(int key)
 		{
