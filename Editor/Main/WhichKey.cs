@@ -58,5 +58,9 @@ namespace PCP.Tools.WhichKey
             mManager.Active(key);
         }
         #endregion
+        public static void CloseWin()
+        {
+
+        }
     }
 }
