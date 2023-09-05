@@ -58,7 +58,7 @@ namespace PCP.Tools.WhichKey
             if (kn == null)
             {
                 WhichKeyManager.LogInfo($"KeySeq {mKeySeq.ToArray().ToLabel()} not found");
-                WhichKey.CloseWin();
+                CloseWindow();
             }
             else if (kn.Type == 0)
             {
@@ -71,12 +71,16 @@ namespace PCP.Tools.WhichKey
                 if (cmd == null)
                 {
                     WhichKeyManager.LogError($"KeySeq {mKeySeq.ToArray().ToLabel()} has no command");
-                    WhichKey.CloseWin();
+                    CloseWindow();
                     return;
                 }
                 cmd.Execute();
-                if (cmd.isEnd) WhichKey.CloseWin();
+                if (cmd.isEnd) CloseWindow();
             }
+        }
+        private void CloseWindow()
+        {
+            WhichKeyManager.instance.CloseHintsWindow();
         }
         public string[] GetLayerHints()
         {

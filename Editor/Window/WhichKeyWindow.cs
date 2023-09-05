@@ -68,7 +68,7 @@ namespace PCP.Tools.WhichKey
 				WhichKeyManager.LogError("WhichKey Setting instance is null");
 				return;
 			}
-			WhichKeyManager.instance.ShowHintWindow = Active;
+			WhichKeyManager.instance.ShowHintsWindow = Active;
 
 			var pref = WhichKeyManager.Preferences;
 			var uil = WhichKeyManager.mUILoader;

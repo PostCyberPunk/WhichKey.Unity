@@ -15,6 +15,7 @@ namespace PCP.Tools.WhichKey
 
 		public Action ShowHintsWindow;
 
+		public Action CloseHintsWindow;
 		#region Setup
 		public void Init()
 		{

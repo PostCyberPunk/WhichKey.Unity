@@ -60,7 +60,7 @@ namespace PCP.Tools.WhichKey
         #endregion
         public static void CloseWin()
         {
-
+            mManager.CloseHintsWindow();
         }
     }
 }
