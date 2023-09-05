@@ -17,7 +17,7 @@ namespace PCP.Tools.WhichKey
             {
                 //OPT bad reference
                 if (showHint)
-                    MainHintsWindow.instance.ForceActive();
+                    // MainHintsWindow.instance.ForceActive();
                 return true;
             }
 

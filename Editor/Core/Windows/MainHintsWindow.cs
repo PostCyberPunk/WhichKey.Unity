@@ -6,7 +6,7 @@ using UnityEditor;
 
 namespace PCP.Tools.WhichKey
 {
-	public class MainHintWindow : BaseWKWindow<MainHintWindow>
+	public class MainHintsWindow : BaseWKWindow<MainHintsWindow>
 	{
 		#region Data
 		//OPT
