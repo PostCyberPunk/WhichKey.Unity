@@ -21,7 +21,6 @@ namespace PCP.Tools.WhichKey
 				LogError("WhichKeyManager is already initialized");
 				return;
 			}
-			RegisterCmdFactorires();
 			WhichkeyProjectSettings.instance?.Init();
 			SavePreferences();
 			Preferences = WhichKeyPreferences.instance;
@@ -118,26 +117,7 @@ namespace PCP.Tools.WhichKey
 			if (loggingLevel <= 2)
 				Debug.LogError("Whichkey:" + msg);
 		}
-
 		//Refactor
-		private Dictionary<int, WKCommandFactory> FactoryMap = new Dictionary<int, WKCommandFactory>();
-		public Dictionary<int, string> CommandTypeMap = new Dictionary<int, string>();
-		private void RegisterCmdFactorires()
-		{
-			var tList = TypeCache.GetTypesDerivedFrom<WKCommandFactory>();
-			foreach (var item in tList)
-			{
-				var factory = Activator.CreateInstance(item) as WKCommandFactory;
-				int id = factory.TID;
-				if (FactoryMap.ContainsKey(id))
-				{
-					LogWarning($"Command Factory <color=red>{id}</color> already registered");
-					return;
-				}
-				FactoryMap.Add(id, factory);
-				CommandTypeMap.Add(id, factory.CommandName);
-			}
-		}
 		public bool Input(KeyCode keyCode, bool shift) => mainKeyHandler.KeyHandler(keyCode, shift);
 		public string[] GetHints() => mainKeyHandler.GetLayerHints();
 	}
