@@ -23,7 +23,7 @@ namespace PCP.Tools.WhichKey
 				instance = ScriptableObject.CreateInstance<T>();
 			}
 			instance.UpdateDelayTimer();
-			WhichKeyManager.instance.OverrideWindowTimeout = instance.OverriderTimeout;
+
 			instance.minSize = new(0, 0);
 			instance.position = new Rect(0, 0, 0, 0);
 
@@ -72,15 +72,7 @@ namespace PCP.Tools.WhichKey
 						{
 							prevKey = e.keyCode;
 							keyReleased = false;
-							if (WhichKeyManager.instance.Input(e.keyCode, e.shift))
-							{
-								Close();
-							}
-							else
-							{
-								_changeUI = true;
-								UpdateDelayTimer();
-							}
+							WhichKeyManager.instance.Input(e.keyCode, e.shift);
 						}
 						break;
 				}
@@ -100,6 +92,11 @@ namespace PCP.Tools.WhichKey
 		protected virtual void Update()
 		{
 			CheckDelayTimer();
+		}
+		protected void UpdateHintsWindow()
+		{
+			_changeUI = true;
+			UpdateDelayTimer();
 		}
 		private void UpdateDelayTimer()
 		{

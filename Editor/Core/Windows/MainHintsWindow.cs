@@ -6,8 +6,9 @@ using UnityEditor;
 
 namespace PCP.Tools.WhichKey
 {
-	public class MainHintsWindow : BaseWKWindow<MainHintsWindow>
+	internal class MainHintsWindow : BaseWKWindow<MainHintsWindow>
 	{
+		protected static WhichKeyManager wkm => WhichKeyManager.instance;
 		#region Data
 		//OPT
 		//Maybe a structure
@@ -30,7 +31,8 @@ namespace PCP.Tools.WhichKey
 				WhichKeyManager.LogError("WhichKey Preferences instance is null");
 				return;
 			}
-			WhichKeyManager.instance.ShowHintsWindow = Active;
+			//BAD
+			wkm.ShowHintsWindow = Active;
 
 			var pref = WhichKeyManager.Preferences;
 			var uil = WhichKeyManager.mUILoader;
@@ -43,11 +45,17 @@ namespace PCP.Tools.WhichKey
 			hintLabelSS = uil.HintLabelSS;
 			blankVE = uil.BlankVE;
 		}
-		protected override void OnActive() { }
+		protected override void OnActive()
+		{
+			wkm.OverrideWindowTimeout = instance.OverriderTimeout;
+			wkm.CloseHintsWindow = instance.Close;
+			wkm.UpdateHints = UpdateHints;
+		}
 
 		private VisualElement mainFrame;
 		private VisualElement labelFrame;
 		private Label titleLabel;
+		private string[] Hints;
 		private void CreateGUI()
 		{
 			mainFrame = blankVE.CloneTree().Q<VisualElement>();
@@ -75,15 +83,15 @@ namespace PCP.Tools.WhichKey
 		}
 		protected override void ShowHints()
 		{
-			string[] hints = WhichKeyManager.instance.GetHints();
-			if (hints == null)
+			// string[] hints = WhichKeyManager.instance.GetHints();
+			if (Hints == null)
 			{
 				Close();
 				return;
 			}
 			labelFrame.Clear();
 			mHeight = lineHeight * (maxHintLines + 1) + 2 * mainFrame.resolvedStyle.paddingTop;
-			var cols = Mathf.CeilToInt(hints.Length / 2f / maxHintLines);
+			var cols = Mathf.CeilToInt(Hints.Length / 2f / maxHintLines);
 			mWidth = cols * maxColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
 			maxSize = new Vector2(mWidth, mHeight);
 			if (followMouse)
@@ -105,12 +113,12 @@ namespace PCP.Tools.WhichKey
 				for (int i = 0; i < maxHintLines; i++)
 				{
 					int ind = i + j * maxHintLines;
-					if (ind * 2 >= hints.Length) break;
+					if (ind * 2 >= Hints.Length) break;
 					var row = hintLabel.CloneTree().Q<VisualElement>();
 					var k = row.Q<Label>("Key");
 					var h = row.Q<Label>("Hint");
-					k.text = hints[ind * 2];
-					h.text = hints[ind * 2 + 1];
+					k.text = Hints[ind * 2];
+					h.text = Hints[ind * 2 + 1];
 					row.style.width = maxColWidth;
 					row.style.height = lineHeight;
 					col.Add(row);
@@ -118,5 +126,11 @@ namespace PCP.Tools.WhichKey
 				labelFrame.Add(col);
 			}
 		}
+		private void UpdateHints(string[] hints)
+		{
+			Hints = hints;
+			UpdateHintsWindow();
+		}
+
 	}
 }

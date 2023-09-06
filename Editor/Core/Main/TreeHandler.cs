@@ -11,14 +11,19 @@ namespace PCP.Tools.WhichKey
         private KeyNode mTreeRoot => mTreeBuilder.TreeRoot;
         private KeyNode mRoot;
         private KeyNode mCurrentNode;
-
         private IWKHandler mCurrentHandler;
-        void Refesh()
+        public bool isInitialized => mTreeRoot != null;
+        public void Init()
         {
+            Refesh();
+        }
+        private void Refesh()
+        {
+            mKeySeq=new();
             mTreeBuilder.Build();
+            ResetRoot();
             Reset();
         }
-
         public void ProcesRawKey(KeyCode keyCode, bool shift)
         {
             int key = keyCode.ToAscii(shift);

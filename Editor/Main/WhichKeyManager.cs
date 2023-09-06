@@ -8,7 +8,7 @@ namespace PCP.Tools.WhichKey
 {
 	internal class WhichKeyManager : ScriptableSingleton<WhichKeyManager>
 	{
-		private readonly MainKeyHandler mainKeyHandler = new MainKeyHandler();
+		private readonly TreeHandler mainKeyHandler = new TreeHandler();
 		internal readonly static UILoader mUILoader = new();
 		internal static WhichKeyPreferences Preferences { private set; get; }
 		private static int loggingLevel;
@@ -16,6 +16,7 @@ namespace PCP.Tools.WhichKey
 		public Action ShowHintsWindow;
 		public Action CloseHintsWindow;
 		public Action<float> OverrideWindowTimeout;
+		public Action<string[]> UpdateHints;
 		#region Setup
 		public void Init()
 		{
@@ -137,7 +138,6 @@ namespace PCP.Tools.WhichKey
 		}
 		#endregion
 
-		public bool Input(KeyCode keyCode, bool shift) => mainKeyHandler.KeyHandler(keyCode, shift);
-		public string[] GetHints() => mainKeyHandler.GetLayerHints();
+		public void Input(KeyCode keyCode, bool shift) => mainKeyHandler.ProcesRawKey(keyCode, shift);
 	}
 }
