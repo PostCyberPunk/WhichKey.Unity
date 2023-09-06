@@ -117,10 +117,10 @@ namespace PCP.Tools.WhichKey
 				Repaint();
 			}
 		}
-		protected virtual void OnDisable()
-		{
-			Close();
-		}
+		// protected virtual void OnDisable()
+		// {
+		// 	Close();
+		// }
 		private void OnLostFocus() => Close();
 		public void OverriderTimeout(float timeout) => timeoutLen = timeout;
 
