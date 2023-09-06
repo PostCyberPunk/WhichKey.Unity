@@ -16,7 +16,7 @@ namespace PCP.Tools.WhichKey
 		public Action ShowHintsWindow;
 		public Action CloseHintsWindow;
 		public Action<float> OverrideWindowTimeout;
-		public Action<string[]> UpdateHints;
+		public Action UpdateHints;
 		#region Setup
 		public void Init()
 		{
@@ -133,11 +133,12 @@ namespace PCP.Tools.WhichKey
 		}
 		public void ShowWindow()
 		{
-			mainKeyHandler.Reset();
 			ShowHintsWindow();
+			mainKeyHandler.Reset();
 		}
 		#endregion
 
 		public void Input(KeyCode keyCode, bool shift) => mainKeyHandler.ProcesRawKey(keyCode, shift);
+		public string[] GetHints() => mainKeyHandler.GetLayerHints();
 	}
 }

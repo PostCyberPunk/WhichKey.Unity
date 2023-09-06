@@ -43,6 +43,7 @@ namespace PCP.Tools.WhichKey
             else if (kn.Type == 0)
             {
                 mCurrentNode = kn;
+                WhichKeyManager.instance.UpdateHints();
                 return;
             }
             else

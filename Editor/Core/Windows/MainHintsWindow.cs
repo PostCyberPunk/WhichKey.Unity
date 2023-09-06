@@ -83,7 +83,7 @@ namespace PCP.Tools.WhichKey
 		}
 		protected override void ShowHints()
 		{
-			// string[] hints = WhichKeyManager.instance.GetHints();
+			Hints = wkm.GetHints();
 			if (Hints == null)
 			{
 				Close();
@@ -126,11 +126,11 @@ namespace PCP.Tools.WhichKey
 				labelFrame.Add(col);
 			}
 		}
-		private void UpdateHints(string[] hints)
-		{
-			Hints = hints;
-			UpdateHintsWindow();
-		}
+		// private void UpdateHints(string[] hints)
+		// {
+		// 	Hints = hints;
+		// 	UpdateHintsWindow();
+		// }
 
 	}
 }

@@ -93,7 +93,7 @@ namespace PCP.Tools.WhichKey
 		{
 			CheckDelayTimer();
 		}
-		protected void UpdateHintsWindow()
+		protected void UpdateHints()
 		{
 			_changeUI = true;
 			UpdateDelayTimer();
