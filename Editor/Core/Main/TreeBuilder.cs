@@ -16,10 +16,10 @@ namespace PCP.Tools.WhichKey
 		public void Build()
 		{
 			mTreeRoot = new KeyNode(0, "WhichKey");
-			
+
 			AddKeySetFromMap(WhichKeyPreferences.instance.KeyMap);
 			KeyNode.maxLine = WhichKeyManager.Preferences.MaxHintLines;
-			
+
 			mTreeRoot.SetLayerHints();
 		}
 		private void AddKeySetFromMap(KeySet[] keymap)
@@ -41,6 +41,11 @@ namespace PCP.Tools.WhichKey
 				{
 					if (kn == null)
 					{
+						if (keyset.CmdType == 0)
+						{
+							kn = mCurrentNode.AddChild(new KeyNode(key, keyset.Hint));
+							return;
+						}
 						WKCommand cmd = mCmdFactoryManager.CreateCommand(keyset.CmdType, keyset.CmdArg);
 						if (cmd == null)
 						{
@@ -67,7 +72,7 @@ namespace PCP.Tools.WhichKey
 				mCurrentNode = kn;
 			}
 		}
-		
+
 
 
 	}
