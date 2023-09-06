@@ -9,14 +9,13 @@ namespace PCP.Tools.WhichKey
     internal class AssetsHandler : IWKHandler
     {
         private AssetsDataManager mDataManger => AssetsDataManager.instance;
-        private ProjectAssetsData assetsData;
+        private AssetsNavData assetsData;
         private System.Action<int> mProcessKey;
         public bool ProecessArg(int index)
         {
             assetsData = mDataManger.projectAssetsDatas[index];
             if (assetsData != null)
             {
-                //OPT bad reference
                 WhichKeyManager.instance.OverrideWindowTimeout(mDataManger.WinTimeout);
                 return true;
             }
@@ -28,7 +27,7 @@ namespace PCP.Tools.WhichKey
         {
             Debug.Log("ProcessKey: " + key);
         }
-        private void LoadAsset(int key)
+        private void LoadAssetToSeletion(int key)
         {
             string path = assetsData.GetAssetsPathByKey(key);
             if (string.IsNullOrEmpty(path))
@@ -41,11 +40,18 @@ namespace PCP.Tools.WhichKey
             EditorGUIUtility.PingObject(obj);
             EditorUtility.FocusProjectWindow();
         }
-        private void SaveAsset(int key)
+        private void SaveAssetPath(int key)
         {
             var go = Selection.activeObject;
-            //FIXME
-            //TODO: add support for multiple selection
+            if (go == null)
+                WhichKeyManager.LogInfo($"AssetsNav: No Selectted Object");
+            else if (go.GetType() == typeof(UnityEngine.Object))
+                WhichKeyManager.LogInfo($"AssetsNav: Cant Save Object");
+            else
+            {
+                string path = AssetDatabase.GetAssetPath(go);
+                assetsData.SetAssetsPathByKey(key, path);
+            }
         }
         public string[] GetLayerHints()
         {

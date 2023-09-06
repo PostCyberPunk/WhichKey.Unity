@@ -2,9 +2,9 @@ using UnityEditor;
 using UnityEngine.UIElements;
 namespace PCP.Tools.WhichKey
 {
-    [CustomEditor(typeof(ProjectAssetsData))]
+    [CustomEditor(typeof(AssetsNavData))]
 
-    public class ProjectAssetsDataEditor : Editor
+    public class AssetsNavDataEditor : Editor
     {
         public override VisualElement CreateInspectorGUI()
         {
