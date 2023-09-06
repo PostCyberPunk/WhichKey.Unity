@@ -6,36 +6,46 @@ using System.Security.Cryptography;
 namespace PCP.Tools.WhichKey
 {
 
-    public class AssetsHandler : IWhichKeyHandler
+    internal class AssetsHandler : IWKHandler
     {
+        private AssetsDataManager mDataManger => AssetsDataManager.instance;
         private ProjectAssetsData assetsData;
-        public bool showHint;
+        private System.Action<int> mProcessKey;
         public bool ProecessArg(int index)
         {
-            assetsData = WhichkeyProjectSettings.instance.projectAssetsDatas[index];
+            assetsData = mDataManger.projectAssetsDatas[index];
             if (assetsData != null)
             {
                 //OPT bad reference
-                if (showHint)
-                    WhichKeyManager.instance.OverrideWindowTimeout(0);
+                WhichKeyManager.instance.OverrideWindowTimeout(mDataManger.WinTimeout);
                 return true;
             }
 
-            WhichKeyManager.LogError("AssetsHandler: No Assets Data Found For Index: " + index);
+            WhichKeyManager.LogError("AssetsNav: No Assets Data Found For Index: " + index);
             return false;
         }
-        public bool ProcessKey(int key)
+        public void ProcessKey(int key)
+        {
+            Debug.Log("ProcessKey: " + key);
+        }
+        private void LoadAsset(int key)
         {
             string path = assetsData.GetAssetsPathByKey(key);
             if (string.IsNullOrEmpty(path))
             {
-                WhichKeyManager.LogInfo($"AssetsHandler: No Assets Path Found For Key: {key.ToLabel()},check your path: {path}");
-                return true;
+                WhichKeyManager.LogInfo($"AssetsNav: No Assets Path Found For Key: {key.ToLabel()},check your path: {path}");
+                return;
             }
             var obj = AssetDatabase.LoadAssetAtPath(path, typeof(UnityEngine.Object));
             Selection.activeObject = obj;
             EditorGUIUtility.PingObject(obj);
-            return true;
+            EditorUtility.FocusProjectWindow();
+        }
+        private void SaveAsset(int key)
+        {
+            var go = Selection.activeObject;
+            //FIXME
+            //TODO: add support for multiple selection
         }
         public string[] GetLayerHints()
         {
