@@ -3,10 +3,10 @@
         <ui:Label tabindex="-1" text="KeySeq" display-tooltip-when-elided="true" />
         <ui:Label tabindex="-1" text="None" display-tooltip-when-elided="true" name="KeyLabel" binding-path="KeyLabel" style="color: rgb(136, 245, 10); width: 70px;" />
         <ui:Button text="Bind" display-tooltip-when-elided="false" name="Bind" focusable="false" />
+        <ui:IntegerField label="Integer Field" value="1" binding-path="CmdType" />
         <ui:Label tabindex="-1" text="Type" display-tooltip-when-elided="true" />
-        <ui:EnumField bindingPath="type" binding-path="type" style="width: 80px;" />
         <ui:Label tabindex="-1" text="Hints" display-tooltip-when-elided="true" />
-        <ui:TextField bindingPath="HintText" binding-path="HintText" style="width: 150px;" />
+        <ui:TextField bindingPath="HintText" binding-path="Hint" style="width: 150px;" />
         <ui:Label tabindex="-1" text="Argument" display-tooltip-when-elided="true" />
         <ui:TextField bindingPath="CmdArg" binding-path="CmdArg" style="width: auto; flex-grow: 1;" />
     </ui:Box>
