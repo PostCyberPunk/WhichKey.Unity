@@ -127,5 +127,14 @@ namespace PCP.Tools.WhichKey
         }
 
         #endregion TreeManupulation
+        
+        public void ChangeHandler(IWKHandler handler)
+        {
+            if(handler!=null)
+            mCurrentHandler = handler;
+            else
+                WhichKeyManager.LogError("ChangeHandler handler is null");
+        }
+
     }
 }
