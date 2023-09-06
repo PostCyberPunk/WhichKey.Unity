@@ -17,6 +17,7 @@ namespace PCP.Tools.WhichKey
         private void RegisterCmdFactorires()
         {
             var tList = TypeCache.GetTypesDerivedFrom<WKCommandFactory>();
+            CommandTypeMap.Add(0, "Layer");
             foreach (var item in tList)
             {
                 var factory = Activator.CreateInstance(item) as WKCommandFactory;
