@@ -45,7 +45,7 @@ namespace PCP.Tools.WhichKey
 			hintLabel = uil.HintLabel;
 			hintLabelSS = uil.HintLabelSS;
 			blankVE = uil.BlankVE;
-			
+
 			//FIXME
 			// lineHeight = 60;
 		}
@@ -75,10 +75,9 @@ namespace PCP.Tools.WhichKey
 			var e = hintLabel.CloneTree().ElementAt(0);
 			e.RegisterCallback<GeometryChangedEvent>(evt =>
 			{
-				// lineHeight = e.layout.height;
-				lineHeight = 24;
-				Debug.Log(lineHeight);
+				lineHeight = e.layout.height;
 			});
+			labelFrame.Add(e);
 
 			mainFrame.Clear();
 			mainFrame.Add(titleLabel);

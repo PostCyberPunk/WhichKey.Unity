@@ -24,12 +24,12 @@ namespace PCP.Tools.WhichKey
 			}
 			instance.UpdateDelayTimer();
 
-			instance.minSize = new(0, 0);
-			instance.position = new Rect(0, 0, 0, 0);
 
 			instance.OnActive();
 
 			instance.ShowPopup();
+			instance.minSize = new(0, 0);
+			instance.position = new Rect(0, 0, 0, 0);
 
 		}
 		protected abstract void OnActive();
