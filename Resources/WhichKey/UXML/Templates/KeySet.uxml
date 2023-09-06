@@ -1,10 +1,10 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns="UnityEngine.UIElements" ue="UnityEditor.UIElements" editor-extension-mode="True">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns="UnityEngine.UIElements" ue="UnityEditor.UIElements" xmlns:PCP="PCP.Tools.WhichKey" editor-extension-mode="True">
     <ui:Box focusable="true" style="flex-direction: row;">
         <ui:Label tabindex="-1" text="KeySeq" display-tooltip-when-elided="true" />
         <ui:Label tabindex="-1" text="None" display-tooltip-when-elided="true" name="KeyLabel" binding-path="KeyLabel" style="color: rgb(136, 245, 10); width: 70px;" />
         <ui:Button text="Bind" display-tooltip-when-elided="false" name="Bind" focusable="false" />
         <ui:Label tabindex="-1" text="Type" display-tooltip-when-elided="true" />
-        <PCP.Tools.WhichKey.WkTypeDropdown binding-path="CmdType" />
+        <PCP:WkTypeDropdown binding-path="CmdType" />
         <ui:Label tabindex="-1" text="Hints" display-tooltip-when-elided="true" />
         <ui:TextField bindingPath="HintText" binding-path="Hint" style="width: 150px;" />
         <ui:Label tabindex="-1" text="Argument" display-tooltip-when-elided="true" />

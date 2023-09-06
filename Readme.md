@@ -23,12 +23,17 @@
 <!-- 1. refactor wk manger -->
 <!-- 1. rewite list get -->
 <!-- 1. try fonts; -->
+<!-- GetHints -->
+UI
 chore folder org
+
+!!still need to find a better win to sub delegate
 <!-- 1. benchmarking cached window -->
 <!-- 2. keynode encapsulate and clear after init -->
 1. same layer combination
 2. assets auto focus on project view
 3. oh i need a project specific keyset also adtional keymap
+4. logger
 <!-- 2. project settings (test Array) -->
 <!-- 2. folder manager -->
 <!-- 3. scene manager -->
