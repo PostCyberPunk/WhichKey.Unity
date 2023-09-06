@@ -99,9 +99,6 @@ namespace PCP.Tools.WhichKey
 					ListView keymap = root.Q<ListView>("KeyMap");
 					keymap.makeItem = vts.KeySet.CloneTree;
 
-					ListView assetsData = root.Q<ListView>("AssetsData");
-					assetsData.makeItem = () => new PropertyField();
-
 					root.Bind(settings);
 					rootElement.Add(root);
 				},

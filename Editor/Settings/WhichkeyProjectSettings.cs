@@ -9,9 +9,7 @@ namespace PCP.Tools.WhichKey
     [FilePath("Project/WhichkeyProjectSettings", FilePathAttribute.Location.ProjectFolder)]
     internal class WhichkeyProjectSettings : ScriptableSingleton<WhichkeyProjectSettings>
     {
-        [SerializeField] public bool showHintInstant = true;
         [SerializeField] public KeySet[] KeyMap;
-        [SerializeField] public ProjectAssetsData[] projectAssetsDatas = new ProjectAssetsData[0];
         [SerializeField] private List<SceneData> savedSceneDatas = new();
         public SceneData CurrentSceneData;
         internal void Init()

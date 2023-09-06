@@ -2,9 +2,9 @@ using UnityEditor;
 using UnityEngine.UIElements;
 namespace PCP.Tools.WhichKey
 {
-    [CustomEditor(typeof(ProjectAssetsData))]
+    [CustomEditor(typeof(AssetsNavData))]
 
-    public class ProjectAssetsDataEditor : Editor
+    public class AssetsNavDataEditor : Editor
     {
         public override VisualElement CreateInspectorGUI()
         {
@@ -15,7 +15,7 @@ namespace PCP.Tools.WhichKey
 
             var list = listvt.CloneTree().Q<ListView>();
             root.Add(list);
-            list.bindingPath = "AssetsData";
+            list.bindingPath = "AssetsDataList";
             list.makeItem = itemvt.CloneTree;
 
             return root;
