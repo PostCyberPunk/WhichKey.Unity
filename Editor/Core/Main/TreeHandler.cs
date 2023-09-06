@@ -12,6 +12,7 @@ namespace PCP.Tools.WhichKey
         private KeyNode mRoot;
         private KeyNode mCurrentNode;
         private IWKHandler mCurrentHandler;
+        private int maxDepth = -1;
         public bool isInitialized => mTreeRoot != null;
         public void Init()
         {
@@ -19,7 +20,7 @@ namespace PCP.Tools.WhichKey
         }
         private void Refesh()
         {
-            mKeySeq=new();
+            mKeySeq = new();
             mTreeBuilder.Build();
             ResetRoot();
             Reset();
@@ -28,12 +29,15 @@ namespace PCP.Tools.WhichKey
         {
             int key = keyCode.ToAscii(shift);
             //TODO: Add support for backspace?
-            if (key != 0)
-                mCurrentHandler.ProcessKey(key);
+            if (key == 0)
+                return;
+            mKeySeq.Push(key);
+            mCurrentHandler.ProcessKey(key);
+            if (maxDepth > 0&&CheckDepth())
+                    CloseWindow();
         }
         public void ProcessKey(int Key)
         {
-            mKeySeq.Push(Key);
             var kn = mCurrentNode.GetChildByKey(Key);
             if (kn == null)
             {
@@ -77,6 +81,7 @@ namespace PCP.Tools.WhichKey
             mKeySeq.Clear();
             mCurrentHandler = this;
             mCurrentNode = mRoot;
+            maxDepth = -1;
         }
         public void Reset(int[] key)
         {
@@ -127,5 +132,23 @@ namespace PCP.Tools.WhichKey
         }
 
         #endregion TreeManupulation
+
+        public void ChangeHandler(IWKHandler handler, int depth)
+        {
+            if (handler == null)
+            {
+                WhichKeyManager.LogError("ChangeHandler handler is null");
+                return;
+            }
+
+            mCurrentHandler = handler;
+            maxDepth = mKeySeq.Count + depth;
+        }
+        private bool CheckDepth()
+        {
+            if (mKeySeq.Count >= maxDepth) return true;
+            WhichKeyManager.instance.UpdateHints();
+            return false;
+        }
     }
 }
