@@ -8,12 +8,16 @@ namespace PCP.Tools.WhichKey
 {
 	internal class WhichKeyManager : ScriptableSingleton<WhichKeyManager>
 	{
-		private readonly MainKeyHandler mainKeyHandler = new MainKeyHandler();
+		private readonly TreeHandler mainKeyHandler = new TreeHandler();
 		internal readonly static UILoader mUILoader = new();
 		internal static WhichKeyPreferences Preferences { private set; get; }
 		private static int loggingLevel;
 
-		public Action ShowHintWindow;
+		public Action ShowHintsWindow;
+		public Action CloseHintsWindow;
+		public Action<float> OverrideWindowTimeout;
+		public Action UpdateHints;
+		#region Setup
 		public void Init()
 		{
 			if (mainKeyHandler.isInitialized)
@@ -39,13 +43,10 @@ namespace PCP.Tools.WhichKey
 			// Debug.Log("WhichKey is running for the first time");
 			EditorApplication.update -= RunOnce;
 		}
-		private void SavePreferences()
+		public void Refresh()
 		{
-
-			if (WhichKeyPreferences.instance != null)
-				WhichKeyPreferences.instance.Save();
-			else
-				LogError("WhichKey Preferences instance is null");
+			RefreshUI();
+			RefreshDatabase();
 		}
 		private void RefreshUI()
 		{
@@ -57,21 +58,10 @@ namespace PCP.Tools.WhichKey
 			loggingLevel = (int)Preferences.LogLevel;
 			mainKeyHandler.Init();
 		}
-		public void Active(int[] key)
-		{
-			mainKeyHandler.Reset(key);
-			ShowHintWindow();
-		}
-		public void ShowWindow()
-		{
-			mainKeyHandler.Reset();
-			ShowHintWindow();
-		}
-		public void Refresh()
-		{
-			RefreshUI();
-			RefreshDatabase();
-		}
+		#endregion
+
+		#region Tree
+
 		public void ChangeRoot(int[] key)
 		{
 			mainKeyHandler.ChagneRoot(key);
@@ -79,6 +69,36 @@ namespace PCP.Tools.WhichKey
 		public void ResetRoot()
 		{
 			mainKeyHandler.ResetRoot();
+		}
+		#endregion
+
+		#region Logger
+
+		public static void LogInfo(string msg)
+		{
+			if (loggingLevel == 0)
+				Debug.Log("Whichkey:" + msg);
+		}
+		public static void LogWarning(string msg)
+		{
+			if (loggingLevel <= 1)
+				Debug.LogWarning("Whichkey:" + msg);
+		}
+		public static void LogError(string msg)
+		{
+			if (loggingLevel <= 2)
+				Debug.LogError("Whichkey:" + msg);
+		}
+		#endregion
+
+		#region Settings
+		private void SavePreferences()
+		{
+
+			if (WhichKeyPreferences.instance != null)
+				WhichKeyPreferences.instance.Save();
+			else
+				LogError("WhichKey Preferences instance is null");
 		}
 		public void ApplyPreferences()
 		{
@@ -102,22 +122,23 @@ namespace PCP.Tools.WhichKey
 			Debug.Log(json);
 			System.IO.File.WriteAllText("Assets/WhichKeyPreference.json", json);
 		}
-		public static void LogInfo(string msg)
+		#endregion
+
+		#region Methods
+
+		public void Active(int[] key)
 		{
-			if (loggingLevel == 0)
-				Debug.Log("Whichkey:" + msg);
+			mainKeyHandler.Reset(key);
+			ShowHintsWindow();
 		}
-		public static void LogWarning(string msg)
+		public void ShowWindow()
 		{
-			if (loggingLevel <= 1)
-				Debug.LogWarning("Whichkey:" + msg);
+			ShowHintsWindow();
+			mainKeyHandler.Reset();
 		}
-		public static void LogError(string msg)
-		{
-			if (loggingLevel <= 2)
-				Debug.LogError("Whichkey:" + msg);
-		}
-		public bool Input(KeyCode keyCode, bool shift) => mainKeyHandler.KeyHandler(keyCode, shift);
+		#endregion
+
+		public void Input(KeyCode keyCode, bool shift) => mainKeyHandler.ProcesRawKey(keyCode, shift);
 		public string[] GetHints() => mainKeyHandler.GetLayerHints();
 	}
 }

@@ -17,7 +17,7 @@ namespace PCP.Tools.WhichKey
             {
                 //OPT bad reference
                 if (showHint)
-                    MainHintsWindow.instance.ForceActive();
+                    WhichKeyManager.instance.OverrideWindowTimeout(0);
                 return true;
             }
 
