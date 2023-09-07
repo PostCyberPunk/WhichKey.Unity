@@ -1,6 +1,6 @@
 {
     "name": "PCP.Tools.WhichKey",
-    "rootNamespace": "",
+    "rootNamespace": "PCP.Tools.WhichKey",
     "references": [],
     "includePlatforms": [
         "Editor"
