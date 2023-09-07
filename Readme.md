@@ -24,14 +24,20 @@
 <!-- 1. rewite list get -->
 <!-- 1. try fonts; -->
 <!-- GetHints -->
-UI
+<!-- UI -->
 chore folder org
+<!-- 4. defualt value interface -->
+setting 
+dropdown size
+attributes to ignre factory
+method attribute static with no arg
 
-!!still need to find a better win to sub delegate
 <!-- 1. benchmarking cached window -->
 <!-- 2. keynode encapsulate and clear after init -->
-1. same layer combination
-2. assets auto focus on project view
+same layer combination
+1. scene use active transform
+2. scene object and asset object
+<!-- 2. assets auto focus on project view -->
 3. oh i need a project specific keyset also adtional keymap
 4. logger
 <!-- 2. project settings (test Array) -->
@@ -40,28 +46,37 @@ chore folder org
 <!-- 14. static format layer hints -->
 11. better way to find duplicated key
 <!-- 13. follow mouse on change -->
+1. decoupe wkmanger
 4. caching labels reuse of hint window
-5. abstract the window ,there should be a window ref in manager
-1. window instance ref should get from manger:Assethandler
-2. mk hdl and manager ,hdl as an abstarct base
+!!still need to find a better win to sub delegate
+<!-- 5. abstract the window ,there should be a window ref in manager -->
+<!-- 1. window instance ref should get from manger:Assethandler -->
+<!-- 2. mk hdl and manager ,hdl as an abstarct base -->
 button to uxml
 <!-- 2. ?active by keyseq<br> -->
-5. lineheight
-6. keycode ext to util
+<!-- 5. lineheight -->
+<!-- 6. keycode ext to util -->
+7. maybe try serialize reference instead of path
 *** a wrapper is bad for gc, also may lose some reAference,so is intend to repalce json,so lets just edit yaml ***
 *** hideflag wont work for first time it created ***
 <!-- *** wk to static class singleton to manager *** -->
 # Extra
 piemenu
 # bug
-setting ui stuck why?
-keybing use int or keycode to char?
+not handle shift when binding
+assetNavdata so no biding
+make bind label a template
+window doesnot close
+?? prefab is gameobject?
+# ??
+<!-- setting ui stuck why? -->
+<!-- keybing use int or keycode to char? -->
 Arg to a class that can be setup with a window
 <!-- !todo tree -->
-!!!!benchmark  chached 0.01 not cached 0.04
-!!! load :list vs array for reloading?
-cmdtype???
-Wkint?
+<!-- !!!!benchmark  chached 0.01 not cached 0.04 -->
+<!-- !!! load :list vs array for reloading? -->
+<!-- cmdtype??? -->
+<!-- Wkint? -->
 <!-- check for list that can switch to array -->
 # todo 
 <!-- UI Elements cant calculate actual size properly(01245f7a) -->
@@ -81,4 +96,3 @@ is typecahce fast enough for bigger project? is there a typecache for specific a
 80e54c
 4. init benchmark average 0.01 so its ok
 <!-- 2. make mkhdl and keynode all serializable
-3. refesh and init -->
