@@ -1,15 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <Style src="project://database/Packages/com.postcyberpunk.whichkey/Resources/UXML/Settings/Preferences.uss?fileID=7433441132597879392&amp;guid=e3c4c5602f121bd4c9791f48b6528ea2&amp;type=3#Preferences" />
+    <Style src="project://database/Packages/com.postcyberpunk.whichkey/Resources/WhichKey/UXML/Settings/Preferences.uss?fileID=7433441132597879392&amp;guid=e3c4c5602f121bd4c9791f48b6528ea2&amp;type=3#Preferences" />
     <ui:VisualElement name="Root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
-        <ui:Foldout text="Hint Window Setting" name="hwinsetting" />
-        <ui:Toggle label="Show hint Instantly" binding-path="showHintInstant" name="ShowHint" />
         <ui:Foldout text="Key Mappings" name="Mapping">
             <ui:ScrollView>
                 <ui:ListView focusable="true" binding-path="KeyMap" show-border="true" reorderable="true" reorder-mode="Animated" show-add-remove-footer="true" name="KeyMap" show-foldout-header="true" header-title="Mapping" horizontal-scrolling="true" virtualization-method="DynamicHeight" />
             </ui:ScrollView>
-        </ui:Foldout>
-        <ui:Foldout text="AssetsData">
-            <ui:ListView focusable="true" binding-path="projectAssetsDatas" show-border="true" reorderable="true" reorder-mode="Animated" show-add-remove-footer="true" name="AssetsData" show-foldout-header="true" header-title="AssetsData" horizontal-scrolling="true" virtualization-method="DynamicHeight" />
         </ui:Foldout>
     </ui:VisualElement>
 </ui:UXML>
