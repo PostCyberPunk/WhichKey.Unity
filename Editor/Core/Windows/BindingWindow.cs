@@ -86,7 +86,7 @@ namespace PCP.Tools.WhichKey
             OnComplete?.Invoke(mKeySeq.ToArray());
             Close();
         }
-        private void LostFocus() => Cancel();
+		private void OnLostFocus() => Close();
 
         private void Cancel() => Close();
     }
