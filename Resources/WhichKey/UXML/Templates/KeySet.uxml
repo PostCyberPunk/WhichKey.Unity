@@ -1,8 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns="UnityEngine.UIElements" ue="UnityEditor.UIElements" xmlns:PCP="PCP.Tools.WhichKey" editor-extension-mode="True">
+    <ui:Template name="WKBind" src="project://database/Assets/WKBind.uxml?fileID=9197481963319205126&amp;guid=a19e7bb0f6d041342b57db5f81f22800&amp;type=3#WKBind" />
     <ui:Box focusable="true" style="flex-direction: row;">
-        <ui:Label tabindex="-1" text="KeySeq" display-tooltip-when-elided="true" />
-        <ui:Label tabindex="-1" text="None" display-tooltip-when-elided="true" name="KeyLabel" binding-path="KeyLabel" style="color: rgb(136, 245, 10); width: 70px;" />
-        <ui:Button text="Bind" display-tooltip-when-elided="false" name="Bind" focusable="false" />
+        <ui:Instance template="WKBind" name="WKBind" />
         <ui:Label tabindex="-1" text="Type" display-tooltip-when-elided="true" />
         <PCP:WkTypeDropdown binding-path="CmdType" style="width: 100px;" />
         <ui:Label tabindex="-1" text="Hints" display-tooltip-when-elided="true" />
