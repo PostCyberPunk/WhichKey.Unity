@@ -32,19 +32,34 @@ namespace PCP.Tools.WhichKey
 					{
 						var visualElement = e as BindableElement;
 						var p = settings.GetSerializedObject().FindProperty("KeyMap").GetArrayElementAtIndex(i);
-						visualElement.BindProperty(p);
-						// ((BindableElement)e).BindProperty(settings.GetSerializedObject().FindProperty("KeyMap").GetArrayElementAtIndex(i));
+						e.Q<VisualElement>("Base").Insert(0, new WkBinder().CreatePropertyGUI(p.FindPropertyRelative("KeySeq")));
 
-						var wkbind = e.Q<VisualElement>("WKBind") as BindableElement;
-						wkbind.BindProperty(p.FindPropertyRelative("Keys"));
-						var btn = wkbind.Q<Button>("Bind");
-						btn.clickable = new Clickable(() =>
-						{
-							BindingWindow.ShowWindow((int[] ks) =>
-							{
-								settings.KeyMap[i].Keys = ks;
-							},-1,"WhichKey Binding");
-						});
+						//2 use custom control to bind
+						// var wkb = new WkBinder(() =>
+						// {
+						// 	BindingWindow.ShowWindow((int[] ks) =>
+						// 	{
+						// 		settings.KeyMap[i].Keys = ks;
+						// 	}
+						// 	, -1, "WhichKey Binding");
+						// });
+						// e.Q<VisualElement>("Base").Insert(0, wkb);
+
+
+						//1 Use uxml temaple to bind
+						// var wkbind = e.Q<VisualElement>("WKBind") as BindableElement;
+						// wkbind.BindProperty(p.FindPropertyRelative("Keys"));
+						// var btn = wkbind.Q<Button>("Bind");
+						// btn.clickable = new Clickable(() =>
+						// {
+						// 	BindingWindow.ShowWindow((int[] ks) =>
+						// 	{
+						// 		settings.KeyMap[i].Keys = ks;
+						// 	}, -1, "WhichKey Binding");
+						// });
+
+
+						visualElement.BindProperty(p);
 					};
 					// keymap.itemsSource = settings.KeyMap;
 					//Show/Hide position field by FollowMouse toggle

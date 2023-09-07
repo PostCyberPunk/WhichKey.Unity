@@ -3,7 +3,7 @@ using UnityEngine;
 namespace PCP.Tools.WhichKey
 {
     [System.Serializable]
-    public struct WkKey
+    public struct WkKeySeq
     {
         [SerializeField]
         private int[] _keySeq;
@@ -14,7 +14,6 @@ namespace PCP.Tools.WhichKey
             set => _keySeq = value;
         }
 
-        //FIXME: how can i make this only change by exention?
         [SerializeField]
         private string _keyLabel;
         public string KeyLabel
@@ -22,7 +21,10 @@ namespace PCP.Tools.WhichKey
             get => _keySeq == null ? "None" : _keyLabel;
             set => _keyLabel = value;
         }
-        public WkKey(int[] keySeq)
+        
+
+        public static implicit operator WkKeySeq(int[] keySeq) => new(keySeq);
+        public WkKeySeq(int[] keySeq)
         {
             _keySeq = keySeq;
             if (keySeq.Length == 0)
@@ -30,6 +32,5 @@ namespace PCP.Tools.WhichKey
             else
                 _keyLabel = keySeq.ToLabel();
         }
-        public static implicit operator WkKey(int[] keySeq) => new(keySeq);
     }
 }

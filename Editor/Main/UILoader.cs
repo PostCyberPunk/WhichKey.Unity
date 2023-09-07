@@ -9,6 +9,7 @@ namespace PCP.Tools.WhichKey
         public VisualTreeAsset Preferences { private set; get; }
         public VisualTreeAsset ProjectSettings { private set; get; }
         public VisualTreeAsset List { private set; get; }
+        public VisualTreeAsset WkBinder { private set; get; }
         public VisualTreeAsset KeySet { private set; get; }
         public VisualTreeAsset AssetData { private set; get; }
         public VisualTreeAsset KeyGO { private set; get; }
@@ -24,6 +25,7 @@ namespace PCP.Tools.WhichKey
             ProjectSettings = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Settings/ProjectSettings");
             List = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/List");
             KeySet = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/KeySet");
+            WkBinder = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/WkBinder");
             AssetData = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/AssetData");
             KeyGO = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/KeyGO");
             KeyLabel = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/KeyLabel");

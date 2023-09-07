@@ -5,7 +5,7 @@ namespace PCP.Tools.WhichKey
 	[Serializable]
 	public class KeySet
 	{
-		public WkKey Keys;
+		public WkKeySeq KeySeq;
 		public string Hint;
 		public string CmdArg;
 		public int CmdType;
