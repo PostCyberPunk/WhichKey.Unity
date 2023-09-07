@@ -11,21 +11,6 @@ namespace PCP.Tools.WhichKey
 		public string Hint;
 		public string CmdArg;
 		public int CmdType;
-		public void SetKeyLabel()
-		{
-			if (KeySeq.Length == 0)
-				KeyLabel = "None";
-			else
-				KeyLabel = KeySeq.ToLabel();
-		}
-		public void Bind()
-		{
-			BindingWindow.ShowWindow((ks) =>
-			{
-				KeySeq = ks;
-				SetKeyLabel();
-			});
-		}
 		public bool IsLayer => CmdType == 0;
 	}
 }
