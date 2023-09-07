@@ -10,10 +10,10 @@ namespace PCP.Tools.WhichKey
     public class AssetsNavData : ScriptableObject
     {
         [SerializeField] public string[] LayerHints;
-        [SerializeField] private List<AssetData> AssetsDataList = new();
+        [SerializeField] private List<AssetNavSet> NavSetList = new();
         public string GetAssetsPathByKey(int key)
         {
-            foreach (var item in AssetsDataList)
+            foreach (var item in NavSetList)
             {
                 if (item.Key == key)
                     return item.AssetPath;
@@ -22,21 +22,21 @@ namespace PCP.Tools.WhichKey
         }
         public void SetAssetsPathByKey(int key, string path)
         {
-            for (int i = 0; i < AssetsDataList.Count; i++)
+            for (int i = 0; i < NavSetList.Count; i++)
             {
-                AssetData item = AssetsDataList[i];
+                AssetNavSet item = NavSetList[i];
                 if (item.Key == key)
                 {
                     item.AssetPath = path;
                     item.Hint = path;
-                    AssetsDataList[i] = item;
+                    NavSetList[i] = item;
                     // UpdateLayerHints(i);
                     OnAssetsChange();
                     return;
                 }
             }
-            var asset = new AssetData(key, path);
-            AssetsDataList.Add(asset);
+            var asset = new AssetNavSet(key, path);
+            NavSetList.Add(asset);
             OnAssetsChange();
             // UpdateLayerHints(AssetsDataList.Count - 1);
         }
@@ -46,16 +46,16 @@ namespace PCP.Tools.WhichKey
         }
         private void UpdateLayerHints(int i)
         {
-            LayerHints[i * 2] = AssetsDataList[i].Key.ToLabel();
-            LayerHints[i * 2 + 1] = AssetsDataList[i].Hint;
+            LayerHints[i * 2] = NavSetList[i].Key.ToLabel();
+            LayerHints[i * 2 + 1] = NavSetList[i].Hint;
         }
         private void OnAssetsChange()
         {
-            LayerHints = new string[AssetsDataList.Count * 2];
-            for (int i = 0; i < AssetsDataList.Count; i++)
+            LayerHints = new string[NavSetList.Count * 2];
+            for (int i = 0; i < NavSetList.Count; i++)
             {
-                LayerHints[i * 2] = AssetsDataList[i].Key.ToLabel();
-                LayerHints[i * 2 + 1] = AssetsDataList[i].Hint;
+                LayerHints[i * 2] = NavSetList[i].Key.ToLabel();
+                LayerHints[i * 2 + 1] = NavSetList[i].Hint;
             }
         }
     }
