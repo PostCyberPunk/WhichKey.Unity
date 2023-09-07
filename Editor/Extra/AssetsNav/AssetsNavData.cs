@@ -15,7 +15,7 @@ namespace PCP.Tools.WhichKey
         {
             foreach (var item in NavSetList)
             {
-                if (item.Key == key)
+                if (item.Key.lastKey == key)
                     return item.AssetPath;
             }
             return "";
@@ -25,7 +25,7 @@ namespace PCP.Tools.WhichKey
             for (int i = 0; i < NavSetList.Count; i++)
             {
                 AssetNavSet item = NavSetList[i];
-                if (item.Key == key)
+                if (item.Key.lastKey == key)
                 {
                     item.AssetPath = path;
                     item.Hint = path;
@@ -46,7 +46,7 @@ namespace PCP.Tools.WhichKey
         }
         private void UpdateLayerHints(int i)
         {
-            LayerHints[i * 2] = NavSetList[i].Key.ToLabel();
+            LayerHints[i * 2] = NavSetList[i].Key.KeyLabel;
             LayerHints[i * 2 + 1] = NavSetList[i].Hint;
         }
         private void OnAssetsChange()
@@ -54,7 +54,7 @@ namespace PCP.Tools.WhichKey
             LayerHints = new string[NavSetList.Count * 2];
             for (int i = 0; i < NavSetList.Count; i++)
             {
-                LayerHints[i * 2] = NavSetList[i].Key.ToLabel();
+                LayerHints[i * 2] = NavSetList[i].Key.KeyLabel;
                 LayerHints[i * 2 + 1] = NavSetList[i].Hint;
             }
         }

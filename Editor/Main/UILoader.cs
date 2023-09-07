@@ -11,7 +11,7 @@ namespace PCP.Tools.WhichKey
         public VisualTreeAsset List { private set; get; }
         public VisualTreeAsset WkBinder { private set; get; }
         public VisualTreeAsset KeySet { private set; get; }
-        public VisualTreeAsset AssetData { private set; get; }
+        public VisualTreeAsset NavSet { private set; get; }
         public VisualTreeAsset KeyGO { private set; get; }
         public VisualTreeAsset BindWindow { private set; get; }
         //For window
@@ -26,7 +26,7 @@ namespace PCP.Tools.WhichKey
             List = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/List");
             KeySet = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/KeySet");
             WkBinder = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/WkBinder");
-            AssetData = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/AssetData");
+            NavSet = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/NavSet");
             KeyGO = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/KeyGO");
             KeyLabel = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/KeyLabel");
             BindWindow = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/BindWindow");
