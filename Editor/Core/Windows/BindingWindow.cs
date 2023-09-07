@@ -74,9 +74,10 @@ namespace PCP.Tools.WhichKey
                         }
                         break;
                     default:
-                        mKeySeq.Add((int)keyCode);
+                        var key = keyCode.ToAscii(e.shift);
+                        mKeySeq.Add(key);
                         var keyLabel = keyVT.CloneTree();
-                        keyLabel.Q<Label>().text = keyCode.ToLabel();
+                        keyLabel.Q<Label>().text = key.ToLabel();
                         labelFrame.Add(keyLabel);
                         break;
                 }
