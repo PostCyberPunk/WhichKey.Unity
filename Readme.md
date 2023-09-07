@@ -29,6 +29,14 @@
 <!-- setting  -->
 <!-- dropdown size -->
 <!-- attributes to ignre factory -->
+<!-- bind window -->
+<!-- change root -->
+<!-- keyset use wkkey -->
+keyset to struct
+
+asset using keystruct
+
+
 make bind label a template
 method attribute static with no arg
 method command
@@ -56,6 +64,7 @@ chore folder org
 4. caching labels reuse of hint window
 !!still need to find a better win to sub delegate
 button to uxml
+bingding win backspace button,button to top
 <!-- 5. abstract the window ,there should be a window ref in manager -->
 <!-- 1. window instance ref should get from manger:Assethandler -->
 <!-- 2. mk hdl and manager ,hdl as an abstarct base -->
@@ -69,6 +78,8 @@ button to uxml
 # Extra
 piemenu
 # bug
+key interception failed, key up
+window no instance handle
 <!-- not handle shift when binding -->
 <!-- assetNavdata so no biding -->
 <!-- window doesnot close -->
@@ -85,6 +96,7 @@ Arg to a class that can be setup with a window
 <!-- check for list that can switch to array -->
 # todo 
 <!-- UI Elements cant calculate actual size properly(01245f7a) -->
+**instead of keep creating command we should have an arg table,one command instance, after command creation,factory pass the arg to itH.**
 backward compatibility
 Command mode design pattern
 <!-- Decouple whichkey to wkmanager and wksetting
