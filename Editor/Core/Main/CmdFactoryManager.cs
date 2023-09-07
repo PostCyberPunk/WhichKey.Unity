@@ -20,6 +20,9 @@ namespace PCP.Tools.WhichKey
             CommandTypeMap.Add(0, "Layer");
             foreach (var item in tList)
             {
+                if (item.IsDefined(typeof(WhichKeyIgnoreFactory), false)) continue;
+                if (item.IsAbstract) continue;
+
                 var factory = Activator.CreateInstance(item) as WKCommandFactory;
                 int id = factory.TID;
                 if (FactoryMap.ContainsKey(id))
