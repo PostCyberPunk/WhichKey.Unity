@@ -140,6 +140,6 @@ namespace PCP.Tools.WhichKey
 
 		public void Input(KeyCode keyCode, bool shift) => mainKeyHandler.ProcesRawKey(keyCode, shift);
 		public string[] GetHints() => mainKeyHandler.GetLayerHints();
-		public void ChangeHanlder(IWKHandler handler) => mainKeyHandler.ChangeHandler(handler);
+		public void ChangeHanlder(IWKHandler handler,int depth) => mainKeyHandler.ChangeHandler(handler,depth);
 	}
 }
