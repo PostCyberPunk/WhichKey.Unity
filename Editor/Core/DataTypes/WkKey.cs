@@ -3,7 +3,7 @@ using UnityEngine;
 namespace PCP.Tools.WhichKey
 {
     [System.Serializable]
-    public struct WkKey
+    public struct WkKeySeq
     {
         [SerializeField]
         private int[] _keySeq;
@@ -22,9 +22,9 @@ namespace PCP.Tools.WhichKey
             set => _keyLabel = value;
         }
         
-        
-        public static implicit operator WkKey(int[] keySeq) => new(keySeq);
-        public WkKey(int[] keySeq)
+
+        public static implicit operator WkKeySeq(int[] keySeq) => new(keySeq);
+        public WkKeySeq(int[] keySeq)
         {
             _keySeq = keySeq;
             if (keySeq.Length == 0)

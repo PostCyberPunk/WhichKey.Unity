@@ -32,7 +32,7 @@ namespace PCP.Tools.WhichKey
 					{
 						var visualElement = e as BindableElement;
 						var p = settings.GetSerializedObject().FindProperty("KeyMap").GetArrayElementAtIndex(i);
-						e.Q<VisualElement>("Base").Insert(0, new WkBinder().CreatePropertyGUI(p.FindPropertyRelative("Keys")));
+						e.Q<VisualElement>("Base").Insert(0, new WkBinder().CreatePropertyGUI(p.FindPropertyRelative("KeySeq")));
 
 						//2 use custom control to bind
 						// var wkb = new WkBinder(() =>

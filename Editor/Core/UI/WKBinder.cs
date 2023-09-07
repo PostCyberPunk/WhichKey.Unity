@@ -8,7 +8,7 @@ using System;
 
 namespace PCP.Tools.WhichKey
 {
-    [CustomPropertyDrawer(typeof(WkKey))]
+    [CustomPropertyDrawer(typeof(WkKeySeq))]
     public class WkBinder : PropertyDrawer
     {
         public override VisualElement CreatePropertyGUI(SerializedProperty property)
@@ -21,7 +21,7 @@ namespace PCP.Tools.WhichKey
             {
                 BindingWindow.ShowWindow((int[] ks) =>
                 {
-                    WkKey wkKey = ks;
+                    WkKeySeq wkKey = ks;
                     var array = property.FindPropertyRelative("_keySeq");
                     array.arraySize = wkKey.KeySeq.Length;
                     for (int i = 0; i < wkKey.KeySeq.Length; i++)
