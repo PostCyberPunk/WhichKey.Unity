@@ -3,7 +3,8 @@ using System;
 namespace PCP.Tools.WhichKey
 {
 	[Serializable]
-	public class KeySet
+	//OPT maybe claass is better
+	public struct KeySet
 	{
 		public WkKeySeq KeySeq;
 		public string Hint;
