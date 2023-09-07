@@ -52,8 +52,8 @@ namespace PCP.Tools.WhichKey
             var go = Selection.activeObject;
             if (go == null)
                 WhichKeyManager.LogInfo($"AssetsNav: No Selectted Object");
-            else if (go.GetType() == typeof(UnityEngine.Object))
-                WhichKeyManager.LogInfo($"AssetsNav: Cant Save Object");
+            else if (!AssetDatabase.Contains(go))
+                WhichKeyManager.LogInfo($"AssetsNav: Cant Save GameObject,select an asset");
             else
             {
                 string path = AssetDatabase.GetAssetPath(go);
