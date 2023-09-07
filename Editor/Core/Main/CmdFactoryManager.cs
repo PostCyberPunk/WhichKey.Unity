@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System;
+using System.Linq;
 namespace PCP.Tools.WhichKey
 {
     public class CmdFactoryManager
@@ -17,7 +18,10 @@ namespace PCP.Tools.WhichKey
         private void RegisterCmdFactorires()
         {
             var tList = TypeCache.GetTypesDerivedFrom<WKCommandFactory>();
-            CommandTypeMap.Add(0, "Layer");
+
+            var fm = new Dictionary<int, WKCommandFactory>();
+            var cm = new Dictionary<int, string>();
+            cm.Add(0, "Layer");
             foreach (var item in tList)
             {
                 if (item.IsDefined(typeof(WhichKeyIgnoreFactory), false)) continue;
@@ -25,14 +29,16 @@ namespace PCP.Tools.WhichKey
 
                 var factory = Activator.CreateInstance(item) as WKCommandFactory;
                 int id = factory.TID;
-                if (FactoryMap.ContainsKey(id))
+                if (fm.ContainsKey(id))
                 {
                     WhichKeyManager.LogWarning($"Command Factory <color=red>{id}</color> already registered");
                     return;
                 }
-                FactoryMap.Add(id, factory);
-                CommandTypeMap.Add(id, factory.CommandName);
+                fm.Add(id, factory);
+                cm.Add(id, factory.CommandName);
             }
+            FactoryMap = new Dictionary<int, WKCommandFactory>(fm.OrderBy(x => x.Key));
+            CommandTypeMap = new Dictionary<int, string>(cm.OrderBy(x => x.Key));
         }
         public WKCommand CreateCommand(int id, string arg)
         {
@@ -40,7 +46,11 @@ namespace PCP.Tools.WhichKey
             {
                 return FactoryMap[id].CreateCommand(arg);
             }
-            else return null;
+            else
+            {
+                WhichKeyManager.LogError($"Command Factory <color=red>{id}</color> not found");
+                return null;
+            }
         }
     }
 }
