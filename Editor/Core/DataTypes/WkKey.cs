@@ -1,10 +1,11 @@
+using UnityEngine;
 
 namespace PCP.Tools.WhichKey
 {
     [System.Serializable]
     public struct WkKey
     {
-        [UnityEngine.SerializeField]
+        [SerializeField]
         private int[] _keySeq;
 
         public int[] KeySeq
@@ -14,34 +15,21 @@ namespace PCP.Tools.WhichKey
         }
 
         //FIXME: how can i make this only change by exention?
+        [SerializeField]
         private string _keyLabel;
         public string KeyLabel
         {
-            get => _keyLabel;
-            internal set => _keyLabel = value;
+            get => _keySeq == null ? "None" : _keyLabel;
+            set => _keyLabel = value;
         }
         public WkKey(int[] keySeq)
         {
             _keySeq = keySeq;
-            _keyLabel = keySeq.ToLabel();
-        }
-    }
-    public static class WkKeyExtension
-    {
-        public static void SetLabel(ref this WkKey wkKey)
-        {
-            if (wkKey.KeySeq.Length == 0)
-                wkKey.KeyLabel = "None";
+            if (keySeq.Length == 0)
+                _keyLabel = "None";
             else
-                wkKey.KeyLabel = wkKey.KeySeq.ToLabel();
+                _keyLabel = keySeq.ToLabel();
         }
-        public static void Bind(this WkKey wkKey, float depth = -1, string title = "WhichKey Binding")
-        {
-            BindingWindow.ShowWindow((ks) =>
-            {
-                wkKey.KeySeq = ks;
-                wkKey.SetLabel();
-            });
-        }
+        public static implicit operator WkKey(int[] keySeq) => new(keySeq);
     }
 }
