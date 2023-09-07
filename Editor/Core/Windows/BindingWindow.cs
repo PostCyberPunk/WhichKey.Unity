@@ -18,12 +18,8 @@ namespace PCP.Tools.WhichKey
         private VisualElement labelFrame;
         private Action<int[]> OnComplete;
         private string Title;
-        public static void ShowWindow(Action<int[]> onComplete, int[] keySeq, string title = "WhichKey Binding")
-        {
-            ShowWindow(onComplete, title);
-            instance.mKeySeq = keySeq.ToList();
-        }
-        public static void ShowWindow(Action<int[]> onComplete, string title = "WhichKey Binding")
+        private int depth;
+        public static void ShowWindow(Action<int[]> onComplete, int depth, string title)
         {
             if (instance == null)
                 instance = ScriptableObject.CreateInstance<BindingWindow>();
@@ -34,6 +30,7 @@ namespace PCP.Tools.WhichKey
             instance.mKeySeq.Clear();
             instance.OnComplete = onComplete;
             instance.Title = title;
+            instance.depth = depth;
             instance.ShowPopup();
         }
         private void CreateGUI()
@@ -74,6 +71,7 @@ namespace PCP.Tools.WhichKey
                         }
                         break;
                     default:
+                        if (depth > 0 && mKeySeq.Count >= depth) return;
                         var key = keyCode.ToAscii(e.shift);
                         mKeySeq.Add(key);
                         var keyLabel = keyVT.CloneTree();
@@ -88,18 +86,9 @@ namespace PCP.Tools.WhichKey
             OnComplete?.Invoke(mKeySeq.ToArray());
             Close();
         }
-        private void LostFocus() => Cancel();
+		private void OnLostFocus() => Close();
 
         private void Cancel() => Close();
-        // private void 
-        [MenuItem("WhichKey/Binding Test")]
-        public static void Test()
-        {
-            BindingWindow.ShowWindow((keys) =>
-            {
-                Debug.Log(keys[1]);
-            });
-        }
     }
 }
 

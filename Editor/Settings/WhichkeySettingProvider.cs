@@ -4,7 +4,6 @@ using UnityEditorInternal;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using System;
-using System.Diagnostics;
 
 namespace PCP.Tools.WhichKey
 {
@@ -36,10 +35,15 @@ namespace PCP.Tools.WhichKey
 						visualElement.BindProperty(p);
 						// ((BindableElement)e).BindProperty(settings.GetSerializedObject().FindProperty("KeyMap").GetArrayElementAtIndex(i));
 
-						var btn = e.Q<Button>("Bind"); 
+						var wkbind = e.Q<VisualElement>("WKBind") as BindableElement;
+						wkbind.BindProperty(p.FindPropertyRelative("Keys"));
+						var btn = wkbind.Q<Button>("Bind");
 						btn.clickable = new Clickable(() =>
 						{
-							settings.KeyMap[i].Bind();
+							BindingWindow.ShowWindow((int[] ks) =>
+							{
+								settings.KeyMap[i].Keys = ks;
+							},-1,"WhichKey Binding");
 						});
 					};
 					// keymap.itemsSource = settings.KeyMap;
