@@ -28,13 +28,17 @@ namespace PCP.Tools.WhichKey
                 if (item.Key == key)
                 {
                     item.AssetPath = path;
-                    UpdateLayerHints(i);
+                    item.Hint = path;
+                    AssetsDataList[i] = item;
+                    // UpdateLayerHints(i);
+                    OnAssetsChange();
                     return;
                 }
             }
             var asset = new AssetData(key, path);
             AssetsDataList.Add(asset);
-            UpdateLayerHints(AssetsDataList.Count - 1);
+            OnAssetsChange();
+            // UpdateLayerHints(AssetsDataList.Count - 1);
         }
         private void OnValidate()
         {

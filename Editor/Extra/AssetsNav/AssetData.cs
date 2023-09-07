@@ -9,7 +9,7 @@ namespace PCP.Tools.WhichKey
         public AssetData(int key, string path)
         {
             Key = key;
-            Hint = "";
+            Hint = path;
             AssetPath = path;
         }
     }
