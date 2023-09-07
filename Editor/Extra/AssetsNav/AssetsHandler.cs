@@ -23,9 +23,16 @@ namespace PCP.Tools.WhichKey
             WhichKeyManager.LogError("AssetsNav: No Assets Data Found For Index: " + index);
             return false;
         }
+        public void ChangeAction(bool save)
+        {
+            if (save)
+                mProcessKey = SaveAssetPath;
+            else
+                mProcessKey = LoadAssetToSeletion;
+        }
         public void ProcessKey(int key)
         {
-            Debug.Log("ProcessKey: " + key);
+            mProcessKey?.Invoke(key);
         }
         private void LoadAssetToSeletion(int key)
         {
