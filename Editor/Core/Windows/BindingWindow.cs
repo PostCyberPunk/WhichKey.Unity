@@ -91,15 +91,6 @@ namespace PCP.Tools.WhichKey
         private void LostFocus() => Cancel();
 
         private void Cancel() => Close();
-        // private void 
-        [MenuItem("WhichKey/Binding Test")]
-        public static void Test()
-        {
-            BindingWindow.ShowWindow((keys) =>
-            {
-                Debug.Log(keys[1]);
-            });
-        }
     }
 }
 
