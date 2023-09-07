@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns="UnityEngine.UIElements" ue="UnityEditor.UIElements" xmlns:PCP="PCP.Tools.WhichKey" editor-extension-mode="True">
     <ui:VisualElement name="Base" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+        <uie:PropertyField binding-path="KeySeq" />
         <ui:Label tabindex="-1" text="Type" display-tooltip-when-elided="true" />
         <PCP:WkTypeDropdown binding-path="CmdType" style="width: 100px;" />
         <ui:Label tabindex="-1" text="Hints" display-tooltip-when-elided="true" />

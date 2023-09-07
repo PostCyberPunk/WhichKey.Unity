@@ -28,40 +28,7 @@ namespace PCP.Tools.WhichKey
 					var root = vts.Preferences.CloneTree();
 					root.Q<ListView>("KeyMap").makeItem = vts.KeySet.CloneTree;
 					var keymap = root.Q<ListView>("KeyMap");
-					keymap.bindItem = (e, i) =>
-					{
-						var visualElement = e as BindableElement;
-						var p = settings.GetSerializedObject().FindProperty("KeyMap").GetArrayElementAtIndex(i);
-						e.Q<VisualElement>("Base").Insert(0, new WkBinder().CreatePropertyGUI(p.FindPropertyRelative("KeySeq")));
 
-						//2 use custom control to bind
-						// var wkb = new WkBinder(() =>
-						// {
-						// 	BindingWindow.ShowWindow((int[] ks) =>
-						// 	{
-						// 		settings.KeyMap[i].Keys = ks;
-						// 	}
-						// 	, -1, "WhichKey Binding");
-						// });
-						// e.Q<VisualElement>("Base").Insert(0, wkb);
-
-
-						//1 Use uxml temaple to bind
-						// var wkbind = e.Q<VisualElement>("WKBind") as BindableElement;
-						// wkbind.BindProperty(p.FindPropertyRelative("Keys"));
-						// var btn = wkbind.Q<Button>("Bind");
-						// btn.clickable = new Clickable(() =>
-						// {
-						// 	BindingWindow.ShowWindow((int[] ks) =>
-						// 	{
-						// 		settings.KeyMap[i].Keys = ks;
-						// 	}, -1, "WhichKey Binding");
-						// });
-
-
-						visualElement.BindProperty(p);
-					};
-					// keymap.itemsSource = settings.KeyMap;
 					//Show/Hide position field by FollowMouse toggle
 					var winPosElement = root.Q<Vector2Field>("FixedPosition");
 					winPosElement.style.display = settings.WindowFollowMouse ? DisplayStyle.None : DisplayStyle.Flex;
