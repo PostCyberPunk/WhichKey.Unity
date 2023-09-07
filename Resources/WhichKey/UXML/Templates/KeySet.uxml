@@ -4,7 +4,7 @@
         <ui:Label tabindex="-1" text="None" display-tooltip-when-elided="true" name="KeyLabel" binding-path="KeyLabel" style="color: rgb(136, 245, 10); width: 70px;" />
         <ui:Button text="Bind" display-tooltip-when-elided="false" name="Bind" focusable="false" />
         <ui:Label tabindex="-1" text="Type" display-tooltip-when-elided="true" />
-        <PCP:WkTypeDropdown binding-path="CmdType" />
+        <PCP:WkTypeDropdown binding-path="CmdType" style="width: 100px;" />
         <ui:Label tabindex="-1" text="Hints" display-tooltip-when-elided="true" />
         <ui:TextField bindingPath="HintText" binding-path="Hint" style="width: 150px;" />
         <ui:Label tabindex="-1" text="Argument" display-tooltip-when-elided="true" />
