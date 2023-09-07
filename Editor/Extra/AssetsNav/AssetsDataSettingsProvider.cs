@@ -24,19 +24,20 @@ namespace PCP.Tools.WhichKey
                     var settings = AssetsDataManager.instance.GetSerializedObject();
                     var vts = WhichKeyManager.mUILoader;
 
-                    var root = vts.ProjectSettings.CloneTree();
+                    var root = vts.List.CloneTree();
 
-                    ListView assetsData = root.Q<ListView>("AssetsData");
+                    ListView assetsData = root.Q<ListView>();
+                    assetsData.headerTitle = "AssetsData";
                     assetsData.makeItem = () => new PropertyField();
+                    assetsData.BindProperty(settings.FindProperty("NavAssetsDatas"));
 
-                    root.Bind(settings);
                     rootElement.Add(root);
                 },
                 deactivateHandler = () =>
                 {
                     AssetsDataManager.Save();
                 },
-                keywords = new HashSet<string>(new[] { "WhichKey","AssetsData" })
+                keywords = new HashSet<string>(new[] { "WhichKey", "AssetsData" })
 
             };
 

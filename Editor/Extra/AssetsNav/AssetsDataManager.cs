@@ -9,7 +9,7 @@ namespace PCP.Tools.WhichKey
     internal class AssetsDataManager : ScriptableSingleton<AssetsDataManager>
     {
         [SerializeField] public float WinTimeout;
-        [SerializeField] public AssetsNavData[] projectAssetsDatas = new AssetsNavData[0];
+        [SerializeField] public AssetsNavData[] NavAssetsDatas = new AssetsNavData[0];
 
         private void OnEnable()
         {

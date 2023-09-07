@@ -13,7 +13,7 @@ namespace PCP.Tools.WhichKey
         private System.Action<int> mProcessKey;
         public bool ProecessArg(int index)
         {
-            assetsData = mDataManger.projectAssetsDatas[index];
+            assetsData = mDataManger.NavAssetsDatas[index];
             if (assetsData != null)
             {
                 WhichKeyManager.instance.OverrideWindowTimeout(mDataManger.WinTimeout);
