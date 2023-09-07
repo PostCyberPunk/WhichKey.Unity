@@ -15,7 +15,7 @@ namespace PCP.Tools.WhichKey
 
             var list = listvt.CloneTree().Q<ListView>();
             root.Add(list);
-            list.bindingPath = "AssetsDataList";
+            list.bindingPath = "NavSetList";
             list.makeItem = itemvt.CloneTree;
 
             return root;
