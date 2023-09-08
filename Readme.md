@@ -71,6 +71,7 @@ button to uxml
 <!-- 2. ?active by keyseq<br> -->
 <!-- 5. lineheight -->
 <!-- 6. keycode ext to util -->
+window no instance handle
 7. maybe try serialize reference instead of path
 *** a wrapper is bad for gc, also may lose some reAference,so is intend to repalce json,so lets just edit yaml ***
 *** hideflag wont work for first time it created ***
@@ -78,8 +79,7 @@ button to uxml
 # Extra
 piemenu
 # bug
-key interception failed, key up
-window no instance handle
+<!-- key interception failed, key up -->
 <!-- not handle shift when binding -->
 <!-- assetNavdata so no biding -->
 <!-- window doesnot close -->
@@ -112,4 +112,4 @@ is typecahce fast enough for bigger project? is there a typecache for specific a
 <!-- wk pref property getter if null create instance? no need.  -->
 80e54c
 4. init benchmark average 0.01 so its ok
-<!-- 2. make mkhdl and keynode all serializable
+5. command arg or cmd factory? command arg or cmd factory? command arg or cmd factory? command arg or cmd factory?
