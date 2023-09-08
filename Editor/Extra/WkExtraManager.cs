@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
+using System;
 
 
 namespace PCP.Tools.WhichKey
@@ -14,11 +15,12 @@ namespace PCP.Tools.WhichKey
 
         [SerializeField] private List<SceneNavData> savedSceneDatas = new();
         public SceneNavData CurrentSceneData;
-        internal void Init()
+        [InitializeOnLoadMethod]
+        public static void Init()
         {
-            EditorSceneManager.sceneOpened += OnSceneOpened;
+            EditorSceneManager.sceneOpened += instance.OnSceneOpened;
             var c_scene = SceneManager.GetActiveScene();
-            SetSceneData(c_scene);
+            instance.SetSceneData(c_scene);
         }
         public static void Save()
         {
