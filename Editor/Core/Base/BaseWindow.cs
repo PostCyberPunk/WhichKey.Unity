@@ -41,15 +41,19 @@ namespace PCP.Tools.WhichKey
 		protected virtual void OnGUI()
 		{
 			Event e = Event.current;
-			if (e == null) return;
 			CheckUI();
+			if (e == null) return;
 			if (!e.isKey)
 				return;
 			KeyCode keyCode = e.keyCode;
 			bool shift = e.shift;
 			bool isUp = e.type == EventType.KeyUp;
 			e.Use();
-			KeyHandler(keyCode, shift, isUp);
+			if(keyCode==KeyCode.P)
+			{
+				KeyHandler(keyCode, shift, isUp);
+			}
+			// KeyHandler(keyCode, shift, isUp);
 		}
 		private void KeyHandler(KeyCode keyCode, bool shift, bool isUp)
 		{

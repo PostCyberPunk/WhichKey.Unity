@@ -59,11 +59,6 @@ namespace PCP.Tools.WhichKey
             CurrentSceneData = savedSceneDatas.Find(x => x.Scene == c_scene);
             return CurrentSceneData != null;
         }
-        [MenuItem("WhichKey/Test")]
-        public static void test()
-        {
-
-        }
         [MenuItem("WhichKey/ClearData")]
         public static void ClearData()
         {
