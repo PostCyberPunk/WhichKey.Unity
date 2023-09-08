@@ -5,21 +5,23 @@ using UnityEditor;
 using UnityEngine.UIElements;
 using System.Xml.Schema;
 using UnityEditor.UIElements;
+using System.Linq;
 namespace PCP.Tools.WhichKey
 {
 
-    public class SceneSettingWindow : EditorWindow
+    public class SceneNavWindow : EditorWindow
     {
-        [MenuItem("WhichKey/Scene Setting")]
+        private WkExtraManager mManager => WkExtraManager.instance;
+        [MenuItem("WhichKey/Extra/SceneNav Setting")]
         public static void ShowWindow()
         {
-            var window = GetWindow<SceneSettingWindow>();
+            var window = GetWindow<SceneNavWindow>();
             window.titleContent = new GUIContent("Whichkey Scene Setting");
             window.Show();
         }
         private void CreateGUI()
         {
-            if (WhichkeyProjectSettings.instance.CurrentSceneData == null)
+            if (mManager.CurrentSceneData == null)
             {
                 rootVisualElement.Add(new Label("No Scene Data,Please Save Scene"));
                 return;
@@ -36,20 +38,20 @@ namespace PCP.Tools.WhichKey
             infoLabel.text = "Select GameObject to set or remove reference";
             var setButton = new Button(() =>
             {
-                var go = Selection.activeGameObject;
+                var go = Selection.activeTransform;
                 if (go == null)
                     return;
-                var data = WhichkeyProjectSettings.instance.CurrentSceneData;
-                data.Targets[list.selectedIndex].Target = Selection.activeGameObject.GetPath();
-                WhichkeyProjectSettings.instance.SaveSceneData();
+                var target = mManager.CurrentSceneData.Targets.ElementAtOrDefault(0);
+                target.Target = Selection.activeTransform.GetPath();
+                mManager.SaveSceneData();
             });
             setButton.text = "Set Reference";
 
             var delButton = new Button(() =>
             {
-                var data = WhichkeyProjectSettings.instance.CurrentSceneData;
-                data.Targets[list.selectedIndex].Target = "";
-                WhichkeyProjectSettings.instance.SaveSceneData();
+                var target = mManager.CurrentSceneData.Targets.ElementAtOrDefault(list.selectedIndex);
+                target.Target = "";
+                mManager.SaveSceneData();
             });
             delButton.text = "Remove Reference";
 
@@ -61,11 +63,11 @@ namespace PCP.Tools.WhichKey
         }
         private void OnEnable()
         {
-            rootVisualElement.Bind(WhichkeyProjectSettings.instance.GetSerializedObject());
+            rootVisualElement.Bind(mManager.GetSerializedObject());
         }
         private void OnValidate()
         {
-            WhichkeyProjectSettings.instance?.SaveSceneData();
+            mManager.SaveSceneData();
         }
     }
 }
