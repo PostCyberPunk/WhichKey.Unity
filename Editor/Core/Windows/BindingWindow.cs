@@ -93,7 +93,7 @@ namespace PCP.Tools.WhichKey
         }
         private void Bind()
         {
-            OnComplete?.Invoke(mKeySeq.ToArray());
+            OnComplete?.Invoke(mKeySeq.Reverse().ToArray());
             Close();
         }
         private void Delete()
