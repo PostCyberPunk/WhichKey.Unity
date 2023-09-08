@@ -16,6 +16,7 @@ namespace PCP.Tools.WhichKey
 		private float timeoutLen;
 		protected float mWidth;
 		protected float mHeight;
+		private bool needClose = false;
 		public static void Active()
 		{
 			if (instance == null)
@@ -45,7 +46,20 @@ namespace PCP.Tools.WhichKey
 			CheckUI();
 			if (!e.isKey)
 				return;
-			KeyHandler(e);
+			if (!needClose)
+				KeyHandler(e);
+			else if (e.type == EventType.KeyUp)
+			{
+				e.Use();
+				Close();
+				return;
+			}
+			else if (showHint && !_changeUI)
+			{
+				_changeUI = true;
+				showHint = false;
+			}
+			e.Use();
 		}
 		private void KeyHandler(Event e)
 		{
@@ -56,13 +70,12 @@ namespace PCP.Tools.WhichKey
 			}
 			if (e.type == EventType.KeyDown)
 			{
-				e.Use();
 				switch (e.keyCode)
 				{
 					case KeyCode.None:
 						break;
 					case KeyCode.Escape:
-						Close();
+						ShouldClose();
 						break;
 					case KeyCode.LeftShift:
 					case KeyCode.RightShift:
@@ -105,7 +118,7 @@ namespace PCP.Tools.WhichKey
 		}
 		private void CheckDelayTimer()
 		{
-			if (showHint) return;
+			if (needClose || showHint) return;
 			showHint = Time.realtimeSinceStartup > hideTill;
 			if (showHint)
 			{
@@ -114,10 +127,7 @@ namespace PCP.Tools.WhichKey
 				Repaint();
 			}
 		}
-		// protected virtual void OnDisable()
-		// {
-		// 	Close();
-		// }
+		protected void ShouldClose() => needClose = true;
 		private void OnLostFocus() => Close();
 		public void OverriderTimeout(float timeout) => timeoutLen = timeout;
 
