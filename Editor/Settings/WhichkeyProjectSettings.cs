@@ -10,8 +10,6 @@ namespace PCP.Tools.WhichKey
     internal class WhichkeyProjectSettings : ScriptableSingleton<WhichkeyProjectSettings>
     {
         [SerializeField] public KeySet[] KeyMap;
-        [SerializeField] private List<SceneData> savedSceneDatas = new();
-        public SceneData CurrentSceneData;
         public static void Save()
         {
             Undo.RegisterCompleteObjectUndo(instance, "Save WhichKey Project Settings");
