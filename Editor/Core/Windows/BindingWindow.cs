@@ -11,7 +11,7 @@ namespace PCP.Tools.WhichKey
     public class BindingWindow : EditorWindow
     {
         private static BindingWindow instance;
-        private List<int> mKeySeq = new();
+        private Stack<int> mKeySeq = new();
         private VisualTreeAsset keyVT { get => WhichKeyManager.mUILoader.KeyLabel; }
         private VisualTreeAsset winVT { get => WhichKeyManager.mUILoader.BindWindow; }
 
@@ -19,14 +19,17 @@ namespace PCP.Tools.WhichKey
         private Action<int[]> OnComplete;
         private string Title;
         private int depth;
+        private bool mouseFound = false;
+        private Vector2 mSize = new(200, 150);
         public static void ShowWindow(Action<int[]> onComplete, int depth, string title)
         {
             if (instance == null)
                 instance = ScriptableObject.CreateInstance<BindingWindow>();
 
-            Vector2 size = new(200, 150);
-            Vector2 center = EditorGUIUtility.GetMainWindowPosition().center;
-            instance.position = new Rect(center.x - size.x / 2, center.y - size.y / 2, size.x, size.y);
+            // Vector2 mSize = new(200, 150);
+            // Vector2 center = EditorGUIUtility.GetMainWindowPosition().center;
+            // instance.position = new Rect(center.x - mSize.x / 2, center.y - mSize.y / 2, mSize.x, mSize.y);
+
             instance.mKeySeq.Clear();
             instance.OnComplete = onComplete;
             instance.Title = title;
@@ -41,15 +44,26 @@ namespace PCP.Tools.WhichKey
             // Button 
             root.Q<Button>("confirm").clicked += Bind;
             root.Q<Button>("cancel").clicked += Cancel;
+            root.Q<Button>("delete").clicked += Delete;
 
             rootVisualElement.Add(root);
             // rootVisualElement.style.alignContent = Align.Center;
         }
 
+        private void FollowMouse()
+        {
+            Vector2 mousePos = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
+            position = new Rect(mousePos.x, mousePos.y, mSize.x, mSize.y);
+        }
         private void OnGUI()
         {
             var e = Event.current;
             if (e == null) return;
+            if (!mouseFound)
+            {
+                mouseFound = true;
+                FollowMouse();
+            }
             if (e.isKey && e.type == EventType.KeyDown)
             {
                 var keyCode = e.keyCode;
@@ -64,16 +78,12 @@ namespace PCP.Tools.WhichKey
                         Bind();
                         break;
                     case KeyCode.Backspace:
-                        if (mKeySeq.Count > 0)
-                        {
-                            mKeySeq.RemoveAt(mKeySeq.Count - 1);
-                            labelFrame.RemoveAt(labelFrame.childCount - 1);
-                        }
+                        Delete();
                         break;
                     default:
                         if (depth > 0 && mKeySeq.Count >= depth) return;
                         var key = keyCode.ToAscii(e.shift);
-                        mKeySeq.Add(key);
+                        mKeySeq.Push(key);
                         var keyLabel = keyVT.CloneTree();
                         keyLabel.Q<Label>().text = key.ToLabel();
                         labelFrame.Add(keyLabel);
@@ -86,7 +96,15 @@ namespace PCP.Tools.WhichKey
             OnComplete?.Invoke(mKeySeq.ToArray());
             Close();
         }
-		private void OnLostFocus() => Close();
+        private void Delete()
+        {
+            if (mKeySeq.Count > 0)
+            {
+                mKeySeq.Pop();
+                labelFrame.RemoveAt(labelFrame.childCount - 1);
+            }
+        }
+        private void OnLostFocus() => Close();
 
         private void Cancel() => Close();
     }
