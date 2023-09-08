@@ -84,19 +84,6 @@ namespace PCP.Tools.WhichKey
 			mainFrame.Add(labelFrame);
 
 			rootVisualElement.Add(mainFrame);
-			//disable keyboard
-			rootVisualElement.RegisterCallback<KeyDownEvent>(evt =>
-			{
-				Debug.Log(evt.propagationPhase);
-				evt.StopPropagation();
-				evt.PreventDefault();
-			});
-			rootVisualElement.RegisterCallback<KeyUpEvent>(evt =>
-			{
-				Debug.Log(evt.propagationPhase);
-				evt.StopPropagation();
-				evt.PreventDefault();
-			});
 		}
 		protected override void ShowHints()
 		{

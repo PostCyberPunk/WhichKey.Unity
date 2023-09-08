@@ -137,7 +137,7 @@ namespace PCP.Tools.WhichKey
 						continue;
 					}
 				}
-				Preferences.KeyMap[i] = new KeySet();
+				Preferences.KeyMap[i]= new KeySet();
 				Preferences.KeyMap[i].KeySeq = list;
 				Preferences.KeyMap[i].CmdType = (int)oldKeySet.type;
 				Preferences.KeyMap[i].Hint = oldKeySet.HintText;
@@ -181,11 +181,6 @@ namespace PCP.Tools.WhichKey
 
 		public void Input(KeyCode keyCode, bool shift) => mainKeyHandler.ProcesRawKey(keyCode, shift);
 		public string[] GetHints() => mainKeyHandler.GetLayerHints();
-		public void ChangeHanlder(IWKHandler handler, int depth) => mainKeyHandler.ChangeHandler(handler, depth);
-		[MenuItem("WhichKey/Test")]
-		public static void test()
-		{
-			Debug.Log("test");
-		}
+		public void ChangeHanlder(IWKHandler handler,int depth) => mainKeyHandler.ChangeHandler(handler,depth);
 	}
 }

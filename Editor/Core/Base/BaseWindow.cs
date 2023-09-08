@@ -41,30 +41,23 @@ namespace PCP.Tools.WhichKey
 		protected virtual void OnGUI()
 		{
 			Event e = Event.current;
-			CheckUI();
 			if (e == null) return;
+			CheckUI();
 			if (!e.isKey)
 				return;
-			KeyCode keyCode = e.keyCode;
-			bool shift = e.shift;
-			bool isUp = e.type == EventType.KeyUp;
-			e.Use();
-			if(keyCode==KeyCode.P)
-			{
-				KeyHandler(keyCode, shift, isUp);
-			}
-			// KeyHandler(keyCode, shift, isUp);
+			KeyHandler(e);
 		}
-		private void KeyHandler(KeyCode keyCode, bool shift, bool isUp)
+		private void KeyHandler(Event e)
 		{
-			if (isUp)
+			if (e.type == EventType.KeyUp)
 			{
 				keyReleased = true;
 				return;
 			}
-			else
+			if (e.type == EventType.KeyDown)
 			{
-				switch (keyCode)
+				e.Use();
+				switch (e.keyCode)
 				{
 					case KeyCode.None:
 						break;
@@ -73,21 +66,13 @@ namespace PCP.Tools.WhichKey
 						break;
 					case KeyCode.LeftShift:
 					case KeyCode.RightShift:
-					case KeyCode.LeftControl:
-					case KeyCode.RightControl:
-					case KeyCode.LeftAlt:
-					case KeyCode.RightAlt:
-					case KeyCode.LeftCommand:
-					case KeyCode.RightCommand:
-					case KeyCode.LeftWindows:
-					case KeyCode.RightWindows:
 						break;
 					default:
-						if (keyCode != prevKey || keyReleased)
+						if (e.keyCode != prevKey || keyReleased)
 						{
-							prevKey = keyCode;
+							prevKey = e.keyCode;
 							keyReleased = false;
-							WhichKeyManager.instance.Input(keyCode, shift);
+							WhichKeyManager.instance.Input(e.keyCode, e.shift);
 						}
 						break;
 				}
