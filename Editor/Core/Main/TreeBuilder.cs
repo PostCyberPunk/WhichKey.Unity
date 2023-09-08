@@ -33,11 +33,11 @@ namespace PCP.Tools.WhichKey
 		private void AddKeySetToTree(KeySet keyset)
 		{
 			mCurrentNode = mTreeRoot;
-			for (int i = 0; i < keyset.KeySeq.Length; i++)
+			for (int i = 0; i < keyset.KeySeq.KeySeq.Length; i++)
 			{
-				int key = keyset.KeySeq[i];
+				int key = keyset.KeySeq.KeySeq[i];
 				KeyNode kn = mCurrentNode.GetChildByKey(key);
-				if (i == keyset.KeySeq.Length - 1)
+				if (i == keyset.KeySeq.KeySeq.Length - 1)
 				{
 					if (kn == null)
 					{
@@ -49,7 +49,7 @@ namespace PCP.Tools.WhichKey
 						WKCommand cmd = mCmdFactoryManager.CreateCommand(keyset.CmdType, keyset.CmdArg);
 						if (cmd == null)
 						{
-							WhichKeyManager.LogError($"<color=yellow>Hint: {keyset.Hint}</color>||<color=green>Key:{keyset.KeySeq.ToLabel()}</color>||<color=red>Command:{keyset.CmdType}</color> has no valid command type,skipped ");
+							WhichKeyManager.LogError($"<color=yellow>Hint: {keyset.Hint}</color>||<color=green>Key:{keyset.KeySeq.KeyLabel}</color>||<color=red>Command:{keyset.CmdType}</color> has no valid command type,skipped ");
 							return;
 						}
 						kn = mCurrentNode.AddChild(new KeyNode(keyset, i, mCurrentNode, cmd));
@@ -61,7 +61,7 @@ namespace PCP.Tools.WhichKey
 							kn.UpdateKeySet(keyset);
 						}
 						else
-							WhichKeyManager.LogError($"<color=yellow>Hint: {keyset.Hint}</color>||<color=green>Key:{keyset.KeySeq.ToLabel()}</color> already registered To \"<color=yellow>{kn.Hint}</color>\" ,skipped ");
+							WhichKeyManager.LogError($"<color=yellow>Hint: {keyset.Hint}</color>||<color=green>Key:{keyset.KeySeq.KeyLabel}</color> already registered To \"<color=yellow>{kn.Hint}</color>\" ,skipped ");
 					}
 					return;
 				}

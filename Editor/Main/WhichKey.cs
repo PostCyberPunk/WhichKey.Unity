@@ -20,7 +20,7 @@ namespace PCP.Tools.WhichKey
         [MenuItem("WhichKey/Refresh")]
         public static void Refresh() => mManager.Refresh();
         [MenuItem("WhichKey/ChangeRoot")]
-        public static void ChangeRoot() => BindingWindow.ShowWindow((key) => mManager.ChangeRoot(key));
+        public static void ChangeRoot() => BindingWindow.ShowWindow((key) => mManager.ChangeRoot(key), -1, "<color=green>Change Root</color>");
         [MenuItem("WhichKey/ResetRoot")]
         public static void ResetRoot() => mManager.ChangeRoot(null);
         [MenuItem("WhichKey/Active")]

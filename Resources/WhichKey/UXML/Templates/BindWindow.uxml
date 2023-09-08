@@ -4,6 +4,7 @@
         <ui:VisualElement name="LabelFrame" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); height: 100px; justify-content: center; align-items: center; flex-wrap: wrap; flex-direction: row;" />
         <ui:VisualElement name="BtnFrame" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: space-around; align-items: center;">
             <ui:Button text="Confirm" display-tooltip-when-elided="true" name="confirm" />
+            <ui:Button text="Delete" display-tooltip-when-elided="true" name="delete" focusable="false" />
             <ui:Button text="Cancel" display-tooltip-when-elided="true" name="cancel" />
         </ui:VisualElement>
         <ui:Label tabindex="-1" text="Enter to confirm,Escape to cancel&#10;Backsapce to delete 1 key" display-tooltip-when-elided="true" name="Hint" style="align-self: center; border-left-color: rgb(151, 151, 151); border-right-color: rgb(151, 151, 151); border-top-color: rgb(151, 151, 151); border-bottom-color: rgb(151, 151, 151); border-top-width: 2px; -unity-text-align: upper-center;" />

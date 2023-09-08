@@ -25,34 +25,49 @@
 <!-- 1. try fonts; -->
 <!-- GetHints -->
 <!-- UI -->
-chore folder org
 <!-- 4. defualt value interface -->
-setting 
-dropdown size
-attributes to ignre factory
+<!-- setting  -->
+<!-- dropdown size -->
+<!-- attributes to ignre factory -->
+<!-- bind window -->
+<!-- change root -->
+<!-- keyset use wkkey -->
+<!-- keyset to struct -->
+
+<!-- asset using keystruct -->
+
+
+<!-- make bind label a template -->
 method attribute static with no arg
+method command
+- scene
+  - scene use active transform
+  - scene object and asset object
+  - maybe use one dataholder
+	- think about sceneview
+
+chore folder org
 
 <!-- 1. benchmarking cached window -->
 <!-- 2. keynode encapsulate and clear after init -->
-same layer combination
-1. scene use active transform
-2. scene object and asset object
 <!-- 2. assets auto focus on project view -->
-3. oh i need a project specific keyset also adtional keymap
-4. logger
+1. oh i need a project specific keyset also adtional keymap
+2. additional layer map
+3. same layer combination
 <!-- 2. project settings (test Array) -->
 <!-- 2. folder manager -->
 <!-- 3. scene manager -->
 <!-- 14. static format layer hints -->
-11. better way to find duplicated key
 <!-- 13. follow mouse on change -->
-1. decoupe wkmanger
+11. better way to find duplicated key=> bind win serach table
+1. decouple wkmanger
 4. caching labels reuse of hint window
 !!still need to find a better win to sub delegate
+button to uxml
+,button to top
 <!-- 5. abstract the window ,there should be a window ref in manager -->
 <!-- 1. window instance ref should get from manger:Assethandler -->
 <!-- 2. mk hdl and manager ,hdl as an abstarct base -->
-button to uxml
 <!-- 2. ?active by keyseq<br> -->
 <!-- 5. lineheight -->
 <!-- 6. keycode ext to util -->
@@ -63,11 +78,12 @@ button to uxml
 # Extra
 piemenu
 # bug
-not handle shift when binding
-assetNavdata so no biding
-make bind label a template
-window doesnot close
-?? prefab is gameobject?
+key interception failed, key up
+window no instance handle
+<!-- not handle shift when binding -->
+<!-- assetNavdata so no biding -->
+<!-- window doesnot close -->
+<!-- ?? prefab is gameobject? -->
 # ??
 <!-- setting ui stuck why? -->
 <!-- keybing use int or keycode to char? -->
@@ -80,6 +96,7 @@ Arg to a class that can be setup with a window
 <!-- check for list that can switch to array -->
 # todo 
 <!-- UI Elements cant calculate actual size properly(01245f7a) -->
+**instead of keep creating command we should have an arg table,one command instance, after command creation,factory pass the arg to itH.**
 backward compatibility
 Command mode design pattern
 <!-- Decouple whichkey to wkmanager and wksetting

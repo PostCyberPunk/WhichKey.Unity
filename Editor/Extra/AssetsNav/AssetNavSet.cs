@@ -1,14 +1,14 @@
 namespace PCP.Tools.WhichKey
 {
     [System.Serializable]
-    public struct AssetData
+    public struct AssetNavSet
     {
-        public int Key;
+        public WkKeySeq Key;
         public string Hint;
         public string AssetPath;
-        public AssetData(int key, string path)
+        public AssetNavSet(int key, string path)
         {
-            Key = key;
+            Key = new int[1] { key };
             Hint = path;
             AssetPath = path;
         }

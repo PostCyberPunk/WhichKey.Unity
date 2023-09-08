@@ -38,7 +38,7 @@ namespace PCP.Tools.WhichKey
 		public KeyNode(KeySet keySet, int index, KeyNode parent, WKCommand cmd)
 		{
 			Parent = parent;
-			Key = keySet.KeySeq[index];
+			Key = keySet.KeySeq.KeySeq[index];
 			UpdateKeySet(keySet);
 			Children = new List<KeyNode>();
 			Command = cmd;
