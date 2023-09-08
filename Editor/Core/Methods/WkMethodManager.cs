@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Reflection;
 namespace PCP.Tools.WhichKey
 {
-    public class WkMethodManager : MonoBehaviour
+    public class WkMethodManager
     {
         private Dictionary<int, MethodInfo> mMethodTable = new();
         public WkMethodManager()
