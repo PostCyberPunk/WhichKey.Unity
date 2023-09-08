@@ -32,12 +32,12 @@
 <!-- bind window -->
 <!-- change root -->
 <!-- keyset use wkkey -->
-keyset to struct
+<!-- keyset to struct -->
 
-asset using keystruct
+<!-- asset using keystruct -->
 
 
-make bind label a template
+<!-- make bind label a template -->
 method attribute static with no arg
 method command
 - scene
@@ -64,7 +64,7 @@ chore folder org
 4. caching labels reuse of hint window
 !!still need to find a better win to sub delegate
 button to uxml
-bingding win backspace button,button to top
+,button to top
 <!-- 5. abstract the window ,there should be a window ref in manager -->
 <!-- 1. window instance ref should get from manger:Assethandler -->
 <!-- 2. mk hdl and manager ,hdl as an abstarct base -->
