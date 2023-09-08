@@ -4,7 +4,7 @@ using UnityEditor;
 namespace PCP.Tools.WhichKey
 {
 
-    public class SceneHandler : IWhichKeyHandler
+    public class SceneHandler : IWKHandler
     {
         private SceneNavData sceneData;
 
@@ -17,12 +17,12 @@ namespace PCP.Tools.WhichKey
             }
             sceneData = WkExtraManager.instance.CurrentSceneData;
         }
-        public bool ProcessKey(int key)
+        public void ProcessKey(int key)
         {
             if (sceneData == null)
             {
                 WhichKeyManager.LogError("No Scene Data,Please Save Scene");
-                return true;
+                return;
             }
             //ping target gameobject by key
             for (int i = 0; i < sceneData.Targets.Length; i++)
@@ -33,7 +33,7 @@ namespace PCP.Tools.WhichKey
                     if (target == "")
                     {
                         WhichKeyManager.LogInfo($"No Reference for {key.ToLabel()}");
-                        return true;
+                        return;
                     }
                     var go = GameObject.Find(target);
                     if (go == null)
@@ -42,7 +42,7 @@ namespace PCP.Tools.WhichKey
                     EditorGUIUtility.PingObject(go);
                 }
             }
-            return true;
+            return;
         }
         public string[] GetLayerHints()
         {
