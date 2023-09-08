@@ -1,5 +1,7 @@
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEditor;
 
 namespace PCP.Tools.WhichKey
@@ -7,8 +9,6 @@ namespace PCP.Tools.WhichKey
     [Serializable]
     public class SceneNavData
     {
-        // [SerializeField]
-        // [SerializeReference]
         public SceneAsset Scene;
         public List<SceneNavTarget> Targets = new();
         public string[] KeyHints = new string[0];
@@ -26,7 +26,7 @@ namespace PCP.Tools.WhichKey
             for (int i = 0; i < Targets.Count; i++)
             {
                 KeyHints[i * 2] = Targets[i].Key.KeyLabel;
-                KeyHints[i * 2 + 1] = Targets[i].Target;
+                KeyHints[i * 2 + 1] = Targets[i].Hint;
             }
         }
     }
@@ -34,13 +34,24 @@ namespace PCP.Tools.WhichKey
     public struct SceneNavTarget
     {
         public WkKeySeq Key;
+        [UnityEngine.SerializeField]
+        private string _hint;
+        [UnityEngine.SerializeField]
         private string _target;
-        public SceneNavTarget(int key, string target)
+        public string Target { get => _target; set => _target = value; }
+        public string Hint { get => _hint; set => _hint = value; }
+        public SceneNavTarget(int key, string hint, string target)
         {
             Key = new WkKeySeq(key);
+            _hint = hint;
             _target = target;
         }
 
-        public string Target { get => _target; set => _target = value; }
+        //PERF: This is a hot path, so we need to avoid allocations here.
+        public void ChangeTarget(string hint, string path)
+        {
+            this.Hint = hint;
+            this.Target = path;
+        }
     }
 }

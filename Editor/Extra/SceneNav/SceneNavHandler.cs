@@ -7,18 +7,8 @@ namespace PCP.Tools.WhichKey
 
     public class SceneNavHandler : IWKHandler
     {
-        private SceneNavData sceneData;
-
+        private SceneNavData sceneData => WkExtraManager.instance?.CurrentSceneData;
         public bool Set = false;
-        public void Init()
-        {
-            if (WkExtraManager.instance == null)
-            {
-                WhichKeyManager.LogError("Cant find project settings");
-                return;
-            }
-            sceneData = WkExtraManager.instance.CurrentSceneData;
-        }
         public void ProcessKey(int key)
         {
             if (sceneData == null)
@@ -44,34 +34,44 @@ namespace PCP.Tools.WhichKey
                         WhichKeyManager.LogInfo($"No Reference for {key.ToLabel()}");
                         return;
                     }
-                    var go = GameObject.Find(target).transform;
+                    var go = GameObject.Find(target)?.transform;
                     if (go == null)
+                    {
                         WhichKeyManager.LogError($"Cant find {target}");
-                    Selection.activeTransform = go;
-                    EditorGUIUtility.PingObject(go);
+                        return;
+                    }
+
+                    Selection.activeTransform = go; EditorGUIUtility.PingObject(go);
                 }
             }
         }
         public void SetTarget(int key)
         {
+            var target = Selection.activeTransform;
+            if(target==null)
+            {
+                WhichKeyManager.LogWarning($"No Selectted Object");
+                return;
+            }
             for (int i = 0; i < sceneData.Targets.Count; i++)
             {
-                SceneNavTarget item = sceneData.Targets[i];
-                if (item.Key.lastKey == key)
+                if (sceneData.Targets[i].Key.lastKey == key)
                 {
-                    item.Target = Selection.activeTransform.GetPath();
-                    WkExtraManager.Save();
-                    WhichKeyManager.LogInfo($"Set {key.ToLabel()} to {item.Target}");
+                    sceneData.Targets[i] = new SceneNavTarget(key, target.name, target.GetPath());
+                    WkExtraManager.instance.SaveSceneData();
+                    WhichKeyManager.LogInfo($"Set {key.ToLabel()} to {target.name}");
                     return;
                 }
             }
-            var target = new SceneNavTarget(key, Selection.activeTransform.GetPath());
-            sceneData.Targets.Add(target);
+
+            sceneData.Targets.Add(new SceneNavTarget(key, target.name, target.GetPath()));
+            WkExtraManager.instance.SaveSceneData();
+            WhichKeyManager.LogInfo($"Set {key.ToLabel()} to {target.name}");
         }
         public string[] GetLayerHints()
         {
             if (sceneData == null)
-                return new string[0];
+                return null;
             return sceneData.KeyHints;
         }
     }

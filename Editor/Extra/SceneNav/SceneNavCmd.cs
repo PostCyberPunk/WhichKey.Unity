@@ -7,7 +7,7 @@ namespace PCP.Tools.WhichKey
 		public override int Depth => 1;
 		private readonly static SceneNavHandler mSceneHandler = new();
 		private bool set = false;
-		public SceneNavCmd(bool isSst) => set = isEnd;
+		public SceneNavCmd(bool isSst) => set = isSst;
 		protected override void ActiveHandler() => mSceneHandler.Set = set;
 	}
 	internal class SceneNavLoadCmdFactory : WKCommandFactory
