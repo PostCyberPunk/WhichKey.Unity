@@ -25,7 +25,7 @@ namespace PCP.Tools.WhichKey
 				LogError("WhichKeyManager is already initialized");
 				return;
 			}
-			WhichkeyProjectSettings.instance?.Init();
+			// WhichkeyProjectSettings.instance?.Init();
 			SavePreferences();
 			Preferences = WhichKeyPreferences.instance;
 			if (SessionState.GetBool("WhichKeyOnce", false))
