@@ -2,8 +2,8 @@
     <ui:VisualElement name="Base" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
         <uie:PropertyField binding-path="Key" name="Wkbinder" />
         <ui:Label tabindex="-1" text="Hint" display-tooltip-when-elided="true" />
-        <ui:TextField picking-mode="Ignore" value="Hint" max-length="-1" name="Hint" style="width: 120px;" />
+        <ui:TextField picking-mode="Ignore" max-length="-1" name="Hint" binding-path="_hint" style="width: 120px;" />
         <ui:Label tabindex="-1" text="Target" display-tooltip-when-elided="true" />
-        <ui:Label tabindex="-1" display-tooltip-when-elided="true" binding-path="Target" name="GO" />
+        <ui:Label tabindex="-1" display-tooltip-when-elided="true" binding-path="_target" name="GO" />
     </ui:VisualElement>
 </ui:UXML>

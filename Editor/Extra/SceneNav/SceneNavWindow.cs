@@ -17,6 +17,7 @@ namespace PCP.Tools.WhichKey
         {
             var window = GetWindow<SceneNavWindow>();
             window.titleContent = new GUIContent("Whichkey Scene Setting");
+            window.RefeshData();
             window.Show();
         }
         private void CreateGUI()
@@ -33,41 +34,45 @@ namespace PCP.Tools.WhichKey
             var binder = new BindableElement();
             binder.bindingPath = "CurrentSceneData";
             binder.Add(list);
-
-            var infoLabel = new Label();
-            infoLabel.text = "Select GameObject to set or remove reference";
-            var setButton = new Button(() =>
-            {
-                var go = Selection.activeTransform;
-                if (go == null)
-                    return;
-                var target = mManager.CurrentSceneData.Targets.ElementAtOrDefault(0);
-                target.Target = Selection.activeTransform.GetPath();
-                mManager.SaveSceneData();
-            });
-            setButton.text = "Set Reference";
-
-            var delButton = new Button(() =>
-            {
-                var target = mManager.CurrentSceneData.Targets.ElementAtOrDefault(list.selectedIndex);
-                target.Target = "";
-                mManager.SaveSceneData();
-            });
-            delButton.text = "Remove Reference";
-
             rootVisualElement.Add(binder);
-            rootVisualElement.Add(setButton);
-            rootVisualElement.Add(delButton);
-            rootVisualElement.Add(infoLabel);
 
-        }
-        private void OnEnable()
-        {
+            // var infoLabel = new Label();
+            // infoLabel.text = "Select GameObject to set or remove reference";
+            // var setButton = new Button(() =>
+            // {
+            //     var go = Selection.activeTransform;
+            //     if (go == null)
+            //         return;
+            //     //FIXME: add a method in scneneNavData to set target by index
+            //     mManager.CurrentSceneData.Targets[list.selectedIndex].ChangeTarget(go.name, go.GetPath());
+            //     mManager.CurrentSceneData.SetupKeyHints();
+            //     mManager.SaveSceneData();
+            // });
+            // setButton.text = "Set Reference";
+
+            // var delButton = new Button(() =>
+            // {
+            //     mManager.CurrentSceneData.Targets[list.selectedIndex].ChangeTarget("", "");
+            //     mManager.CurrentSceneData.SetupKeyHints();
+            //     mManager.SaveSceneData();
+            // });
+            // delButton.text = "Remove Reference";
+
+            // rootVisualElement.Add(setButton);
+            // rootVisualElement.Add(delButton);
+            // rootVisualElement.Add(infoLabel);
+            var okbtn = new Button(() =>
+            {
+                mManager.SaveSceneData();
+            });
+            okbtn.text = "Save";
+            rootVisualElement.Add(okbtn);
             rootVisualElement.Bind(mManager.GetSerializedObject());
         }
-        private void OnValidate()
+        public void RefeshData()
         {
-            mManager.SaveSceneData();
+            rootVisualElement.Bind(mManager.GetSerializedObject());
+            rootVisualElement.MarkDirtyRepaint();
         }
     }
 }
