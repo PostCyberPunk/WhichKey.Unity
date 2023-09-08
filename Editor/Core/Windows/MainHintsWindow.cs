@@ -52,7 +52,7 @@ namespace PCP.Tools.WhichKey
 		protected override void OnActive()
 		{
 			wkm.OverrideWindowTimeout = instance.OverriderTimeout;
-			wkm.CloseHintsWindow = instance.Close;
+			wkm.CloseHintsWindow = instance.ShouldClose;
 			wkm.UpdateHints = UpdateHints;
 		}
 
