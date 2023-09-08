@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
-    <ui:VisualElement name="WkBinder" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+    <ui:VisualElement name="WkBinder" style="background-color: rgba(0, 0, 0, 0); width: 160px; min-width: 160px; flex-direction: row;">
         <ui:Label tabindex="-1" text="KeySeq" display-tooltip-when-elided="true" />
-        <ui:Label tabindex="-1" text="Failed" display-tooltip-when-elided="true" name="KeyLabel" binding-path="_keyLabel" style="color: rgb(136, 245, 10); width: 70px;" />
+        <ui:Label tabindex="-1" text="Failed" display-tooltip-when-elided="true" name="KeyLabel" binding-path="_keyLabel" style="color: rgb(136, 245, 10); width: 70px; min-width: 70px;" />
         <ui:Button text="Bind" display-tooltip-when-elided="false" name="Bind" focusable="false" />
     </ui:VisualElement>
 </ui:UXML>
