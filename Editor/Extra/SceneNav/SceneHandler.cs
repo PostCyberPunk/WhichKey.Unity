@@ -8,6 +8,7 @@ namespace PCP.Tools.WhichKey
     {
         private SceneNavData sceneData;
 
+        public bool Set = false;
         public void Init()
         {
             if (WkExtraManager.instance == null)
@@ -24,6 +25,13 @@ namespace PCP.Tools.WhichKey
                 WhichKeyManager.LogError("No Scene Data,Please Save Scene");
                 return;
             }
+            if (Set)
+                SetTarget(key);
+            else
+                LoadTarget(key);
+        }
+        public void LoadTarget(int key)
+        {
             //ping target gameobject by key
             for (int i = 0; i < sceneData.Targets.Length; i++)
             {
@@ -42,7 +50,10 @@ namespace PCP.Tools.WhichKey
                     EditorGUIUtility.PingObject(go);
                 }
             }
-            return;
+        }
+        public void SetTarget(int key)
+        {
+
         }
         public string[] GetLayerHints()
         {
