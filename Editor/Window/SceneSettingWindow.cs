@@ -10,6 +10,7 @@ namespace PCP.Tools.WhichKey
 
     public class SceneSettingWindow : EditorWindow
     {
+        private WkExtraManager mManager => WkExtraManager.instance;
         [MenuItem("WhichKey/Scene Setting")]
         public static void ShowWindow()
         {
@@ -19,7 +20,7 @@ namespace PCP.Tools.WhichKey
         }
         private void CreateGUI()
         {
-            if (WhichkeyProjectSettings.instance.CurrentSceneData == null)
+            if (mManager.CurrentSceneData == null)
             {
                 rootVisualElement.Add(new Label("No Scene Data,Please Save Scene"));
                 return;
@@ -39,17 +40,17 @@ namespace PCP.Tools.WhichKey
                 var go = Selection.activeGameObject;
                 if (go == null)
                     return;
-                var data = WhichkeyProjectSettings.instance.CurrentSceneData;
+                var data = mManager.CurrentSceneData;
                 data.Targets[list.selectedIndex].Target = Selection.activeGameObject.GetPath();
-                WhichkeyProjectSettings.instance.SaveSceneData();
+               mManager.SaveSceneData();
             });
             setButton.text = "Set Reference";
 
             var delButton = new Button(() =>
             {
-                var data = WhichkeyProjectSettings.instance.CurrentSceneData;
+                var data = mManager.CurrentSceneData;
                 data.Targets[list.selectedIndex].Target = "";
-                WhichkeyProjectSettings.instance.SaveSceneData();
+                mManager.SaveSceneData();
             });
             delButton.text = "Remove Reference";
 
@@ -61,11 +62,11 @@ namespace PCP.Tools.WhichKey
         }
         private void OnEnable()
         {
-            rootVisualElement.Bind(WhichkeyProjectSettings.instance.GetSerializedObject());
+            rootVisualElement.Bind(mManager.GetSerializedObject());
         }
         private void OnValidate()
         {
-            WhichkeyProjectSettings.instance?.SaveSceneData();
+            mManager.SaveSceneData();
         }
     }
 }

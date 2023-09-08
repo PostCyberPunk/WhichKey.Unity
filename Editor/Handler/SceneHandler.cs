@@ -10,12 +10,12 @@ namespace PCP.Tools.WhichKey
 
         public void Init()
         {
-            if (WhichkeyProjectSettings.instance == null)
+            if (WkExtraManager.instance == null)
             {
                 WhichKeyManager.LogError("Cant find project settings");
                 return;
             }
-            sceneData = WhichkeyProjectSettings.instance.CurrentSceneData;
+            sceneData = WkExtraManager.instance.CurrentSceneData;
         }
         public bool ProcessKey(int key)
         {
