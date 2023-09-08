@@ -1,18 +1,17 @@
-using UnityEngine;
 using System;
 using UnityEditor;
 
 namespace PCP.Tools.WhichKey
 {
     [Serializable]
-    public class SceneData
+    public class SceneNavData
     {
         // [SerializeField]
         // [SerializeReference]
         public SceneAsset Scene;
         public KeyObject[] Targets = new KeyObject[0];
         public string[] KeyHints = new string[0];
-        public SceneData(SceneAsset scene)
+        public SceneNavData(SceneAsset scene)
         {
             Scene = scene;
             Targets = new KeyObject[0];

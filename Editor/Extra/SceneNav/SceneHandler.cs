@@ -6,7 +6,7 @@ namespace PCP.Tools.WhichKey
 
     public class SceneHandler : IWhichKeyHandler
     {
-        private SceneData sceneData;
+        private SceneNavData sceneData;
 
         public void Init()
         {

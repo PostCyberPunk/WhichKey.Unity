@@ -12,8 +12,8 @@ namespace PCP.Tools.WhichKey
     {
         #region SceneNav
 
-        [SerializeField] private List<SceneData> savedSceneDatas = new();
-        public SceneData CurrentSceneData;
+        [SerializeField] private List<SceneNavData> savedSceneDatas = new();
+        public SceneNavData CurrentSceneData;
         internal void Init()
         {
             EditorSceneManager.sceneOpened += OnSceneOpened;
@@ -50,7 +50,7 @@ namespace PCP.Tools.WhichKey
                 WhichKeyManager.LogInfo($"WhichKey:Save and reopen the scene to use WhichKey");
             else if (!FindScenedata(scene))
             {
-                CurrentSceneData = new SceneData(AssetDatabase.LoadAssetAtPath<SceneAsset>(scene.path));
+                CurrentSceneData = new SceneNavData(AssetDatabase.LoadAssetAtPath<SceneAsset>(scene.path));
                 savedSceneDatas.Add(CurrentSceneData);
                 Save();
             }
