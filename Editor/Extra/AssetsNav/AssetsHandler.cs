@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Security.Cryptography;
+using System.Linq;
 namespace PCP.Tools.WhichKey
 {
 
     internal class AssetsHandler : IWKHandler
     {
-        private AssetsDataManager mDataManger => AssetsDataManager.instance;
+        private WkExtraManager mDataManger => WkExtraManager.instance;
         private AssetsNavData assetsData;
         private System.Action<int> mProcessKey;
         public bool ProecessArg(int index)
         {
+            if(index>=mDataManger.NavAssetsDatas.Count())
+            {
+                WhichKeyManager.LogError("AssetsNavData Index Out Of Range");
+                return false;
+            }
             assetsData = mDataManger.NavAssetsDatas[index];
             if (assetsData != null)
             {
