@@ -26,8 +26,13 @@ namespace PCP.Tools.WhichKey
 					var vts = WhichKeyManager.mUILoader;
 					// Create the root visual element
 					var root = vts.Preferences.CloneTree();
-					root.Q<ListView>("KeyMap").makeItem = vts.KeySet.CloneTree;
+					
+
+					var layerMap = root.Q<ListView>("LayerMap");
+					layerMap.makeItem = vts.LayerSet.CloneTree;
+					
 					var keymap = root.Q<ListView>("KeyMap");
+					keymap.makeItem = vts.KeySet.CloneTree;
 
 					//Show/Hide position field by FollowMouse toggle
 					var winPosElement = root.Q<Vector2Field>("FixedPosition");
@@ -81,6 +86,7 @@ namespace PCP.Tools.WhichKey
 					var vts = WhichKeyManager.mUILoader;
 
 					var root = vts.ProjectSettings.CloneTree();
+
 
 					ListView keymap = root.Q<ListView>("KeyMap");
 					keymap.makeItem = vts.KeySet.CloneTree;
