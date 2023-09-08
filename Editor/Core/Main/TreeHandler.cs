@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace PCP.Tools.WhichKey
@@ -13,6 +14,7 @@ namespace PCP.Tools.WhichKey
         private KeyNode mCurrentNode;
         private IWKHandler mCurrentHandler;
         private int maxDepth = -1;
+        private string mKeyLabel => mKeySeq.Reverse().ToArray().ToLabel();
         public bool isInitialized => mTreeRoot != null;
         public void Init()
         {
@@ -41,7 +43,7 @@ namespace PCP.Tools.WhichKey
             var kn = mCurrentNode.GetChildByKey(Key);
             if (kn == null)
             {
-                WhichKeyManager.LogInfo($"KeySeq {mKeySeq.ToArray().ToLabel()} not found");
+                WhichKeyManager.LogInfo($"KeySeq {mKeyLabel} not found");
                 CloseWindow();
             }
             else if (kn.Type == 0)
@@ -55,7 +57,7 @@ namespace PCP.Tools.WhichKey
                 var cmd = kn.Command;
                 if (cmd == null)
                 {
-                    WhichKeyManager.LogError($"KeySeq {mKeySeq.ToArray().ToLabel()} has no command");
+                    WhichKeyManager.LogError($"KeySeq {mKeyLabel} has no command");
                     CloseWindow();
                     return;
                 }
@@ -103,7 +105,7 @@ namespace PCP.Tools.WhichKey
             if (kn == null) return;
             if (kn.Type != 0)
             {
-                WhichKeyManager.LogWarning($"Change root failed ,KeySeq {mKeySeq.ToArray().ToLabel()} not a layer");
+                WhichKeyManager.LogWarning($"Change root failed ,KeySeq {mKeyLabel} not a layer");
                 return;
             }
             mRoot = kn;
@@ -124,7 +126,7 @@ namespace PCP.Tools.WhichKey
                 kn = mCurrentNode.GetChildByKey(key[i]);
                 if (kn == null)
                 {
-                    WhichKeyManager.LogWarning($"KeySeq {mKeySeq.ToArray().ToLabel()} not found @key {key[i].ToLabel()}");
+                    WhichKeyManager.LogWarning($"KeySeq {mKeyLabel} not found @key {key[i].ToLabel()}");
                     return null;
                 }
             }
