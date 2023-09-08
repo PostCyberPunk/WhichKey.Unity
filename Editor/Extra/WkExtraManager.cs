@@ -3,24 +3,28 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
+using System;
+
 
 namespace PCP.Tools.WhichKey
 {
-    [FilePath("Project/WhichkeyProjectSettings", FilePathAttribute.Location.ProjectFolder)]
-    internal class WhichkeyProjectSettings : ScriptableSingleton<WhichkeyProjectSettings>
+    [FilePath("Project/Whichkey/ExtraData", FilePathAttribute.Location.ProjectFolder)]
+    public class WkExtraManager : ScriptableSingleton<WkExtraManager>
     {
-        [SerializeField] public KeySet[] KeyMap;
-        [SerializeField] private List<SceneData> savedSceneDatas = new();
-        public SceneData CurrentSceneData;
-        internal void Init()
+        #region SceneNav
+
+        [SerializeField] private List<SceneNavData> savedSceneDatas = new();
+        public SceneNavData CurrentSceneData;
+        [InitializeOnLoadMethod]
+        public static void Init()
         {
-            EditorSceneManager.sceneOpened += OnSceneOpened;
+            EditorSceneManager.sceneOpened += instance.OnSceneOpened;
             var c_scene = SceneManager.GetActiveScene();
-            SetSceneData(c_scene);
+            instance.SetSceneData(c_scene);
         }
         public static void Save()
         {
-            Undo.RegisterCompleteObjectUndo(instance, "Save WhichKey Project Settings");
+            Undo.RegisterCompleteObjectUndo(instance, "Save WhichKey Extra Data");
             instance.Save(true);
         }
         public void SaveSceneData()
@@ -48,7 +52,7 @@ namespace PCP.Tools.WhichKey
                 WhichKeyManager.LogInfo($"WhichKey:Save and reopen the scene to use WhichKey");
             else if (!FindScenedata(scene))
             {
-                CurrentSceneData = new SceneData(AssetDatabase.LoadAssetAtPath<SceneAsset>(scene.path));
+                CurrentSceneData = new SceneNavData(AssetDatabase.LoadAssetAtPath<SceneAsset>(scene.path));
                 savedSceneDatas.Add(CurrentSceneData);
                 Save();
             }
@@ -59,16 +63,13 @@ namespace PCP.Tools.WhichKey
             CurrentSceneData = savedSceneDatas.Find(x => x.Scene == c_scene);
             return CurrentSceneData != null;
         }
-        [MenuItem("WhichKey/Test")]
-        public static void test()
-        {
 
-        }
-        [MenuItem("WhichKey/ClearData")]
-        public static void ClearData()
-        {
-            instance.savedSceneDatas.Clear();
-            Save();
-        }
+        #endregion
+
+        #region AssetNav
+        [SerializeField] public float WinTimeout;
+        [SerializeField] public AssetsNavData[] NavAssetsDatas = new AssetsNavData[0];
+
+        #endregion
     }
 }

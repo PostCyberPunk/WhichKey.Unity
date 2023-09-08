@@ -93,6 +93,11 @@ namespace PCP.Tools.WhichKey
 				Close();
 				return;
 			}
+			if (Hints.Length <= 1)
+			{
+				DummyWindow();
+				return;
+			}
 			labelFrame.Clear();
 			mHeight = lineHeight * (maxHintLines + 1) + 2 * mainFrame.resolvedStyle.paddingTop;
 			var cols = Mathf.CeilToInt(Hints.Length / 2f / maxHintLines);

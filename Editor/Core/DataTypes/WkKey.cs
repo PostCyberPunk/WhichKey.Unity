@@ -36,5 +36,8 @@ namespace PCP.Tools.WhichKey
             else
                 _keyLabel = keySeq.ToLabel();
         }
+        public WkKeySeq(int key) : this(new int[] { key })
+        {
+        }
     }
 }

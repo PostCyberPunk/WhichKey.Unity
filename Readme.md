@@ -1,4 +1,25 @@
 # Todo
+## u
+1. oh i need a project specific keyset also adtional keymap
+2. additional layer map
+3. same layer combination
+1. decouple wkmanger
+*** hideflag wont work for first time it created ***
+- cmd factory to simple cmd
+!!still need to find a better win to sub delegate
+4. caching labels reuse of hint window
+- think about sceneview
+- Arg to a class that can be setup with a window
+## meh
+button to uxml
+,button to top
+- ui folder
+- window no instance handle
+7. maybe try serialize reference instead of path
+## t
+**why pref sitll stuck on load**
+*** pass userdata to wkbidng unboxing ***
+**instead of keep creating command we should have an arg table,one command instance, after command creation,factory pass the arg to itH.**
 <!-- 2.optimize format layer hints -->
 <!-- 2. when lost focus of whichkey window ,unity will lost focus too. -->
 <!-- 3. check for duplicated key. -->
@@ -38,48 +59,35 @@
 
 
 <!-- make bind label a template -->
-method attribute static with no arg
-method command
-- scene
-  - scene use active transform
-  - scene object and asset object
-  - maybe use one dataholder
-	- think about sceneview
+<!-- method attribute static with no arg -->
+<!-- method command -->
+<!-- - scene -->
+  <!-- - scene use active transform -->
+  <!-- - scene object and asset object -->
+  <!-- - maybe use one dataholder -->
 
-chore folder org
 
 <!-- 1. benchmarking cached window -->
 <!-- 2. keynode encapsulate and clear after init -->
 <!-- 2. assets auto focus on project view -->
-1. oh i need a project specific keyset also adtional keymap
-2. additional layer map
-3. same layer combination
 <!-- 2. project settings (test Array) -->
 <!-- 2. folder manager -->
 <!-- 3. scene manager -->
 <!-- 14. static format layer hints -->
 <!-- 13. follow mouse on change -->
-11. better way to find duplicated key=> bind win serach table
-1. decouple wkmanger
-4. caching labels reuse of hint window
-!!still need to find a better win to sub delegate
-button to uxml
-,button to top
+<!-- 11. better way to find duplicated key=> bind win serach table -->
 <!-- 5. abstract the window ,there should be a window ref in manager -->
 <!-- 1. window instance ref should get from manger:Assethandler -->
 <!-- 2. mk hdl and manager ,hdl as an abstarct base -->
 <!-- 2. ?active by keyseq<br> -->
 <!-- 5. lineheight -->
 <!-- 6. keycode ext to util -->
-7. maybe try serialize reference instead of path
-*** a wrapper is bad for gc, also may lose some reAference,so is intend to repalce json,so lets just edit yaml ***
-*** hideflag wont work for first time it created ***
+<!-- *** a wrapper is bad for gc, also may lose some reAference,so is intend to repalce json,so lets just edit yaml *** -->
 <!-- *** wk to static class singleton to manager *** -->
 # Extra
 piemenu
 # bug
-key interception failed, key up
-window no instance handle
+<!-- key interception failed, key up -->
 <!-- not handle shift when binding -->
 <!-- assetNavdata so no biding -->
 <!-- window doesnot close -->
@@ -87,7 +95,6 @@ window no instance handle
 # ??
 <!-- setting ui stuck why? -->
 <!-- keybing use int or keycode to char? -->
-Arg to a class that can be setup with a window
 <!-- !todo tree -->
 <!-- !!!!benchmark  chached 0.01 not cached 0.04 -->
 <!-- !!! load :list vs array for reloading? -->
@@ -96,20 +103,19 @@ Arg to a class that can be setup with a window
 <!-- check for list that can switch to array -->
 # todo 
 <!-- UI Elements cant calculate actual size properly(01245f7a) -->
-**instead of keep creating command we should have an arg table,one command instance, after command creation,factory pass the arg to itH.**
 backward compatibility
-Command mode design pattern
+<!-- Command mode design pattern -->
 <!-- Decouple whichkey to wkmanager and wksetting
 maybe go on.. decouple wkmanger to keymanager -->
-show window to delegate so user can customize by them self
+<!-- show window to delegate so user can customize by them self -->
 <!-- a tool that get all menuitem -->
 # ?
 is typecahce fast enough for bigger project? is there a typecache for specific assemble?
 1. if i use normal update how can i get gui event?  fuck lets use eidtorwindow...
-2. have to think through about layer hints,is sb really good? after sethints the hints can be clear
-3. Maybe Add a setting ,let user choose between sting array and list,it beauty and speed
+<!-- 2. have to think through about layer hints,is sb really good? after sethints the hints can be clear -->
+<!-- 3. Maybe Add a setting ,let user choose between sting array and list,it beauty and speed -->
 <!-- 4. mkhdl Reset VS Complete? i fogot why i use complete... -->
 <!-- wk pref property getter if null create instance? no need.  -->
 80e54c
 4. init benchmark average 0.01 so its ok
-<!-- 2. make mkhdl and keynode all serializable
+<!-- 5. command arg or cmd factory? command arg or cmd factory? command arg or cmd factory? command arg or cmd factory? -->

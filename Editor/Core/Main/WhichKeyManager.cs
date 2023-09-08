@@ -25,7 +25,7 @@ namespace PCP.Tools.WhichKey
 				LogError("WhichKeyManager is already initialized");
 				return;
 			}
-			WhichkeyProjectSettings.instance?.Init();
+			// WhichkeyProjectSettings.instance?.Init();
 			SavePreferences();
 			Preferences = WhichKeyPreferences.instance;
 			if (SessionState.GetBool("WhichKeyOnce", false))
@@ -104,47 +104,6 @@ namespace PCP.Tools.WhichKey
 		{
 			SavePreferences();
 			Refresh();
-		}
-		[System.Serializable]
-		private class OldKeySet
-		{
-			public string KeySeq;
-			public KeyCmdType type;
-			public string HintText;
-			public string CmdArg;
-		}
-		private OldKeySet[] oldKeySets = new OldKeySet[0];
-		[MenuItem("WhichKeyDev/UpdateJson")]
-		public static void UpdateJson()
-		{
-			TextAsset jsonFile = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/WhichKeyPreference-bak.json");
-			instance.oldKeySets = JsonUtility.FromJson<JSONArrayWrapper<OldKeySet>>(jsonFile.text).array;
-			Preferences.KeyMap = new KeySet[instance.oldKeySets.Length];
-			for (int i = 0; i < instance.oldKeySets.Length; i++)
-			{
-				OldKeySet oldKeySet = instance.oldKeySets[i];
-				int[] list = new int[oldKeySet.KeySeq.Length];
-				for (int i1 = 0; i1 < oldKeySet.KeySeq.Length; i1++)
-				{
-					char cha = oldKeySet.KeySeq[i1];
-					try
-					{
-						list[i1] = (int)cha;
-					}
-					catch (System.Exception)
-					{
-						Debug.Log("error");
-						continue;
-					}
-				}
-				Preferences.KeyMap[i]= new KeySet();
-				Preferences.KeyMap[i].KeySeq = list;
-				Preferences.KeyMap[i].CmdType = (int)oldKeySet.type;
-				Preferences.KeyMap[i].Hint = oldKeySet.HintText;
-				Preferences.KeyMap[i].CmdArg = oldKeySet.CmdArg;
-				instance.Save(true);
-			}
-			Debug.Log("done");
 		}
 		public void LoadPreferenceFromJSON()
 		{
