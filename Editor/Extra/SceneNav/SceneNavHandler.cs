@@ -4,7 +4,7 @@ using UnityEditor;
 namespace PCP.Tools.WhichKey
 {
 
-    public class SceneHandler : IWKHandler
+    public class SceneNavHandler : IWKHandler
     {
         private SceneNavData sceneData;
 

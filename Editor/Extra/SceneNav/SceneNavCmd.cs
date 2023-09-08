@@ -5,7 +5,7 @@ namespace PCP.Tools.WhichKey
 		public override IWKHandler Handler => mSceneHandler;
 		public override bool isEnd => false;
 		public override int Depth => 1;
-		private readonly static SceneHandler mSceneHandler = new();
+		private readonly static SceneNavHandler mSceneHandler = new();
 		private bool set = false;
 		public SceneNavCmd(bool isSst) => set = isEnd;
 		protected override void ActiveHandler() => mSceneHandler.Set = set;

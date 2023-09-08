@@ -8,13 +8,13 @@ using UnityEditor.UIElements;
 namespace PCP.Tools.WhichKey
 {
 
-    public class SceneSettingWindow : EditorWindow
+    public class SceneNavWindow : EditorWindow
     {
         private WkExtraManager mManager => WkExtraManager.instance;
-        [MenuItem("WhichKey/Scene Setting")]
+        [MenuItem("WhichKey/Extra/SceneNav Setting")]
         public static void ShowWindow()
         {
-            var window = GetWindow<SceneSettingWindow>();
+            var window = GetWindow<SceneNavWindow>();
             window.titleContent = new GUIContent("Whichkey Scene Setting");
             window.Show();
         }
