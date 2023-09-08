@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine.UIElements;
 using System.Xml.Schema;
 using UnityEditor.UIElements;
+using System.Linq;
 namespace PCP.Tools.WhichKey
 {
 
@@ -37,19 +38,19 @@ namespace PCP.Tools.WhichKey
             infoLabel.text = "Select GameObject to set or remove reference";
             var setButton = new Button(() =>
             {
-                var go = Selection.activeGameObject;
+                var go = Selection.activeTransform;
                 if (go == null)
                     return;
-                var data = mManager.CurrentSceneData;
-                data.Targets[list.selectedIndex].Target = Selection.activeGameObject.GetPath();
-               mManager.SaveSceneData();
+                var target = mManager.CurrentSceneData.Targets.ElementAtOrDefault(0);
+                target.Target = Selection.activeTransform.GetPath();
+                mManager.SaveSceneData();
             });
             setButton.text = "Set Reference";
 
             var delButton = new Button(() =>
             {
-                var data = mManager.CurrentSceneData;
-                data.Targets[list.selectedIndex].Target = "";
+                var target = mManager.CurrentSceneData.Targets.ElementAtOrDefault(list.selectedIndex);
+                target.Target = "";
                 mManager.SaveSceneData();
             });
             delButton.text = "Remove Reference";
