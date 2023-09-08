@@ -17,6 +17,8 @@ namespace PCP.Tools.WhichKey
 		{
 			mTreeRoot = new KeyNode(0, "WhichKey");
 
+			AddKeySetFromMap(WhichKeyPreferences.instance.LayerMap);
+			AddKeySetFromMap(WhichKeyPreferences.instance.MenuMap);
 			AddKeySetFromMap(WhichKeyPreferences.instance.KeyMap);
 			KeyNode.maxLine = WhichKeyManager.Preferences.MaxHintLines;
 

@@ -8,6 +8,8 @@ namespace PCP.Tools.WhichKey
 	[FilePath("Preferences/WhichkeyPreferences.asset", FilePathAttribute.Location.PreferencesFolder)]
 	public class WhichKeyPreferences : ScriptableSingleton<WhichKeyPreferences>
 	{
+		[SerializeField] public KeySet[] LayerMap = new KeySet[0];
+		[SerializeField] public KeySet[] MenuMap = new KeySet[0];
 		[SerializeField] public KeySet[] KeyMap = new KeySet[0];
 		[SerializeField] public float Timeout = 1;
 		[SerializeField] public bool WindowFollowMouse = true;
