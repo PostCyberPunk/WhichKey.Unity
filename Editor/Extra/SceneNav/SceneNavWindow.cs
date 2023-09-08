@@ -28,7 +28,7 @@ namespace PCP.Tools.WhichKey
             }
             var list = WhichKeyManager.mUILoader.List.CloneTree().Q<ListView>();
             list.bindingPath = "Targets";
-            list.makeItem = WhichKeyManager.mUILoader.KeyGO.CloneTree;
+            list.makeItem = WhichKeyManager.mUILoader.SceneNav.CloneTree;
 
             var binder = new BindableElement();
             binder.bindingPath = "CurrentSceneData";
