@@ -21,13 +21,13 @@ namespace PCP.Tools.WhichKey
                 label = "AssetsNavigation",
                 activateHandler = (searchContext, rootElement) =>
                 {
-                    var settings = AssetsDataManager.instance.GetSerializedObject();
+                    var settings = WkExtraManager.instance.GetSerializedObject();
                     var vts = WhichKeyManager.mUILoader;
 
                     var root = vts.List.CloneTree();
 
                     ListView assetsData = root.Q<ListView>();
-                    assetsData.headerTitle = "AssetsData";
+                    assetsData.headerTitle = "AssetsNavData";
                     assetsData.makeItem = () => new PropertyField();
                     assetsData.BindProperty(settings.FindProperty("NavAssetsDatas"));
 
@@ -35,7 +35,7 @@ namespace PCP.Tools.WhichKey
                 },
                 deactivateHandler = () =>
                 {
-                    AssetsDataManager.Save();
+                    WkExtraManager.Save();
                 },
                 keywords = new HashSet<string>(new[] { "WhichKey", "AssetsData" })
 
