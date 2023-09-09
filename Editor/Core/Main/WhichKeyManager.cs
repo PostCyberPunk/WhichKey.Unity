@@ -8,15 +8,16 @@ namespace PCP.Tools.WhichKey
 {
 	internal class WhichKeyManager : ScriptableSingleton<WhichKeyManager>
 	{
-		private readonly TreeHandler mainKeyHandler = new TreeHandler();
 		internal readonly static UILoader mUILoader = new();
-		internal static WhichKeyPreferences Preferences { private set; get; }
+		private readonly TreeHandler mainKeyHandler = new TreeHandler();
+		private WhichKeyPreferences Preferences => WhichKeyPreferences.instance;
 		private static int loggingLevel;
 
 		public Action ShowHintsWindow;
 		public Action CloseHintsWindow;
 		public Action<float> OverrideWindowTimeout;
 		public Action UpdateHints;
+
 		#region Setup
 		public void Init()
 		{
@@ -25,8 +26,11 @@ namespace PCP.Tools.WhichKey
 				LogError("WhichKeyManager is already initialized");
 				return;
 			}
-			// WhichkeyProjectSettings.instance?.Init();
-			Preferences = WhichKeyPreferences.instance;
+			if (Preferences == null)
+			{
+				LogError("WhichKey Preferences instance is null");
+				return;
+			}
 			if (SessionState.GetBool("WhichKeyOnce", false))
 				RefreshUI();
 			else
@@ -106,6 +110,6 @@ namespace PCP.Tools.WhichKey
 
 		public void Input(KeyCode keyCode, bool shift) => mainKeyHandler.ProcesRawKey(keyCode, shift);
 		public string[] GetHints() => mainKeyHandler.GetLayerHints();
-		public void ChangeHanlder(IWKHandler handler,int depth) => mainKeyHandler.ChangeHandler(handler,depth);
+		public void ChangeHanlder(IWKHandler handler, int depth) => mainKeyHandler.ChangeHandler(handler, depth);
 	}
 }
