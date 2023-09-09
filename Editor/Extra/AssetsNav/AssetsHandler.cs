@@ -48,7 +48,7 @@ namespace PCP.Tools.WhichKey
                 WhichKeyManager.LogInfo($"AssetsNav: No Assets Path Found For Key: {key.ToLabel()},check your path: {path}");
                 return;
             }
-            var obj = AssetDatabase.LoadAssetAtPath(path, typeof(UnityEngine.Object));
+            var obj = AssetDatabase.LoadAssetAtPath(path, typeof(Object));
             if (obj == null)
             {
                 WhichKeyManager.LogWarning($"AssetsNav: No Assets Found For Key: {key.ToLabel()},check your path: {path}");

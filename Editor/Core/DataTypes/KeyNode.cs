@@ -23,11 +23,7 @@ namespace PCP.Tools.WhichKey
 		/// Create a layer node
 		/// </summary>
 		/// <param name="key"></param>
-		/// <param name="hintText"></param> <summary>
-		/// 
-		/// </summary>
-		/// <param name="key"></param>
-		/// <param name="hintText"></param>
+		/// <param name="hintText"></param> 
 		public KeyNode(int key, string hintText)
 		{
 			Key = key;

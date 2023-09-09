@@ -17,7 +17,7 @@ namespace PCP.Tools.WhichKey
         /// <summary>
         /// the Hints you want to show in hint window
         /// </summary>
-        /// <returns>odd elements are key,even elments are hint</returns> <summary>
+        /// <returns>odd elements are key,even elments are hint</returns>
         string[] GetLayerHints();
 
     }

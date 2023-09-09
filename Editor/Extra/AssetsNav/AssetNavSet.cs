@@ -8,7 +8,7 @@ namespace PCP.Tools.WhichKey
         public string AssetPath;
         public AssetNavSet(int key, string path)
         {
-            Key = new int[1] { key };
+            Key = new int[] { key };
             Hint = path;
             AssetPath = path;
         }

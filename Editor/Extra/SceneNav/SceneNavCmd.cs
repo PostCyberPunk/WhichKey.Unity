@@ -6,7 +6,7 @@ namespace PCP.Tools.WhichKey
 		public override bool isEnd => false;
 		public override int Depth => 1;
 		private readonly static SceneNavHandler mSceneHandler = new();
-		private bool set = false;
+		private bool set; 
 		public SceneNavCmd(bool isSst) => set = isSst;
 		protected override void ActiveHandler() => mSceneHandler.Set = set;
 	}

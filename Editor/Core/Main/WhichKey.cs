@@ -30,7 +30,6 @@ namespace PCP.Tools.WhichKey
         public static void PrintAllMenuItem()
         {
 
-            var w = new PCP.Utils.BenchMark.StopWatch();
             var mlist = TypeCache.GetMethodsWithAttribute<MenuItem>();
             StringBuilder sb = new();
             var slist = new List<string>();
@@ -48,7 +47,6 @@ namespace PCP.Tools.WhichKey
             //save to file
             System.IO.File.WriteAllText("Assets/AllMenuItem.txt", sb.ToString());
             WhichKeyManager.LogInfo("All MenuItem saved to Assets/AllMenuItem.txt");
-            w.Finish();
         }
         #endregion
 
