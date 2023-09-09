@@ -1,8 +1,8 @@
 # Todo
 ## u
-1. oh i need a project specific keyset also adtional keymap
-2. additional layer map
-3. same layer combination
+<!-- 1. oh i need a project specific keyset also adtional keymap -->
+<!-- 2. additional layer map -->
+<!-- 3. same layer combination -->
 1. decouple wkmanger
 *** hideflag wont work for first time it created ***
 - cmd factory to simple cmd
