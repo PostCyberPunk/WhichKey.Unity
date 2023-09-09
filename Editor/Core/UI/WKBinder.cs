@@ -17,12 +17,10 @@ namespace PCP.Tools.WhichKey
         {
 
             var root = WhichKeyManager.mUILoader.WkBinder.Instantiate(property.propertyPath);
-            var be = root.Q<VisualElement>() as BindableElement;
-            // be.BindProperty(property);
             var btn = root.Q<Button>("Bind");
             btn.clickable = new Clickable(() =>
             {
-                BindingWindow.ShowWindow((int[] ks) =>
+                BindingWindow.ShowWindow((ks) =>
                 {
                     if (root.parent.userData != null)
                     {

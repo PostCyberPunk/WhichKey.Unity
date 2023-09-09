@@ -19,7 +19,7 @@ namespace PCP.Tools.WhichKey
         private Action<int[]> OnComplete;
         private string Title;
         private int depth;
-        private bool mouseFound = false;
+        private bool mouseFound;
         private Vector2 mSize = new(200, 150);
         public static void ShowWindow(Action<int[]> onComplete, int depth, string title)
         {

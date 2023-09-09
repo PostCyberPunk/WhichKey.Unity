@@ -67,8 +67,8 @@ namespace PCP.Tools.WhichKey
         #endregion
 
         #region AssetNav
-        [SerializeField] public float WinTimeout;
-        [SerializeField] public AssetsNavData[] NavAssetsDatas = new AssetsNavData[0];
+        public float WinTimeout;
+        public AssetsNavData[] NavAssetsDatas = new AssetsNavData[0];
 
         #endregion
     }

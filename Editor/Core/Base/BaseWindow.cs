@@ -11,12 +11,12 @@ namespace PCP.Tools.WhichKey
 		private bool keyReleased = true;
 		private KeyCode prevKey;
 		private float hideTill;
-		private bool showHint = false;
+		private bool showHint;
 		private bool _changeUI;
 		private float timeoutLen;
 		protected float mWidth;
 		protected float mHeight;
-		private bool needClose = false;
+		private bool needClose;
 		public static void Active()
 		{
 			if (instance == null)

@@ -8,7 +8,7 @@ namespace PCP.Tools.WhichKey
         public override bool isEnd => false;
         private readonly static AssetsHandler mAssetsHandler = new();
         private int mIndex;
-        protected bool save = false;
+        protected bool save;
         public override int Depth => 1; 
         public AssetsNavCommand(int index)
         {

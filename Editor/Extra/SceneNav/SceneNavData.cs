@@ -34,9 +34,7 @@ namespace PCP.Tools.WhichKey
     public struct SceneNavTarget
     {
         public WkKeySeq Key;
-        [UnityEngine.SerializeField]
         private string _hint;
-        [UnityEngine.SerializeField]
         private string _target;
         public string Target { get => _target; set => _target = value; }
         public string Hint { get => _hint; set => _hint = value; }

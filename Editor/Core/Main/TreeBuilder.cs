@@ -53,7 +53,7 @@ namespace PCP.Tools.WhichKey
 					{
 						if (keyset.CmdType == 0)
 						{
-							kn = mCurrentNode.AddChild(new KeyNode(key, keyset.Hint));
+							mCurrentNode.AddChild(new KeyNode(key, keyset.Hint));
 							return;
 						}
 						WKCommand cmd = mCmdFactoryManager.CreateCommand(keyset.CmdType, keyset.CmdArg);
@@ -62,7 +62,7 @@ namespace PCP.Tools.WhichKey
 							WhichKeyManager.LogError($"<color=yellow>Hint: {keyset.Hint}</color>||<color=green>Key:{keyset.KeySeq.KeyLabel}</color>||<color=red>Command:{keyset.CmdType}</color> has no valid command type,skipped ");
 							return;
 						}
-						kn = mCurrentNode.AddChild(new KeyNode(keyset, i, mCurrentNode, cmd));
+						mCurrentNode.AddChild(new KeyNode(keyset, i, mCurrentNode, cmd));
 					}
 					else
 					{
