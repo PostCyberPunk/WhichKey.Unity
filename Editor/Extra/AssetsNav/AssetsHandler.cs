@@ -49,6 +49,11 @@ namespace PCP.Tools.WhichKey
                 return;
             }
             var obj = AssetDatabase.LoadAssetAtPath(path, typeof(UnityEngine.Object));
+            if (obj == null)
+            {
+                WhichKeyManager.LogWarning($"AssetsNav: No Assets Found For Key: {key.ToLabel()},check your path: {path}");
+                return;
+            }
             Selection.activeObject = obj;
             EditorGUIUtility.PingObject(obj);
             EditorUtility.FocusProjectWindow();
