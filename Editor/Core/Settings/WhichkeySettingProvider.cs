@@ -12,6 +12,8 @@ namespace PCP.Tools.WhichKey
 		private static ReorderableList mKeySetList;
 		public const string PreferencePath = "Preferences/WhichKey";
 		public const string ProjectSettingPath = "Project/WhichKey";
+		public static WhichKeyPreferences Preferences => WhichKeyPreferences.instance;
+		public static WhichkeyProjectSettings ProjectSettings => WhichkeyProjectSettings.instance;
 		[SettingsProvider]
 		public static SettingsProvider CreatePreference()
 		{
@@ -22,7 +24,6 @@ namespace PCP.Tools.WhichKey
 				label = "WhichKey",
 				activateHandler = (searchContext, rootElement) =>
 				{
-					var settings = WhichKeyPreferences.instance;
 					var vts = WhichKeyManager.mUILoader;
 					// Create the root visual element
 					var root = vts.Preferences.CloneTree();
@@ -49,7 +50,7 @@ namespace PCP.Tools.WhichKey
 					{
 						foreach (var i in list)
 						{
-							settings.MenuMap[i].CmdType = 1;
+							Preferences.MenuMap[i].CmdType = 1;
 						}
 					};
 
@@ -58,7 +59,7 @@ namespace PCP.Tools.WhichKey
 
 					//Show/Hide position field by FollowMouse toggle
 					var winPosElement = root.Q<Vector2Field>("FixedPosition");
-					winPosElement.style.display = settings.WindowFollowMouse ? DisplayStyle.None : DisplayStyle.Flex;
+					winPosElement.style.display = Preferences.WindowFollowMouse ? DisplayStyle.None : DisplayStyle.Flex;
 					root.Q<Toggle>("WindowFollowMouse").RegisterValueChangedCallback(evt =>
 					{
 						winPosElement.style.display = evt.newValue ? DisplayStyle.None : DisplayStyle.Flex;
@@ -66,27 +67,27 @@ namespace PCP.Tools.WhichKey
 					});
 
 					// Create the Apply button
-					var applyButton = new Button(WhichKeyManager.instance.ApplyPreferences);
+					var applyButton = new Button(Preferences.Apply);
 					applyButton.text = "Apply";
 					root.Add(applyButton);
 
 					// Create the Save to JSON button
-					var saveButton = new Button(WhichKeyManager.instance.SavePreferenceToJSON);
+					var saveButton = new Button(Preferences.SaveToJson);
 					saveButton.text = "Save to JSON";
 					root.Add(saveButton);
 
 					// Create the Load from JSON button
-					var loadButton = new Button(WhichKeyManager.instance.LoadPreferenceFromJSON);
+					var loadButton = new Button(Preferences.LoadFromJson);
 					loadButton.text = "Load from JSON";
 					root.Add(loadButton);
-					root.Bind(settings.GetSerializedObject());
+					root.Bind(Preferences.GetSerializedObject());
 
 					// Add the root visual element to the settings window
 					rootElement.Add(root);
 				},
 				deactivateHandler = () =>
 				{
-					WhichKeyManager.instance.ApplyPreferences();
+					WhichkeyProjectSettings.instance.Apply();
 				},
 				keywords = new HashSet<string>(new[] { "WhichKey" })
 
@@ -104,21 +105,48 @@ namespace PCP.Tools.WhichKey
 				label = "WhichKey",
 				activateHandler = (searchContext, rootElement) =>
 				{
-					var settings = WhichkeyProjectSettings.instance.GetSerializedObject();
 					var vts = WhichKeyManager.mUILoader;
 
 					var root = vts.ProjectSettings.CloneTree();
 
 
+					var layerMap = root.Q<ListView>("LayerMap");
+					layerMap.makeItem = vts.LayerSet.CloneTree;
+
+					var menuMap = root.Q<ListView>("MenuMap");
+					menuMap.makeItem = () =>
+					{
+						var e = vts.MenuSet.CloneTree();
+						var btn = e.Q<Button>("Select");
+						btn.clickable.clicked += () =>
+						{
+							MenuHelper.ShowWindow((path) =>
+							{
+								e.Q<TextField>("Arg").value = path;
+							});
+						};
+						return e;
+					};
+					menuMap.itemsAdded += (list) =>
+					{
+						foreach (var i in list)
+						{
+							ProjectSettings.MenuMap[i].CmdType = 1;
+						}
+					};
 					ListView keymap = root.Q<ListView>("KeyMap");
 					keymap.makeItem = vts.KeySet.CloneTree;
 
-					root.Bind(settings);
+					var applyButton = new Button(WhichkeyProjectSettings.instance.Apply);
+					applyButton.text = "Apply";
+					root.Add(applyButton);
+
+					root.Bind(ProjectSettings.GetSerializedObject());
 					rootElement.Add(root);
 				},
 				deactivateHandler = () =>
 				{
-					WhichkeyProjectSettings.Save();
+					WhichkeyProjectSettings.instance.Apply();
 					// WhichKey.Refresh();
 				},
 				keywords = new HashSet<string>(new[] { "WhichKey" })
@@ -126,23 +154,6 @@ namespace PCP.Tools.WhichKey
 			};
 
 			return provider;
-		}
-
-		private static void AddControlToRoot<T, U>(string label, U value, VisualElement root, Action<U> callback) where T : BaseField<U>, new()
-		{
-			var field = new T();
-			field.label = label;
-			field.value = value;
-			field.RegisterValueChangedCallback(evt => callback(evt.newValue));
-			root.Add(field);
-		}
-
-		private static void AddControlToRoot<T, U>(string label, string bindPath, VisualElement root) where T : BaseField<U>, new()
-		{
-			var field = new T();
-			field.label = label;
-			field.bindingPath = bindPath;
-			root.Add(field);
 		}
 	}
 }

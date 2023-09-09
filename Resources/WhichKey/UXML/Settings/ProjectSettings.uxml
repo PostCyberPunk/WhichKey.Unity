@@ -3,6 +3,12 @@
     <ui:VisualElement name="Root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
         <ui:Foldout text="Key Mappings" name="Mapping">
             <ui:ScrollView>
+                <ui:ListView focusable="true" binding-path="LayerMap" show-border="true" reorderable="true" reorder-mode="Animated" show-add-remove-footer="true" name="LayerMap" show-foldout-header="true" header-title="Layer" horizontal-scrolling="false" virtualization-method="FixedHeight" />
+            </ui:ScrollView>
+            <ui:ScrollView name="ScrollView">
+                <ui:ListView focusable="true" binding-path="MenuMap" show-border="true" reorderable="true" reorder-mode="Animated" show-add-remove-footer="true" name="MenuMap" show-foldout-header="true" header-title="MenuItem" horizontal-scrolling="false" virtualization-method="FixedHeight" />
+            </ui:ScrollView>
+            <ui:ScrollView>
                 <ui:ListView focusable="true" binding-path="KeyMap" show-border="true" reorderable="true" reorder-mode="Animated" show-add-remove-footer="true" name="KeyMap" show-foldout-header="true" header-title="Mapping" horizontal-scrolling="true" virtualization-method="DynamicHeight" />
             </ui:ScrollView>
         </ui:Foldout>

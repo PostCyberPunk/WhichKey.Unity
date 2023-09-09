@@ -8,15 +8,16 @@ namespace PCP.Tools.WhichKey
 {
 	internal class WhichKeyManager : ScriptableSingleton<WhichKeyManager>
 	{
-		private readonly TreeHandler mainKeyHandler = new TreeHandler();
 		internal readonly static UILoader mUILoader = new();
-		internal static WhichKeyPreferences Preferences { private set; get; }
+		private readonly TreeHandler mainKeyHandler = new TreeHandler();
+		private WhichKeyPreferences Preferences => WhichKeyPreferences.instance;
 		private static int loggingLevel;
 
 		public Action ShowHintsWindow;
 		public Action CloseHintsWindow;
 		public Action<float> OverrideWindowTimeout;
 		public Action UpdateHints;
+
 		#region Setup
 		public void Init()
 		{
@@ -25,9 +26,11 @@ namespace PCP.Tools.WhichKey
 				LogError("WhichKeyManager is already initialized");
 				return;
 			}
-			// WhichkeyProjectSettings.instance?.Init();
-			SavePreferences();
-			Preferences = WhichKeyPreferences.instance;
+			if (Preferences == null)
+			{
+				LogError("WhichKey Preferences instance is null");
+				return;
+			}
 			if (SessionState.GetBool("WhichKeyOnce", false))
 				RefreshUI();
 			else
@@ -91,39 +94,6 @@ namespace PCP.Tools.WhichKey
 		}
 		#endregion
 
-		#region Settings
-		private void SavePreferences()
-		{
-
-			if (WhichKeyPreferences.instance != null)
-				WhichKeyPreferences.instance.Save();
-			else
-				LogError("WhichKey Preferences instance is null");
-		}
-		public void ApplyPreferences()
-		{
-			SavePreferences();
-			Refresh();
-		}
-		public void LoadPreferenceFromJSON()
-		{
-			TextAsset jsonFile = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/WhichKeyPreference.json");
-			if (jsonFile == null)
-			{
-				LogError("WhichKey.json not found");
-				return;
-			}
-			Preferences.KeyMap = JsonUtility.FromJson<JSONArrayWrapper<KeySet>>(jsonFile.text).array;
-		}
-		public void SavePreferenceToJSON()
-		{
-			JSONArrayWrapper<KeySet> keySetsWrapper = new JSONArrayWrapper<KeySet>(Preferences.KeyMap);
-			string json = JsonUtility.ToJson(keySetsWrapper, true);
-			Debug.Log(json);
-			System.IO.File.WriteAllText("Assets/WhichKeyPreference.json", json);
-		}
-		#endregion
-
 		#region Methods
 
 		public void Active(int[] key)
@@ -140,6 +110,6 @@ namespace PCP.Tools.WhichKey
 
 		public void Input(KeyCode keyCode, bool shift) => mainKeyHandler.ProcesRawKey(keyCode, shift);
 		public string[] GetHints() => mainKeyHandler.GetLayerHints();
-		public void ChangeHanlder(IWKHandler handler,int depth) => mainKeyHandler.ChangeHandler(handler,depth);
+		public void ChangeHanlder(IWKHandler handler, int depth) => mainKeyHandler.ChangeHandler(handler, depth);
 	}
 }

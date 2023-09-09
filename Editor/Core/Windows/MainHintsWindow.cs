@@ -35,7 +35,7 @@ namespace PCP.Tools.WhichKey
 			//BAD
 			wkm.ShowHintsWindow = Active;
 
-			var pref = WhichKeyManager.Preferences;
+			var pref = WhichKeyPreferences.instance;
 			var uil = WhichKeyManager.mUILoader;
 			followMouse = pref.WindowFollowMouse;
 			fixedPosition = pref.FixedPosition;

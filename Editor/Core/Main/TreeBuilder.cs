@@ -13,14 +13,22 @@ namespace PCP.Tools.WhichKey
 		private KeyNode mTreeRoot;
 		private KeyNode mCurrentNode;
 		private readonly CmdFactoryManager mCmdFactoryManager = new CmdFactoryManager();
+		private WhichKeyPreferences Preferences { get => WhichKeyPreferences.instance; }
+		private WhichkeyProjectSettings ProjectSettings { get => WhichkeyProjectSettings.instance; }
 		public void Build()
 		{
 			mTreeRoot = new KeyNode(0, "WhichKey");
 
-			AddKeySetFromMap(WhichKeyPreferences.instance.LayerMap);
-			AddKeySetFromMap(WhichKeyPreferences.instance.MenuMap);
-			AddKeySetFromMap(WhichKeyPreferences.instance.KeyMap);
-			KeyNode.maxLine = WhichKeyManager.Preferences.MaxHintLines;
+			AddKeySetFromMap(Preferences.LayerMap);
+			AddKeySetFromMap(Preferences.MenuMap);
+			AddKeySetFromMap(Preferences.KeyMap);
+
+
+			AddKeySetFromMap(ProjectSettings.LayerMap);
+			AddKeySetFromMap(ProjectSettings.MenuMap);
+			AddKeySetFromMap(ProjectSettings.KeyMap);
+
+			KeyNode.maxLine = Preferences.MaxHintLines;
 
 			mTreeRoot.SetLayerHints();
 		}
