@@ -29,7 +29,7 @@ namespace PCP.Tools.WhichKey
 			// Setup Settings
 			if (WhichKeyPreferences.instance == null)
 			{
-				WhichKeyManager.LogError("WhichKey Preferences instance is null");
+				WkLogger.LogError("WhichKey Preferences instance is null");
 				return;
 			}
 			//BAD

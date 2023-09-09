@@ -13,7 +13,7 @@ namespace PCP.Tools.WhichKey
         {
             if (sceneData == null)
             {
-                WhichKeyManager.LogError("No Scene Data,Please Save Scene");
+                WkLogger.LogError("No Scene Data,Please Save Scene");
                 return;
             }
             if (Set)
@@ -31,13 +31,13 @@ namespace PCP.Tools.WhichKey
                     var target = sceneData.Targets[i].Target;
                     if (target == "")
                     {
-                        WhichKeyManager.LogInfo($"No Reference for {key.ToLabel()}");
+                        WkLogger.LogInfo($"No Reference for {key.ToLabel()}");
                         return;
                     }
                     var go = GameObject.Find(target)?.transform;
                     if (go == null)
                     {
-                        WhichKeyManager.LogError($"Cant find {target}");
+                        WkLogger.LogError($"Cant find {target}");
                         return;
                     }
 
@@ -50,7 +50,7 @@ namespace PCP.Tools.WhichKey
             var target = Selection.activeTransform;
             if(target==null)
             {
-                WhichKeyManager.LogWarning($"No Selectted Object");
+                WkLogger.LogWarning($"No Selectted Object");
                 return;
             }
             for (int i = 0; i < sceneData.Targets.Count; i++)
@@ -59,14 +59,14 @@ namespace PCP.Tools.WhichKey
                 {
                     sceneData.Targets[i] = new SceneNavTarget(key, target.name, target.GetPath());
                     WkExtraManager.instance.SaveSceneData();
-                    WhichKeyManager.LogInfo($"Set {key.ToLabel()} to {target.name}");
+                    WkLogger.LogInfo($"Set {key.ToLabel()} to {target.name}");
                     return;
                 }
             }
 
             sceneData.Targets.Add(new SceneNavTarget(key, target.name, target.GetPath()));
             WkExtraManager.instance.SaveSceneData();
-            WhichKeyManager.LogInfo($"Set {key.ToLabel()} to {target.name}");
+            WkLogger.LogInfo($"Set {key.ToLabel()} to {target.name}");
         }
         public string[] GetLayerHints()
         {

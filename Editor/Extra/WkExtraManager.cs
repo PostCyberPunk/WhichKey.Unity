@@ -47,9 +47,9 @@ namespace PCP.Tools.WhichKey
         private void SetSceneData(Scene scene)
         {
             if (!scene.IsValid())
-                WhichKeyManager.LogError($"WhichKey: SetCurrentSceneData: Invalid Scene");
+                WkLogger.LogError($"WhichKey: SetCurrentSceneData: Invalid Scene");
             else if (scene.path == "")
-                WhichKeyManager.LogInfo($"WhichKey:Save and reopen the scene to use WhichKey");
+                WkLogger.LogInfo($"WhichKey:Save and reopen the scene to use WhichKey");
             else if (!FindScenedata(scene))
             {
                 CurrentSceneData = new SceneNavData(AssetDatabase.LoadAssetAtPath<SceneAsset>(scene.path));

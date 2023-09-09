@@ -31,7 +31,7 @@ namespace PCP.Tools.WhichKey
                 int id = factory.TID;
                 if (fm.ContainsKey(id))
                 {
-                    WhichKeyManager.LogWarning($"Command Factory <color=red>{id}</color> already registered");
+                    WkLogger.LogWarning($"Command Factory <color=red>{id}</color> already registered");
                     return;
                 }
                 fm.Add(id, factory);
@@ -48,7 +48,7 @@ namespace PCP.Tools.WhichKey
             }
             else
             {
-                WhichKeyManager.LogError($"Command Factory <color=red>{id}</color> not found");
+                WkLogger.LogError($"Command Factory <color=red>{id}</color> not found");
                 return null;
             }
         }

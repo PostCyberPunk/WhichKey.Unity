@@ -12,7 +12,7 @@ namespace PCP.Tools.WhichKey
         public void Execute()
         {
             if (!EditorApplication.ExecuteMenuItem(menuPath))
-                WhichKeyManager.LogWarning($"Menu {menuPath} not available");
+                WkLogger.LogWarning($"Menu {menuPath} not available");
         }
     }
 

@@ -59,7 +59,7 @@ namespace PCP.Tools.WhichKey
 						WKCommand cmd = mCmdFactoryManager.CreateCommand(keyset.CmdType, keyset.CmdArg);
 						if (cmd == null)
 						{
-							WhichKeyManager.LogError($"<color=yellow>Hint: {keyset.Hint}</color>||<color=green>Key:{keyset.KeySeq.KeyLabel}</color>||<color=red>Command:{keyset.CmdType}</color> has no valid command type,skipped ");
+							WkLogger.LogError($"<color=yellow>Hint: {keyset.Hint}</color>||<color=green>Key:{keyset.KeySeq.KeyLabel}</color>||<color=red>Command:{keyset.CmdType}</color> has no valid command type,skipped ");
 							return;
 						}
 						mCurrentNode.AddChild(new KeyNode(keyset, i, mCurrentNode, cmd));
@@ -71,7 +71,7 @@ namespace PCP.Tools.WhichKey
 							kn.UpdateKeySet(keyset);
 						}
 						else
-							WhichKeyManager.LogError($"<color=yellow>Hint: {keyset.Hint}</color>||<color=green>Key:{keyset.KeySeq.KeyLabel}</color> already registered To \"<color=yellow>{kn.Hint}</color>\" ,skipped ");
+							WkLogger.LogError($"<color=yellow>Hint: {keyset.Hint}</color>||<color=green>Key:{keyset.KeySeq.KeyLabel}</color> already registered To \"<color=yellow>{kn.Hint}</color>\" ,skipped ");
 					}
 					return;
 				}

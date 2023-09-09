@@ -43,7 +43,7 @@ namespace PCP.Tools.WhichKey
             var kn = mCurrentNode.GetChildByKey(Key);
             if (kn == null)
             {
-                WhichKeyManager.LogInfo($"KeySeq {mKeyLabel} not found");
+                WkLogger.LogInfo($"KeySeq {mKeyLabel} not found");
                 CloseWindow();
             }
             else if (kn.Type == 0)
@@ -57,7 +57,7 @@ namespace PCP.Tools.WhichKey
                 var cmd = kn.Command;
                 if (cmd == null)
                 {
-                    WhichKeyManager.LogError($"KeySeq {mKeyLabel} has no command");
+                    WkLogger.LogError($"KeySeq {mKeyLabel} has no command");
                     CloseWindow();
                     return;
                 }
@@ -105,11 +105,11 @@ namespace PCP.Tools.WhichKey
             if (kn == null) return;
             if (kn.Type != 0)
             {
-                WhichKeyManager.LogWarning($"Change root failed ,KeySeq {mKeyLabel} not a layer");
+                WkLogger.LogWarning($"Change root failed ,KeySeq {mKeyLabel} not a layer");
                 return;
             }
             mRoot = kn;
-            WhichKeyManager.LogInfo($"Change root to {key.ToLabel()}");
+            WkLogger.LogInfo($"Change root to {key.ToLabel()}");
         }
         private KeyNode GetKeyNodebyKeySeq(int[] key)
         {
@@ -126,7 +126,7 @@ namespace PCP.Tools.WhichKey
                 kn = mCurrentNode.GetChildByKey(key[i]);
                 if (kn == null)
                 {
-                    WhichKeyManager.LogWarning($"KeySeq {mKeyLabel} not found @key {key[i].ToLabel()}");
+                    WkLogger.LogWarning($"KeySeq {mKeyLabel} not found @key {key[i].ToLabel()}");
                     return null;
                 }
             }
@@ -139,7 +139,7 @@ namespace PCP.Tools.WhichKey
         {
             if (handler == null)
             {
-                WhichKeyManager.LogError("ChangeHandler handler is null");
+                WkLogger.LogError("ChangeHandler handler is null");
                 return;
             }
 

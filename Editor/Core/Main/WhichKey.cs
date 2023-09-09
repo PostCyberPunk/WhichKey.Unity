@@ -46,7 +46,7 @@ namespace PCP.Tools.WhichKey
             }
             //save to file
             System.IO.File.WriteAllText("Assets/AllMenuItem.txt", sb.ToString());
-            WhichKeyManager.LogInfo("All MenuItem saved to Assets/AllMenuItem.txt");
+            WkLogger.LogInfo("All MenuItem saved to Assets/AllMenuItem.txt");
         }
         #endregion
 

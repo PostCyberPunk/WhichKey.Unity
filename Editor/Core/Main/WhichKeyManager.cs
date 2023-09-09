@@ -11,7 +11,6 @@ namespace PCP.Tools.WhichKey
 		internal readonly static UILoader mUILoader = new();
 		private readonly TreeHandler mainKeyHandler = new TreeHandler();
 		private WhichKeyPreferences Preferences => WhichKeyPreferences.instance;
-		private static int loggingLevel;
 
 		public Action ShowHintsWindow;
 		public Action CloseHintsWindow;
@@ -23,12 +22,12 @@ namespace PCP.Tools.WhichKey
 		{
 			if (mainKeyHandler.isInitialized)
 			{
-				LogError("WhichKeyManager is already initialized");
+				WkLogger.LogError("WhichKeyManager is already initialized");
 				return;
 			}
 			if (Preferences == null)
 			{
-				LogError("WhichKey Preferences instance is null");
+				WkLogger.LogError("WhichKey Preferences instance is null");
 				return;
 			}
 			if (SessionState.GetBool("WhichKeyOnce", false))
@@ -58,7 +57,7 @@ namespace PCP.Tools.WhichKey
 		}
 		private void RefreshDatabase()
 		{
-			loggingLevel = (int)Preferences.LogLevel;
+			WkLogger.loggingLevel = (int)Preferences.LogLevel;
 			mainKeyHandler.Init();
 		}
 		#endregion
@@ -77,21 +76,6 @@ namespace PCP.Tools.WhichKey
 
 		#region Logger
 
-		public static void LogInfo(string msg)
-		{
-			if (loggingLevel == 0)
-				Debug.Log("Whichkey:" + msg);
-		}
-		public static void LogWarning(string msg)
-		{
-			if (loggingLevel <= 1)
-				Debug.LogWarning("Whichkey:" + msg);
-		}
-		public static void LogError(string msg)
-		{
-			if (loggingLevel <= 2)
-				Debug.LogError("Whichkey:" + msg);
-		}
 		#endregion
 
 		#region Methods

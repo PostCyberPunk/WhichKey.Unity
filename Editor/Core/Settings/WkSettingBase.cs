@@ -33,7 +33,7 @@ namespace PCP.Tools.WhichKey
             TextAsset jsonFile = AssetDatabase.LoadAssetAtPath<TextAsset>($"Assets/{jsonName}.json");
             if (jsonFile == null)
             {
-                WhichKeyManager.LogError($"{jsonName}.json not found");
+                WkLogger.LogError($"{jsonName}.json not found");
                 return;
             }
             LayerMap = JsonUtility.FromJson<JSONArrayWrapper<KeySet>>(jsonFile.text).LayerMap;
@@ -44,7 +44,7 @@ namespace PCP.Tools.WhichKey
         {
             JSONArrayWrapper<KeySet> keySetsWrapper = new JSONArrayWrapper<KeySet>(LayerMap, MenuMap, KeyMap);
             string json = JsonUtility.ToJson(keySetsWrapper, true);
-            WhichKeyManager.LogInfo($"Saved {json}");
+            WkLogger.LogInfo($"Saved {json}");
             System.IO.File.WriteAllText($"Assets/{jsonName}.json", json);
         }
     }

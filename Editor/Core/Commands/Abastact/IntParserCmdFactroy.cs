@@ -6,7 +6,7 @@ namespace PCP.Tools.WhichKey
         {
             if (int.TryParse(arg, out int index))
                 return CreateCommand(index);
-            WhichKeyManager.LogError($"{CommandName} Command Invalid Index: {arg}");
+            WkLogger.LogError($"{CommandName} Command Invalid Index: {arg}");
             return null;
         }
         public abstract WKCommand CreateCommand(int arg);
