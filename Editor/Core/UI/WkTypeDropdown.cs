@@ -14,7 +14,7 @@ namespace PCP.Tools.WhichKey
     public class WkTypeDropdown : PopupField<int>
     {
         // public new class UxmlFactory : UxmlFactory<WkTypeDropdown> {}
-        private static Dictionary<int, string> mDict => CmdFactoryManager.CommandTypeMap;
+        private static Dictionary<int, string> mDict; //=> CmdFactoryManager.CommandTypeMap;
         public new class UxmlFactory :
             UxmlFactory<WkTypeDropdown, BaseFieldTraits<int, UxmlIntAttributeDescription>>
         { }
