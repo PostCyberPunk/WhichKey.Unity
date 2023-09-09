@@ -20,6 +20,12 @@ namespace PCP.Tools.WhichKey
 			AddKeySetFromMap(WhichKeyPreferences.instance.LayerMap);
 			AddKeySetFromMap(WhichKeyPreferences.instance.MenuMap);
 			AddKeySetFromMap(WhichKeyPreferences.instance.KeyMap);
+
+			
+			AddKeySetFromMap(WhichkeyProjectSettings.instance.LayerMap);
+			AddKeySetFromMap(WhichkeyProjectSettings.instance.MenuMap);
+			AddKeySetFromMap(WhichkeyProjectSettings.instance.KeyMap);
+
 			KeyNode.maxLine = WhichKeyManager.Preferences.MaxHintLines;
 
 			mTreeRoot.SetLayerHints();

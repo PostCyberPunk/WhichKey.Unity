@@ -9,19 +9,27 @@ namespace PCP.Tools.WhichKey
     [FilePath("Project/WhichkeyProjectSettings", FilePathAttribute.Location.ProjectFolder)]
     internal class WhichkeyProjectSettings : ScriptableSingleton<WhichkeyProjectSettings>
     {
-        [SerializeField] public KeySet[] KeyMap;
+        [SerializeField] public KeySet[] LayerMap = new KeySet[0];
+        [SerializeField] public KeySet[] MenuMap = new KeySet[0];
+        [SerializeField] public KeySet[] KeyMap = new KeySet[0];
+        private void OnEnable()
+        {
+            hideFlags &= ~HideFlags.NotEditable;
+        }
         public static void Save()
         {
             Undo.RegisterCompleteObjectUndo(instance, "Save WhichKey Project Settings");
             instance.Save(true);
         }
-        internal SerializedObject GetSerializedObject()
+        public SerializedObject GetSerializedObject()
         {
             return new SerializedObject(this);
         }
-        private void OnEnable()
+        public void Apply()
         {
-            hideFlags &= ~HideFlags.NotEditable;
+            Save();
+            WhichKeyManager.instance.Refresh();
         }
+
     }
 }

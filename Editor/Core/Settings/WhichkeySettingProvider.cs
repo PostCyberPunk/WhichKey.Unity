@@ -86,7 +86,7 @@ namespace PCP.Tools.WhichKey
 				},
 				deactivateHandler = () =>
 				{
-					WhichKeyManager.instance.ApplyPreferences();
+					WhichkeyProjectSettings.instance.Apply();
 				},
 				keywords = new HashSet<string>(new[] { "WhichKey" })
 
@@ -104,21 +104,49 @@ namespace PCP.Tools.WhichKey
 				label = "WhichKey",
 				activateHandler = (searchContext, rootElement) =>
 				{
-					var settings = WhichkeyProjectSettings.instance.GetSerializedObject();
+					var settings = WhichkeyProjectSettings.instance;
 					var vts = WhichKeyManager.mUILoader;
 
 					var root = vts.ProjectSettings.CloneTree();
 
 
+					var layerMap = root.Q<ListView>("LayerMap");
+					layerMap.makeItem = vts.LayerSet.CloneTree;
+
+					var menuMap = root.Q<ListView>("MenuMap");
+					menuMap.makeItem = () =>
+					{
+						var e = vts.MenuSet.CloneTree();
+						var btn = e.Q<Button>("Select");
+						btn.clickable.clicked += () =>
+						{
+							MenuHelper.ShowWindow((path) =>
+							{
+								e.Q<TextField>("Arg").value = path;
+							});
+						};
+						return e;
+					};
+					menuMap.itemsAdded += (list) =>
+					{
+						foreach (var i in list)
+						{
+							settings.MenuMap[i].CmdType = 1;
+						}
+					};
 					ListView keymap = root.Q<ListView>("KeyMap");
 					keymap.makeItem = vts.KeySet.CloneTree;
 
-					root.Bind(settings);
+					var applyButton = new Button(WhichkeyProjectSettings.instance.Apply);
+					applyButton.text = "Apply";
+					root.Add(applyButton);
+
+					root.Bind(settings.GetSerializedObject());
 					rootElement.Add(root);
 				},
 				deactivateHandler = () =>
 				{
-					WhichkeyProjectSettings.Save();
+					WhichkeyProjectSettings.instance.Apply();
 					// WhichKey.Refresh();
 				},
 				keywords = new HashSet<string>(new[] { "WhichKey" })
