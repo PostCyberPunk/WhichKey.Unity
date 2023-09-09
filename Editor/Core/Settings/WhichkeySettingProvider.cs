@@ -155,22 +155,5 @@ namespace PCP.Tools.WhichKey
 
 			return provider;
 		}
-
-		private static void AddControlToRoot<T, U>(string label, U value, VisualElement root, Action<U> callback) where T : BaseField<U>, new()
-		{
-			var field = new T();
-			field.label = label;
-			field.value = value;
-			field.RegisterValueChangedCallback(evt => callback(evt.newValue));
-			root.Add(field);
-		}
-
-		private static void AddControlToRoot<T, U>(string label, string bindPath, VisualElement root) where T : BaseField<U>, new()
-		{
-			var field = new T();
-			field.label = label;
-			field.bindingPath = bindPath;
-			root.Add(field);
-		}
 	}
 }
