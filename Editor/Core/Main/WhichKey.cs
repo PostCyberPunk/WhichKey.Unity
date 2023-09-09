@@ -8,9 +8,10 @@ namespace PCP.Tools.WhichKey
     public static class WhichKey
     {
         private readonly static WhichKeyManager mManager;
-
+        private readonly static UILoader mUILoader;
         static WhichKey()
         {
+            mUILoader = new();
             mManager = new();
         }
 
