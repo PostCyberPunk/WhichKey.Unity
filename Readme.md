@@ -4,15 +4,19 @@
 <!-- 2. additional layer map -->
 <!-- 3. same layer combination -->
 1. decouple wkmanger
-*** hideflag wont work for first time it created ***
+ <!-- - settings -->
+ - uiload
+ - window and input handle, who to who??
+<!-- *** hideflag wont work for first time it created fixed, import is ok, only happened when mannually delay*** -->
 - cmd factory to simple cmd
 !!still need to find a better win to sub delegate
 4. caching labels reuse of hint window
 - think about sceneview
 - Arg to a class that can be setup with a window
 ## meh
+menuHelper add missing menu item manually
 button to uxml
-,button to top
+bindWin button to top
 - ui folder
 - window no instance handle
 7. maybe try serialize reference instead of path
