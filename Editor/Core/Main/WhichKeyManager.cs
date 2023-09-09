@@ -26,7 +26,6 @@ namespace PCP.Tools.WhichKey
 				return;
 			}
 			// WhichkeyProjectSettings.instance?.Init();
-			SavePreferences();
 			Preferences = WhichKeyPreferences.instance;
 			if (SessionState.GetBool("WhichKeyOnce", false))
 				RefreshUI();
@@ -88,39 +87,6 @@ namespace PCP.Tools.WhichKey
 		{
 			if (loggingLevel <= 2)
 				Debug.LogError("Whichkey:" + msg);
-		}
-		#endregion
-
-		#region Settings
-		private void SavePreferences()
-		{
-
-			if (WhichKeyPreferences.instance != null)
-				WhichKeyPreferences.instance.Save();
-			else
-				LogError("WhichKey Preferences instance is null");
-		}
-		public void ApplyPreferences()
-		{
-			SavePreferences();
-			Refresh();
-		}
-		public void LoadPreferenceFromJSON()
-		{
-			TextAsset jsonFile = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/WhichKeyPreference.json");
-			if (jsonFile == null)
-			{
-				LogError("WhichKey.json not found");
-				return;
-			}
-			Preferences.KeyMap = JsonUtility.FromJson<JSONArrayWrapper<KeySet>>(jsonFile.text).array;
-		}
-		public void SavePreferenceToJSON()
-		{
-			JSONArrayWrapper<KeySet> keySetsWrapper = new JSONArrayWrapper<KeySet>(Preferences.KeyMap);
-			string json = JsonUtility.ToJson(keySetsWrapper, true);
-			Debug.Log(json);
-			System.IO.File.WriteAllText("Assets/WhichKeyPreference.json", json);
 		}
 		#endregion
 
