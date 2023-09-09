@@ -6,18 +6,28 @@ using UnityEngine;
 
 namespace PCP.Tools.WhichKey
 {
-	internal class WhichKeyManager : ScriptableSingleton<WhichKeyManager>
+	internal class WhichKeyManager
 	{
 		private readonly TreeHandler mainKeyHandler = new TreeHandler();
 		private WhichKeyPreferences Preferences => WhichKeyPreferences.instance;
 
+		public static WhichKeyManager instance;
 		public Action ShowHintsWindow;
 		public Action CloseHintsWindow;
 		public Action<float> OverrideWindowTimeout;
 		public Action UpdateHints;
 
 		#region Setup
-		public void Init()
+		public WhichKeyManager()
+		{
+			if (instance != null)
+			{
+				WkLogger.LogError("Multiple WhichKeyManager instance found");
+			}
+			instance = this;
+			instance.Init();
+		}
+		private void Init()
 		{
 			if (mainKeyHandler.isInitialized)
 			{

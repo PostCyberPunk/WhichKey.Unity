@@ -11,8 +11,7 @@ namespace PCP.Tools.WhichKey
 
         static WhichKey()
         {
-            mManager = WhichKeyManager.instance;
-            mManager.Init();
+            mManager = new();
         }
 
         #region MenuItems
