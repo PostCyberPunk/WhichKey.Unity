@@ -26,11 +26,33 @@ namespace PCP.Tools.WhichKey
 					var vts = WhichKeyManager.mUILoader;
 					// Create the root visual element
 					var root = vts.Preferences.CloneTree();
-					
+
 
 					var layerMap = root.Q<ListView>("LayerMap");
 					layerMap.makeItem = vts.LayerSet.CloneTree;
-					
+
+					var menuMap = root.Q<ListView>("MenuMap");
+					menuMap.makeItem = () =>
+					{
+						var e = vts.MenuSet.CloneTree();
+						var btn = e.Q<Button>("Select");
+						btn.clickable.clicked += () =>
+						{
+							MenuHelper.ShowWindow((path) =>
+							{
+								e.Q<TextField>("Arg").value = path;
+							});
+						};
+						return e;
+					};
+					menuMap.itemsAdded += (list) =>
+					{
+						foreach (var i in list)
+						{
+							settings.MenuMap[i].CmdType = 1;
+						}
+					};
+
 					var keymap = root.Q<ListView>("KeyMap");
 					keymap.makeItem = vts.KeySet.CloneTree;
 

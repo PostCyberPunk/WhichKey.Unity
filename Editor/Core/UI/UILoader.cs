@@ -16,6 +16,7 @@ namespace PCP.Tools.WhichKey
         public VisualTreeAsset BindWindow { private set; get; }
         public VisualTreeAsset KeySet { private set; get; }
         public VisualTreeAsset LayerSet { private set; get; }
+        public VisualTreeAsset MenuSet { private set; get; }
         //For window
         public VisualTreeAsset HintLabel { private set; get; }
         public VisualTreeAsset KeyLabel { private set; get; }
@@ -34,6 +35,7 @@ namespace PCP.Tools.WhichKey
             BindWindow = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/BindWindow");
             KeySet = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/KeySet");
             LayerSet = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/LayerSet");
+            MenuSet = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/MenuSet");
 
             HintLabel = Resources.Load<VisualTreeAsset>("WhichKey/UXML/UI/HintLabel");
             KeyLabel = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/KeyLabel");
