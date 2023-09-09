@@ -12,7 +12,7 @@ namespace PCP.Tools.WhichKey
 		public KeyNode TreeRoot { get => mTreeRoot; }
 		private KeyNode mTreeRoot;
 		private KeyNode mCurrentNode;
-		private readonly CmdFactoryManager mCmdFactoryManager = new CmdFactoryManager();
+		// private readonly CmdFactoryManager mCmdFactoryManager = new CmdFactoryManager();
 		private WhichKeyPreferences Preferences { get => WhichKeyPreferences.instance; }
 		private WhichkeyProjectSettings ProjectSettings { get => WhichkeyProjectSettings.instance; }
 		public void Build()
@@ -56,13 +56,13 @@ namespace PCP.Tools.WhichKey
 							mCurrentNode.AddChild(new KeyNode(key, keyset.Hint));
 							return;
 						}
-						WKCommand cmd = mCmdFactoryManager.CreateCommand(keyset.CmdType, keyset.CmdArg);
-						if (cmd == null)
-						{
-							WhichKeyManager.LogError($"<color=yellow>Hint: {keyset.Hint}</color>||<color=green>Key:{keyset.KeySeq.KeyLabel}</color>||<color=red>Command:{keyset.CmdType}</color> has no valid command type,skipped ");
-							return;
-						}
-						mCurrentNode.AddChild(new KeyNode(keyset, i, mCurrentNode, cmd));
+						// WKCommand cmd = mCmdFactoryManager.CreateCommand(keyset.CmdType, keyset.CmdArg);
+						// if (cmd == null)
+						// {
+						// 	WhichKeyManager.LogError($"<color=yellow>Hint: {keyset.Hint}</color>||<color=green>Key:{keyset.KeySeq.KeyLabel}</color>||<color=red>Command:{keyset.CmdType}</color> has no valid command type,skipped ");
+						// 	return;
+						// }
+						// mCurrentNode.AddChild(new KeyNode(keyset, i, mCurrentNode, cmd));
 					}
 					else
 					{

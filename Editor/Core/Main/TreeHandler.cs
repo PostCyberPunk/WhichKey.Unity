@@ -54,15 +54,15 @@ namespace PCP.Tools.WhichKey
             }
             else
             {
-                var cmd = kn.Command;
-                if (cmd == null)
-                {
-                    WhichKeyManager.LogError($"KeySeq {mKeyLabel} has no command");
-                    CloseWindow();
-                    return;
-                }
-                cmd.Execute();
-                if (cmd.isEnd) CloseWindow();
+                // var cmd = kn.Command;
+                // if (cmd == null)
+                // {
+                //     WhichKeyManager.LogError($"KeySeq {mKeyLabel} has no command");
+                //     CloseWindow();
+                //     return;
+                // }
+                // cmd.Execute();
+                // if (cmd.isEnd) CloseWindow();
             }
         }
         private void CloseWindow()
