@@ -22,7 +22,7 @@ namespace PCP.Tools.WhichKey
                 activateHandler = (searchContext, rootElement) =>
                 {
                     var settings = WkExtraManager.instance.GetSerializedObject();
-                    var vts = WhichKeyManager.mUILoader;
+                    var vts = UILoader.instance;
 
                     var root = vts.List.CloneTree();
 

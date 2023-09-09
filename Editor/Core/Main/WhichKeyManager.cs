@@ -8,7 +8,6 @@ namespace PCP.Tools.WhichKey
 {
 	internal class WhichKeyManager : ScriptableSingleton<WhichKeyManager>
 	{
-		internal readonly static UILoader mUILoader = new();
 		private readonly TreeHandler mainKeyHandler = new TreeHandler();
 		private WhichKeyPreferences Preferences => WhichKeyPreferences.instance;
 
@@ -52,7 +51,7 @@ namespace PCP.Tools.WhichKey
 		}
 		private void RefreshUI()
 		{
-			mUILoader.Refresh();
+			UILoader.instance.Refresh();
 			MainHintsWindow.Init();
 		}
 		private void RefreshDatabase()

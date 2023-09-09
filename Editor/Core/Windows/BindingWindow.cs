@@ -12,8 +12,8 @@ namespace PCP.Tools.WhichKey
     {
         private static BindingWindow instance;
         private Stack<int> mKeySeq = new();
-        private VisualTreeAsset keyVT { get => WhichKeyManager.mUILoader.KeyLabel; }
-        private VisualTreeAsset winVT { get => WhichKeyManager.mUILoader.BindWindow; }
+        private VisualTreeAsset keyVT { get => UILoader.instance.KeyLabel; }
+        private VisualTreeAsset winVT { get => UILoader.instance.BindWindow; }
 
         private VisualElement labelFrame;
         private Action<int[]> OnComplete;

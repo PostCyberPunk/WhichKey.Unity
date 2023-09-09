@@ -16,7 +16,7 @@ namespace PCP.Tools.WhichKey
         public override VisualElement CreatePropertyGUI(SerializedProperty property)
         {
 
-            var root = WhichKeyManager.mUILoader.WkBinder.Instantiate(property.propertyPath);
+            var root = UILoader.instance.WkBinder.Instantiate(property.propertyPath);
             var btn = root.Q<Button>("Bind");
             btn.clickable = new Clickable(() =>
             {

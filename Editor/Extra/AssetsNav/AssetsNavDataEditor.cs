@@ -10,7 +10,7 @@ namespace PCP.Tools.WhichKey
         public override VisualElement CreateInspectorGUI()
         {
             VisualElement root = new VisualElement();
-            var vts = WhichKeyManager.mUILoader;
+            var vts = UILoader.instance;
             VisualTreeAsset listvt = vts.List;
             VisualTreeAsset itemvt = vts.NavSet;
 

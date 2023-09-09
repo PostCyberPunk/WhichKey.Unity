@@ -36,7 +36,7 @@ namespace PCP.Tools.WhichKey
 			wkm.ShowHintsWindow = Active;
 
 			var pref = WhichKeyPreferences.instance;
-			var uil = WhichKeyManager.mUILoader;
+			var uil = UILoader.instance;
 			followMouse = pref.WindowFollowMouse;
 			fixedPosition = pref.FixedPosition;
 			maxHintLines = pref.MaxHintLines;
