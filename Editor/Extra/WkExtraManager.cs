@@ -7,7 +7,7 @@ using PCP.WhichKey.Log;
 
 namespace PCP.WhichKey.Extra
 {
-	[FilePath("Project/Whichkey/ExtraData", FilePathAttribute.Location.ProjectFolder)]
+	[FilePath("ProjectSettings/Whichkey/ExtraData", FilePathAttribute.Location.ProjectFolder)]
 	public class WkExtraManager : ScriptableSingleton<WkExtraManager>
 	{
 		#region SceneNav
