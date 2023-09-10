@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.PackageManager.UI;
 
 namespace PCP.Tools.WhichKey
 {
@@ -12,6 +13,11 @@ namespace PCP.Tools.WhichKey
             HandleKeyWithDepth(key);
             if (maxDepth > 0 && CheckDepth())
                 mWindow.Close();
+            else
+            {
+                UpdateWindow();
+                mWindow.UpdateHints();
+            }
         }
         protected abstract void HandleKeyWithDepth(int key);
         private bool CheckDepth()

@@ -13,27 +13,13 @@ namespace PCP.Tools.WhichKey
 		private float hideTill;
 		private bool showHint;
 		private bool _changeUI;
-		private float timeoutLen;
+		private bool needClose;
 		protected float mWidth;
 		protected float mHeight;
-		private bool needClose;
-		public static void Active()
-		{
-			// if (instance == null)
-			// {
-			// 	instance = ScriptableObject.CreateInstance<T>();
-			// }
-			// instance.UpdateDelayTimer();
+		//TEMP
+		public float timeoutLen;
 
-
-			// instance.OnActive();
-
-			// instance.ShowPopup();
-			// instance.minSize = new(0, 0);
-			// instance.position = new Rect(0, 0, 0, 0);
-
-		}
-		protected abstract void OnActive();
+		public virtual void OnActive() { }
 		protected virtual void DummyWindow()
 		{
 			position = new Rect(0, 0, 0, 0);
@@ -90,7 +76,7 @@ namespace PCP.Tools.WhichKey
 						{
 							prevKey = e.keyCode;
 							keyReleased = false;
-							WhichKeyManager.instance.Input(e.keyCode, e.shift);
+							WhichKeyManager.instance.ProcesRawKey(e.keyCode, e.shift);
 						}
 						break;
 				}
@@ -107,12 +93,12 @@ namespace PCP.Tools.WhichKey
 					DummyWindow();
 			}
 		}
-		protected void UpdateHints()
+		public void UpdateHints()
 		{
 			_changeUI = true;
 			UpdateDelayTimer();
 		}
-		private void UpdateDelayTimer()
+		public void UpdateDelayTimer()
 		{
 			if (!showHint)
 				hideTill = Time.realtimeSinceStartup + timeoutLen;
@@ -130,7 +116,6 @@ namespace PCP.Tools.WhichKey
 		}
 		public new void Close() => needClose = true;
 		public void ForceClose() => base.Close();
-		public void OverriderTimeout(float timeout) => timeoutLen = timeout;
 	}
 
 }

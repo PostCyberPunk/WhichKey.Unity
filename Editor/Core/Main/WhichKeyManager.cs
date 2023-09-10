@@ -12,10 +12,6 @@ namespace PCP.Tools.WhichKey
 		private WhichKeyPreferences Preferences => WhichKeyPreferences.instance;
 
 		public static WhichKeyManager instance;
-		public Action ShowHintsWindow;
-		public Action CloseHintsWindow;
-		public Action<float> OverrideWindowTimeout;
-		public Action UpdateHints;
 
 		#region Setup
 		public WhichKeyManager()
@@ -87,20 +83,21 @@ namespace PCP.Tools.WhichKey
 
 		public void Active(int[] key)
 		{
-			mainKeyHandler.Reset(key);
-			ShowHintsWindow();
+			//TEMP
+			// mainKeyHandler.Reset(key);
+			// ShowHintsWindow();
 		}
+		//TEMP
+		public Action<float> OverrideWindowTimeout;
 		public void ShowWindow()
 		{
-			ShowHintsWindow();
 			mainKeyHandler.Reset();
+			mCurrentHandler = mainKeyHandler;
+			mCurrentHandler.ShowWindow();
 		}
 		#endregion
 
-		public void Input(KeyCode keyCode, bool shift) => mainKeyHandler.ProcesRawKey(keyCode, shift);
-		public string[] GetHints() => mainKeyHandler.GetLayerHints();
 		public void ChangeHanlder(IWKHandler handler, int depth) => mainKeyHandler.ChangeHandler(handler, depth);
-
 
 		private BaseKeyHandler mCurrentHandler;
 		public void ProcesRawKey(KeyCode keyCode, bool shift)
