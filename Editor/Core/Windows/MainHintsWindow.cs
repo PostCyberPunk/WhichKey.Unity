@@ -7,7 +7,7 @@ using System.Net.Sockets;
 
 namespace PCP.Tools.WhichKey
 {
-	internal class MainHintsWindow : BaseWKWindow<MainHintsWindow>
+	internal class MainHintsWindow : WkBaseWindow
 	{
 		protected static WhichKeyManager wkm => WhichKeyManager.instance;
 		#region Data
@@ -51,9 +51,10 @@ namespace PCP.Tools.WhichKey
 		}
 		protected override void OnActive()
 		{
-			wkm.OverrideWindowTimeout = instance.OverriderTimeout;
-			wkm.CloseHintsWindow = instance.ShouldClose;
-			wkm.UpdateHints = UpdateHints;
+			// TEMP
+			// wkm.OverrideWindowTimeout = instance.OverriderTimeout;
+			// wkm.CloseHintsWindow = instance.ShouldClose;
+			// wkm.UpdateHints = UpdateHints;
 		}
 
 		private VisualElement mainFrame;

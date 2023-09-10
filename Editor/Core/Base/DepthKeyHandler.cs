@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace PCP.Tools.WhichKey
 {
-    public abstract class DepthKeyHandler<T> : WindowKeyHandler<T> where T : BaseWKWindow
+    public abstract class DepthKeyHandler<T> : WindowKeyHandler<T> where T : WkBaseWindow
     {
         protected Stack<int> mKeySeq;
         protected int maxDepth = -1;

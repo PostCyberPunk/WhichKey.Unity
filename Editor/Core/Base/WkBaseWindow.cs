@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 namespace PCP.Tools.WhichKey
 {
 
-	public abstract class BaseWKWindow : EditorWindow
+	public abstract class WkBaseWindow : EditorWindow
 	{
 		// public static T instance;
 		private bool keyReleased = true;

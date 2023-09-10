@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PCP.Tools.WhichKey
 {
-    public abstract class WindowKeyHandler<T> where T : BaseWKWindow
+    public abstract class WindowKeyHandler<T> where T : WkBaseWindow
     {
         protected T mWindow;
         public void ShowWindow()
