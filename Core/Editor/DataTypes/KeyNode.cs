@@ -43,9 +43,8 @@ namespace PCP.WhichKey.Core
 			Children = new List<KeyNode>();
 		}
 
-		public KeyNode(KeySet keySet, int index, KeyNode parent, WKCommand cmd)
+		public KeyNode(KeySet keySet, int index, WKCommand cmd)
 		{
-			Parent = parent;
 			Key = keySet.KeySeq.KeySeq[index];
 			UpdateKeySet(keySet);
 			Children = new List<KeyNode>();

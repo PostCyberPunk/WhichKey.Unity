@@ -12,12 +12,11 @@ namespace PCP.WhichKey.Extra
 	public class WkExtraManager : ScriptableSingleton<WkExtraManager>
 	{
 		//Extra
+		#region Manager
 		public VisualTreeAsset SceneNav { private set; get; }
 		public VisualTreeAsset NavSet { private set; get; }
-		#region SceneNav
+		public float WinTimeout;
 
-		[SerializeField] private List<SceneNavData> savedSceneDatas = new();
-		public SceneNavData CurrentSceneData;
 		[InitializeOnLoadMethod]
 		public static void Init()
 		{
@@ -33,25 +32,10 @@ namespace PCP.WhichKey.Extra
 				EditorApplication.update += RunOnce;
 			}
 		}
-		public static void RunOnce()
-		{
-			RefreshUI();
-		}
-		public static void RefreshUI()
-		{
-			instance.SceneNav = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/SceneNav");
-			instance.NavSet = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/NavSet");
-		}
-
 		public static void Save()
 		{
 			Undo.RegisterCompleteObjectUndo(instance, "Save WhichKey Extra Data");
 			instance.Save(true);
-		}
-		public void SaveSceneData()
-		{
-			CurrentSceneData?.SetupKeyHints();
-			Save(true);
 		}
 		internal SerializedObject GetSerializedObject()
 		{
@@ -60,6 +44,26 @@ namespace PCP.WhichKey.Extra
 		private void OnEnable()
 		{
 			hideFlags &= ~HideFlags.NotEditable;
+		}
+		public static void RunOnce()
+		{
+			RefreshUI();
+			EditorApplication.update -= RunOnce;
+		}
+		public static void RefreshUI()
+		{
+			instance.SceneNav = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/SceneNav");
+			instance.NavSet = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/NavSet");
+		}
+		#endregion
+
+		#region SceneNav
+		[SerializeField] private List<SceneNavData> savedSceneDatas = new();
+		public SceneNavData CurrentSceneData;
+		public void SaveSceneData()
+		{
+			CurrentSceneData?.SetupKeyHints();
+			Save(true);
 		}
 		private void OnSceneOpened(Scene scene, OpenSceneMode mode)
 		{
@@ -88,7 +92,6 @@ namespace PCP.WhichKey.Extra
 		#endregion
 
 		#region AssetNav
-		public float WinTimeout;
 		public AssetsNavData[] NavAssetsDatas = new AssetsNavData[0];
 
 		#endregion

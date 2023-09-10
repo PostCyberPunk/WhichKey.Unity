@@ -47,6 +47,8 @@ namespace PCP.WhichKey.Core
 			KeyNode.maxLine = Preferences.MaxHintLines;
 
 			mTreeRoot.SetLayerHints();
+			// //TEMP
+			// mTreeRoot.SetParent(null);
 		}
 
 		private void AddKeySetFromMap(KeySet[] keymap)
@@ -83,7 +85,7 @@ namespace PCP.WhichKey.Core
 							return;
 						}
 
-						mCurrentNode.AddChild(new KeyNode(keyset, i, mCurrentNode, cmd));
+						mCurrentNode.AddChild(new KeyNode(keyset, i, cmd));
 					}
 					else
 					{
