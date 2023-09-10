@@ -64,26 +64,22 @@ namespace PCP.WhichKey.Core
 						winPosElement.MarkDirtyRepaint();
 					});
 
-					// Create the Apply button
 					var applyButton = new Button(Preferences.Apply);
 					applyButton.text = "Apply";
 					root.Add(applyButton);
 
-					// Create the Save to JSON button
 					var saveButton = new Button(Preferences.SaveToJson);
 					saveButton.text = "Save to JSON";
 					root.Add(saveButton);
 
-					// Create the Load from JSON button
 					var loadButton = new Button(Preferences.LoadFromJson);
 					loadButton.text = "Load from JSON";
 					root.Add(loadButton);
-					root.Bind(Preferences.GetSerializedObject());
 
-					// Add the root visual element to the settings window
+					root.Bind(Preferences.GetSerializedObject());
 					rootElement.Add(root);
 				},
-				deactivateHandler = () => { WhichkeyProjectSettings.instance.Apply(); },
+				deactivateHandler = Preferences.Apply,
 				keywords = new HashSet<string>(new[] { "WhichKey" })
 			};
 
@@ -129,18 +125,22 @@ namespace PCP.WhichKey.Core
 					ListView keymap = root.Q<ListView>("KeyMap");
 					keymap.makeItem = vts.KeySet.CloneTree;
 
-					var applyButton = new Button(WhichkeyProjectSettings.instance.Apply);
+					var applyButton = new Button(ProjectSettings.Apply);
 					applyButton.text = "Apply";
 					root.Add(applyButton);
+
+					var saveButton = new Button(ProjectSettings.SaveToJson);
+					saveButton.text = "Save to JSON";
+					root.Add(saveButton);
+
+					var loadButton = new Button(ProjectSettings.LoadFromJson);
+					loadButton.text = "Load from JSON";
+					root.Add(loadButton);
 
 					root.Bind(ProjectSettings.GetSerializedObject());
 					rootElement.Add(root);
 				},
-				deactivateHandler = () =>
-				{
-					WhichkeyProjectSettings.instance.Apply();
-					// WhichKey.Refresh();
-				},
+				deactivateHandler = ProjectSettings.Apply,
 				keywords = new HashSet<string>(new[] { "WhichKey" })
 			};
 
