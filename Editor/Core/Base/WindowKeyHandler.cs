@@ -15,10 +15,10 @@ namespace PCP.Tools.WhichKey
             mWindow.OnActive();
             mWindow.UpdateDelayTimer();
 
+            mWindow.ShowPopup();
             mWindow.minSize = new Vector2(0, 0);
             mWindow.position = new Rect(0, 0, 0, 0);
 
-            mWindow.ShowPopup();
         }
         public override void CloseWindow()
         {

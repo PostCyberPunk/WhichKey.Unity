@@ -23,7 +23,6 @@ namespace PCP.Tools.WhichKey
         private bool CheckDepth()
         {
             if (mKeySeq.Count >= maxDepth) return true;
-            UpdateWindow();
             return false;
         }
         protected abstract void UpdateWindow();

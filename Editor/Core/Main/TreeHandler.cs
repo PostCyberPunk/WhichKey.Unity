@@ -23,6 +23,11 @@ namespace PCP.Tools.WhichKey
             ResetRoot();
             Reset();
         }
+        public override void OnActive()
+        {
+            Reset();
+            UpdateWindow();
+        }
         protected override void HandleKeyWithDepth(int key)
         {
             if (mCurrentHandler != this && mCurrentHandler != null)

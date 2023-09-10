@@ -90,9 +90,13 @@ namespace PCP.Tools.WhichKey
 		//TEMP
 		public void ShowWindow()
 		{
-			mainKeyHandler.Reset();
-			mCurrentHandler = mainKeyHandler;
-			mCurrentHandler.ShowWindow();
+			ChangeBaseKeyHandler(mainKeyHandler);
+		}
+		public void ChangeBaseKeyHandler(BaseKeyHandler handler)
+		{
+			mCurrentHandler = handler;
+			handler.ShowWindow();
+			handler.OnActive();
 		}
 		#endregion
 

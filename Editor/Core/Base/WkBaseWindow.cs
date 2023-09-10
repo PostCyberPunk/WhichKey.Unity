@@ -7,7 +7,7 @@ namespace PCP.Tools.WhichKey
 
 	public abstract class WkBaseWindow : EditorWindow
 	{
-		// public static T instance;
+		//FIXME
 		public static float DefaultTimeoutLen { protected set; get;}
 		private bool keyReleased = true;
 		private KeyCode prevKey;
@@ -17,7 +17,6 @@ namespace PCP.Tools.WhichKey
 		private bool needClose;
 		protected float mWidth;
 		protected float mHeight;
-		//TEMP
 		private float timeoutLen;
 
 		public virtual void OnActive() { }
