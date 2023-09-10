@@ -2,10 +2,11 @@ using System;
 
 namespace PCP.WhichKey
 {
-    [AttributeUsage(AttributeTargets.Method)]
+	[AttributeUsage(AttributeTargets.Method)]
 	public class WhichKeyMethod : Attribute
 	{
 		public int UID;
+
 		/// <summary>
 		/// a static method can be invoke by WhichKey,return void and has no parameters
 		/// </summary>

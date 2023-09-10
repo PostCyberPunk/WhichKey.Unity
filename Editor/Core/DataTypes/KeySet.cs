@@ -3,7 +3,7 @@ using PCP.WhichKey.Types;
 
 namespace PCP.WhichKey.Core
 {
-    [Serializable]
+	[Serializable]
 	//OPT maybe claass is better
 	public struct KeySet
 	{

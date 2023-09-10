@@ -4,11 +4,10 @@ using PCP.WhichKey.Core;
 
 namespace PCP.WhichKey.Types
 {
-
-    public abstract class WkBaseWindow : EditorWindow
+	public abstract class WkBaseWindow : EditorWindow
 	{
 		//FIXME
-		public static float DefaultTimeoutLen { protected set; get;}
+		public static float DefaultTimeoutLen { protected set; get; }
 		private bool keyReleased = true;
 		private KeyCode prevKey;
 		private float hideTill;
@@ -19,12 +18,17 @@ namespace PCP.WhichKey.Types
 		protected float mHeight;
 		private float timeoutLen;
 
-		public virtual void OnActive() { }
+		public virtual void OnActive()
+		{
+		}
+
 		protected virtual void DummyWindow()
 		{
 			position = new Rect(0, 0, 0, 0);
 		}
+
 		protected abstract void ShowHints();
+
 		protected virtual void OnGUI()
 		{
 			Event e = Event.current;
@@ -45,13 +49,17 @@ namespace PCP.WhichKey.Types
 				_changeUI = true;
 				showHint = false;
 			}
+
 			e.Use();
 		}
+
 		private void OnLostFocus() => base.Close();
+
 		protected virtual void Update()
 		{
 			CheckDelayTimer();
 		}
+
 		private void KeyHandler(Event e)
 		{
 			if (e.type == EventType.KeyUp)
@@ -59,6 +67,7 @@ namespace PCP.WhichKey.Types
 				keyReleased = true;
 				return;
 			}
+
 			if (e.type == EventType.KeyDown)
 			{
 				switch (e.keyCode)
@@ -78,10 +87,12 @@ namespace PCP.WhichKey.Types
 							keyReleased = false;
 							WhichKeyManager.instance.ProcesRawKey(e.keyCode, e.shift);
 						}
+
 						break;
 				}
 			}
 		}
+
 		private void CheckUI()
 		{
 			if (_changeUI)
@@ -93,16 +104,19 @@ namespace PCP.WhichKey.Types
 					DummyWindow();
 			}
 		}
+
 		public void UpdateHints()
 		{
 			_changeUI = true;
 			UpdateDelayTimer();
 		}
+
 		public void UpdateDelayTimer()
 		{
 			if (!showHint)
 				hideTill = Time.realtimeSinceStartup + timeoutLen;
 		}
+
 		private void CheckDelayTimer()
 		{
 			if (needClose || showHint) return;
@@ -114,10 +128,9 @@ namespace PCP.WhichKey.Types
 				Repaint();
 			}
 		}
+
 		public new void Close() => needClose = true;
 		public void ForceClose() => base.Close();
 		public void OverrideTimeout(float time) => timeoutLen = time;
 	}
-
 }
-

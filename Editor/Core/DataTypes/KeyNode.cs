@@ -17,9 +17,19 @@ namespace PCP.WhichKey.Core
 		public KeyNode Parent { private set; get; }
 		public string[] LayerHints { private set; get; }
 		public List<KeyNode> Children { private set; get; } //OPT :Lets keep this list,maybe useful for fast reloading
-		public bool hasChildren { get => Children.Count > 0; }
-		public bool isLayer { get => Type == 0; }
+
+		public bool hasChildren
+		{
+			get => Children.Count > 0;
+		}
+
+		public bool isLayer
+		{
+			get => Type == 0;
+		}
+
 		public WKCommand Command { private set; get; }
+
 		/// <summary>
 		/// Create a layer node
 		/// </summary>
@@ -32,6 +42,7 @@ namespace PCP.WhichKey.Core
 			Type = 0;
 			Children = new List<KeyNode>();
 		}
+
 		public KeyNode(KeySet keySet, int index, KeyNode parent, WKCommand cmd)
 		{
 			Parent = parent;
@@ -40,11 +51,13 @@ namespace PCP.WhichKey.Core
 			Children = new List<KeyNode>();
 			Command = cmd;
 		}
+
 		public KeyNode AddChild(KeyNode child)
 		{
 			Children.Add(child);
 			return child;
 		}
+
 		public void UpdateKeySet(KeySet keySet)
 		{
 			if (!string.IsNullOrEmpty(keySet.Hint))
@@ -52,6 +65,7 @@ namespace PCP.WhichKey.Core
 			CmdArg = keySet.CmdArg;
 			Type = keySet.CmdType;
 		}
+
 		public KeyNode GetChildByKey(int key)
 		{
 			foreach (var child in Children)
@@ -64,6 +78,7 @@ namespace PCP.WhichKey.Core
 
 			return null;
 		}
+
 		public void SetParent(KeyNode parent)
 		{
 			Parent = parent;
@@ -72,6 +87,7 @@ namespace PCP.WhichKey.Core
 				child.SetParent(this);
 			}
 		}
+
 		public void SetLayerHints()
 		{
 			if (!hasChildren) return;
@@ -84,6 +100,7 @@ namespace PCP.WhichKey.Core
 				child.SetLayerHints();
 			}
 		}
+
 		public void SetCachedLayerHints()
 		{
 			if (!hasChildren) return;
@@ -99,8 +116,10 @@ namespace PCP.WhichKey.Core
 					LayerHints[i / maxLine - 1] = sb.ToString();
 					sb.Clear();
 				}
+
 				i++;
 			}
+
 			if (sb.Length > 0)
 			{
 				LayerHints[Mathf.FloorToInt(i / maxLine)] = sb.ToString();
@@ -109,4 +128,3 @@ namespace PCP.WhichKey.Core
 		}
 	}
 }
-

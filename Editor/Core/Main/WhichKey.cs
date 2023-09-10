@@ -7,61 +7,71 @@ using PCP.WhichKey.Log;
 
 namespace PCP.WhichKey
 {
-    [InitializeOnLoad]
-    public static class WhichKey
-    {
-        private readonly static WhichKeyManager mManager;
-        private readonly static UILoader mUILoader;
-        static WhichKey()
-        {
-            mUILoader = new();
-            mManager = new();
-        }
+	[InitializeOnLoad]
+	public static class WhichKey
+	{
+		private readonly static WhichKeyManager mManager;
+		private readonly static UILoader mUILoader;
 
-        #region MenuItems
+		static WhichKey()
+		{
+			mUILoader = new();
+			mManager = new();
+		}
 
-        [MenuItem("WhichKey/Refresh")]
-        public static void Refresh() => mManager.Refresh();
-        [MenuItem("WhichKey/ChangeRoot")]
-        public static void ChangeRoot() => BindingWindow.ShowWindow((key) => mManager.ChangeRoot(key), -1, "<color=green>Change Root</color>");
-        [MenuItem("WhichKey/ResetRoot")]
-        public static void ResetRoot() => mManager.ChangeRoot(null);
-        [MenuItem("WhichKey/Active")]
-        public static void Active() => mManager.ShowWindow();
+		#region MenuItems
 
-        [MenuItem("WhichKey/PrintAllMenuItem")]
-        public static void PrintAllMenuItem()
-        {
+		[MenuItem("WhichKey/Refresh")]
+		public static void Refresh() => mManager.Refresh();
 
-            var mlist = TypeCache.GetMethodsWithAttribute<MenuItem>();
-            StringBuilder sb = new();
-            var slist = new List<string>();
-            foreach (var item in mlist)
-            {
-                var attribute = (MenuItem)item.GetCustomAttributes(typeof(MenuItem), false)[0];
-                slist.Add(attribute.menuItem);
-            }
-            //sort slist by string
-            slist.Sort();
-            foreach (var item in slist)
-            {
-                sb.AppendLine(item);
-            }
-            //save to file
-            System.IO.File.WriteAllText("Assets/AllMenuItem.txt", sb.ToString());
-            WkLogger.LogInfo("All MenuItem saved to Assets/AllMenuItem.txt");
-        }
-        #endregion
+		[MenuItem("WhichKey/ChangeRoot")]
+		public static void ChangeRoot() =>
+			BindingWindow.ShowWindow((key) => mManager.ChangeRoot(key), -1, "<color=green>Change Root</color>");
 
-        #region Pulic Methods
-        public static void Active(int[] key)
-        {
-            mManager.Active(key);
-        }
-        #endregion
-        public static void OverrideTimeout(float time)
-        {
-            mManager.OverrideWindowTimeout(time);
-        }
-    }
+		[MenuItem("WhichKey/ResetRoot")]
+		public static void ResetRoot() => mManager.ChangeRoot(null);
+
+		[MenuItem("WhichKey/Active")]
+		public static void Active() => mManager.ShowWindow();
+
+		[MenuItem("WhichKey/PrintAllMenuItem")]
+		public static void PrintAllMenuItem()
+		{
+			var mlist = TypeCache.GetMethodsWithAttribute<MenuItem>();
+			StringBuilder sb = new();
+			var slist = new List<string>();
+			foreach (var item in mlist)
+			{
+				var attribute = (MenuItem)item.GetCustomAttributes(typeof(MenuItem), false)[0];
+				slist.Add(attribute.menuItem);
+			}
+
+			//sort slist by string
+			slist.Sort();
+			foreach (var item in slist)
+			{
+				sb.AppendLine(item);
+			}
+
+			//save to file
+			System.IO.File.WriteAllText("Assets/AllMenuItem.txt", sb.ToString());
+			WkLogger.LogInfo("All MenuItem saved to Assets/AllMenuItem.txt");
+		}
+
+		#endregion
+
+		#region Pulic Methods
+
+		public static void Active(int[] key)
+		{
+			mManager.Active(key);
+		}
+
+		#endregion
+
+		public static void OverrideTimeout(float time)
+		{
+			mManager.OverrideWindowTimeout(time);
+		}
+	}
 }
