@@ -83,11 +83,7 @@ namespace PCP.Tools.WhichKey
 		}
 		#endregion
 
-		#region Logger
-
-		#endregion
-
-		#region Methods
+		#region Window
 
 		public void Active(int[] key)
 		{
@@ -104,5 +100,17 @@ namespace PCP.Tools.WhichKey
 		public void Input(KeyCode keyCode, bool shift) => mainKeyHandler.ProcesRawKey(keyCode, shift);
 		public string[] GetHints() => mainKeyHandler.GetLayerHints();
 		public void ChangeHanlder(IWKHandler handler, int depth) => mainKeyHandler.ChangeHandler(handler, depth);
+
+
+		private BaseKeyHandler mCurrentHandler;
+		public void ProcesRawKey(KeyCode keyCode, bool shift)
+		{
+			int key = keyCode.ToAscii(shift);
+			//TODO: Add support for backspace?
+			if (key == 0)
+				return;
+			mCurrentHandler.HandleKey(key);
+		}
+
 	}
 }
