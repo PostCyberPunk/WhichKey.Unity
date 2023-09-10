@@ -6,7 +6,7 @@ using PCP.WhichKey.Utils;
 namespace PCP.WhichKey.Extra
 {
 
-    public class SceneNavHandler : IWKHandler
+    public class SceneNavHandler : IWkHandler
     {
         private SceneNavData sceneData => WkExtraManager.instance?.CurrentSceneData;
         public bool Set = false;

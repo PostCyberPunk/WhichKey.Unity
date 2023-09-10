@@ -114,7 +114,7 @@ namespace PCP.WhichKey.Core
 
 		#endregion
 
-		public void ChangeHanlder(IWKHandler handler, int depth) => mainKeyHandler.ChangeHandler(handler, depth);
+		public void ChangeHanlder(IWkHandler handler, int depth) => mainKeyHandler.ChangeHandler(handler, depth);
 		public void OverrideWindowTimeout(float time) => mainKeyHandler.OverrideTimeout(time);
 		private BaseKeyHandler mCurrentHandler;
 

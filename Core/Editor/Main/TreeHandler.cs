@@ -5,12 +5,12 @@ using PCP.WhichKey.Utils;
 
 namespace PCP.WhichKey.Core
 {
-	internal class TreeHandler : DepthKeyHandler<MainHintsWindow>, IWKHandler
+	internal class TreeHandler : DepthKeyHandler<MainHintsWindow>, IWkHandler
 	{
 		private KeyNode mTreeRoot;
 		private KeyNode mRoot;
 		private KeyNode mCurrentNode;
-		private IWKHandler mCurrentHandler;
+		private IWkHandler mCurrentHandler;
 		private string mKeyLabel => mKeySeq.Reverse().ToArray().ToLabel();
 
 		public TreeHandler(KeyNode root)
@@ -149,7 +149,7 @@ namespace PCP.WhichKey.Core
 
 		#endregion TreeManupulation
 
-		public void ChangeHandler(IWKHandler handler, int depth)
+		public void ChangeHandler(IWkHandler handler, int depth)
 		{
 			if (handler == null)
 			{

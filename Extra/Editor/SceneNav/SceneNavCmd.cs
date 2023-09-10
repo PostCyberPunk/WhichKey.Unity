@@ -4,7 +4,7 @@ namespace PCP.WhichKey.Extra
 {
     internal class SceneNavCmd : ChangeHandlerCmd
 	{
-		public override IWKHandler Handler => mSceneHandler;
+		public override IWkHandler Handler => mSceneHandler;
 		public override bool isEnd => false;
 		public override int Depth => 1;
 		private readonly static SceneNavHandler mSceneHandler = new();

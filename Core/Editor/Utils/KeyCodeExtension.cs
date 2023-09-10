@@ -8,7 +8,7 @@ namespace PCP.WhichKey.Utils
 	{
 		static StringBuilder sb = new StringBuilder();
 
-		internal static int ToAscii(this KeyCode keyCode, bool shift = false)
+		public static int ToAscii(this KeyCode keyCode, bool shift = false)
 		{
 			int result = (int)keyCode;
 			if (result >= 303 && result <= 313)
@@ -20,7 +20,7 @@ namespace PCP.WhichKey.Utils
 			return result;
 		}
 
-		internal static bool IsValid(this KeyCode keyCode)
+		public static bool IsValid(this KeyCode keyCode)
 		{
 			int num = (int)keyCode;
 			if (num >= 303 && num <= 313 || num == 0)
@@ -28,12 +28,12 @@ namespace PCP.WhichKey.Utils
 			return true;
 		}
 
-		internal static string ToLabel(this KeyCode keyCode)
+		public static string ToLabel(this KeyCode keyCode)
 		{
 			return keyCode.ToAscii().ToLabel();
 		}
 
-		internal static string ToLabel(this int num)
+		public static string ToLabel(this int num)
 		{
 			if (num >= 33 && num <= 126)
 				return ((char)num).ToString();
@@ -41,7 +41,7 @@ namespace PCP.WhichKey.Utils
 				return ((KeyCode)num).ToString();
 		}
 
-		internal static string ToLabel(this List<int> list)
+		public static string ToLabel(this List<int> list)
 		{
 			sb.Clear();
 			foreach (var item in list)
@@ -52,7 +52,7 @@ namespace PCP.WhichKey.Utils
 			return sb.ToString();
 		}
 
-		internal static string ToLabel(this int[] array)
+		public static string ToLabel(this int[] array)
 		{
 			sb.Clear();
 			for (int i = 0; i < array.Length; i++)

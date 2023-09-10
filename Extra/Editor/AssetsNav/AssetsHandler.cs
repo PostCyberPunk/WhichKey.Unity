@@ -9,7 +9,7 @@ using PCP.WhichKey.Utils;
 namespace PCP.WhichKey.Extra
 {
 
-    internal class AssetsHandler : IWKHandler
+    internal class AssetsHandler : IWkHandler
     {
         private WkExtraManager mDataManger => WkExtraManager.instance;
         private AssetsNavData assetsData;
@@ -24,7 +24,8 @@ namespace PCP.WhichKey.Extra
             assetsData = mDataManger.NavAssetsDatas[index];
             if (assetsData != null)
             {
-                WhichKeyManager.instance.OverrideWindowTimeout(mDataManger.WinTimeout);
+                //TEMP:Need use better wan to encapsulate Window callback
+                // WhichKeyManager.instance.OverrideWindowTimeout(mDataManger.WinTimeout);
                 return true;
             }
 

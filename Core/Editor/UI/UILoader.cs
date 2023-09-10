@@ -4,7 +4,7 @@ using PCP.WhichKey.Log;
 
 namespace PCP.WhichKey.UI
 {
-	internal class UILoader
+	public class UILoader
 	{
 		public static UILoader instance;
 
