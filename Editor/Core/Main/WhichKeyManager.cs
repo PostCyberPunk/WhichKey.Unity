@@ -8,14 +8,11 @@ namespace PCP.Tools.WhichKey
 {
 	internal class WhichKeyManager
 	{
-		private readonly TreeHandler mainKeyHandler = new TreeHandler();
+		private TreeBuilder mTreeBuilder;
+		private TreeHandler mainKeyHandler;
 		private WhichKeyPreferences Preferences => WhichKeyPreferences.instance;
 
 		public static WhichKeyManager instance;
-		public Action ShowHintsWindow;
-		public Action CloseHintsWindow;
-		public Action<float> OverrideWindowTimeout;
-		public Action UpdateHints;
 
 		#region Setup
 		public WhichKeyManager()
@@ -29,11 +26,9 @@ namespace PCP.Tools.WhichKey
 		}
 		private void Init()
 		{
-			if (mainKeyHandler.isInitialized)
-			{
-				WkLogger.LogError("WhichKeyManager is already initialized");
-				return;
-			}
+			mTreeBuilder = new();
+			mTreeBuilder.Build();
+			mainKeyHandler = new(mTreeBuilder.TreeRoot);
 			if (Preferences == null)
 			{
 				WkLogger.LogError("WhichKey Preferences instance is null");
@@ -67,7 +62,8 @@ namespace PCP.Tools.WhichKey
 		private void RefreshDatabase()
 		{
 			WkLogger.loggingLevel = (int)Preferences.LogLevel;
-			mainKeyHandler.Init();
+			mTreeBuilder.Build();
+			mainKeyHandler.Refesh();
 		}
 		#endregion
 
@@ -83,26 +79,38 @@ namespace PCP.Tools.WhichKey
 		}
 		#endregion
 
-		#region Logger
+		#region Window
 
-		#endregion
-
-		#region Methods
-
+		//TEMP
 		public void Active(int[] key)
 		{
-			mainKeyHandler.Reset(key);
-			ShowHintsWindow();
+			// mainKeyHandler.Reset(key);
+			// ShowHintsWindow();
 		}
+		//TEMP
 		public void ShowWindow()
 		{
-			ShowHintsWindow();
-			mainKeyHandler.Reset();
+			ChangeBaseKeyHandler(mainKeyHandler);
+		}
+		public void ChangeBaseKeyHandler(BaseKeyHandler handler)
+		{
+			mCurrentHandler = handler;
+			handler.ShowWindow();
+			handler.OnActive();
 		}
 		#endregion
 
-		public void Input(KeyCode keyCode, bool shift) => mainKeyHandler.ProcesRawKey(keyCode, shift);
-		public string[] GetHints() => mainKeyHandler.GetLayerHints();
 		public void ChangeHanlder(IWKHandler handler, int depth) => mainKeyHandler.ChangeHandler(handler, depth);
+		public void OverrideWindowTimeout(float time) => mainKeyHandler.OverrideTimeout(time);
+		private BaseKeyHandler mCurrentHandler;
+		public void ProcesRawKey(KeyCode keyCode, bool shift)
+		{
+			int key = keyCode.ToAscii(shift);
+			//TODO: Add support for backspace?
+			if (key == 0)
+				return;
+			mCurrentHandler.HandleKey(key);
+		}
+
 	}
 }

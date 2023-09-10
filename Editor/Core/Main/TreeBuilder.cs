@@ -12,11 +12,13 @@ namespace PCP.Tools.WhichKey
 		public KeyNode TreeRoot { get => mTreeRoot; }
 		private KeyNode mTreeRoot;
 		private KeyNode mCurrentNode;
-		private readonly CmdFactoryManager mCmdFactoryManager = new CmdFactoryManager();
+		private CmdFactoryManager mCmdFactoryManager;
 		private WhichKeyPreferences Preferences { get => WhichKeyPreferences.instance; }
 		private WhichkeyProjectSettings ProjectSettings { get => WhichkeyProjectSettings.instance; }
 		public void Build()
 		{
+			mCmdFactoryManager = new();
+			
 			mTreeRoot = new KeyNode(0, "WhichKey");
 
 			AddKeySetFromMap(Preferences.LayerMap);

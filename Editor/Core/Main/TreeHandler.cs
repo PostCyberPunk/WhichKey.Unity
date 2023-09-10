@@ -5,38 +5,37 @@ using UnityEngine;
 
 namespace PCP.Tools.WhichKey
 {
-    public class TreeHandler : IWKHandler
+    internal class TreeHandler : DepthKeyHandler<MainHintsWindow>, IWKHandler
     {
-        private readonly TreeBuilder mTreeBuilder = new TreeBuilder();
-        private Stack<int> mKeySeq;
-        private KeyNode mTreeRoot => mTreeBuilder.TreeRoot;
+        private KeyNode mTreeRoot; 
         private KeyNode mRoot;
         private KeyNode mCurrentNode;
         private IWKHandler mCurrentHandler;
-        private int maxDepth = -1;
         private string mKeyLabel => mKeySeq.Reverse().ToArray().ToLabel();
-        public bool isInitialized => mTreeRoot != null;
-        public void Init()
+        public TreeHandler(KeyNode root)
         {
+            mTreeRoot = root;
             Refesh();
         }
-        private void Refesh()
+        public void Refesh()
         {
             mKeySeq = new();
-            mTreeBuilder.Build();
             ResetRoot();
             Reset();
         }
-        public void ProcesRawKey(KeyCode keyCode, bool shift)
+        public override void OnActive()
         {
-            int key = keyCode.ToAscii(shift);
-            //TODO: Add support for backspace?
-            if (key == 0)
+            Reset();
+            UpdateWindow();
+        }
+        protected override void HandleKeyWithDepth(int key)
+        {
+            if (mCurrentHandler != this && mCurrentHandler != null)
+            {
+                mCurrentHandler.ProcessKey(key);
                 return;
-            mKeySeq.Push(key);
-            mCurrentHandler.ProcessKey(key);
-            if (maxDepth > 0&&CheckDepth())
-                    CloseWindow();
+            }
+            ProcessKey(key);
         }
         public void ProcessKey(int Key)
         {
@@ -44,12 +43,11 @@ namespace PCP.Tools.WhichKey
             if (kn == null)
             {
                 WkLogger.LogInfo($"KeySeq {mKeyLabel} not found");
-                CloseWindow();
+                mWindow.Close();
             }
             else if (kn.Type == 0)
             {
                 mCurrentNode = kn;
-                WhichKeyManager.instance.UpdateHints();
                 return;
             }
             else
@@ -58,16 +56,16 @@ namespace PCP.Tools.WhichKey
                 if (cmd == null)
                 {
                     WkLogger.LogError($"KeySeq {mKeyLabel} has no command");
-                    CloseWindow();
+                    mWindow.Close();
                     return;
                 }
                 cmd.Execute();
-                if (cmd.isEnd) CloseWindow();
+                if (cmd.isEnd) mWindow.Close();
             }
         }
-        private void CloseWindow()
+        protected override void UpdateWindow()
         {
-            WhichKeyManager.instance.CloseHintsWindow();
+            mWindow.Hints = GetLayerHints();
         }
         public string[] GetLayerHints()
         {
@@ -142,15 +140,9 @@ namespace PCP.Tools.WhichKey
                 WkLogger.LogError("ChangeHandler handler is null");
                 return;
             }
-
             mCurrentHandler = handler;
             maxDepth = mKeySeq.Count + depth;
         }
-        private bool CheckDepth()
-        {
-            if (mKeySeq.Count >= maxDepth) return true;
-            WhichKeyManager.instance.UpdateHints();
-            return false;
-        }
+        public void OverrideTimeout(float time) => mWindow.OverrideTimeout(time);
     }
 }

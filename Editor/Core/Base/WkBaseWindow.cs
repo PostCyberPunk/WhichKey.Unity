@@ -5,35 +5,21 @@ using UnityEngine.EventSystems;
 namespace PCP.Tools.WhichKey
 {
 
-	public abstract class BaseWKWindow<T> : EditorWindow where T : BaseWKWindow<T>
+	public abstract class WkBaseWindow : EditorWindow
 	{
-		public static T instance;
+		//FIXME
+		public static float DefaultTimeoutLen { protected set; get;}
 		private bool keyReleased = true;
 		private KeyCode prevKey;
 		private float hideTill;
 		private bool showHint;
 		private bool _changeUI;
-		private float timeoutLen;
+		private bool needClose;
 		protected float mWidth;
 		protected float mHeight;
-		private bool needClose;
-		public static void Active()
-		{
-			if (instance == null)
-			{
-				instance = ScriptableObject.CreateInstance<T>();
-			}
-			instance.UpdateDelayTimer();
+		private float timeoutLen;
 
-
-			instance.OnActive();
-
-			instance.ShowPopup();
-			instance.minSize = new(0, 0);
-			instance.position = new Rect(0, 0, 0, 0);
-
-		}
-		protected abstract void OnActive();
+		public virtual void OnActive() { }
 		protected virtual void DummyWindow()
 		{
 			position = new Rect(0, 0, 0, 0);
@@ -51,7 +37,7 @@ namespace PCP.Tools.WhichKey
 			else if (e.type == EventType.KeyUp)
 			{
 				e.Use();
-				Close();
+				base.Close();
 				return;
 			}
 			else if (showHint && !_changeUI)
@@ -60,6 +46,11 @@ namespace PCP.Tools.WhichKey
 				showHint = false;
 			}
 			e.Use();
+		}
+		private void OnLostFocus() => base.Close();
+		protected virtual void Update()
+		{
+			CheckDelayTimer();
 		}
 		private void KeyHandler(Event e)
 		{
@@ -75,7 +66,7 @@ namespace PCP.Tools.WhichKey
 					case KeyCode.None:
 						break;
 					case KeyCode.Escape:
-						ShouldClose();
+						base.Close();
 						break;
 					case KeyCode.LeftShift:
 					case KeyCode.RightShift:
@@ -85,7 +76,7 @@ namespace PCP.Tools.WhichKey
 						{
 							prevKey = e.keyCode;
 							keyReleased = false;
-							WhichKeyManager.instance.Input(e.keyCode, e.shift);
+							WhichKeyManager.instance.ProcesRawKey(e.keyCode, e.shift);
 						}
 						break;
 				}
@@ -102,16 +93,12 @@ namespace PCP.Tools.WhichKey
 					DummyWindow();
 			}
 		}
-		protected virtual void Update()
-		{
-			CheckDelayTimer();
-		}
-		protected void UpdateHints()
+		public void UpdateHints()
 		{
 			_changeUI = true;
 			UpdateDelayTimer();
 		}
-		private void UpdateDelayTimer()
+		public void UpdateDelayTimer()
 		{
 			if (!showHint)
 				hideTill = Time.realtimeSinceStartup + timeoutLen;
@@ -127,11 +114,9 @@ namespace PCP.Tools.WhichKey
 				Repaint();
 			}
 		}
-		protected void ShouldClose() => needClose = true;
-		private void OnLostFocus() => Close();
-		public void OverriderTimeout(float timeout) => timeoutLen = timeout;
-
-
+		public new void Close() => needClose = true;
+		public void ForceClose() => base.Close();
+		public void OverrideTimeout(float time) => timeoutLen = time;
 	}
 
 }

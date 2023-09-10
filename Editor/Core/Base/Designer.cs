@@ -1,7 +1,7 @@
-using UnityEngine;
 using System;
 using System.Collections;
-using System.Net;
+using UnityEditor;
+using UnityEditor.PackageManager.UI;
 
 namespace PCP.Tools.WhichKey
 {
@@ -16,5 +16,4 @@ namespace PCP.Tools.WhichKey
     {
         String[] GetHint();
     }
-
 }

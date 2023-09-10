@@ -26,7 +26,7 @@ namespace PCP.Tools.WhichKey
         public VisualTreeAsset SceneNav { private set; get; }
         public VisualTreeAsset NavSet { private set; get; }
 
-        public void Init()
+        public UILoader()
         {
             if (instance != null)
             {

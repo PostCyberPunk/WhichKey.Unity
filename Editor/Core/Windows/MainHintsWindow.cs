@@ -7,7 +7,7 @@ using System.Net.Sockets;
 
 namespace PCP.Tools.WhichKey
 {
-	internal class MainHintsWindow : BaseWKWindow<MainHintsWindow>
+	internal class MainHintsWindow : WkBaseWindow
 	{
 		protected static WhichKeyManager wkm => WhichKeyManager.instance;
 		#region Data
@@ -15,7 +15,6 @@ namespace PCP.Tools.WhichKey
 		//Maybe a structure
 		//OPT
 		internal static float lineHeight;
-		private static float timeoutLen;
 		private static bool followMouse;
 		private static Vector2 fixedPosition;
 		private static int maxHintLines;
@@ -24,7 +23,7 @@ namespace PCP.Tools.WhichKey
 		private static VisualTreeAsset blankVE;
 		private static StyleSheet hintLabelSS;
 		#endregion
-		internal static void Init()
+		public static void Init()
 		{
 			// Setup Settings
 			if (WhichKeyPreferences.instance == null)
@@ -32,8 +31,6 @@ namespace PCP.Tools.WhichKey
 				WkLogger.LogError("WhichKey Preferences instance is null");
 				return;
 			}
-			//BAD
-			wkm.ShowHintsWindow = Active;
 
 			var pref = WhichKeyPreferences.instance;
 			var uil = UILoader.instance;
@@ -41,7 +38,7 @@ namespace PCP.Tools.WhichKey
 			fixedPosition = pref.FixedPosition;
 			maxHintLines = pref.MaxHintLines;
 			maxColWidth = pref.ColWidth;
-			timeoutLen = pref.Timeout;
+			DefaultTimeoutLen = pref.Timeout;
 			hintLabel = uil.HintLabel;
 			hintLabelSS = uil.HintLabelSS;
 			blankVE = uil.BlankVE;
@@ -49,17 +46,10 @@ namespace PCP.Tools.WhichKey
 			//FIXME
 			// lineHeight = 60;
 		}
-		protected override void OnActive()
-		{
-			wkm.OverrideWindowTimeout = instance.OverriderTimeout;
-			wkm.CloseHintsWindow = instance.ShouldClose;
-			wkm.UpdateHints = UpdateHints;
-		}
-
 		private VisualElement mainFrame;
 		private VisualElement labelFrame;
 		private Label titleLabel;
-		private string[] Hints;
+		public string[] Hints;
 		private void CreateGUI()
 		{
 			mainFrame = blankVE.CloneTree().Q<VisualElement>();
@@ -87,7 +77,6 @@ namespace PCP.Tools.WhichKey
 		}
 		protected override void ShowHints()
 		{
-			Hints = wkm.GetHints();
 			if (Hints == null)
 			{
 				Close();
@@ -135,11 +124,5 @@ namespace PCP.Tools.WhichKey
 				labelFrame.Add(col);
 			}
 		}
-		// private void UpdateHints(string[] hints)
-		// {
-		// 	Hints = hints;
-		// 	UpdateHintsWindow();
-		// }
-
 	}
 }
