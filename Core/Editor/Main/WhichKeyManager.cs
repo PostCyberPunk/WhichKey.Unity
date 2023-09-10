@@ -99,23 +99,9 @@ namespace PCP.WhichKey.Core
 			// ShowHintsWindow();
 		}
 
-		//TEMP
-		public void ShowWindow()
-		{
-			ChangeBaseKeyHandler(mainKeyHandler);
-		}
-
-		public void ChangeBaseKeyHandler(BaseKeyHandler handler)
-		{
-			mCurrentHandler = handler;
-			handler.ShowWindow();
-			handler.OnActive();
-		}
-
+		public void ShowWindow() => ChangeBaseKeyHandler(mainKeyHandler);
 		#endregion
 
-		public void ChangeHanlder(IWkHandler handler, int depth) => mainKeyHandler.ChangeHandler(handler, depth);
-		public void OverrideWindowTimeout(float time) => mainKeyHandler.OverrideTimeout(time);
 		private BaseKeyHandler mCurrentHandler;
 
 		public void ProcesRawKey(KeyCode keyCode, bool shift)
@@ -126,5 +112,12 @@ namespace PCP.WhichKey.Core
 				return;
 			mCurrentHandler.HandleKey(key);
 		}
+		public void ChangeBaseKeyHandler(BaseKeyHandler handler)
+		{
+			mCurrentHandler = handler;
+			handler.ShowWindow();
+			handler.OnActive();
+		}
+		public void ChangeHanlder(IWkHandler handler, int depth) => mainKeyHandler.ChangeHandler(handler, depth);
 	}
 }

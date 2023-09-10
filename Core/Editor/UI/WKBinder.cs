@@ -41,19 +41,6 @@ namespace PCP.WhichKey.Core.UI
 			return root;
 		}
 	}
-	// public class WkBinder : VisualElement
-	// {
-	//     public new class UxmlTraits : VisualElement.UxmlTraits { }
-	//     public WkBinder(Action action)
-	//     {
-	//         var root = WhichKeyManager.mUILoader.WkBinder.CloneTree();
-	//         var e = root.Q<VisualElement>() as BindableElement;
-	//         e.bindingPath = "Keys";
-	//         var btn = root.Q<Button>("Bind");
-	//         btn.clicked += action;
-	//         Add(root);
-	//     }
-	// }
 }
 
 namespace PCP.WhichKey.UI
