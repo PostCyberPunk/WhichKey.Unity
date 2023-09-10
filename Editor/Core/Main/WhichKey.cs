@@ -21,20 +21,19 @@ namespace PCP.WhichKey
 
 		#region MenuItems
 
-		[MenuItem("WhichKey/Refresh")]
 		public static void Refresh() => mManager.Refresh();
 
-		[MenuItem("WhichKey/ChangeRoot")]
+		[MenuItem("WhichKey/ChangeRoot",false,2)]
 		public static void ChangeRoot() =>
 			BindingWindow.ShowWindow((key) => mManager.ChangeRoot(key), -1, "<color=green>Change Root</color>");
 
-		[MenuItem("WhichKey/ResetRoot")]
+		[MenuItem("WhichKey/ResetRoot",false,1)]
 		public static void ResetRoot() => mManager.ChangeRoot(null);
 
-		[MenuItem("WhichKey/Active")]
+		[MenuItem("WhichKey/Active", false, 0)]
 		public static void Active() => mManager.ShowWindow();
 
-		[MenuItem("WhichKey/PrintAllMenuItem")]
+		[MenuItem("WhichKey/Utils/PrintAllMenuItem")]
 		public static void PrintAllMenuItem()
 		{
 			var mlist = TypeCache.GetMethodsWithAttribute<MenuItem>();

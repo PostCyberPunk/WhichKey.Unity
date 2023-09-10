@@ -152,11 +152,5 @@ namespace PCP.WhichKey.UI
 			};
 			return btn;
 		}
-
-		[MenuItem("Tools/MenuHelper")]
-		public static void TestMenuHelper()
-		{
-			ShowWindow((s) => Debug.Log(s));
-		}
 	}
 }
