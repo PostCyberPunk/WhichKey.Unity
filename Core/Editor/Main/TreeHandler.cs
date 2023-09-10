@@ -158,7 +158,15 @@ namespace PCP.WhichKey.Core
 			}
 
 			mCurrentHandler = handler;
-			maxDepth = mKeySeq.Count + depth;
+			if (depth > 0)
+				maxDepth = mKeySeq.Count + depth;
+			if (handler is IWkWinModifier modifer)
+			{
+				if (mWindow == null)
+					WkLogger.LogError("ChangeHandler mWindow is null");
+				else
+					modifer.SetWindow(mWindow);
+			}
 		}
 
 		public void OverrideTimeout(float time) => mWindow.OverrideTimeout(time);
