@@ -29,9 +29,6 @@ namespace PCP.WhichKey.Core
 
 		private void Init()
 		{
-			mTreeBuilder = new();
-			mTreeBuilder.Build();
-			mainKeyHandler = new(mTreeBuilder.TreeRoot);
 			if (Preferences == null)
 			{
 				WkLogger.LogError("WhichKey Preferences instance is null");
@@ -71,8 +68,9 @@ namespace PCP.WhichKey.Core
 		private void RefreshDatabase()
 		{
 			WkLogger.loggingLevel = (int)Preferences.LogLevel;
+			mTreeBuilder = new();
 			mTreeBuilder.Build();
-			mainKeyHandler.Refesh();
+			mainKeyHandler = new(mTreeBuilder.TreeRoot);
 		}
 
 		#endregion
