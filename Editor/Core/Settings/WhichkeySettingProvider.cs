@@ -7,13 +7,14 @@ using PCP.WhichKey.UI;
 
 namespace PCP.WhichKey.Core
 {
-    static class WhichkeySettingProvider
+	static class WhichkeySettingProvider
 	{
 		private static ReorderableList mKeySetList;
 		public const string PreferencePath = "Preferences/WhichKey";
 		public const string ProjectSettingPath = "Project/WhichKey";
 		public static WhichKeyPreferences Preferences => WhichKeyPreferences.instance;
 		public static WhichkeyProjectSettings ProjectSettings => WhichkeyProjectSettings.instance;
+
 		[SettingsProvider]
 		public static SettingsProvider CreatePreference()
 		{
@@ -39,10 +40,7 @@ namespace PCP.WhichKey.Core
 						var btn = e.Q<Button>("Select");
 						btn.clickable.clicked += () =>
 						{
-							MenuHelper.ShowWindow((path) =>
-							{
-								e.Q<TextField>("Arg").value = path;
-							});
+							MenuHelper.ShowWindow((path) => { e.Q<TextField>("Arg").value = path; });
 						};
 						return e;
 					};
@@ -85,16 +83,13 @@ namespace PCP.WhichKey.Core
 					// Add the root visual element to the settings window
 					rootElement.Add(root);
 				},
-				deactivateHandler = () =>
-				{
-					WhichkeyProjectSettings.instance.Apply();
-				},
+				deactivateHandler = () => { WhichkeyProjectSettings.instance.Apply(); },
 				keywords = new HashSet<string>(new[] { "WhichKey" })
-
 			};
 
 			return provider;
 		}
+
 		[SettingsProvider]
 		public static SettingsProvider CreateProjectSettings()
 		{
@@ -120,10 +115,7 @@ namespace PCP.WhichKey.Core
 						var btn = e.Q<Button>("Select");
 						btn.clickable.clicked += () =>
 						{
-							MenuHelper.ShowWindow((path) =>
-							{
-								e.Q<TextField>("Arg").value = path;
-							});
+							MenuHelper.ShowWindow((path) => { e.Q<TextField>("Arg").value = path; });
 						};
 						return e;
 					};
@@ -150,7 +142,6 @@ namespace PCP.WhichKey.Core
 					// WhichKey.Refresh();
 				},
 				keywords = new HashSet<string>(new[] { "WhichKey" })
-
 			};
 
 			return provider;

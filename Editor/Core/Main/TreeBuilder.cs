@@ -1,20 +1,38 @@
 using PCP.WhichKey.Types;
 using PCP.WhichKey.Log;
+
 namespace PCP.WhichKey.Core
 {
-    internal class TreeBuilder
+	internal class TreeBuilder
 	{
-		public bool isInitialized { get => mTreeRoot != null; }
-		public KeyNode TreeRoot { get => mTreeRoot; }
+		public bool isInitialized
+		{
+			get => mTreeRoot != null;
+		}
+
+		public KeyNode TreeRoot
+		{
+			get => mTreeRoot;
+		}
+
 		private KeyNode mTreeRoot;
 		private KeyNode mCurrentNode;
 		private CmdFactoryManager mCmdFactoryManager;
-		private WhichKeyPreferences Preferences { get => WhichKeyPreferences.instance; }
-		private WhichkeyProjectSettings ProjectSettings { get => WhichkeyProjectSettings.instance; }
+
+		private WhichKeyPreferences Preferences
+		{
+			get => WhichKeyPreferences.instance;
+		}
+
+		private WhichkeyProjectSettings ProjectSettings
+		{
+			get => WhichkeyProjectSettings.instance;
+		}
+
 		public void Build()
 		{
 			mCmdFactoryManager = new();
-			
+
 			mTreeRoot = new KeyNode(0, "WhichKey");
 
 			AddKeySetFromMap(Preferences.LayerMap);
@@ -30,6 +48,7 @@ namespace PCP.WhichKey.Core
 
 			mTreeRoot.SetLayerHints();
 		}
+
 		private void AddKeySetFromMap(KeySet[] keymap)
 		{
 			for (int i = 0; i < keymap.Length; i++)
@@ -38,6 +57,7 @@ namespace PCP.WhichKey.Core
 				AddKeySetToTree(keySet);
 			}
 		}
+
 		private void AddKeySetToTree(KeySet keyset)
 		{
 			mCurrentNode = mTreeRoot;
@@ -54,12 +74,15 @@ namespace PCP.WhichKey.Core
 							mCurrentNode.AddChild(new KeyNode(key, keyset.Hint));
 							return;
 						}
+
 						WKCommand cmd = mCmdFactoryManager.CreateCommand(keyset.CmdType, keyset.CmdArg);
 						if (cmd == null)
 						{
-							WkLogger.LogError($"<color=yellow>Hint: {keyset.Hint}</color>||<color=green>Key:{keyset.KeySeq.KeyLabel}</color>||<color=red>Command:{keyset.CmdType}</color> has no valid command type,skipped ");
+							WkLogger.LogError(
+								$"<color=yellow>Hint: {keyset.Hint}</color>||<color=green>Key:{keyset.KeySeq.KeyLabel}</color>||<color=red>Command:{keyset.CmdType}</color> has no valid command type,skipped ");
 							return;
 						}
+
 						mCurrentNode.AddChild(new KeyNode(keyset, i, mCurrentNode, cmd));
 					}
 					else
@@ -69,20 +92,20 @@ namespace PCP.WhichKey.Core
 							kn.UpdateKeySet(keyset);
 						}
 						else
-							WkLogger.LogError($"<color=yellow>Hint: {keyset.Hint}</color>||<color=green>Key:{keyset.KeySeq.KeyLabel}</color> already registered To \"<color=yellow>{kn.Hint}</color>\" ,skipped ");
+							WkLogger.LogError(
+								$"<color=yellow>Hint: {keyset.Hint}</color>||<color=green>Key:{keyset.KeySeq.KeyLabel}</color> already registered To \"<color=yellow>{kn.Hint}</color>\" ,skipped ");
 					}
+
 					return;
 				}
+
 				if (kn == null)
 				{
 					kn = mCurrentNode.AddChild(new KeyNode(key, ""));
 				}
+
 				mCurrentNode = kn;
 			}
 		}
-
-
-
 	}
-
 }

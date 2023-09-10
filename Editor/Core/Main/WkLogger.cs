@@ -2,7 +2,7 @@
 
 namespace PCP.WhichKey.Log
 {
-    internal class WkLogger
+	internal class WkLogger
 	{
 		public static int loggingLevel;
 

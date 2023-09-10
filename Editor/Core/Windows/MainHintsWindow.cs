@@ -5,10 +5,12 @@ using PCP.WhichKey.Log;
 
 namespace PCP.WhichKey.Core
 {
-    internal class MainHintsWindow : WkBaseWindow
+	internal class MainHintsWindow : WkBaseWindow
 	{
 		protected static WhichKeyManager wkm => WhichKeyManager.instance;
+
 		#region Data
+
 		//OPT
 		//Maybe a structure
 		//OPT
@@ -20,7 +22,9 @@ namespace PCP.WhichKey.Core
 		private static VisualTreeAsset hintLabel;
 		private static VisualTreeAsset blankVE;
 		private static StyleSheet hintLabelSS;
+
 		#endregion
+
 		public static void Init()
 		{
 			// Setup Settings
@@ -44,10 +48,12 @@ namespace PCP.WhichKey.Core
 			//FIXME
 			// lineHeight = 60;
 		}
+
 		private VisualElement mainFrame;
 		private VisualElement labelFrame;
 		private Label titleLabel;
 		public string[] Hints;
+
 		private void CreateGUI()
 		{
 			mainFrame = blankVE.CloneTree().Q<VisualElement>();
@@ -61,10 +67,7 @@ namespace PCP.WhichKey.Core
 			titleLabel = new Label("WhichKey");
 			titleLabel.AddToClassList("title");
 			var e = hintLabel.CloneTree().ElementAt(0);
-			e.RegisterCallback<GeometryChangedEvent>(evt =>
-			{
-				lineHeight = e.layout.height;
-			});
+			e.RegisterCallback<GeometryChangedEvent>(evt => { lineHeight = e.layout.height; });
 			labelFrame.Add(e);
 
 			mainFrame.Clear();
@@ -73,6 +76,7 @@ namespace PCP.WhichKey.Core
 
 			rootVisualElement.Add(mainFrame);
 		}
+
 		protected override void ShowHints()
 		{
 			if (Hints == null)
@@ -80,11 +84,13 @@ namespace PCP.WhichKey.Core
 				Close();
 				return;
 			}
+
 			if (Hints.Length <= 1)
 			{
 				DummyWindow();
 				return;
 			}
+
 			labelFrame.Clear();
 			mHeight = lineHeight * (maxHintLines + 1) + 2 * mainFrame.resolvedStyle.paddingTop;
 			var cols = Mathf.CeilToInt(Hints.Length / 2f / maxHintLines);
@@ -119,6 +125,7 @@ namespace PCP.WhichKey.Core
 					row.style.height = lineHeight;
 					col.Add(row);
 				}
+
 				labelFrame.Add(col);
 			}
 		}
