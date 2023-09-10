@@ -1,4 +1,5 @@
-namespace PCP.WhichKey
+using PCP.WhichKey.Types;
+namespace PCP.WhichKey.Extra
 {
     [System.Serializable]
     public struct AssetNavSet

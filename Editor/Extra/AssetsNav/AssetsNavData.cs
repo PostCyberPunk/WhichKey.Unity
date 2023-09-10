@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-namespace PCP.WhichKey
+namespace PCP.WhichKey.Extra
 {
 
     [CreateAssetMenu(fileName = "AssetsNavData", menuName = "Whichkey/AssetsNavData", order = 1)]

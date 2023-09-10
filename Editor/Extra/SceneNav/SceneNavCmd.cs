@@ -1,4 +1,6 @@
-namespace PCP.WhichKey
+using PCP.WhichKey.Types;
+
+namespace PCP.WhichKey.Extra
 {
     internal class SceneNavCmd : ChangeHandlerCmd
 	{

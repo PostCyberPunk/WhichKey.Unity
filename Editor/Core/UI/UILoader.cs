@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-namespace PCP.WhichKey
+
+namespace PCP.WhichKey.Core
 {
     internal class UILoader
     {

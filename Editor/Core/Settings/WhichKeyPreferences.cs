@@ -1,9 +1,9 @@
 using UnityEditor;
 using UnityEngine;
-namespace PCP.WhichKey
+namespace PCP.WhichKey.Core
 {
     [FilePath("Preferences/WhichkeyPreferences.asset", FilePathAttribute.Location.PreferencesFolder)]
-	public class WhichKeyPreferences : WkSettingBase<WhichKeyPreferences>
+	internal class WhichKeyPreferences : WkSettingBase<WhichKeyPreferences>
 	{
 		public float Timeout = 1;
 		public bool WindowFollowMouse = true;

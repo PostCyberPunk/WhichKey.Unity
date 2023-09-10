@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UIElements;
+using PCP.WhichKey.Core;
 
-namespace PCP.WhichKey
+namespace PCP.WhichKey.UI
 {
 
     public class WkTypeDropdown : PopupField<int>

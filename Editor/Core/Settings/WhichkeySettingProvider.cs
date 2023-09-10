@@ -3,8 +3,9 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEditorInternal;
 using UnityEngine.UIElements;
+using PCP.WhichKey.UI;
 
-namespace PCP.WhichKey
+namespace PCP.WhichKey.Core
 {
     static class WhichkeySettingProvider
 	{

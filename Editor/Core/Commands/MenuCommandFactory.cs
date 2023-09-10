@@ -1,4 +1,6 @@
-namespace PCP.WhichKey
+using PCP.WhichKey.Types;
+
+namespace PCP.WhichKey.Core
 {
     internal class MenuCommandFactory : WKCommandFactory
   {
@@ -6,7 +8,7 @@ namespace PCP.WhichKey
     public override string CommandName => "Menu";
     public override WKCommand CreateCommand(string arg)
     {
-      return new MenuCommand(arg);
+      return new MenuCommand(arg) as WKCommand;
     }
   }
 }

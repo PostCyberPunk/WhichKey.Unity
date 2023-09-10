@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using PCP.WhichKey.Types;
 
-namespace PCP.WhichKey
+namespace PCP.WhichKey.Core
 {
     internal class MainHintsWindow : WkBaseWindow
 	{

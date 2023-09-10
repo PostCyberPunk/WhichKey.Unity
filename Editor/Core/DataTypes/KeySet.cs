@@ -1,6 +1,7 @@
 using System;
+using PCP.WhichKey.Types;
 
-namespace PCP.WhichKey
+namespace PCP.WhichKey.Core
 {
     [Serializable]
 	//OPT maybe claass is better

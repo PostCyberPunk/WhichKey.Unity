@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Text;
 using UnityEditor;
+using PCP.WhichKey.Core;
+using PCP.WhichKey.UI;
 
 namespace PCP.WhichKey
 {

@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEditor;
+using PCP.WhichKey.Types;
 
-namespace PCP.WhichKey
+namespace PCP.WhichKey.Extra
 {
     [Serializable]
     public class SceneNavData

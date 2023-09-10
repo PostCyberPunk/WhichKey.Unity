@@ -3,7 +3,9 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
-namespace PCP.WhichKey
+using PCP.WhichKey.Core;
+
+namespace PCP.WhichKey.Extra
 {
 
     static class AssetsDataSettingsProvider

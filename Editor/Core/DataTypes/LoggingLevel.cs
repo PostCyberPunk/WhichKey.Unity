@@ -1,6 +1,6 @@
-namespace PCP.WhichKey
+namespace PCP.WhichKey.Core
 {
-    public enum LoggingLevel
+    internal enum LoggingLevel
 	{
 		Info,
 		Warning,

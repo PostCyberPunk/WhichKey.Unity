@@ -6,142 +6,145 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class MenuHelper : EditorWindow
+namespace PCP.WhichKey.UI
 {
-    //Generate Menu Tree
-    private static MenuItemNode menuTree;
-    private class MenuItemNode
+    public class MenuHelper : EditorWindow
     {
-        public string Name;
-        public List<MenuItemNode> Children = new List<MenuItemNode>();
-        public MenuItemNode(string name)
+        //Generate Menu Tree
+        private static MenuItemNode menuTree;
+        private class MenuItemNode
         {
-            Name = name;
-        }
-    }
-    private static List<string> GetMenuItems()
-    {
-        var list = new List<string>();
-        var mlist = TypeCache.GetMethodsWithAttribute<MenuItem>();
-        foreach (var item in mlist)
-        {
-            var attribute = (MenuItem)item.GetCustomAttributes(typeof(MenuItem), false)[0];
-            list.Add(attribute.menuItem);
-        }
-        return list;
-    }
-    private static List<string> GetMenuItemsReflection()
-    {
-        Assembly unityEditorAssembly = Assembly.GetAssembly(typeof(MenuItem));
-        Type menuItemType = typeof(MenuItem);
-        var list = new List<string>();
-        foreach (Type type in unityEditorAssembly.GetTypes())
-        {
-            foreach (MethodInfo method in type.GetMethods(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public))
+            public string Name;
+            public List<MenuItemNode> Children = new List<MenuItemNode>();
+            public MenuItemNode(string name)
             {
-                MenuItem[] menuItems = (MenuItem[])method.GetCustomAttributes(menuItemType, false);
-                if (menuItems.Length > 0)
+                Name = name;
+            }
+        }
+        private static List<string> GetMenuItems()
+        {
+            var list = new List<string>();
+            var mlist = TypeCache.GetMethodsWithAttribute<MenuItem>();
+            foreach (var item in mlist)
+            {
+                var attribute = (MenuItem)item.GetCustomAttributes(typeof(MenuItem), false)[0];
+                list.Add(attribute.menuItem);
+            }
+            return list;
+        }
+        private static List<string> GetMenuItemsReflection()
+        {
+            Assembly unityEditorAssembly = Assembly.GetAssembly(typeof(MenuItem));
+            Type menuItemType = typeof(MenuItem);
+            var list = new List<string>();
+            foreach (Type type in unityEditorAssembly.GetTypes())
+            {
+                foreach (MethodInfo method in type.GetMethods(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public))
                 {
-                    foreach (MenuItem menuItem in menuItems)
+                    MenuItem[] menuItems = (MenuItem[])method.GetCustomAttributes(menuItemType, false);
+                    if (menuItems.Length > 0)
                     {
-                        list.Add(menuItem.menuItem);
+                        foreach (MenuItem menuItem in menuItems)
+                        {
+                            list.Add(menuItem.menuItem);
+                        }
                     }
                 }
             }
+            return list;
         }
-        return list;
-    }
-    private static void GenerateMenuTree()
-    {
-
-        var slist = GetMenuItems();
-        slist.Sort();
-        //generate tree
-        menuTree = new MenuItemNode("");
-        foreach (var item in slist)
+        private static void GenerateMenuTree()
         {
-            var cItem = Regex.Replace(item, @"\s*[%#_].*", "");
-            var node = menuTree;
-            var path = cItem.Split('/');
-            foreach (var p in path)
+
+            var slist = GetMenuItems();
+            slist.Sort();
+            //generate tree
+            menuTree = new MenuItemNode("");
+            foreach (var item in slist)
             {
-                var child = node.Children.Find(n => n.Name == p);
-                if (child == null)
+                var cItem = Regex.Replace(item, @"\s*[%#_].*", "");
+                var node = menuTree;
+                var path = cItem.Split('/');
+                foreach (var p in path)
                 {
-                    child = new MenuItemNode(p);
-                    node.Children.Add(child);
+                    var child = node.Children.Find(n => n.Name == p);
+                    if (child == null)
+                    {
+                        child = new MenuItemNode(p);
+                        node.Children.Add(child);
+                    }
+                    node = child;
                 }
-                node = child;
             }
         }
-    }
 
-    private static MenuHelper window;
-    private static Action<string> callback;
-    private string result;
-    private MenuItemNode currentNode;
-    private ListView btnList;
-    public static void ShowWindow(Action<string> callback)
-    {
-        if (menuTree == null)
-            GenerateMenuTree();
-        if (window == null)
+        private static MenuHelper window;
+        private static Action<string> callback;
+        private string result;
+        private MenuItemNode currentNode;
+        private ListView btnList;
+        public static void ShowWindow(Action<string> callback)
         {
-            window = CreateInstance<MenuHelper>();
-            window.titleContent = new GUIContent("Menu Helper");
+            if (menuTree == null)
+                GenerateMenuTree();
+            if (window == null)
+            {
+                window = CreateInstance<MenuHelper>();
+                window.titleContent = new GUIContent("Menu Helper");
+            }
+            MenuHelper.callback = callback;
+            window.result = "";
+            window.currentNode = menuTree;
+            window.ShowUtility();
         }
-        MenuHelper.callback = callback;
-        window.result = "";
-        window.currentNode = menuTree;
-        window.ShowUtility();
-    }
-    private void CreateGUI()
-    {
-        btnList = new ListView();
-        btnList.makeItem = MakeItem;
-        btnList.bindItem = (e, i) =>
+        private void CreateGUI()
         {
-            var btn = (Button)e;
-            btn.text = currentNode.Children[i].Name;
-        };
-        btnList.itemsSource = currentNode.Children;
-        btnList.itemsSourceChanged += () =>
-        {
-            btnList.Rebuild();
-        };
-        
-        rootVisualElement.Add(btnList);
-    }
-    private VisualElement MakeItem()
-    {
-        var btn = new Button();
-        btn.clickable.clicked += () =>
-        {
-            result += "/" + btn.text;
-            currentNode = currentNode.Children.Find(n => n.Name == btn.text);
-            if (currentNode == null)
+            btnList = new ListView();
+            btnList.makeItem = MakeItem;
+            btnList.bindItem = (e, i) =>
             {
-                Debug.LogError("currentNode is null");
-                Close();
-                return;
-            }
-            if (currentNode.Children.Count > 0)
+                var btn = (Button)e;
+                btn.text = currentNode.Children[i].Name;
+            };
+            btnList.itemsSource = currentNode.Children;
+            btnList.itemsSourceChanged += () =>
             {
-                btnList.itemsSource = currentNode.Children;
-                window.Repaint();
-            }
+                btnList.Rebuild();
+            };
 
-            else
+            rootVisualElement.Add(btnList);
+        }
+        private VisualElement MakeItem()
+        {
+            var btn = new Button();
+            btn.clickable.clicked += () =>
             {
-                callback(result);
-                Close();
-            }
-        };
-        return btn;
-    }
-    [MenuItem("Tools/MenuHelper")]
-    public static void TestMenuHelper()
-    {
-        ShowWindow((s) => Debug.Log(s));
+                result += "/" + btn.text;
+                currentNode = currentNode.Children.Find(n => n.Name == btn.text);
+                if (currentNode == null)
+                {
+                    Debug.LogError("currentNode is null");
+                    Close();
+                    return;
+                }
+                if (currentNode.Children.Count > 0)
+                {
+                    btnList.itemsSource = currentNode.Children;
+                    window.Repaint();
+                }
+
+                else
+                {
+                    callback(result);
+                    Close();
+                }
+            };
+            return btn;
+        }
+        [MenuItem("Tools/MenuHelper")]
+        public static void TestMenuHelper()
+        {
+            ShowWindow((s) => Debug.Log(s));
+        }
     }
 }

@@ -1,7 +1,8 @@
 using UnityEditor;
 using UnityEngine;
+using PCP.WhichKey.Types;
 
-namespace PCP.WhichKey
+namespace PCP.WhichKey.Core
 {
     internal class WhichKeyManager
 	{

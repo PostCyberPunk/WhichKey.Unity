@@ -4,8 +4,9 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using PCP.WhichKey.Core;
 
-namespace PCP.WhichKey
+namespace PCP.WhichKey.Extra
 {
     [FilePath("Project/Whichkey/ExtraData", FilePathAttribute.Location.ProjectFolder)]
     public class WkExtraManager : ScriptableSingleton<WkExtraManager>

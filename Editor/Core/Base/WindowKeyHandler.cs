@@ -1,6 +1,7 @@
 using UnityEngine;
+using PCP.WhichKey.Core;
 
-namespace PCP.WhichKey
+namespace PCP.WhichKey.Types
 {
     public abstract class WindowKeyHandler<T> : BaseKeyHandler where T : WkBaseWindow
     {

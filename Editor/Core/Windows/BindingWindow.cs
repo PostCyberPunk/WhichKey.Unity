@@ -4,8 +4,9 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using PCP.WhichKey.Core;
 
-namespace PCP.WhichKey
+namespace PCP.WhichKey.UI
 {
     public class BindingWindow : EditorWindow
     {

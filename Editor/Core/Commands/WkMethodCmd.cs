@@ -1,4 +1,6 @@
-namespace PCP.WhichKey
+using PCP.WhichKey.Core;
+
+namespace PCP.WhichKey.Types
 {
     internal class WkMethodCmd : WKCommand
 	{
