@@ -7,25 +7,18 @@ namespace PCP.WhichKey.Extra
         public override bool isEnd => false;
         private readonly static AssetsHandler mAssetsHandler = new();
         private int mIndex;
-        protected bool save;
+        protected bool Save;
         public override int Depth => 1; 
-        public AssetsNavCommand(int index)
+        public AssetsNavCommand(int index,bool save)
         {
             mIndex = index;
-        }
-        public AssetsNavCommand(int index, bool saving) : this(index)
-        {
-            save = saving;
+            Save = save;
         }
         protected override void ActiveHandler()
         {
-            mAssetsHandler.ChangeAction(save);
+            mAssetsHandler.ChangeAction(Save);
             mAssetsHandler.ProecessArg(mIndex);
         }
-    }
-    internal class AssetsNavSaveCommand : AssetsNavCommand
-    {
-        public AssetsNavSaveCommand(int index) : base(index, true) { }
     }
     internal class AssetsNavCommandFactory : IntParserCmdFactroy
     {
@@ -33,7 +26,7 @@ namespace PCP.WhichKey.Extra
         public override string CommandName => "AssetsNav";
         public override WKCommand CreateCommand(int arg)
         {
-            return new AssetsNavCommand(arg);
+            return new AssetsNavCommand(arg,false);
         }
     }
     internal class AssetsNavSaveCommandFactory : IntParserCmdFactroy
@@ -42,7 +35,7 @@ namespace PCP.WhichKey.Extra
         public override string CommandName => "AssetsNavSave";
         public override WKCommand CreateCommand(int arg)
         {
-            return new AssetsNavSaveCommand(arg);
+            return new AssetsNavCommand(arg,true);
         }
     }
 
