@@ -24,7 +24,8 @@ namespace PCP.WhichKey.Extra
             assetsData = mDataManger.NavAssetsDatas[index];
             if (assetsData != null)
             {
-                WhichKeyManager.instance.OverrideWindowTimeout(mDataManger.WinTimeout);
+                //TEMP:Need use better wan to encapsulate Window callback
+                // WhichKeyManager.instance.OverrideWindowTimeout(mDataManger.WinTimeout);
                 return true;
             }
 
