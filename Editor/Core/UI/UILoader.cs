@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using PCP.WhichKey.Log;
 
-namespace PCP.WhichKey.Core
+namespace PCP.WhichKey.UI
 {
 	internal class UILoader
 	{
@@ -29,10 +29,7 @@ namespace PCP.WhichKey.Core
 
 		public StyleSheet HintLabelSS { private set; get; }
 
-		//Extra
-		public VisualTreeAsset SceneNav { private set; get; }
-		public VisualTreeAsset NavSet { private set; get; }
-
+ 
 		public UILoader()
 		{
 			if (instance != null)
@@ -60,8 +57,6 @@ namespace PCP.WhichKey.Core
 			KeyLabel = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/KeyLabel");
 			HintLabelSS = Resources.Load<StyleSheet>("WhichKey/UXML/UI/HintLabelSS");
 
-			SceneNav = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/SceneNav");
-			NavSet = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/NavSet");
 		}
 	}
 }

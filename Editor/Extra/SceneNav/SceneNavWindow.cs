@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
-using PCP.WhichKey.Core;
+using PCP.WhichKey.UI;
 
 namespace PCP.WhichKey.Extra
 {
@@ -27,7 +27,7 @@ namespace PCP.WhichKey.Extra
             }
             var list = UILoader.instance.List.CloneTree().Q<ListView>();
             list.bindingPath = "Targets";
-            list.makeItem = UILoader.instance.SceneNav.CloneTree;
+            list.makeItem = WkExtraManager.instance.SceneNav.CloneTree;
 
             var binder = new BindableElement();
             binder.bindingPath = "CurrentSceneData";
