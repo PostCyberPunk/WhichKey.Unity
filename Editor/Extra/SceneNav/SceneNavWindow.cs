@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
 
     public class SceneNavWindow : EditorWindow

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Debug = UnityEngine.Debug;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
     // public abstract class WKCmdArg
     // {

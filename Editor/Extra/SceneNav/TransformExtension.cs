@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
     internal static class TransformExtension
     {

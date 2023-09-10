@@ -1,4 +1,4 @@
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
     public abstract class WKCommandFactory
 	{

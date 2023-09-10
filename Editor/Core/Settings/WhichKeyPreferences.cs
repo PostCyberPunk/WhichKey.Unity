@@ -1,6 +1,6 @@
 using UnityEditor;
 using UnityEngine;
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
     [FilePath("Preferences/WhichkeyPreferences.asset", FilePathAttribute.Location.PreferencesFolder)]
 	public class WhichKeyPreferences : WkSettingBase<WhichKeyPreferences>

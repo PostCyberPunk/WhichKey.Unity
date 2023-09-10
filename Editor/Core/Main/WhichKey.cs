@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEditor;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
     [InitializeOnLoad]
     public static class WhichKey

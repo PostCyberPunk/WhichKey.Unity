@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
     internal class KeyNode
 	{

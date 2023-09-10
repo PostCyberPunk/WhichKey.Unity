@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
     public class CmdFactoryManager
     {

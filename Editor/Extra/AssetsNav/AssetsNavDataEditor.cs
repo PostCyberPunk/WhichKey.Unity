@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
     [CustomEditor(typeof(AssetsNavData))]
 

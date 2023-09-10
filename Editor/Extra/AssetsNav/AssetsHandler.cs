@@ -1,7 +1,7 @@
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
 
     internal class AssetsHandler : IWKHandler

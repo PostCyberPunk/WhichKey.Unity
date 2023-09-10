@@ -4,7 +4,7 @@ using UnityEditor.UIElements;
 using UnityEditorInternal;
 using UnityEngine.UIElements;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
     static class WhichkeySettingProvider
 	{

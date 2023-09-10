@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine.UIElements;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
     [CustomPropertyDrawer(typeof(WkKeySeq))]
     public class WkBinder : PropertyDrawer

@@ -1,6 +1,6 @@
 using System;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
     [Serializable]
 	//OPT maybe claass is better

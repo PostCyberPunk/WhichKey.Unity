@@ -1,6 +1,6 @@
 using System;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
     [AttributeUsage(AttributeTargets.Method)]
 	public class WhichKeyMethod : Attribute

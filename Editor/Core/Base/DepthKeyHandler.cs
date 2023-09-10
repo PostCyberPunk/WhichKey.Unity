@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
     public abstract class DepthKeyHandler<T> : WindowKeyHandler<T> where T : WkBaseWindow
     {

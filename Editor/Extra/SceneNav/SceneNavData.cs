@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
     [Serializable]
     public class SceneNavData

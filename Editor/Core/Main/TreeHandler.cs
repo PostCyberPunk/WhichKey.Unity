@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
     internal class TreeHandler : DepthKeyHandler<MainHintsWindow>, IWKHandler
     {
