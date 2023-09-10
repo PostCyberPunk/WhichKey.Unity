@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using UnityEngine;
 
 namespace PCP.Tools.WhichKey
 {
-	internal class KeyNode
+    internal class KeyNode
 	{
 		public static int maxLine;
 		private static readonly string layerHintFormat = "<color=yellow>{0}</color>  {1}\n";

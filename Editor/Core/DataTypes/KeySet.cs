@@ -2,7 +2,7 @@ using System;
 
 namespace PCP.Tools.WhichKey
 {
-	[Serializable]
+    [Serializable]
 	//OPT maybe claass is better
 	public struct KeySet
 	{

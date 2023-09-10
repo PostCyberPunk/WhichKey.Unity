@@ -1,12 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-using UnityEditor;
-using System.Net.NetworkInformation;
 namespace PCP.Tools.WhichKey
 {
-	internal class TreeBuilder
+    internal class TreeBuilder
 	{
 		public bool isInitialized { get => mTreeRoot != null; }
 		public KeyNode TreeRoot { get => mTreeRoot; }

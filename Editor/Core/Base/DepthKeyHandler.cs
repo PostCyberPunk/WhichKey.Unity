@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.PackageManager.UI;
 
 namespace PCP.Tools.WhichKey
 {

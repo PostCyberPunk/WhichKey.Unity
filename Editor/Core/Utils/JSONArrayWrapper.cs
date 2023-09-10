@@ -1,11 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
-
 namespace PCP.Tools.WhichKey
 {
-	public class JSONArrayWrapper<T>
+    public class JSONArrayWrapper<T>
 	{
 		public T[] LayerMap;
 		public T[] MenuMap;

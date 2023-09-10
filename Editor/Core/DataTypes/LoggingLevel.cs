@@ -1,6 +1,6 @@
 namespace PCP.Tools.WhichKey
 {
-	public enum LoggingLevel
+    public enum LoggingLevel
 	{
 		Info,
 		Warning,

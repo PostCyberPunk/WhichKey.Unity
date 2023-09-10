@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEditor.UIElements;
 using UnityEditor;
-using System;
+using UnityEngine.UIElements;
 
 namespace PCP.Tools.WhichKey
 {

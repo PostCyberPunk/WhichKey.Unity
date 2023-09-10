@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
 using System.Reflection;
+using UnityEditor;
 namespace PCP.Tools.WhichKey
 {
     public class WkMethodManager

@@ -1,6 +1,6 @@
 namespace PCP.Tools.WhichKey
 {
-	internal class SceneNavCmd : ChangeHandlerCmd
+    internal class SceneNavCmd : ChangeHandlerCmd
 	{
 		public override IWKHandler Handler => mSceneHandler;
 		public override bool isEnd => false;

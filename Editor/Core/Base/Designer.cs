@@ -1,12 +1,5 @@
-using System;
-using UnityEngine;
-using System.Collections;
-using System.Diagnostics;
-using UnityEditor;
-using UnityEditor.PackageManager.UI;
-using Debug = UnityEngine.Debug;
-using System.Threading;
 using System.Collections.Generic;
+using Debug = UnityEngine.Debug;
 
 namespace PCP.Tools.WhichKey
 {

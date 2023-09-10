@@ -2,7 +2,7 @@
 
 namespace PCP.Tools.WhichKey
 {
-	internal class WkLogger
+    internal class WkLogger
 	{
 		public static int loggingLevel;
 

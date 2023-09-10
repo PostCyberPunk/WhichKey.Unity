@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
-using System.Security.Cryptography;
 using System.Linq;
+using UnityEditor;
+using UnityEngine;
 namespace PCP.Tools.WhichKey
 {
 

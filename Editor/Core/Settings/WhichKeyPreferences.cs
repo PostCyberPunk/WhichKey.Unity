@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
-using UnityEngine.UIElements;
+using UnityEngine;
 namespace PCP.Tools.WhichKey
 {
-	[FilePath("Preferences/WhichkeyPreferences.asset", FilePathAttribute.Location.PreferencesFolder)]
+    [FilePath("Preferences/WhichkeyPreferences.asset", FilePathAttribute.Location.PreferencesFolder)]
 	public class WhichKeyPreferences : WkSettingBase<WhichKeyPreferences>
 	{
 		public float Timeout = 1;

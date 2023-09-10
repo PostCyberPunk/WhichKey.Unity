@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.UIElements;
 using UnityEditorInternal;
 using UnityEngine.UIElements;
-using UnityEditor.UIElements;
-using System;
 
 namespace PCP.Tools.WhichKey
 {
-	static class WhichkeySettingProvider
+    static class WhichkeySettingProvider
 	{
 		private static ReorderableList mKeySetList;
 		public const string PreferencePath = "Preferences/WhichKey";
