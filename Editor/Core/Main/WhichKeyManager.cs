@@ -8,7 +8,8 @@ namespace PCP.Tools.WhichKey
 {
 	internal class WhichKeyManager
 	{
-		private readonly TreeHandler mainKeyHandler = new TreeHandler();
+		private TreeBuilder mTreeBuilder;
+		private TreeHandler mainKeyHandler;
 		private WhichKeyPreferences Preferences => WhichKeyPreferences.instance;
 
 		public static WhichKeyManager instance;
@@ -25,11 +26,9 @@ namespace PCP.Tools.WhichKey
 		}
 		private void Init()
 		{
-			if (mainKeyHandler.isInitialized)
-			{
-				WkLogger.LogError("WhichKeyManager is already initialized");
-				return;
-			}
+			mTreeBuilder = new();
+			mTreeBuilder.Build();
+			mainKeyHandler = new(mTreeBuilder.TreeRoot);
 			if (Preferences == null)
 			{
 				WkLogger.LogError("WhichKey Preferences instance is null");
@@ -63,7 +62,8 @@ namespace PCP.Tools.WhichKey
 		private void RefreshDatabase()
 		{
 			WkLogger.loggingLevel = (int)Preferences.LogLevel;
-			mainKeyHandler.Init();
+			mTreeBuilder.Build();
+			mainKeyHandler.Refesh();
 		}
 		#endregion
 
@@ -81,14 +81,13 @@ namespace PCP.Tools.WhichKey
 
 		#region Window
 
+		//TEMP
 		public void Active(int[] key)
 		{
-			//TEMP
 			// mainKeyHandler.Reset(key);
 			// ShowHintsWindow();
 		}
 		//TEMP
-		public Action<float> OverrideWindowTimeout;
 		public void ShowWindow()
 		{
 			mainKeyHandler.Reset();
@@ -98,7 +97,7 @@ namespace PCP.Tools.WhichKey
 		#endregion
 
 		public void ChangeHanlder(IWKHandler handler, int depth) => mainKeyHandler.ChangeHandler(handler, depth);
-
+		public void OverrideWindowTimeout(float time) => mainKeyHandler.OverrideTimeout(time);
 		private BaseKeyHandler mCurrentHandler;
 		public void ProcesRawKey(KeyCode keyCode, bool shift)
 		{

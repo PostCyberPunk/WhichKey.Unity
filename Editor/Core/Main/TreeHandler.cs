@@ -7,21 +7,19 @@ namespace PCP.Tools.WhichKey
 {
     internal class TreeHandler : DepthKeyHandler<MainHintsWindow>, IWKHandler
     {
-        private readonly TreeBuilder mTreeBuilder = new TreeBuilder();
-        private KeyNode mTreeRoot => mTreeBuilder.TreeRoot;
+        private KeyNode mTreeRoot; 
         private KeyNode mRoot;
         private KeyNode mCurrentNode;
         private IWKHandler mCurrentHandler;
         private string mKeyLabel => mKeySeq.Reverse().ToArray().ToLabel();
-        public bool isInitialized => mTreeRoot != null;
-        public void Init()
+        public TreeHandler(KeyNode root)
         {
+            mTreeRoot = root;
             Refesh();
         }
-        private void Refesh()
+        public void Refesh()
         {
             mKeySeq = new();
-            mTreeBuilder.Build();
             ResetRoot();
             Reset();
         }
@@ -140,5 +138,6 @@ namespace PCP.Tools.WhichKey
             mCurrentHandler = handler;
             maxDepth = mKeySeq.Count + depth;
         }
+        public void OverrideTimeout(float time) => mWindow.OverrideTimeout(time);
     }
 }
