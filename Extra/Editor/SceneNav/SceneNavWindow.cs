@@ -34,31 +34,6 @@ namespace PCP.WhichKey.Extra
             binder.Add(list);
             rootVisualElement.Add(binder);
 
-            // var infoLabel = new Label();
-            // infoLabel.text = "Select GameObject to set or remove reference";
-            // var setButton = new Button(() =>
-            // {
-            //     var go = Selection.activeTransform;
-            //     if (go == null)
-            //         return;
-            //     //FIXME: add a method in scneneNavData to set target by index
-            //     mManager.CurrentSceneData.Targets[list.selectedIndex].ChangeTarget(go.name, go.GetPath());
-            //     mManager.CurrentSceneData.SetupKeyHints();
-            //     mManager.SaveSceneData();
-            // });
-            // setButton.text = "Set Reference";
-
-            // var delButton = new Button(() =>
-            // {
-            //     mManager.CurrentSceneData.Targets[list.selectedIndex].ChangeTarget("", "");
-            //     mManager.CurrentSceneData.SetupKeyHints();
-            //     mManager.SaveSceneData();
-            // });
-            // delButton.text = "Remove Reference";
-
-            // rootVisualElement.Add(setButton);
-            // rootVisualElement.Add(delButton);
-            // rootVisualElement.Add(infoLabel);
             var okbtn = new Button(() =>
             {
                 mManager.SaveSceneData();
@@ -74,9 +49,3 @@ namespace PCP.WhichKey.Extra
         }
     }
 }
-// private void AddBookmark(SceneBookmarks sceneBookmarks)
-// {
-//     SceneBookmarks.SceneGameObjectReference newReference = new SceneBookmarks.SceneGameObjectReference();
-//     ArrayUtility.Add(ref sceneBookmarks.bookmarks, newReference);
-//     EditorUtility.SetDirty(sceneBookmarks);
-// }

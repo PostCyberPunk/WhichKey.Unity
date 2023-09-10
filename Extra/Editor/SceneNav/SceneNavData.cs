@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using PCP.WhichKey.Types;
+using UnityEngine;
 
 namespace PCP.WhichKey.Extra
 {
@@ -33,7 +34,9 @@ namespace PCP.WhichKey.Extra
     public struct SceneNavTarget
     {
         public WkKeySeq Key;
+        [SerializeField]
         private string _hint;
+        [SerializeField]
         private string _target;
         public string Target { get => _target; set => _target = value; }
         public string Hint { get => _hint; set => _hint = value; }
