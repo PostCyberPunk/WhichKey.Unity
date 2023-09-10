@@ -15,7 +15,6 @@ namespace PCP.Tools.WhichKey
 		//Maybe a structure
 		//OPT
 		internal static float lineHeight;
-		private static float timeoutLen;
 		private static bool followMouse;
 		private static Vector2 fixedPosition;
 		private static int maxHintLines;
@@ -39,7 +38,7 @@ namespace PCP.Tools.WhichKey
 			fixedPosition = pref.FixedPosition;
 			maxHintLines = pref.MaxHintLines;
 			maxColWidth = pref.ColWidth;
-			timeoutLen = pref.Timeout;
+			DefaultTimeoutLen = pref.Timeout;
 			hintLabel = uil.HintLabel;
 			hintLabelSS = uil.HintLabelSS;
 			blankVE = uil.BlankVE;
@@ -125,11 +124,5 @@ namespace PCP.Tools.WhichKey
 				labelFrame.Add(col);
 			}
 		}
-		// private void UpdateHints(string[] hints)
-		// {
-		// 	Hints = hints;
-		// 	UpdateHintsWindow();
-		// }
-
 	}
 }

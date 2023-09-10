@@ -8,6 +8,7 @@ namespace PCP.Tools.WhichKey
 	public abstract class WkBaseWindow : EditorWindow
 	{
 		// public static T instance;
+		public static float DefaultTimeoutLen { protected set; get;}
 		private bool keyReleased = true;
 		private KeyCode prevKey;
 		private float hideTill;
@@ -17,7 +18,7 @@ namespace PCP.Tools.WhichKey
 		protected float mWidth;
 		protected float mHeight;
 		//TEMP
-		public float timeoutLen;
+		private float timeoutLen;
 
 		public virtual void OnActive() { }
 		protected virtual void DummyWindow()
@@ -116,6 +117,7 @@ namespace PCP.Tools.WhichKey
 		}
 		public new void Close() => needClose = true;
 		public void ForceClose() => base.Close();
+		public void OverrideTimeout(float time) => timeoutLen = time;
 	}
 
 }
