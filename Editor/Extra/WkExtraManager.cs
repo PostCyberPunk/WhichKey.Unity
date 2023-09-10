@@ -3,8 +3,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-using PCP.WhichKey.Core;
+using PCP.WhichKey.Log;
 
 namespace PCP.WhichKey.Extra
 {

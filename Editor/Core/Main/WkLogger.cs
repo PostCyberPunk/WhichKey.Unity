@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PCP.WhichKey.Core
+namespace PCP.WhichKey.Log
 {
     internal class WkLogger
 	{

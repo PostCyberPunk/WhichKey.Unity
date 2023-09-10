@@ -3,6 +3,7 @@ using System.Text;
 using UnityEditor;
 using PCP.WhichKey.Core;
 using PCP.WhichKey.UI;
+using PCP.WhichKey.Log;
 
 namespace PCP.WhichKey
 {

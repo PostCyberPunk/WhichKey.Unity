@@ -1,5 +1,7 @@
 using UnityEditor;
 using UnityEngine;
+using PCP.WhichKey.Log;
+
 namespace PCP.WhichKey.Core
 {
     [FilePath("Preferences/WhichkeyPreferences.asset", FilePathAttribute.Location.PreferencesFolder)]

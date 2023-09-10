@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using PCP.WhichKey.Log;
 
 namespace PCP.WhichKey.Core
 {

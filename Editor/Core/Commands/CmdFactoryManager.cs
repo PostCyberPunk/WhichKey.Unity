@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using PCP.WhichKey.Types;
+using PCP.WhichKey.Log;
+
 namespace PCP.WhichKey.Core
 {
     public class CmdFactoryManager
