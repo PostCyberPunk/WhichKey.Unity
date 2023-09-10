@@ -3,16 +3,16 @@
 <!-- 1. oh i need a project specific keyset also adtional keymap -->
 <!-- 2. additional layer map -->
 <!-- 3. same layer combination -->
-logger first
-1. wkmanger remake
- - handle keycode and raw key inside manager
- - build tree inside manager
+<!-- logger first -->
+<!-- 1. wkmanger remake -->
+ <!-- - handle keycode and raw key inside manager -->
+ <!-- - build tree inside manager -->
   
  <!-- - settings -->
  <!-- - window and input handle, who to who?? -->
 <!-- *** hideflag wont work for first time it created fixed, import is ok, only happened when mannually delay*** -->
 - think about sceneview
-
+- rename handler ,its not clear now
 ## meh
 - uiload
 menuHelper add missing menu item manually
@@ -24,7 +24,7 @@ bindWin button to top
 ## t
 - Arg to a class that can be setup with a window
 1. caching labels reuse of hint window
-- cmd factory to simple cmd **lets check IL for sure thats make sense**
+- cmd factory to simple cmd **lets check IL for sure thats make sense** didt found a way to use struct,so cmd facoty is better when impl Wkarg somday
 **why pref sitll stuck on load**
 *** pass userdata to wkbidng unboxing ***
 **instead of keep creating command we should have an arg table,one command instance, after command creation,factory pass the arg to itH.**
