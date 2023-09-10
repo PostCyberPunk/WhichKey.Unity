@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace PCP.WhichKey
+namespace PCP.WhichKey.UI
 {
     public class FloatingTextField : EditorWindow
     {

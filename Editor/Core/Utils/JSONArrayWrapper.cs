@@ -1,6 +1,6 @@
-namespace PCP.WhichKey
+namespace PCP.WhichKey.Utils
 {
-    public class JSONArrayWrapper<T>
+	public class JSONArrayWrapper<T>
 	{
 		public T[] LayerMap;
 		public T[] MenuMap;

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using PCP.WhichKey.Utils;
 namespace PCP.WhichKey.Types
 {
     [System.Serializable]

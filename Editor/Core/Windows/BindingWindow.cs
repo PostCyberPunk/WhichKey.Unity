@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 using PCP.WhichKey.Core;
+using PCP.WhichKey.Utils;
 
 namespace PCP.WhichKey.UI
 {
