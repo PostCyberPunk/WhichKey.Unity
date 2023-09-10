@@ -32,7 +32,7 @@ namespace PCP.WhichKey.Extra
     internal class AssetsNavSaveCommandFactory : IntParserCmdFactroy
     {
         public override int TID => 12;
-        public override string CommandName => "AssetsNavSave";
+        public override string CommandName => "AssetsNavSet";
         public override WKCommand CreateCommand(int arg)
         {
             return new AssetsNavCommand(arg,true);

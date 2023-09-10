@@ -2,21 +2,20 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using PCP.WhichKey.Types;
-using PCP.WhichKey.Core;
 using PCP.WhichKey.Log;
 using PCP.WhichKey.Utils;
 
 namespace PCP.WhichKey.Extra
 {
 
-    internal class AssetsHandler : IWkHandler
+    internal class AssetsHandler : IWkHandler, IWkWinModifier
     {
         private WkExtraManager mDataManger => WkExtraManager.instance;
         private AssetsNavData assetsData;
         private System.Action<int> mProcessKey;
         public bool ProecessArg(int index)
         {
-            if(index>=mDataManger.NavAssetsDatas.Count())
+            if (index >= mDataManger.NavAssetsDatas.Count())
             {
                 WkLogger.LogError("AssetsNavData Index Out Of Range");
                 return false;
@@ -38,6 +37,10 @@ namespace PCP.WhichKey.Extra
                 mProcessKey = SaveAssetPath;
             else
                 mProcessKey = LoadAssetToSeletion;
+        }
+        public void SetWindow(WkBaseWindow window)
+        {
+            window.OverrideTimeout(mDataManger.WinTimeout);
         }
         public void ProcessKey(int key)
         {
