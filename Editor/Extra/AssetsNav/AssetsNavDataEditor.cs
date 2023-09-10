@@ -1,7 +1,6 @@
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
-using PCP.WhichKey.Core;
 using PCP.WhichKey.UI;
 
 namespace PCP.WhichKey.Extra
@@ -15,7 +14,7 @@ namespace PCP.WhichKey.Extra
             VisualElement root = new VisualElement();
             var vts = UILoader.instance;
             VisualTreeAsset listvt = vts.List;
-            VisualTreeAsset itemvt = vts.NavSet;
+            VisualTreeAsset itemvt = WkExtraManager.instance.NavSet;
 
             var list = listvt.CloneTree().Q<ListView>();
             root.Add(list);

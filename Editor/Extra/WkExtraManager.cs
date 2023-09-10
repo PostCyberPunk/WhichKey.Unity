@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 using PCP.WhichKey.Log;
 
 namespace PCP.WhichKey.Extra
@@ -10,6 +11,9 @@ namespace PCP.WhichKey.Extra
 	[FilePath("ProjectSettings/Whichkey/ExtraData", FilePathAttribute.Location.ProjectFolder)]
 	public class WkExtraManager : ScriptableSingleton<WkExtraManager>
 	{
+		//Extra
+		public VisualTreeAsset SceneNav { private set; get; }
+		public VisualTreeAsset NavSet { private set; get; }
 		#region SceneNav
 
 		[SerializeField] private List<SceneNavData> savedSceneDatas = new();
@@ -20,7 +24,25 @@ namespace PCP.WhichKey.Extra
 			EditorSceneManager.sceneOpened += instance.OnSceneOpened;
 			var c_scene = SceneManager.GetActiveScene();
 			instance.SetSceneData(c_scene);
+
+			if (SessionState.GetBool("WhichKeyExtraOnce", false))
+				RefreshUI();
+			else
+			{
+				SessionState.SetBool("WhichKeyExtraOnce", true);
+				EditorApplication.update += RunOnce;
+			}
 		}
+		public static void RunOnce()
+		{
+			RefreshUI();
+		}
+		public static void RefreshUI()
+		{
+			instance.SceneNav = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/SceneNav");
+			instance.NavSet = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/NavSet");
+		}
+
 		public static void Save()
 		{
 			Undo.RegisterCompleteObjectUndo(instance, "Save WhichKey Extra Data");

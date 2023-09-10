@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using PCP.WhichKey.Types;
 using PCP.WhichKey.Log;
+using PCP.WhichKey.UI;
 
 namespace PCP.WhichKey.Core
 {
