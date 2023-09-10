@@ -1,7 +1,9 @@
 {
-    "name": "PCP.WhichKey",
+    "name": "PCP.WhichKey.Extra",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:fb6e1dba990a8bd44932b9147c85dc5b"
+    ],
     "includePlatforms": [
         "Editor"
     ],
