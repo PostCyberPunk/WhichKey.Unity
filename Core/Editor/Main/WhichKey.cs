@@ -33,44 +33,16 @@ namespace PCP.WhichKey
 		[MenuItem("WhichKey/Active", false, 0)]
 		public static void Active() => mManager.ShowWindow();
 
-		[MenuItem("WhichKey/Utils/PrintAllMenuItem")]
-		public static void PrintAllMenuItem()
-		{
-			var mlist = TypeCache.GetMethodsWithAttribute<MenuItem>();
-			StringBuilder sb = new();
-			var slist = new List<string>();
-			foreach (var item in mlist)
-			{
-				var attribute = (MenuItem)item.GetCustomAttributes(typeof(MenuItem), false)[0];
-				slist.Add(attribute.menuItem);
-			}
-
-			//sort slist by string
-			slist.Sort();
-			foreach (var item in slist)
-			{
-				sb.AppendLine(item);
-			}
-
-			//save to file
-			System.IO.File.WriteAllText("Assets/AllMenuItem.txt", sb.ToString());
-			WkLogger.LogInfo("All MenuItem saved to Assets/AllMenuItem.txt");
-		}
-
 		#endregion
 
 		#region Pulic Methods
 
+		//Temp
 		public static void Active(int[] key)
 		{
 			mManager.Active(key);
 		}
 
 		#endregion
-
-		public static void OverrideTimeout(float time)
-		{
-			mManager.OverrideWindowTimeout(time);
-		}
 	}
 }
