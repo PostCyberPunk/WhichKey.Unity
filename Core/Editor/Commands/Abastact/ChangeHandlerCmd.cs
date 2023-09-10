@@ -4,7 +4,7 @@ namespace PCP.WhichKey.Types
 {
 	public abstract class ChangeHandlerCmd : WKCommand
 	{
-		public abstract IWKHandler Handler { get; }
+		public abstract IWkHandler Handler { get; }
 		public abstract bool isEnd { get; }
 		public abstract int Depth { get; }
 

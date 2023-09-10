@@ -9,7 +9,7 @@ using PCP.WhichKey.Utils;
 namespace PCP.WhichKey.Extra
 {
 
-    internal class AssetsHandler : IWKHandler
+    internal class AssetsHandler : IWkHandler
     {
         private WkExtraManager mDataManger => WkExtraManager.instance;
         private AssetsNavData assetsData;

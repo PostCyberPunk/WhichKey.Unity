@@ -1,6 +1,6 @@
 namespace PCP.WhichKey.Types
 {
-	public interface IWKHandler
+	public interface IWkHandler
 	{
 		/// <summary>
 		/// 

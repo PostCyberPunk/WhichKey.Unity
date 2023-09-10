@@ -3,7 +3,7 @@ namespace PCP.WhichKey.Extra
 {
     internal class AssetsNavCommand : ChangeHandlerCmd
     {
-        public override IWKHandler Handler => mAssetsHandler;
+        public override IWkHandler Handler => mAssetsHandler;
         public override bool isEnd => false;
         private readonly static AssetsHandler mAssetsHandler = new();
         private int mIndex;
