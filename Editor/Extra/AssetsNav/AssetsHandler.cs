@@ -16,7 +16,7 @@ namespace PCP.Tools.WhichKey
         {
             if(index>=mDataManger.NavAssetsDatas.Count())
             {
-                WhichKeyManager.LogError("AssetsNavData Index Out Of Range");
+                WkLogger.LogError("AssetsNavData Index Out Of Range");
                 return false;
             }
             assetsData = mDataManger.NavAssetsDatas[index];
@@ -26,7 +26,7 @@ namespace PCP.Tools.WhichKey
                 return true;
             }
 
-            WhichKeyManager.LogError("AssetsNav: No Assets Data Found For Index: " + index);
+            WkLogger.LogError("AssetsNav: No Assets Data Found For Index: " + index);
             return false;
         }
         public void ChangeAction(bool save)
@@ -45,13 +45,13 @@ namespace PCP.Tools.WhichKey
             string path = assetsData.GetAssetsPathByKey(key);
             if (string.IsNullOrEmpty(path))
             {
-                WhichKeyManager.LogInfo($"AssetsNav: No Assets Path Found For Key: {key.ToLabel()},check your path: {path}");
+                WkLogger.LogInfo($"AssetsNav: No Assets Path Found For Key: {key.ToLabel()},check your path: {path}");
                 return;
             }
             var obj = AssetDatabase.LoadAssetAtPath(path, typeof(Object));
             if (obj == null)
             {
-                WhichKeyManager.LogWarning($"AssetsNav: No Assets Found For Key: {key.ToLabel()},check your path: {path}");
+                WkLogger.LogWarning($"AssetsNav: No Assets Found For Key: {key.ToLabel()},check your path: {path}");
                 return;
             }
             Selection.activeObject = obj;
@@ -62,9 +62,9 @@ namespace PCP.Tools.WhichKey
         {
             var go = Selection.activeObject;
             if (go == null)
-                WhichKeyManager.LogInfo($"AssetsNav: No Selectted Object");
+                WkLogger.LogInfo($"AssetsNav: No Selectted Object");
             else if (!AssetDatabase.Contains(go))
-                WhichKeyManager.LogInfo($"AssetsNav: Cant Save GameObject,select an asset");
+                WkLogger.LogInfo($"AssetsNav: Cant Save GameObject,select an asset");
             else
             {
                 string path = AssetDatabase.GetAssetPath(go);

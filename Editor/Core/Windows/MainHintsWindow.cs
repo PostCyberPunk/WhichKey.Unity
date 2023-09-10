@@ -29,14 +29,14 @@ namespace PCP.Tools.WhichKey
 			// Setup Settings
 			if (WhichKeyPreferences.instance == null)
 			{
-				WhichKeyManager.LogError("WhichKey Preferences instance is null");
+				WkLogger.LogError("WhichKey Preferences instance is null");
 				return;
 			}
 			//BAD
 			wkm.ShowHintsWindow = Active;
 
 			var pref = WhichKeyPreferences.instance;
-			var uil = WhichKeyManager.mUILoader;
+			var uil = UILoader.instance;
 			followMouse = pref.WindowFollowMouse;
 			fixedPosition = pref.FixedPosition;
 			maxHintLines = pref.MaxHintLines;

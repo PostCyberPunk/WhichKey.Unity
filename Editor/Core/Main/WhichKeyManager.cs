@@ -6,29 +6,37 @@ using UnityEngine;
 
 namespace PCP.Tools.WhichKey
 {
-	internal class WhichKeyManager : ScriptableSingleton<WhichKeyManager>
+	internal class WhichKeyManager
 	{
-		internal readonly static UILoader mUILoader = new();
 		private readonly TreeHandler mainKeyHandler = new TreeHandler();
 		private WhichKeyPreferences Preferences => WhichKeyPreferences.instance;
-		private static int loggingLevel;
 
+		public static WhichKeyManager instance;
 		public Action ShowHintsWindow;
 		public Action CloseHintsWindow;
 		public Action<float> OverrideWindowTimeout;
 		public Action UpdateHints;
 
 		#region Setup
-		public void Init()
+		public WhichKeyManager()
+		{
+			if (instance != null)
+			{
+				WkLogger.LogError("Multiple WhichKeyManager instance found");
+			}
+			instance = this;
+			instance.Init();
+		}
+		private void Init()
 		{
 			if (mainKeyHandler.isInitialized)
 			{
-				LogError("WhichKeyManager is already initialized");
+				WkLogger.LogError("WhichKeyManager is already initialized");
 				return;
 			}
 			if (Preferences == null)
 			{
-				LogError("WhichKey Preferences instance is null");
+				WkLogger.LogError("WhichKey Preferences instance is null");
 				return;
 			}
 			if (SessionState.GetBool("WhichKeyOnce", false))
@@ -53,12 +61,12 @@ namespace PCP.Tools.WhichKey
 		}
 		private void RefreshUI()
 		{
-			mUILoader.Refresh();
+			UILoader.instance.Refresh();
 			MainHintsWindow.Init();
 		}
 		private void RefreshDatabase()
 		{
-			loggingLevel = (int)Preferences.LogLevel;
+			WkLogger.loggingLevel = (int)Preferences.LogLevel;
 			mainKeyHandler.Init();
 		}
 		#endregion
@@ -77,21 +85,6 @@ namespace PCP.Tools.WhichKey
 
 		#region Logger
 
-		public static void LogInfo(string msg)
-		{
-			if (loggingLevel == 0)
-				Debug.Log("Whichkey:" + msg);
-		}
-		public static void LogWarning(string msg)
-		{
-			if (loggingLevel <= 1)
-				Debug.LogWarning("Whichkey:" + msg);
-		}
-		public static void LogError(string msg)
-		{
-			if (loggingLevel <= 2)
-				Debug.LogError("Whichkey:" + msg);
-		}
 		#endregion
 
 		#region Methods

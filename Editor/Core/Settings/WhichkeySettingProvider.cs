@@ -24,7 +24,7 @@ namespace PCP.Tools.WhichKey
 				label = "WhichKey",
 				activateHandler = (searchContext, rootElement) =>
 				{
-					var vts = WhichKeyManager.mUILoader;
+					var vts = UILoader.instance;
 					// Create the root visual element
 					var root = vts.Preferences.CloneTree();
 
@@ -105,7 +105,7 @@ namespace PCP.Tools.WhichKey
 				label = "WhichKey",
 				activateHandler = (searchContext, rootElement) =>
 				{
-					var vts = WhichKeyManager.mUILoader;
+					var vts = UILoader.instance;
 
 					var root = vts.ProjectSettings.CloneTree();
 

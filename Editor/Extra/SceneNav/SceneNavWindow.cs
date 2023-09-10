@@ -27,9 +27,9 @@ namespace PCP.Tools.WhichKey
                 rootVisualElement.Add(new Label("No Scene Data,Please Save Scene"));
                 return;
             }
-            var list = WhichKeyManager.mUILoader.List.CloneTree().Q<ListView>();
+            var list = UILoader.instance.List.CloneTree().Q<ListView>();
             list.bindingPath = "Targets";
-            list.makeItem = WhichKeyManager.mUILoader.SceneNav.CloneTree;
+            list.makeItem = UILoader.instance.SceneNav.CloneTree;
 
             var binder = new BindableElement();
             binder.bindingPath = "CurrentSceneData";

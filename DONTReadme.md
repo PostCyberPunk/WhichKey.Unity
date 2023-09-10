@@ -3,24 +3,28 @@
 <!-- 1. oh i need a project specific keyset also adtional keymap -->
 <!-- 2. additional layer map -->
 <!-- 3. same layer combination -->
-1. decouple wkmanger
+logger first
+1. wkmanger remake
+ - handle keycode and raw key inside manager
+ - build tree inside manager
+  
  <!-- - settings -->
- - uiload
- - window and input handle, who to who??
+ <!-- - window and input handle, who to who?? -->
 <!-- *** hideflag wont work for first time it created fixed, import is ok, only happened when mannually delay*** -->
-- cmd factory to simple cmd
-!!still need to find a better win to sub delegate
-4. caching labels reuse of hint window
 - think about sceneview
-- Arg to a class that can be setup with a window
+
 ## meh
+- uiload
 menuHelper add missing menu item manually
 button to uxml
 bindWin button to top
 - ui folder
 - window no instance handle
-7. maybe try serialize reference instead of path
+1. maybe try serialize reference instead of path
 ## t
+- Arg to a class that can be setup with a window
+1. caching labels reuse of hint window
+- cmd factory to simple cmd **lets check IL for sure thats make sense**
 **why pref sitll stuck on load**
 *** pass userdata to wkbidng unboxing ***
 **instead of keep creating command we should have an arg table,one command instance, after command creation,factory pass the arg to itH.**

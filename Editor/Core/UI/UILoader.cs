@@ -6,6 +6,7 @@ namespace PCP.Tools.WhichKey
 {
     internal class UILoader
     {
+        public static UILoader instance;
         //Dummy
         public VisualTreeAsset List { private set; get; }
         public VisualTreeAsset BlankVE { private set; get; }
@@ -24,6 +25,15 @@ namespace PCP.Tools.WhichKey
         //Extra
         public VisualTreeAsset SceneNav { private set; get; }
         public VisualTreeAsset NavSet { private set; get; }
+
+        public void Init()
+        {
+            if (instance != null)
+            {
+                WkLogger.LogError("Multiple UILoader instance found");
+            }
+            instance = this;
+        }
         public void Refresh()
         {
             List = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/List");
@@ -44,5 +54,6 @@ namespace PCP.Tools.WhichKey
             SceneNav = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/SceneNav");
             NavSet = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/NavSet");
         }
+
     }
 }
