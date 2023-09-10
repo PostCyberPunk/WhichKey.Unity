@@ -1,8 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-namespace PCP.Tools.WhichKey
+using PCP.WhichKey.Log;
+
+namespace PCP.WhichKey.Core
 {
     internal class UILoader
     {

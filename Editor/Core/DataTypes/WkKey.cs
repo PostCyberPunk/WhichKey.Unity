@@ -1,6 +1,6 @@
 using UnityEngine;
-
-namespace PCP.Tools.WhichKey
+using PCP.WhichKey.Utils;
+namespace PCP.WhichKey.Types
 {
     [System.Serializable]
     public struct WkKeySeq

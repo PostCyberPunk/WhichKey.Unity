@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using PCP.WhichKey.Types;
+using PCP.WhichKey.Log;
+using PCP.WhichKey.Utils;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey.Core
 {
     internal class TreeHandler : DepthKeyHandler<MainHintsWindow>, IWKHandler
     {

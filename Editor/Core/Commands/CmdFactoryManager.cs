@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-namespace PCP.Tools.WhichKey
+using UnityEditor;
+using PCP.WhichKey.Types;
+using PCP.WhichKey.Log;
+
+namespace PCP.WhichKey.Core
 {
     public class CmdFactoryManager
     {

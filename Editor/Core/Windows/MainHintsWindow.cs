@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEditor;
-using System.Net.Sockets;
+using PCP.WhichKey.Types;
+using PCP.WhichKey.Log;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey.Core
 {
-	internal class MainHintsWindow : WkBaseWindow
+    internal class MainHintsWindow : WkBaseWindow
 	{
 		protected static WhichKeyManager wkm => WhichKeyManager.instance;
 		#region Data

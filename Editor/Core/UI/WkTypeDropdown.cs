@@ -1,14 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEditor.UIElements;
 using System.Linq;
-using System;
-using Microsoft.SqlServer.Server;
-using System.Drawing.Drawing2D;
+using UnityEngine.UIElements;
+using PCP.WhichKey.Core;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey.UI
 {
 
     public class WkTypeDropdown : PopupField<int>

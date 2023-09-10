@@ -1,8 +1,11 @@
 using System.Collections.Generic;
-using UnityEditor;
 using System.Text;
+using UnityEditor;
+using PCP.WhichKey.Core;
+using PCP.WhichKey.UI;
+using PCP.WhichKey.Log;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
     [InitializeOnLoad]
     public static class WhichKey

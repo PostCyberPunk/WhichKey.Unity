@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
-using UnityEngine.UIElements;
-using System.Xml.Schema;
 using UnityEditor.UIElements;
-using System.Linq;
-namespace PCP.Tools.WhichKey
+using UnityEngine;
+using UnityEngine.UIElements;
+using PCP.WhichKey.Core;
+
+namespace PCP.WhichKey.Extra
 {
 
     public class SceneNavWindow : EditorWindow

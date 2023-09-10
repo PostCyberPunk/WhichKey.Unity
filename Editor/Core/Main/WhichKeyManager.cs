@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using System;
 using UnityEditor;
 using UnityEngine;
+using PCP.WhichKey.Types;
+using PCP.WhichKey.Log;
+using PCP.WhichKey.Utils;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey.Core
 {
-	internal class WhichKeyManager
+    internal class WhichKeyManager
 	{
 		private TreeBuilder mTreeBuilder;
 		private TreeHandler mainKeyHandler;

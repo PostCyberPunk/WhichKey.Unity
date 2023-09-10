@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey.Log
 {
-	internal class WkLogger
+    internal class WkLogger
 	{
 		public static int loggingLevel;
 

@@ -1,7 +1,7 @@
 using System;
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey.Types
 {
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
 	public class WhichKeyIgnoreFactory : Attribute
 	{
 

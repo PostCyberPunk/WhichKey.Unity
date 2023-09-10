@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey.Types
 {
     public interface IWKHandler
     {

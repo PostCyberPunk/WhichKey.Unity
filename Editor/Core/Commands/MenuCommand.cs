@@ -1,6 +1,8 @@
 using UnityEditor;
+using PCP.WhichKey.Types;
+using PCP.WhichKey.Log;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey.Core
 {
     internal class MenuCommand : WKCommand
     {

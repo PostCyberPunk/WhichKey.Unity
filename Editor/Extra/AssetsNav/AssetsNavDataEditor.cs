@@ -1,7 +1,10 @@
 using UnityEditor;
-using UnityEngine.UIElements;
 using UnityEditor.UIElements;
-namespace PCP.Tools.WhichKey
+using UnityEngine.UIElements;
+using PCP.WhichKey.Core;
+using PCP.WhichKey.UI;
+
+namespace PCP.WhichKey.Extra
 {
     [CustomEditor(typeof(AssetsNavData))]
 

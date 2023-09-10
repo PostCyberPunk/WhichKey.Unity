@@ -1,12 +1,13 @@
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
 using System;
-using UnityEngine.UIElements;
-using System.ComponentModel;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.UIElements;
+using PCP.WhichKey.Core;
+using PCP.WhichKey.Utils;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey.UI
 {
     public class BindingWindow : EditorWindow
     {

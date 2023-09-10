@@ -1,11 +1,11 @@
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using PCP.WhichKey.Core;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey.Types
 {
 
-	public abstract class WkBaseWindow : EditorWindow
+    public abstract class WkBaseWindow : EditorWindow
 	{
 		//FIXME
 		public static float DefaultTimeoutLen { protected set; get;}

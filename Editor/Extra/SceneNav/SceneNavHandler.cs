@@ -1,8 +1,9 @@
-using PCP.Tools.WhichKey;
-using UnityEngine;
 using UnityEditor;
-using System.Xml.Schema;
-namespace PCP.Tools.WhichKey
+using UnityEngine;
+using PCP.WhichKey.Types;
+using PCP.WhichKey.Log;
+using PCP.WhichKey.Utils;
+namespace PCP.WhichKey.Extra
 {
 
     public class SceneNavHandler : IWKHandler

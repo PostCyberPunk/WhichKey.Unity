@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
-using UnityEngine.UIElements;
-namespace PCP.Tools.WhichKey
+using UnityEngine;
+using PCP.WhichKey.Log;
+
+namespace PCP.WhichKey.Core
 {
-	[FilePath("Preferences/WhichkeyPreferences.asset", FilePathAttribute.Location.PreferencesFolder)]
-	public class WhichKeyPreferences : WkSettingBase<WhichKeyPreferences>
+    [FilePath("Preferences/WhichkeyPreferences.asset", FilePathAttribute.Location.PreferencesFolder)]
+	internal class WhichKeyPreferences : WkSettingBase<WhichKeyPreferences>
 	{
 		public float Timeout = 1;
 		public bool WindowFollowMouse = true;

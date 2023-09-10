@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
-
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey.Utils
 {
 	public class JSONArrayWrapper<T>
 	{

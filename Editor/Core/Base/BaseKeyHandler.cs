@@ -1,4 +1,4 @@
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey.Core
 {
     public abstract class BaseKeyHandler
     {

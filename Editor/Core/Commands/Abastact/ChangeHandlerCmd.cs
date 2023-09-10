@@ -1,6 +1,5 @@
-using System.Runtime.CompilerServices;
-
-namespace PCP.Tools.WhichKey
+using PCP.WhichKey.Core;
+namespace PCP.WhichKey.Types
 {
     public abstract class ChangeHandlerCmd : WKCommand
     {

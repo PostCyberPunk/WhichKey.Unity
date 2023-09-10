@@ -1,6 +1,5 @@
-using UnityEditor;
-
-namespace PCP.Tools.WhichKey
+using PCP.WhichKey.Types;
+namespace PCP.WhichKey.Extra
 {
     internal class AssetsNavCommand : ChangeHandlerCmd
     {

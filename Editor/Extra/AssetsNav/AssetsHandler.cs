@@ -1,10 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
-using System.Security.Cryptography;
 using System.Linq;
-namespace PCP.Tools.WhichKey
+using UnityEditor;
+using UnityEngine;
+using PCP.WhichKey.Types;
+using PCP.WhichKey.Core;
+using PCP.WhichKey.Log;
+using PCP.WhichKey.Utils;
+
+namespace PCP.WhichKey.Extra
 {
 
     internal class AssetsHandler : IWKHandler

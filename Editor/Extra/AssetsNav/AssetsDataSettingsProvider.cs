@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEngine.UIElements;
 using UnityEditor.UIElements;
+using UnityEngine.UIElements;
 
-namespace PCP.Tools.WhichKey
+using PCP.WhichKey.Core;
+
+namespace PCP.WhichKey.Extra
 {
 
     static class AssetsDataSettingsProvider

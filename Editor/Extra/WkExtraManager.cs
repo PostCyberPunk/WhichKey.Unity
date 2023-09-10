@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
-using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
-using System;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using PCP.WhichKey.Log;
 
-
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey.Extra
 {
     [FilePath("Project/Whichkey/ExtraData", FilePathAttribute.Location.ProjectFolder)]
     public class WkExtraManager : ScriptableSingleton<WkExtraManager>

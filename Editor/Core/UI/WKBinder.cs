@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEditor.UIElements;
 using UnityEditor;
-using System;
+using UnityEngine.UIElements;
+using PCP.WhichKey.Types;
+using PCP.WhichKey.UI;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey.Core.UI
 {
     [CustomPropertyDrawer(typeof(WkKeySeq))]
     public class WkBinder : PropertyDrawer
@@ -43,6 +40,22 @@ namespace PCP.Tools.WhichKey
             return root;
         }
     }
+    // public class WkBinder : VisualElement
+    // {
+    //     public new class UxmlTraits : VisualElement.UxmlTraits { }
+    //     public WkBinder(Action action)
+    //     {
+    //         var root = WhichKeyManager.mUILoader.WkBinder.CloneTree();
+    //         var e = root.Q<VisualElement>() as BindableElement;
+    //         e.bindingPath = "Keys";
+    //         var btn = root.Q<Button>("Bind");
+    //         btn.clicked += action;
+    //         Add(root);
+    //     }
+    // }
+}
+namespace PCP.WhichKey.UI
+{
     public struct WkBinderSetting
     {
         public int Depth;
@@ -67,17 +80,4 @@ namespace PCP.Tools.WhichKey
             Title = title;
         }
     }
-    // public class WkBinder : VisualElement
-    // {
-    //     public new class UxmlTraits : VisualElement.UxmlTraits { }
-    //     public WkBinder(Action action)
-    //     {
-    //         var root = WhichKeyManager.mUILoader.WkBinder.CloneTree();
-    //         var e = root.Q<VisualElement>() as BindableElement;
-    //         e.bindingPath = "Keys";
-    //         var btn = root.Q<Button>("Bind");
-    //         btn.clicked += action;
-    //         Add(root);
-    //     }
-    // }
 }

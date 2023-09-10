@@ -1,7 +1,9 @@
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
+using PCP.WhichKey.Log;
+using PCP.WhichKey.Utils;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey.Core
 {
     public class WkSettingBase<T> : ScriptableSingleton<T> where T : WkSettingBase<T>
     {

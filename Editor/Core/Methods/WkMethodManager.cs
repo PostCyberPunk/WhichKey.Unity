@@ -1,11 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
 using System.Reflection;
-namespace PCP.Tools.WhichKey
+using UnityEditor;
+using PCP.WhichKey.Log;
+
+namespace PCP.WhichKey.Core
 {
-    public class WkMethodManager
+    internal class WkMethodManager
     {
         private Dictionary<int, MethodInfo> mMethodTable = new();
         public WkMethodManager()

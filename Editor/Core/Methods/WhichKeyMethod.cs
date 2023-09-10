@@ -1,9 +1,8 @@
 using System;
-using System.Diagnostics;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey
 {
-	[AttributeUsage(AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Method)]
 	public class WhichKeyMethod : Attribute
 	{
 		public int UID;

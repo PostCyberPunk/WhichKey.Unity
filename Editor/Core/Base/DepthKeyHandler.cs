@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using UnityEditor.PackageManager.UI;
 
-namespace PCP.Tools.WhichKey
+namespace PCP.WhichKey.Types
 {
     public abstract class DepthKeyHandler<T> : WindowKeyHandler<T> where T : WkBaseWindow
     {
