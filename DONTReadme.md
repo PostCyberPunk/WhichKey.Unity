@@ -11,10 +11,20 @@
  <!-- - settings -->
  <!-- - window and input handle, who to who?? -->
 <!-- *** hideflag wont work for first time it created fixed, import is ok, only happened when mannually delay*** -->
+<!-- Menu title -->
+<!-- extra keydepth  -->
+<!-- assetNav binder size -->
+<!-- extra no item handler? -->
+<!-- playerMode Handle -->
+<!-- excute and create add try catch -->
 - think about sceneview
 - rename handler ,its not clear now
+1. basewin shouldnt inherit from editor win,bas encapslution
+2. instead of using iwkwinmodifier,maybe just use changeHandlerCmd?
+3. how to make an inteface get acess to window, so user can close win mannully
+4. maybe wkint is not a bad idea.
 ## meh
-- uiload
+<!-- - uiload -->
 menuHelper add missing menu item manually
 button to uxml
 bindWin button to top
@@ -27,8 +37,7 @@ bindWin button to top
 - cmd factory to simple cmd **lets check IL for sure thats make sense** didt found a way to use struct,so cmd facoty is better when impl Wkarg somday
 **why pref sitll stuck on load**
 *** pass userdata to wkbidng unboxing ***
-**instead of keep creating command we should have an arg table,one command instance, after command creation,factory pass the arg to itH.**
-<!-- 2.optimize format layer hints -->
+5. save tree in scriptableObject?
 <!-- 2. when lost focus of whichkey window ,unity will lost focus too. -->
 <!-- 3. check for duplicated key. -->
 <!-- 4. change arg to string[] -->
