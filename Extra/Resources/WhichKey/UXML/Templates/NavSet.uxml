@@ -1,9 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns="UnityEngine.UIElements" ue="UnityEditor.UIElements" editor-extension-mode="True">
     <ui:Box style="flex-direction: row;">
-        <uie:PropertyField binding-path="Key" name="WkBinder" />
+        <uie:PropertyField binding-path="Key" name="WkBinder" style="min-width: 160px; width: 160px;" />
         <ui:Label tabindex="-1" text="Hint" display-tooltip-when-elided="true" />
-        <ui:TextField bindingPath="HintText" binding-path="Hint" style="width: 30%;" />
+        <ui:TextField bindingPath="HintText" binding-path="Hint" style="min-width: 100px;" />
         <ui:Label tabindex="-1" text="Asset Path" display-tooltip-when-elided="true" />
-        <ui:TextField bindingPath="CmdArg" binding-path="AssetPath" name="TextField" style="width: auto; flex-grow: 1;" />
+        <ui:TextField bindingPath="CmdArg" binding-path="AssetPath" name="TextField" style="flex-grow: 1;" />
     </ui:Box>
 </ui:UXML>
