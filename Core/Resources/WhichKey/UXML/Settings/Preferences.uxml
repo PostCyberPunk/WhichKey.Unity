@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <Style src="project://database/Packages/com.postcyberpunk.whichkey/Resources/WhichKey/UXML/Settings/Preferences.uss?fileID=7433441132597879392&amp;guid=e3c4c5602f121bd4c9791f48b6528ea2&amp;type=3#Preferences" />
+    <Style src="project://database/Packages/com.postcyberpunk.whichkey/Core/Resources/WhichKey/UXML/Settings/Preferences.uss?fileID=7433441132597879392&amp;guid=e3c4c5602f121bd4c9791f48b6528ea2&amp;type=3#Preferences" />
     <ui:VisualElement name="Root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
         <ui:Foldout text="Hint Window Setting" name="hwinsetting" value="false">
             <ui:VisualElement class="Horizontal">
@@ -7,11 +7,14 @@
             </ui:VisualElement>
             <ui:Toggle label="Hint window follow mouse" binding-path="WindowFollowMouse" name="WindowFollowMouse" />
             <ui:Vector2Field label="Hint Window Position" name="FixedPosition" binding-path="FixedPosition" />
-            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+            <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
                 <ui:IntegerField label="Max Hints Lines" value="42" name="MaxHintLines" binding-path="MaxHintLines" style="width: 150px;" />
                 <ui:FloatField label="Colunm Width" value="42" name="ColWidth" binding-path="ColWidth" style="width: 150px;" />
             </ui:VisualElement>
-            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;" />
+            <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                <ui:Toggle label="Use In Playmode" binding-path="UseInPlaymode" />
+                <ui:EnumField label="LoggingLevel" type="PCP.WhichKey.Log.LoggingLevel, PCP.WhichKey.Core" binding-path="LogLevel" style="width: 160px;" />
+            </ui:VisualElement>
         </ui:Foldout>
         <ui:Foldout text="Key Mappings" name="Mapping" value="true">
             <ui:ScrollView>

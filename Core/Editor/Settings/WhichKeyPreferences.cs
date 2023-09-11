@@ -13,5 +13,6 @@ namespace PCP.WhichKey.Core
 		public int MaxHintLines = 10;
 		public float ColWidth = 250;
 		public LoggingLevel LogLevel = LoggingLevel.Info;
+		public bool UseInPlaymode = false;
 	}
 }

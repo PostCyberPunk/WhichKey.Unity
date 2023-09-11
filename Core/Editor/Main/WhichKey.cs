@@ -4,6 +4,7 @@ using UnityEditor;
 using PCP.WhichKey.Core;
 using PCP.WhichKey.UI;
 using PCP.WhichKey.Log;
+using UnityEngine;
 
 namespace PCP.WhichKey
 {
@@ -23,15 +24,20 @@ namespace PCP.WhichKey
 
 		public static void Refresh() => mManager.Refresh();
 
-		[MenuItem("WhichKey/ChangeRoot",false,2)]
+		[MenuItem("WhichKey/ChangeRoot", false, 2)]
 		public static void ChangeRoot() =>
 			BindingWindow.ShowWindow((key) => mManager.ChangeRoot(key), -1, "<color=green>Change Root</color>");
 
-		[MenuItem("WhichKey/ResetRoot",false,1)]
+		[MenuItem("WhichKey/ResetRoot", false, 1)]
 		public static void ResetRoot() => mManager.ChangeRoot(null);
 
 		[MenuItem("WhichKey/Active", false, 0)]
-		public static void Active() => mManager.ShowWindow();
+		public static void Active()
+		{
+			if (!WhichKeyPreferences.instance.UseInPlaymode && EditorApplication.isPlaying)
+				return;
+			mManager.ShowWindow();
+		}
 
 		#endregion
 
