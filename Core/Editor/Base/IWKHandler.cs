@@ -14,5 +14,13 @@ namespace PCP.WhichKey.Types
 		/// </summary>
 		/// <returns>odd elements are key,even elments are hint</returns>
 		string[] GetLayerHints();
+		/// <summary>
+		/// the name of the layer, shows in hint window title
+		/// </summary>
+		/// <returns></returns> <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		string GetLayerName();
 	}
 }

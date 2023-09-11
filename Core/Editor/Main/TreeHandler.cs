@@ -74,6 +74,7 @@ namespace PCP.WhichKey.Core
 		protected override void UpdateWindow()
 		{
 			mWindow.Hints = GetLayerHints();
+			mWindow.Title = GetLayerName();
 		}
 
 		public string[] GetLayerHints()
@@ -83,6 +84,16 @@ namespace PCP.WhichKey.Core
 			return mCurrentNode.LayerHints;
 		}
 
+		public string GetLayerName()
+		{
+			if (mCurrentHandler != this && mCurrentHandler != null)
+				return mCurrentHandler.GetLayerName();
+			var s = mCurrentNode.Hint;
+			if (s == null)
+				return "WhichKey";
+			else
+				return s;
+		}
 		#region TreeManupulation
 
 		public void Reset()
