@@ -81,5 +81,9 @@ namespace PCP.WhichKey.Extra
         {
             return assetsData == null ? null : assetsData.LayerHints;
         }
+        public string GetLayerName()
+        {
+            return assetsData == null ? "WhichKey" : assetsData.name;
+        }
     }
 }

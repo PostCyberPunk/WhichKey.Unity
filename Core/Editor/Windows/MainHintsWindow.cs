@@ -54,6 +54,7 @@ namespace PCP.WhichKey.Core
 		private VisualElement labelFrame;
 		private Label titleLabel;
 		public string[] Hints;
+		public string Title;
 
 		private void CreateGUI()
 		{
@@ -91,7 +92,7 @@ namespace PCP.WhichKey.Core
 				DummyWindow();
 				return;
 			}
-
+			titleLabel.text = Title == null ? "WhichKey" : Title;
 			labelFrame.Clear();
 			mHeight = lineHeight * (maxHintLines + 1) + 2 * mainFrame.resolvedStyle.paddingTop;
 			var cols = Mathf.CeilToInt(Hints.Length / 2f / maxHintLines);

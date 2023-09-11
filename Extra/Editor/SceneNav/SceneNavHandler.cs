@@ -49,7 +49,7 @@ namespace PCP.WhichKey.Extra
         public void SetTarget(int key)
         {
             var target = Selection.activeTransform;
-            if(target==null)
+            if (target == null)
             {
                 WkLogger.LogWarning($"No Selectted Object");
                 return;
@@ -75,5 +75,6 @@ namespace PCP.WhichKey.Extra
                 return null;
             return sceneData.KeyHints;
         }
+        public string GetLayerName() => "Scene Navgation";
     }
 }
