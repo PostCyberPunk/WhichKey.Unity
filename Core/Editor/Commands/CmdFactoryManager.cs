@@ -51,7 +51,16 @@ namespace PCP.WhichKey.Core
 		{
 			if (FactoryMap.ContainsKey(id))
 			{
-				return FactoryMap[id].CreateCommand(arg);
+				WKCommand cmd = null;
+				try
+				{
+					cmd = FactoryMap[id].CreateCommand(arg);
+				}
+				catch (Exception e)
+				{
+					WkLogger.LogError($"Command Factory <color=red>{id}</color> create command failed\n{e}");
+				}
+				return cmd;
 			}
 			else
 			{

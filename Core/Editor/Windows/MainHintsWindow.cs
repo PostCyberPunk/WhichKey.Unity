@@ -87,17 +87,51 @@ namespace PCP.WhichKey.Core
 				return;
 			}
 
-			if (Hints.Length <= 1)
+			titleLabel.text = Title == null ? "WhichKey:No Hints" : Title;
+			labelFrame.Clear();
+			if (Hints.Length == 1)
 			{
-				DummyWindow();
+				mDepth = 1;
+				mHeight = lineHeight + 2 * mainFrame.resolvedStyle.paddingTop;
+				mWidth = maxColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
+				maxSize = new Vector2(mWidth, mHeight);
+			}
+			else if (Hints.Length < 1)
+			{
+				Close();
 				return;
 			}
-			titleLabel.text = Title == null ? "WhichKey" : Title;
-			labelFrame.Clear();
-			mHeight = lineHeight * (maxHintLines + 1) + 2 * mainFrame.resolvedStyle.paddingTop;
-			var cols = Mathf.CeilToInt(Hints.Length / 2f / maxHintLines);
-			mWidth = cols * maxColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
-			maxSize = new Vector2(mWidth, mHeight);
+			else
+			{
+				mHeight = lineHeight * (maxHintLines + 1) + 2 * mainFrame.resolvedStyle.paddingTop;
+				var cols = Mathf.CeilToInt(Hints.Length / 2f / maxHintLines);
+				mWidth = cols * maxColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
+				maxSize = new Vector2(mWidth, mHeight);
+
+				for (int j = 0; j < cols; j++)
+				{
+					var col = new VisualElement();
+					col.style.flexDirection = FlexDirection.Column;
+					col.style.width = maxColWidth;
+					col.style.height = mHeight;
+					for (int i = 0; i < maxHintLines; i++)
+					{
+						int ind = i + j * maxHintLines;
+						if (ind * 2 >= Hints.Length) break;
+						var row = hintLabel.CloneTree().Q<VisualElement>();
+						var k = row.Q<Label>("Key");
+						var h = row.Q<Label>("Hint");
+						k.text = Hints[ind * 2];
+						h.text = Hints[ind * 2 + 1];
+						row.style.width = maxColWidth;
+						row.style.height = lineHeight;
+						col.Add(row);
+					}
+
+					labelFrame.Add(col);
+				}
+			}
+
 			if (followMouse)
 			{
 				Vector2 mousePos = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
@@ -106,29 +140,6 @@ namespace PCP.WhichKey.Core
 			else
 			{
 				position = new Rect(fixedPosition.x, fixedPosition.y, mWidth, mHeight);
-			}
-
-			for (int j = 0; j < cols; j++)
-			{
-				var col = new VisualElement();
-				col.style.flexDirection = FlexDirection.Column;
-				col.style.width = maxColWidth;
-				col.style.height = mHeight;
-				for (int i = 0; i < maxHintLines; i++)
-				{
-					int ind = i + j * maxHintLines;
-					if (ind * 2 >= Hints.Length) break;
-					var row = hintLabel.CloneTree().Q<VisualElement>();
-					var k = row.Q<Label>("Key");
-					var h = row.Q<Label>("Hint");
-					k.text = Hints[ind * 2];
-					h.text = Hints[ind * 2 + 1];
-					row.style.width = maxColWidth;
-					row.style.height = lineHeight;
-					col.Add(row);
-				}
-
-				labelFrame.Add(col);
 			}
 		}
 	}

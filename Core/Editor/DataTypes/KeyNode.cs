@@ -89,7 +89,14 @@ namespace PCP.WhichKey.Core
 
 		public void SetLayerHints()
 		{
-			if (!hasChildren) return;
+			if (!hasChildren)
+				if (isLayer)
+				{
+					LayerHints = new string[1];
+					return;
+				}
+				else
+					return;
 			LayerHints = new string[Children.Count * 2];
 			for (int i = 0; i < Children.Count; i++)
 			{

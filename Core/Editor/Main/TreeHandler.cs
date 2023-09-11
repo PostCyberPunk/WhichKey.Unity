@@ -65,8 +65,14 @@ namespace PCP.WhichKey.Core
 					mWindow.Close();
 					return;
 				}
-
-				cmd.Execute();
+				try
+				{
+					cmd.Execute();
+				}
+				catch (System.Exception e)
+				{
+					WkLogger.LogError($"KeySeq {mKeyLabel} execute failed\n{e}");
+				}
 				if (cmd.isEnd) mWindow.Close();
 			}
 		}

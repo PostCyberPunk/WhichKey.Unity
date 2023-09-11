@@ -79,11 +79,13 @@ namespace PCP.WhichKey.Extra
         }
         public string[] GetLayerHints()
         {
-            return assetsData == null ? null : assetsData.LayerHints;
+            if (assetsData == null) return null;
+            return assetsData.LayerHints.Length == 0 ? new string[1] : assetsData.LayerHints;
         }
         public string GetLayerName()
         {
-            return assetsData == null ? "WhichKey" : assetsData.name;
+            if (assetsData == null) return null;
+            return assetsData.LayerHints.Length == 0 ? "Add some assets first" : assetsData.name;
         }
     }
 }

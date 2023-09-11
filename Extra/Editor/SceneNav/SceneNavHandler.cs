@@ -73,8 +73,15 @@ namespace PCP.WhichKey.Extra
         {
             if (sceneData == null)
                 return null;
+            if (sceneData.Targets.Count == 0)
+                return new string[1];
             return sceneData.KeyHints;
         }
-        public string GetLayerName() => "Scene Navgation";
+        public string GetLayerName()
+        {
+            if (sceneData == null)
+                return null;
+            return sceneData.Targets.Count == 1 ? "Set some gameobjects first" : "Scene Navgation";
+        }
     }
 }
