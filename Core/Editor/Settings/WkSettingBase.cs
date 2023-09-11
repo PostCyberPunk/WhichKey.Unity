@@ -36,6 +36,7 @@ namespace PCP.WhichKey.Core
 
 		public void LoadFromJson()
 		{
+			AssetDatabase.Refresh();
 			TextAsset jsonFile = AssetDatabase.LoadAssetAtPath<TextAsset>($"Assets/{jsonName}.json");
 			if (jsonFile == null)
 			{
@@ -54,6 +55,7 @@ namespace PCP.WhichKey.Core
 			string json = JsonUtility.ToJson(keySetsWrapper, true);
 			WkLogger.LogInfo($"Saved {json}");
 			System.IO.File.WriteAllText($"Assets/{jsonName}.json", json);
+			AssetDatabase.Refresh();
 		}
 	}
 }

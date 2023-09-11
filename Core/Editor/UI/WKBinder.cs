@@ -17,14 +17,14 @@ namespace PCP.WhichKey.Core.UI
 			var btn = root.Q<Button>("Bind");
 			btn.clickable = new Clickable(() =>
 			{
+				if (root.parent.userData != null)
+				{
+					var setting = (WkBinderSetting)root.parent.userData;
+					mDepth = setting.Depth;
+					mTitle = setting.Title;
+				}
 				BindingWindow.ShowWindow((ks) =>
 				{
-					if (root.parent.userData != null)
-					{
-						var setting = (WkBinderSetting)root.parent.userData;
-						mDepth = setting.Depth;
-						mTitle = setting.Title;
-					}
 
 					WkKeySeq wkKey = ks;
 					var array = property.FindPropertyRelative("_keySeq");
@@ -45,7 +45,7 @@ namespace PCP.WhichKey.Core.UI
 
 namespace PCP.WhichKey.UI
 {
-	public struct WkBinderSetting
+	public class WkBinderSetting
 	{
 		public int Depth;
 		public string Title;
