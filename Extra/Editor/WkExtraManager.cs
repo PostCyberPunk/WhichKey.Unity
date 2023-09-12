@@ -71,8 +71,10 @@ namespace PCP.WhichKey.Extra
 		}
 		private void SetSceneData(Scene scene)
 		{
+			//FIXME:new scene not working
 			if (!scene.IsValid())
-				WkLogger.LogError($"WhichKey: SetCurrentSceneData: Invalid Scene");
+				// WkLogger.LogError($"WhichKey: SetCurrentSceneData: Invalid Scene");
+				return;
 			else if (scene.path == "")
 				WkLogger.LogInfo($"WhichKey:Save and reopen the scene to use WhichKey");
 			else if (!FindScenedata(scene))
