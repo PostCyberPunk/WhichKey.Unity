@@ -26,6 +26,20 @@ namespace PCP.WhichKey.Core
 
 		#endregion
 
+		private float mColWidth;
+		public override void OnActive()
+		{
+			base.OnActive();
+			mColWidth = maxColWidth;
+		}
+		public void OverreideSets(float timeout, float colWidth)
+		{
+			if (timeout >= 0)
+				timeoutLen = timeout;
+			if (colWidth >= 0)
+				mColWidth = colWidth;
+			UpdateDelayTimer();
+		}
 		public static void Init()
 		{
 			// Setup Settings
@@ -41,7 +55,6 @@ namespace PCP.WhichKey.Core
 			fixedPosition = pref.FixedPosition;
 			maxHintLines = pref.MaxHintLines;
 			maxColWidth = pref.ColWidth;
-			DefaultTimeoutLen = pref.Timeout;
 			hintLabel = uil.HintLabel;
 			hintLabelSS = uil.HintLabelSS;
 			blankVE = uil.BlankVE;
@@ -55,7 +68,6 @@ namespace PCP.WhichKey.Core
 		private Label titleLabel;
 		public string[] Hints;
 		public string Title;
-
 		private void CreateGUI()
 		{
 			mainFrame = blankVE.CloneTree().Q<VisualElement>();
@@ -93,7 +105,7 @@ namespace PCP.WhichKey.Core
 			{
 				mDepth = 1;
 				mHeight = lineHeight + 2 * mainFrame.resolvedStyle.paddingTop;
-				mWidth = maxColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
+				mWidth = mColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
 				maxSize = new Vector2(mWidth, mHeight);
 			}
 			else if (Hints.Length < 1)
@@ -105,14 +117,14 @@ namespace PCP.WhichKey.Core
 			{
 				mHeight = lineHeight * (maxHintLines + 1) + 2 * mainFrame.resolvedStyle.paddingTop;
 				var cols = Mathf.CeilToInt(Hints.Length / 2f / maxHintLines);
-				mWidth = cols * maxColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
+				mWidth = cols * mColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
 				maxSize = new Vector2(mWidth, mHeight);
 
 				for (int j = 0; j < cols; j++)
 				{
 					var col = new VisualElement();
 					col.style.flexDirection = FlexDirection.Column;
-					col.style.width = maxColWidth;
+					col.style.width = mColWidth;
 					col.style.height = mHeight;
 					for (int i = 0; i < maxHintLines; i++)
 					{
@@ -123,7 +135,7 @@ namespace PCP.WhichKey.Core
 						var h = row.Q<Label>("Hint");
 						k.text = Hints[ind * 2];
 						h.text = Hints[ind * 2 + 1];
-						row.style.width = maxColWidth;
+						row.style.width = mColWidth;
 						row.style.height = lineHeight;
 						col.Add(row);
 					}

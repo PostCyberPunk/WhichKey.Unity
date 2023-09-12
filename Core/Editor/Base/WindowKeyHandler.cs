@@ -14,7 +14,6 @@ namespace PCP.WhichKey.Types
 				mWindow = ScriptableObject.CreateInstance<T>();
 			}
 
-			mWindow.OverrideTimeout(WkBaseWindow.DefaultTimeoutLen);
 			mWindow.OnActive();
 			mWindow.UpdateDelayTimer();
 

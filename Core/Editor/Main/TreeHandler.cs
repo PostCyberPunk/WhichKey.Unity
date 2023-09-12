@@ -177,15 +177,14 @@ namespace PCP.WhichKey.Core
 			mCurrentHandler = handler;
 			if (depth > 0)
 				maxDepth = mKeySeq.Count + depth;
-			if (handler is IWkWinModifier modifer)
-			{
-				if (mWindow == null)
-					WkLogger.LogError("ChangeHandler mWindow is null");
-				else
-					modifer.SetWindow(mWindow);
-			}
+			mWindow.OverreideSets(handler.Timeout, handler.ColWidth);
+			// if (handler is IWkWinModifier modifer)
+			// {
+			// 	if (mWindow == null)
+			// 		WkLogger.LogError("ChangeHandler mWindow is null");
+			// 	else
+			// 		modifer.SetWindow(mWindow);
+			// }
 		}
-
-		public void OverrideTimeout(float time) => mWindow.OverrideTimeout(time);
 	}
 }

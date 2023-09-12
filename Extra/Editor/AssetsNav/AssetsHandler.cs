@@ -8,8 +8,10 @@ using PCP.WhichKey.Utils;
 namespace PCP.WhichKey.Extra
 {
 
-    internal class AssetsHandler : IWkHandler, IWkWinModifier
+    internal class AssetsHandler : IWkHandler
     {
+        public float Timeout => 0;
+        public float ColWidth => 400;
         private WkExtraManager mDataManger => WkExtraManager.instance;
         private AssetsNavData assetsData;
         private System.Action<int> mProcessKey;
@@ -37,10 +39,6 @@ namespace PCP.WhichKey.Extra
                 mProcessKey = SaveAssetPath;
             else
                 mProcessKey = LoadAssetToSeletion;
-        }
-        public void SetWindow(WkBaseWindow window)
-        {
-            window.OverrideTimeout(mDataManger.WinTimeout);
         }
         public void ProcessKey(int key)
         {
