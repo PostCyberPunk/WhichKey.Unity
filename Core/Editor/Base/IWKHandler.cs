@@ -3,6 +3,16 @@ namespace PCP.WhichKey.Types
 	public interface IWkHandler
 	{
 		/// <summary>
+		/// the timeout of the hint window, -1 means use default timeout
+		/// </summary> 
+		float TimeOut => -1f;
+		/// <summary>
+		/// the colum width of the hint window, -1 means use default width
+		/// </summary> <summary>
+		/// 
+		/// </summary>
+		float ColWidth => -1f;
+		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="key">key to handle</param>
