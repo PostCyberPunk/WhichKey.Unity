@@ -71,18 +71,16 @@ namespace PCP.WhichKey.Extra
             WkExtraManager.instance.SaveSceneData();
             WkLogger.LogInfo($"Set {key.ToLabel()} to {target.name}");
         }
-        public string[] GetLayerHints()
+        public LayerHint[] GetLayerHints()
         {
             if (sceneData == null)
                 return null;
-            if (sceneData.Targets.Count == 0)
-                return new string[1];
             return sceneData.KeyHints;
         }
         public string GetLayerName()
         {
             if (sceneData == null)
-                return null;
+                return "No Scene Data";
             return sceneData.Targets.Count == 1 ? "Set some gameobjects first" : "Scene Navgation";
         }
     }

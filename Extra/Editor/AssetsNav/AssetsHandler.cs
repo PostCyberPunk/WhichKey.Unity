@@ -75,10 +75,10 @@ namespace PCP.WhichKey.Extra
                 assetsData.SetAssetsPathByKey(key, path);
             }
         }
-        public string[] GetLayerHints()
+        public LayerHint[] GetLayerHints()
         {
             if (assetsData == null) return null;
-            return assetsData.LayerHints.Length == 0 ? new string[1] : assetsData.LayerHints;
+            return assetsData.LayerHints == null ? new LayerHint[0] : assetsData.LayerHints;
         }
         public string GetLayerName()
         {
