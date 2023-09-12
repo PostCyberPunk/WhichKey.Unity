@@ -1,8 +1,18 @@
 using System.Collections.Generic;
+using PCP.WhichKey.Core;
 using Debug = UnityEngine.Debug;
 
 namespace PCP.WhichKey
 {
+	public interface IWkHintWindow
+	{
+		int mDepth => -1;
+		float maxCol => WhichKeyPreferences.instance.ColWidth;
+		float timeOutLen => WhichKeyPreferences.instance.Timeout;
+		void Close();
+		void ForceClose();
+	}
+
 	// public abstract class WKCmdArg
 	// {
 	//     public string ArgStr;
