@@ -8,7 +8,7 @@ namespace PCP.WhichKey.Core.UI
 	[CustomPropertyDrawer(typeof(WkKeySeq))]
 	public class WkBinder : PropertyDrawer
 	{
-		private int mDepth = -1;
+		private int mDepth = 1;
 		private string mTitle = "WhichKey Binding";
 
 		public override VisualElement CreatePropertyGUI(SerializedProperty property)
