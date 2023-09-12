@@ -28,13 +28,7 @@ namespace PCP.WhichKey.Extra
             var list = UILoader.instance.List.CloneTree().Q<ListView>();
             list.bindingPath = "Targets";
             var itemvt = mManager.SceneNav;
-            list.makeItem = () =>
-            {
-                var item = itemvt.CloneTree();
-                var wk = item.Q<PropertyField>("WkBinder");
-                wk.userData = new WkBinderSetting(1);
-                return item;
-            };
+            list.makeItem = itemvt.CloneTree;
 
 
             var binder = new BindableElement();

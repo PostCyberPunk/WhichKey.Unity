@@ -19,14 +19,7 @@ namespace PCP.WhichKey.Extra
             var list = listvt.CloneTree().Q<ListView>();
             root.Add(list);
             list.bindingPath = "NavSetList";
-            list.makeItem = () =>
-            {
-                var item = itemvt.CloneTree();
-                var wk = item.Q<PropertyField>("WkBinder");
-                wk.userData = new WkBinderSetting(1);
-                return item;
-            };
-
+            list.makeItem = itemvt.CloneTree;
 
             return root;
         }
