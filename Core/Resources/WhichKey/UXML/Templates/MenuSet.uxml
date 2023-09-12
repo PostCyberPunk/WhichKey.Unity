@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns="UnityEngine.UIElements" ue="UnityEditor.UIElements" pcp="PCP.WhichKey" editor-extension-mode="True">
     <ui:VisualElement name="Base" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
-        <uie:PropertyField binding-path="KeySeq" style="width: 160px; min-width: 160px;" />
+        <uie:PropertyField binding-path="KeySeq" name="WkBinder" style="width: 160px; min-width: 160px;" />
         <ui:Label tabindex="-1" text="Hints" display-tooltip-when-elided="true" />
         <ui:TextField bindingPath="HintText" binding-path="Hint" style="width: 100px;" />
         <ui:Label tabindex="-1" text="Argument" display-tooltip-when-elided="true" />
