@@ -1,46 +1,33 @@
 # Todo
 ## u
-<!-- 1. oh i need a project specific keyset also adtional keymap -->
-<!-- 2. additional layer map -->
-<!-- 3. same layer combination -->
-<!-- logger first -->
-<!-- 1. wkmanger remake -->
- <!-- - handle keycode and raw key inside manager -->
- <!-- - build tree inside manager -->
-  
- <!-- - settings -->
- <!-- - window and input handle, who to who?? -->
-<!-- *** hideflag wont work for first time it created fixed, import is ok, only happened when mannually delay*** -->
-<!-- Menu title -->
-<!-- extra keydepth  -->
-<!-- assetNav binder size -->
-<!-- extra no item handler? -->
-<!-- playerMode Handle -->
-<!-- excute and create add try catch -->
 - think about sceneview
-- rename handler ,its not clear now
-1. basewin shouldnt inherit from editor win,bas encapslution
-2. instead of using iwkwinmodifier,maybe just use changeHandlerCmd?
-3. how to make an inteface get acess to window, so user can close win mannully
-4. maybe wkint is not a bad idea.
+<!-- - rename handler ,its not clear now -->
+<!-- 1. basewin shouldnt inherit from editor win,bas encapslution -->
+<!-- 2. instead of using iwkwinmodifier,maybe just use changeHandlerCmd? -->
+3. how to make an inteface get acess to window, so user can close win mannully:INeedWindow
 ## meh
 <!-- - uiload -->
 menuHelper add missing menu item manually
-button to uxml
-bindWin button to top
-- ui folder
-- window no instance handle
+<!-- button to uxml -->
+<!-- bindWin button to top -->
 1. maybe try serialize reference instead of path
+2. depth
+- !! dont be lazy !!make an unit test!!
 ## t
-- cutorm theme
-- basewindow to interface
-- inherit from maain hints win
-- Arg to a class that can be setup with a window
+- !!hints pooling has no point if use popup window,and listview of listview is not cool
+- cutorm theme /has to be done after hints polling?
+- basewindow to interface: maybe just hints window to interface
+ - inherit from maain hints win
+- Arg to a class that can be setup with a window or inline:could be done using factory
 1. caching labels reuse of hint window
-- cmd factory to simple cmd **lets check IL for sure thats make sense** didt found a way to use struct,so cmd facoty is better when impl Wkarg somday
+<!-- - cmd factory to simple cmd **lets check IL for sure thats make sense** didt found a way to use struct,so cmd facoty is better when impl Wkarg somday -->
 **why pref sitll stuck on load**
 *** pass userdata to wkbidng unboxing ***
-1. save tree in scriptableObject?
+4. maybe wkint is not a bad idea.its bad for memory
+1. save tree in scriptableObject? 
+2. differ lib to  quick save:acceptalbe refreshing speed now
+old
+
 <!-- 2. when lost focus of whichkey window ,unity will lost focus too. -->
 <!-- 3. check for duplicated key. -->
 <!-- 4. change arg to string[] -->
@@ -104,6 +91,23 @@ bindWin button to top
 <!-- 6. keycode ext to util -->
 <!-- *** a wrapper is bad for gc, also may lose some reAference,so is intend to repalce json,so lets just edit yaml *** -->
 <!-- *** wk to static class singleton to manager *** -->
+<!-- 1. oh i need a project specific keyset also adtional keymap -->
+<!-- 2. additional layer map -->
+<!-- 3. same layer combination -->
+<!-- logger first -->
+<!-- 1. wkmanger remake -->
+ <!-- - handle keycode and raw key inside manager -->
+ <!-- - build tree inside manager -->
+  
+ <!-- - settings -->
+ <!-- - window and input handle, who to who?? -->
+<!-- *** hideflag wont work for first time it created fixed, import is ok, only happened when mannually delay*** -->
+<!-- Menu title -->
+<!-- extra keydepth  -->
+<!-- assetNav binder size -->
+<!-- extra no item handler? -->
+<!-- playerMode Handle -->
+<!-- excute and create add try catch -->
 # Extra
 piemenu
 # bug
