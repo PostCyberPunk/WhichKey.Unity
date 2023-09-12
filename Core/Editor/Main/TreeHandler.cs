@@ -177,7 +177,7 @@ namespace PCP.WhichKey.Core
 			mCurrentHandler = handler;
 			if (depth > 0)
 				maxDepth = mKeySeq.Count + depth;
-			mWindow.overrideTimeout = handler.TimeOut;
+			mWindow.overrideTimeout = handler.Timeout;
 			mWindow.overrideColWidth = handler.ColWidth;
 			// if (handler is IWkWinModifier modifer)
 			// {

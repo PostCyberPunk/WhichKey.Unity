@@ -5,7 +5,7 @@ namespace PCP.WhichKey.Types
 		/// <summary>
 		/// the timeout of the hint window, -1 means use default timeout
 		/// </summary> 
-		float TimeOut => -1f;
+		float Timeout => -1f;
 		/// <summary>
 		/// the colum width of the hint window, -1 means use default width
 		/// </summary> <summary>
