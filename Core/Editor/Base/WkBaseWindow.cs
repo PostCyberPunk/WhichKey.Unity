@@ -17,7 +17,6 @@ namespace PCP.WhichKey.Types
 		protected float mWidth;
 		protected float mHeight;
 		protected float timeoutLen;
-		protected int mDepth = -1;
 		public virtual void OnActive()
 		{
 			timeoutLen = DefaultTimeoutLen;
@@ -39,12 +38,7 @@ namespace PCP.WhichKey.Types
 				return;
 			if (!needClose)
 			{
-				if (mDepth < 0)
-					KeyHandler(e);
-				else if (mDepth == 0)
-					needClose = true;
-				else
-					mDepth--;
+				KeyHandler(e);
 			}
 			else if (e.type == EventType.KeyUp)
 			{

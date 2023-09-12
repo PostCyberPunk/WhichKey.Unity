@@ -103,12 +103,11 @@ namespace PCP.WhichKey.Core
 			labelFrame.Clear();
 			if (Hints.Length == 1)
 			{
-				mDepth = 1;
 				mHeight = lineHeight + 2 * mainFrame.resolvedStyle.paddingTop;
 				mWidth = mColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
 				maxSize = new Vector2(mWidth, mHeight);
 			}
-			else if (Hints.Length < 1)
+			else if (Hints.Length == 0)
 			{
 				Close();
 				return;
