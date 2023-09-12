@@ -5,12 +5,12 @@ namespace PCP.WhichKey.Types
 	public abstract class ChangeHandlerCmd : WKCommand
 	{
 		public abstract IWkHandler Handler { get; }
-		public abstract bool isEnd { get; }
+		public virtual bool isEnd => false;
 		public abstract int Depth { get; }
 
 		public void Execute()
 		{
-			ActiveHandler();
+			OnActive();
 			WhichKeyManager.instance.ChangeHanlder(Handler, Depth);
 		}
 
@@ -19,7 +19,7 @@ namespace PCP.WhichKey.Types
 		/// </summary> <summary>
 		/// 
 		/// </summary>
-		protected virtual void ActiveHandler()
+		protected virtual void OnActive()
 		{
 		}
 	}

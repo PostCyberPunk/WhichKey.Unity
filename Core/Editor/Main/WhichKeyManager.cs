@@ -99,10 +99,10 @@ namespace PCP.WhichKey.Core
 			// ShowHintsWindow();
 		}
 
-		public void ShowWindow() => ChangeBaseKeyHandler(mainKeyHandler);
+		public void ShowWindow() => ChangeWinKeyHandler(mainKeyHandler);
 		#endregion
 
-		private BaseKeyHandler mCurrentHandler;
+		private BaseWinKeyHandler mCurrentHandler;
 
 		public void ProcesRawKey(KeyCode keyCode, bool shift)
 		{
@@ -112,7 +112,7 @@ namespace PCP.WhichKey.Core
 				return;
 			mCurrentHandler.HandleKey(key);
 		}
-		public void ChangeBaseKeyHandler(BaseKeyHandler handler)
+		public void ChangeWinKeyHandler(BaseWinKeyHandler handler)
 		{
 			mCurrentHandler = handler;
 			handler.ShowWindow();
