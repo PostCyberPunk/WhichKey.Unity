@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine.UIElements;
+using UnityEditor.UIElements;
 using PCP.WhichKey.Types;
 using PCP.WhichKey.UI;
 
@@ -8,7 +9,7 @@ namespace PCP.WhichKey.Core.UI
 	[CustomPropertyDrawer(typeof(WkKeySeq))]
 	public class WkBinder : PropertyDrawer
 	{
-		private int mDepth = -1;
+		private int mDepth = 1;
 		private string mTitle = "WhichKey Binding";
 
 		public override VisualElement CreatePropertyGUI(SerializedProperty property)
@@ -45,7 +46,7 @@ namespace PCP.WhichKey.Core.UI
 
 namespace PCP.WhichKey.UI
 {
-	public class WkBinderSetting
+	internal class WkBinderSetting
 	{
 		public int Depth;
 		public string Title;
@@ -69,6 +70,34 @@ namespace PCP.WhichKey.UI
 		{
 			Depth = depth;
 			Title = title;
+		}
+	}
+	public static class WkBinderUtil
+	{
+		/// <summary>
+		/// Use a visual tree asset to create a which key binder darower for WkKeySeq,amke sure your property field name is  "WkBinder"
+		/// </summary>
+		/// <param name="depth">Max keys count for binding</param>
+		/// <param name="vts">VisualTreeAsset that contians a Propery field for wkkeyseq</param>
+		/// <returns></returns> 
+		public static VisualElement SetBinder(int depth, VisualTreeAsset vts)
+		{
+			var e = vts.CloneTree();
+			e.Q<PropertyField>("WkBinder").userData = new WkBinderSetting(depth);
+			return e;
+		}
+		/// <summary>
+		/// Use a visual tree asset to create a which key binder darower for WkKeySeq,amke sure your property field name is  "WkBinder"
+		/// </summary>
+		/// <param name="depth">Max keys count for binding</param>
+		/// <param name="vts">VisualTreeAsset that contians a Propery field for wkkeyseq</param>
+		/// <param name="title">Tilte for biding window</param>
+		/// <returns></returns> 
+		public static VisualElement SetBinder(int depth, string title, VisualTreeAsset vts)
+		{
+			var e = vts.CloneTree();
+			e.Q<PropertyField>("WkBinder").userData = new WkBinderSetting(depth, title);
+			return e;
 		}
 	}
 }
