@@ -1,6 +1,6 @@
 namespace PCP.WhichKey.Core
 {
-	public abstract class BaseKeyHandler
+	public abstract class BaseWinKeyHandler
 	{
 		public abstract void ShowWindow();
 		public abstract void OnActive();

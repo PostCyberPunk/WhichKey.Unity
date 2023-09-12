@@ -2,15 +2,14 @@ using PCP.WhichKey.Types;
 
 namespace PCP.WhichKey.Extra
 {
-    internal class SceneNavCmd : ChangeHandlerCmd
+	internal class SceneNavCmd : ChangeHandlerCmd
 	{
 		public override IWkHandler Handler => mSceneHandler;
-		public override bool isEnd => false;
 		public override int Depth => 1;
 		private readonly static SceneNavHandler mSceneHandler = new();
-		private bool set; 
+		private bool set;
 		public SceneNavCmd(bool isSst) => set = isSst;
-		protected override void ActiveHandler() => mSceneHandler.Set = set;
+		protected override void OnActive() => mSceneHandler.Set = set;
 	}
 	internal class SceneNavLoadCmdFactory : WKCommandFactory
 
