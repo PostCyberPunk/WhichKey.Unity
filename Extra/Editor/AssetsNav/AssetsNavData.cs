@@ -13,7 +13,7 @@ namespace PCP.WhichKey.Extra
         {
             foreach (var item in NavSetList)
             {
-                if (item.Key.lastKey == key)
+                if (item.Key == key)
                     return item.AssetPath;
             }
             return "";
@@ -23,7 +23,7 @@ namespace PCP.WhichKey.Extra
             for (int i = 0; i < NavSetList.Count; i++)
             {
                 AssetNavSet item = NavSetList[i];
-                if (item.Key.lastKey == key)
+                if (item.Key == key)
                 {
                     item.AssetPath = path;
                     item.Hint = path;
