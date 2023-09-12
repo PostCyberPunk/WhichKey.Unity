@@ -32,12 +32,15 @@ bindWin button to top
 - window no instance handle
 1. maybe try serialize reference instead of path
 ## t
+- cutorm theme
+- basewindow to interface
+- inherit from maain hints win
 - Arg to a class that can be setup with a window
 1. caching labels reuse of hint window
 - cmd factory to simple cmd **lets check IL for sure thats make sense** didt found a way to use struct,so cmd facoty is better when impl Wkarg somday
 **why pref sitll stuck on load**
 *** pass userdata to wkbidng unboxing ***
-5. save tree in scriptableObject?
+1. save tree in scriptableObject?
 <!-- 2. when lost focus of whichkey window ,unity will lost focus too. -->
 <!-- 3. check for duplicated key. -->
 <!-- 4. change arg to string[] -->
