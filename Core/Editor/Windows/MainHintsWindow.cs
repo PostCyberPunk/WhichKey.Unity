@@ -66,7 +66,7 @@ namespace PCP.WhichKey.Core
 		private VisualElement mainFrame;
 		private VisualElement labelFrame;
 		private Label titleLabel;
-		public string[] Hints;
+		public LayerHint[] Hints;
 		public string Title;
 		private void CreateGUI()
 		{
@@ -98,24 +98,18 @@ namespace PCP.WhichKey.Core
 				Close();
 				return;
 			}
-
 			titleLabel.text = Title == null ? "WhichKey:No Hints" : Title;
 			labelFrame.Clear();
-			if (Hints.Length == 1)
+			if (Hints.Length == 0)
 			{
 				mHeight = lineHeight + 2 * mainFrame.resolvedStyle.paddingTop;
 				mWidth = mColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
 				maxSize = new Vector2(mWidth, mHeight);
 			}
-			else if (Hints.Length == 0)
-			{
-				Close();
-				return;
-			}
 			else
 			{
 				mHeight = lineHeight * (maxHintLines + 1) + 2 * mainFrame.resolvedStyle.paddingTop;
-				var cols = Mathf.CeilToInt(Hints.Length / 2f / maxHintLines);
+				var cols = Mathf.CeilToInt((float)Hints.Length / maxHintLines);
 				mWidth = cols * mColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
 				maxSize = new Vector2(mWidth, mHeight);
 
@@ -128,12 +122,12 @@ namespace PCP.WhichKey.Core
 					for (int i = 0; i < maxHintLines; i++)
 					{
 						int ind = i + j * maxHintLines;
-						if (ind * 2 >= Hints.Length) break;
+						if (ind >= Hints.Length) break;
 						var row = hintLabel.CloneTree().Q<VisualElement>();
 						var k = row.Q<Label>("Key");
 						var h = row.Q<Label>("Hint");
-						k.text = Hints[ind * 2];
-						h.text = Hints[ind * 2 + 1];
+						k.text = Hints[ind].KeyLabel;
+						h.text = Hints[ind].Hint;
 						row.style.width = mColWidth;
 						row.style.height = lineHeight;
 						col.Add(row);
