@@ -46,7 +46,7 @@ namespace PCP.WhichKey.Core.UI
 
 namespace PCP.WhichKey.UI
 {
-	public class WkBinderSetting
+	internal class WkBinderSetting
 	{
 		public int Depth;
 		public string Title;
@@ -74,12 +74,25 @@ namespace PCP.WhichKey.UI
 	}
 	public static class WkBinderUtil
 	{
+		/// <summary>
+		/// Use a visual tree asset to create a which key binder darower for WkKeySeq,amke sure your property field name is  "WkBinder"
+		/// </summary>
+		/// <param name="depth">Max keys count for binding</param>
+		/// <param name="vts">VisualTreeAsset that contians a Propery field for wkkeyseq</param>
+		/// <returns></returns> 
 		public static VisualElement SetBinder(int depth, VisualTreeAsset vts)
 		{
 			var e = vts.CloneTree();
 			e.Q<PropertyField>("WkBinder").userData = new WkBinderSetting(depth);
 			return e;
 		}
+		/// <summary>
+		/// Use a visual tree asset to create a which key binder darower for WkKeySeq,amke sure your property field name is  "WkBinder"
+		/// </summary>
+		/// <param name="depth">Max keys count for binding</param>
+		/// <param name="vts">VisualTreeAsset that contians a Propery field for wkkeyseq</param>
+		/// <param name="title">Tilte for biding window</param>
+		/// <returns></returns> 
 		public static VisualElement SetBinder(int depth, string title, VisualTreeAsset vts)
 		{
 			var e = vts.CloneTree();
