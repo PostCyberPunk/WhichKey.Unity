@@ -41,12 +41,12 @@ namespace PCP.WhichKey.Core
 
 
 					var layerMap = root.Q<ListView>("LayerMap");
-					layerMap.makeItem = uil.LayerSet.CloneTree;
+					layerMap.makeItem = () => WkBinderUtil.SetBinder(-1, uil.LayerSet);
 
 					var menuMap = root.Q<ListView>("MenuMap");
 					menuMap.makeItem = () =>
 					{
-						var e = uil.MenuSet.CloneTree();
+						var e = WkBinderUtil.SetBinder(-1, uil.MenuSet);
 						var btn = e.Q<Button>("Select");
 						btn.clickable.clicked += () =>
 						{
@@ -63,7 +63,7 @@ namespace PCP.WhichKey.Core
 					};
 
 					var keymap = root.Q<ListView>("KeyMap");
-					keymap.makeItem = uil.KeySet.CloneTree;
+					keymap.makeItem = () => WkBinderUtil.SetBinder(-1, uil.KeySet);
 
 					if (isPref)
 					{
@@ -96,5 +96,7 @@ namespace PCP.WhichKey.Core
 				keywords = new HashSet<string>(new[] { "WhichKey" });
 			}
 		}
+
+
 	}
 }
