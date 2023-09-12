@@ -26,8 +26,8 @@ namespace PCP.WhichKey.Core
 
 		#endregion
 
-		public float overrideTimeout;
-		public float overrideColWidth;
+		public float overrideTimeout = -1;
+		public float overrideColWidth = -1;
 		private float mColWidth;
 		public override void OnActive()
 		{
