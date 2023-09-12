@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using PCP.WhichKey.Types;
 using UnityEngine;
 namespace PCP.WhichKey.Extra
 {
@@ -6,7 +7,7 @@ namespace PCP.WhichKey.Extra
     [CreateAssetMenu(fileName = "AssetsNavData", menuName = "Whichkey/AssetsNavData", order = 1)]
     public class AssetsNavData : ScriptableObject
     {
-         public string[] LayerHints;
+        public LayerHint[] LayerHints;
         [SerializeField] private List<AssetNavSet> NavSetList = new();
         public string GetAssetsPathByKey(int key)
         {
@@ -41,18 +42,12 @@ namespace PCP.WhichKey.Extra
         {
             OnAssetsChange();
         }
-        private void UpdateLayerHints(int i)
-        {
-            LayerHints[i * 2] = NavSetList[i].Key.KeyLabel;
-            LayerHints[i * 2 + 1] = NavSetList[i].Hint;
-        }
         private void OnAssetsChange()
         {
-            LayerHints = new string[NavSetList.Count * 2];
+            LayerHints = new LayerHint[NavSetList.Count];
             for (int i = 0; i < NavSetList.Count; i++)
             {
-                LayerHints[i * 2] = NavSetList[i].Key.KeyLabel;
-                LayerHints[i * 2 + 1] = NavSetList[i].Hint;
+                LayerHints[i] = new LayerHint(NavSetList[i].Key, NavSetList[i].Hint);
             }
         }
     }
