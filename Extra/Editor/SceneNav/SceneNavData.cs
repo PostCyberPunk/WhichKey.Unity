@@ -10,23 +10,22 @@ namespace PCP.WhichKey.Extra
     public class SceneNavData
     {
         public SceneAsset Scene;
-        public List<SceneNavTarget> Targets = new();
-        public string[] KeyHints = new string[0];
+        public List<SceneNavTarget> Targets;
+        public LayerHint[] KeyHints;
         public SceneNavData(SceneAsset scene)
         {
             Scene = scene;
             Targets = new();
-            KeyHints = new string[0];
+            KeyHints = new LayerHint[0];
         }
         public void SetupKeyHints()
         {
             if (Targets == null || Targets.Count == 0)
                 return;
-            KeyHints = new string[Targets.Count * 2];
+            KeyHints = new LayerHint[Targets.Count];
             for (int i = 0; i < Targets.Count; i++)
             {
-                KeyHints[i * 2] = Targets[i].Key.KeyLabel;
-                KeyHints[i * 2 + 1] = Targets[i].Hint;
+                KeyHints[i] = new LayerHint(Targets[i].Key, Targets[i].Hint);
             }
         }
     }
