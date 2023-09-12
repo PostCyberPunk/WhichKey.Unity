@@ -55,7 +55,6 @@ namespace PCP.WhichKey.Types
 			e.Use();
 		}
 
-		private void OnLostFocus() => base.Close();
 
 		protected virtual void Update()
 		{
@@ -131,6 +130,7 @@ namespace PCP.WhichKey.Types
 			}
 		}
 
+		private void OnLostFocus() => base.Close();
 		public new void Close() => needClose = true;
 		public void ForceClose() => base.Close();
 	}
