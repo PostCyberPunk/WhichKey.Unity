@@ -83,7 +83,7 @@ namespace PCP.WhichKey.Core
 			mWindow.Title = GetLayerName();
 		}
 
-		public string[] GetLayerHints()
+		public LayerHint[] GetLayerHints()
 		{
 			if (mCurrentHandler != this && mCurrentHandler != null)
 				return mCurrentHandler.GetLayerHints();

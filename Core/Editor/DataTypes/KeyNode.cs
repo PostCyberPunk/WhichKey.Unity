@@ -9,13 +9,13 @@ namespace PCP.WhichKey.Core
 	internal class KeyNode
 	{
 		public static int maxLine;
-		private static readonly string layerHintFormat = "<color=yellow>{0}</color>  {1}\n";
+		// private static readonly string layerHintFormat = "<color=yellow>{0}</color>  {1}\n";
 		public int Key { private set; get; }
 		public string Hint { private set; get; }
 		public string CmdArg { private set; get; }
 		public int Type { private set; get; }
 		public KeyNode Parent { private set; get; }
-		public string[] LayerHints { private set; get; }
+		public LayerHint[] LayerHints { private set; get; }
 		public List<KeyNode> Children { private set; get; } //OPT :Lets keep this list,maybe useful for fast reloading
 
 		public bool hasChildren
@@ -92,45 +92,44 @@ namespace PCP.WhichKey.Core
 			if (!hasChildren)
 				if (isLayer)
 				{
-					LayerHints = new string[1];
+					LayerHints = new LayerHint[0];
 					return;
 				}
 				else
 					return;
-			LayerHints = new string[Children.Count * 2];
+			LayerHints = new LayerHint[Children.Count];
 			for (int i = 0; i < Children.Count; i++)
 			{
 				KeyNode child = Children[i];
-				LayerHints[i * 2] = child.Key.ToLabel();
-				LayerHints[i * 2 + 1] = child.Hint;
+				LayerHints[i] = new LayerHint(child.Key, child.Hint);
 				child.SetLayerHints();
 			}
 		}
 
-		public void SetCachedLayerHints()
-		{
-			if (!hasChildren) return;
-			LayerHints = new string[Mathf.CeilToInt(Children.Count / (float)maxLine)];
-			StringBuilder sb = new StringBuilder();
-			int i = 1;
-			foreach (var child in Children)
-			{
-				child.SetCachedLayerHints();
-				sb.AppendFormat(layerHintFormat, child.Key, child.Hint);
-				if (i % maxLine == 0)
-				{
-					LayerHints[i / maxLine - 1] = sb.ToString();
-					sb.Clear();
-				}
+		// public void SetCachedLayerHints()
+		// {
+		// 	if (!hasChildren) return;
+		// 	LayerHints = new string[Mathf.CeilToInt(Children.Count / (float)maxLine)];
+		// 	StringBuilder sb = new StringBuilder();
+		// 	int i = 1;
+		// 	foreach (var child in Children)
+		// 	{
+		// 		child.SetCachedLayerHints();
+		// 		sb.AppendFormat(layerHintFormat, child.Key, child.Hint);
+		// 		if (i % maxLine == 0)
+		// 		{
+		// 			LayerHints[i / maxLine - 1] = sb.ToString();
+		// 			sb.Clear();
+		// 		}
 
-				i++;
-			}
+		// 		i++;
+		// 	}
 
-			if (sb.Length > 0)
-			{
-				LayerHints[Mathf.FloorToInt(i / maxLine)] = sb.ToString();
-				sb.Clear();
-			}
-		}
+		// 	if (sb.Length > 0)
+		// 	{
+		// 		LayerHints[Mathf.FloorToInt(i / maxLine)] = sb.ToString();
+		// 		sb.Clear();
+		// 	}
+		// }
 	}
 }
