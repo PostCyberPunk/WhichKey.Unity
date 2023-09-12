@@ -8,8 +8,8 @@ namespace PCP.WhichKey.Extra
 
     public class SceneNavHandler : IWkHandler
     {
-        public float Timeout = 0;
-        public float ColWidth = 400;
+        public float Timeout => 0;
+        public float ColWidth => 400;
         private SceneNavData sceneData => WkExtraManager.instance?.CurrentSceneData;
         public bool Set = false;
         public void ProcessKey(int key)

@@ -10,8 +10,8 @@ namespace PCP.WhichKey.Extra
 
     internal class AssetsHandler : IWkHandler
     {
-        public float Timeout = 0;
-        public float ColWidth = 400;
+        public float Timeout => 0;
+        public float ColWidth => 400;
         private WkExtraManager mDataManger => WkExtraManager.instance;
         private AssetsNavData assetsData;
         private System.Action<int> mProcessKey;
