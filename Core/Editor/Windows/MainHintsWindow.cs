@@ -41,7 +41,6 @@ namespace PCP.WhichKey.Core
 			fixedPosition = pref.FixedPosition;
 			maxHintLines = pref.MaxHintLines;
 			maxColWidth = pref.ColWidth;
-			DefaultTimeoutLen = pref.Timeout;
 			hintLabel = uil.HintLabel;
 			hintLabelSS = uil.HintLabelSS;
 			blankVE = uil.BlankVE;

@@ -185,7 +185,5 @@ namespace PCP.WhichKey.Core
 					modifer.SetWindow(mWindow);
 			}
 		}
-
-		public void OverrideTimeout(float time) => mWindow.OverrideTimeout(time);
 	}
 }

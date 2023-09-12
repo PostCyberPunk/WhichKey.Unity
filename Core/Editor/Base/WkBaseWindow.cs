@@ -7,7 +7,7 @@ namespace PCP.WhichKey.Types
 	public abstract class WkBaseWindow : EditorWindow
 	{
 		//FIXME
-		public static float DefaultTimeoutLen { protected set; get; }
+		protected float DefaultTimeoutLen => WhichKeyPreferences.instance.Timeout;
 		private bool keyReleased = true;
 		private KeyCode prevKey;
 		private float hideTill;
@@ -20,6 +20,7 @@ namespace PCP.WhichKey.Types
 		protected int mDepth = -1;
 		public virtual void OnActive()
 		{
+			timeoutLen = DefaultTimeoutLen;
 		}
 
 		protected virtual void DummyWindow()
@@ -138,6 +139,5 @@ namespace PCP.WhichKey.Types
 
 		public new void Close() => needClose = true;
 		public void ForceClose() => base.Close();
-		public void OverrideTimeout(float time) => timeoutLen = time;
 	}
 }
