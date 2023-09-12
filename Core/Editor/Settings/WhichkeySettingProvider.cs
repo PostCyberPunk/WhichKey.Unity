@@ -18,96 +18,35 @@ namespace PCP.WhichKey.Core
 		[SettingsProvider]
 		public static SettingsProvider CreatePreference()
 		{
-			// WhichKey.instance.Save();
-
-			var provider = new SettingsProvider(PreferencePath, SettingsScope.User)
-			{
-				label = "WhichKey",
-				activateHandler = (searchContext, rootElement) =>
-				{
-					var vts = UILoader.instance;
-					// Create the root visual element
-					var root = vts.Preferences.CloneTree();
-
-
-					var layerMap = root.Q<ListView>("LayerMap");
-					layerMap.makeItem = vts.LayerSet.CloneTree;
-
-					var menuMap = root.Q<ListView>("MenuMap");
-					menuMap.makeItem = () =>
-					{
-						var e = vts.MenuSet.CloneTree();
-						var btn = e.Q<Button>("Select");
-						btn.clickable.clicked += () =>
-						{
-							MenuHelper.ShowWindow((path) => { e.Q<TextField>("Arg").value = path; });
-						};
-						return e;
-					};
-					menuMap.itemsAdded += (list) =>
-					{
-						foreach (var i in list)
-						{
-							Preferences.MenuMap[i].CmdType = 1;
-						}
-					};
-
-					var keymap = root.Q<ListView>("KeyMap");
-					keymap.makeItem = vts.KeySet.CloneTree;
-
-					//Show/Hide position field by FollowMouse toggle
-					var winPosElement = root.Q<Vector2Field>("FixedPosition");
-					winPosElement.style.display = Preferences.WindowFollowMouse ? DisplayStyle.None : DisplayStyle.Flex;
-					root.Q<Toggle>("WindowFollowMouse").RegisterValueChangedCallback(evt =>
-					{
-						winPosElement.style.display = evt.newValue ? DisplayStyle.None : DisplayStyle.Flex;
-						winPosElement.MarkDirtyRepaint();
-					});
-
-					var applyButton = new Button(Preferences.Apply);
-					applyButton.text = "Apply";
-					root.Add(applyButton);
-
-					var saveButton = new Button(Preferences.SaveToJson);
-					saveButton.text = "Save to JSON";
-					root.Add(saveButton);
-
-					var loadButton = new Button(Preferences.LoadFromJson);
-					loadButton.text = "Load from JSON";
-					root.Add(loadButton);
-
-					root.Bind(Preferences.GetSerializedObject());
-					rootElement.Add(root);
-				},
-				deactivateHandler = Preferences.Apply,
-				keywords = new HashSet<string>(new[] { "WhichKey" })
-			};
-
-			return provider;
+			return new WkKeySetsProvider<WhichKeyPreferences>(PreferencePath, SettingsScope.User, true, Preferences, UILoader.instance.Preferences);
 		}
 
 		[SettingsProvider]
 		public static SettingsProvider CreateProjectSettings()
 		{
-			// WhichKey.instance.Save();
+			return new WkKeySetsProvider<WhichkeyProjectSettings>(ProjectSettingPath, SettingsScope.Project, false, ProjectSettings, UILoader.instance.ProjectSettings);
+		}
 
-			var provider = new SettingsProvider(ProjectSettingPath, SettingsScope.Project)
+		private class WkKeySetsProvider<T> : SettingsProvider where T : WkSettingBase<T>
+		{
+			public WkKeySetsProvider(string path, SettingsScope scopes, bool isPref, WkSettingBase<T> wks, VisualTreeAsset vts,
+			IEnumerable<string> keywords = null) : base(path, scopes, keywords)
 			{
-				label = "WhichKey",
+				label = "WhichKey";
 				activateHandler = (searchContext, rootElement) =>
 				{
-					var vts = UILoader.instance;
-
-					var root = vts.ProjectSettings.CloneTree();
+					var uil = UILoader.instance;
+					// Create the root visual element
+					var root = vts.CloneTree();
 
 
 					var layerMap = root.Q<ListView>("LayerMap");
-					layerMap.makeItem = vts.LayerSet.CloneTree;
+					layerMap.makeItem = uil.LayerSet.CloneTree;
 
 					var menuMap = root.Q<ListView>("MenuMap");
 					menuMap.makeItem = () =>
 					{
-						var e = vts.MenuSet.CloneTree();
+						var e = uil.MenuSet.CloneTree();
 						var btn = e.Q<Button>("Select");
 						btn.clickable.clicked += () =>
 						{
@@ -119,32 +58,43 @@ namespace PCP.WhichKey.Core
 					{
 						foreach (var i in list)
 						{
-							ProjectSettings.MenuMap[i].CmdType = 1;
+							wks.MenuMap[i].CmdType = 1;
 						}
 					};
-					ListView keymap = root.Q<ListView>("KeyMap");
-					keymap.makeItem = vts.KeySet.CloneTree;
 
-					var applyButton = new Button(ProjectSettings.Apply);
+					var keymap = root.Q<ListView>("KeyMap");
+					keymap.makeItem = uil.KeySet.CloneTree;
+
+					if (isPref)
+					{
+						//Show/Hide position field by FollowMouse toggle
+						var winPosElement = root.Q<Vector2Field>("FixedPosition");
+						winPosElement.style.display = Preferences.WindowFollowMouse ? DisplayStyle.None : DisplayStyle.Flex;
+						root.Q<Toggle>("WindowFollowMouse").RegisterValueChangedCallback(evt =>
+						{
+							winPosElement.style.display = evt.newValue ? DisplayStyle.None : DisplayStyle.Flex;
+							winPosElement.MarkDirtyRepaint();
+						});
+					}
+
+					var applyButton = new Button(wks.Apply);
 					applyButton.text = "Apply";
 					root.Add(applyButton);
 
-					var saveButton = new Button(ProjectSettings.SaveToJson);
+					var saveButton = new Button(wks.SaveToJson);
 					saveButton.text = "Save to JSON";
 					root.Add(saveButton);
 
-					var loadButton = new Button(ProjectSettings.LoadFromJson);
+					var loadButton = new Button(wks.LoadFromJson);
 					loadButton.text = "Load from JSON";
 					root.Add(loadButton);
 
-					root.Bind(ProjectSettings.GetSerializedObject());
+					root.Bind(wks.GetSerializedObject());
 					rootElement.Add(root);
-				},
-				deactivateHandler = ProjectSettings.Apply,
-				keywords = new HashSet<string>(new[] { "WhichKey" })
-			};
-
-			return provider;
+				};
+				deactivateHandler = wks.Apply;
+				keywords = new HashSet<string>(new[] { "WhichKey" });
+			}
 		}
 	}
 }
