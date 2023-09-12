@@ -26,19 +26,19 @@ namespace PCP.WhichKey.Core
 
 		#endregion
 
-		public float overrideTimeout = -1;
-		public float overrideColWidth = -1;
 		private float mColWidth;
 		public override void OnActive()
 		{
-			if (overrideTimeout >= 0)
-				timeout = overrideTimeout;
-			else
-				timeout = DefaultTimeoutLen;
-			if (overrideColWidth >= 0)
-				mColWidth = overrideColWidth;
-			else
-				mColWidth = maxColWidth;
+			base.OnActive();
+			mColWidth = maxColWidth;
+		}
+		public void OverreideSets(float timeout, float colWidth)
+		{
+			if (timeout >= 0)
+				timeoutLen = timeout;
+			if (colWidth >= 0)
+				mColWidth = colWidth;
+			UpdateDelayTimer();
 		}
 		public static void Init()
 		{

@@ -16,11 +16,11 @@ namespace PCP.WhichKey.Types
 		private bool needClose;
 		protected float mWidth;
 		protected float mHeight;
-		protected float timeout;
+		protected float timeoutLen;
 		protected int mDepth = -1;
 		public virtual void OnActive()
 		{
-			timeout = DefaultTimeoutLen;
+			timeoutLen = DefaultTimeoutLen;
 		}
 
 		protected virtual void DummyWindow()
@@ -122,7 +122,7 @@ namespace PCP.WhichKey.Types
 		public void UpdateDelayTimer()
 		{
 			if (!showHint)
-				hideTill = Time.realtimeSinceStartup + timeout;
+				hideTill = Time.realtimeSinceStartup + timeoutLen;
 		}
 
 		private void CheckDelayTimer()
