@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine.UIElements;
+using UnityEditor.UIElements;
 using PCP.WhichKey.Types;
 using PCP.WhichKey.UI;
 
@@ -69,6 +70,21 @@ namespace PCP.WhichKey.UI
 		{
 			Depth = depth;
 			Title = title;
+		}
+	}
+	public static class WkBinderUtil
+	{
+		public static VisualElement SetBinder(int depth, VisualTreeAsset vts)
+		{
+			var e = vts.CloneTree();
+			e.Q<PropertyField>("WkBinder").userData = new WkBinderSetting(depth);
+			return e;
+		}
+		public static VisualElement SetBinder(int depth, string title, VisualTreeAsset vts)
+		{
+			var e = vts.CloneTree();
+			e.Q<PropertyField>("WkBinder").userData = new WkBinderSetting(depth, title);
+			return e;
 		}
 	}
 }
