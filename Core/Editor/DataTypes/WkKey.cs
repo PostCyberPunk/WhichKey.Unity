@@ -1,10 +1,11 @@
 using UnityEngine;
 using PCP.WhichKey.Utils;
+using System;
 
 namespace PCP.WhichKey.Types
 {
-	[System.Serializable]
-	public struct WkKeySeq
+	[Serializable]
+	public struct WkKeySeq : IEquatable<WkKeySeq>, IEquatable<int>
 	{
 		[SerializeField]
 		private int[] _keySeq;
@@ -14,11 +15,6 @@ namespace PCP.WhichKey.Types
 			get => _keySeq == null ? _keySeq = new int[0] : _keySeq;
 			set => _keySeq = value;
 		}
-
-		/// <summary>
-		/// Last key of seq, 0 if empty
-		/// </summary>
-		public int lastKey => _keySeq.Length == 0 ? 0 : _keySeq[_keySeq.Length - 1];
 
 		[SerializeField]
 		private string _keyLabel;
@@ -31,7 +27,7 @@ namespace PCP.WhichKey.Types
 
 
 		public static implicit operator WkKeySeq(int[] keySeq) => new(keySeq);
-
+		public WkKeySeq(int key) : this(new int[] { key }) { }
 		public WkKeySeq(int[] keySeq)
 		{
 			_keySeq = keySeq;
@@ -41,8 +37,30 @@ namespace PCP.WhichKey.Types
 				_keyLabel = keySeq.ToLabel();
 		}
 
-		public WkKeySeq(int key) : this(new int[] { key })
+
+		//Equals
+		//Operator
+		public static bool operator ==(WkKeySeq seq, int key) => Equals(seq, key);
+		public static bool operator !=(WkKeySeq seq, int key) => !Equals(seq, key);
+		public static bool operator ==(WkKeySeq lhs, WkKeySeq rhs) => lhs.Equals(rhs);
+		public static bool operator !=(WkKeySeq lhs, WkKeySeq rhs) => !(lhs == rhs);
+
+		public override int GetHashCode() => KeySeq.GetHashCode();
+		public override bool Equals(object other) => other is WkKeySeq seq && Equals(seq) || other is int key && Equals(key);
+		public bool Equals(int other) => KeySeq.Length == 1 && KeySeq[0] == other;
+		public bool Equals(WkKeySeq other)
 		{
+			if (KeySeq.Length != other.KeySeq.Length)
+				return false;
+			else
+			{
+				for (int i = 0; i < this.KeySeq.Length; i++)
+				{
+					if (KeySeq[i] != other.KeySeq[i])
+						return false;
+				}
+				return true;
+			}
 		}
 	}
 }
