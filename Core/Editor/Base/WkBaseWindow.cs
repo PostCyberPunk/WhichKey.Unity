@@ -15,12 +15,12 @@ namespace PCP.WhichKey.Types
 		private bool _changeUI;
 		private bool needClose;
 		protected float DefaultTimeoutLen => pref.Timeout;
-		protected float WinWidth;
-		protected float WinHeight;
-		protected float TimeoutLen;
+		protected float winWidth;
+		protected float winHeight;
+		protected float timeoutLen;
 		public virtual void OnActive()
 		{
-			TimeoutLen = DefaultTimeoutLen;
+			timeoutLen = DefaultTimeoutLen;
 		}
 
 		protected virtual void DummyWindow()
@@ -116,7 +116,7 @@ namespace PCP.WhichKey.Types
 		public void UpdateDelayTimer()
 		{
 			if (!showHint)
-				hideTill = Time.realtimeSinceStartup + TimeoutLen;
+				hideTill = Time.realtimeSinceStartup + timeoutLen;
 		}
 
 		private void CheckDelayTimer()
@@ -135,11 +135,11 @@ namespace PCP.WhichKey.Types
 			if (pref.WindowFollowMouse)
 			{
 				Vector2 mousePos = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
-				position = new Rect(mousePos.x - WinWidth / 2, mousePos.y - WinHeight / 2, WinWidth, WinHeight);
+				position = new Rect(mousePos.x - winWidth / 2, mousePos.y - winHeight / 2, winWidth, winHeight);
 			}
 			else
 			{
-				position = new Rect(pref.FixedPosition.x, pref.FixedPosition.y, WinWidth, WinHeight);
+				position = new Rect(pref.FixedPosition.x, pref.FixedPosition.y, winWidth, winHeight);
 			}
 		}
 

@@ -12,11 +12,11 @@ namespace PCP.WhichKey.Types
 			mKeySeq.Push(key);
 			HandleKeyWithDepth(key);
 			if (maxDepth > 0 && CheckDepth())
-				MyWindow.Close();
+				window.Close();
 			else
 			{
 				UpdateWindow();
-				MyWindow.UpdateHints();
+				window.UpdateHints();
 			}
 		}
 
