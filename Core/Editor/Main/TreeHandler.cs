@@ -49,7 +49,7 @@ namespace PCP.WhichKey.Core
 			if (kn == null)
 			{
 				WkLogger.LogInfo($"KeySeq {mKeyLabel} not found");
-				mWindow.Close();
+				MyWindow.Close();
 			}
 			else if (kn.Type == 0)
 			{
@@ -62,7 +62,7 @@ namespace PCP.WhichKey.Core
 				if (cmd == null)
 				{
 					WkLogger.LogError($"KeySeq {mKeyLabel} has no command");
-					mWindow.Close();
+					MyWindow.Close();
 					return;
 				}
 				try
@@ -73,14 +73,14 @@ namespace PCP.WhichKey.Core
 				{
 					WkLogger.LogError($"KeySeq {mKeyLabel} execute failed\n{e}");
 				}
-				if (cmd.isEnd) mWindow.Close();
+				if (cmd.isEnd) MyWindow.Close();
 			}
 		}
 
 		protected override void UpdateWindow()
 		{
-			mWindow.Hints = GetLayerHints();
-			mWindow.Title = GetLayerName();
+			MyWindow.Hints = GetLayerHints();
+			MyWindow.Title = GetLayerName();
 		}
 
 		public LayerHint[] GetLayerHints()
@@ -177,7 +177,7 @@ namespace PCP.WhichKey.Core
 			mCurrentHandler = handler;
 			if (depth > 0)
 				maxDepth = mKeySeq.Count + depth;
-			mWindow.OverreideSets(handler.Timeout, handler.ColWidth);
+			MyWindow.OverreideSets(handler.Timeout, handler.ColWidth);
 			// if (handler is IWkWinModifier modifer)
 			// {
 			// 	if (mWindow == null)
