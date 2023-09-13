@@ -16,8 +16,6 @@ namespace PCP.WhichKey.Core
 		//Maybe a structure
 		//OPT
 		internal static float lineHeight;
-		private static bool followMouse;
-		private static Vector2 fixedPosition;
 		private static int maxHintLines;
 		private static float maxColWidth;
 		private static VisualTreeAsset hintLabel;
@@ -51,8 +49,6 @@ namespace PCP.WhichKey.Core
 
 			var pref = WhichKeyPreferences.instance;
 			var uil = UILoader.instance;
-			followMouse = pref.WindowFollowMouse;
-			fixedPosition = pref.FixedPosition;
 			maxHintLines = pref.MaxHintLines;
 			maxColWidth = pref.ColWidth;
 			hintLabel = uil.HintLabel;
@@ -136,16 +132,7 @@ namespace PCP.WhichKey.Core
 					labelFrame.Add(col);
 				}
 			}
-
-			if (followMouse)
-			{
-				Vector2 mousePos = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
-				position = new Rect(mousePos.x - mWidth / 2, mousePos.y - mHeight / 2, mWidth, mHeight);
-			}
-			else
-			{
-				position = new Rect(fixedPosition.x, fixedPosition.y, mWidth, mHeight);
-			}
+			SetWindowPosition();
 		}
 	}
 }
