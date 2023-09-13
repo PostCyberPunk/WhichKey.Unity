@@ -22,9 +22,5 @@ namespace PCP.WhichKey.Types
 			window.position = new Rect(0, 0, 0, 0);
 		}
 
-		public override void CloseWindow()
-		{
-			window.Close();
-		}
 	}
 }
