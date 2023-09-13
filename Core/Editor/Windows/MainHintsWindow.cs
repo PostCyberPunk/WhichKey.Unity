@@ -33,7 +33,7 @@ namespace PCP.WhichKey.Core
 		public void OverreideSets(float timeout, float colWidth)
 		{
 			if (timeout >= 0)
-				timeoutLen = timeout;
+				TimeoutLen = timeout;
 			if (colWidth >= 0)
 				mColWidth = colWidth;
 			UpdateDelayTimer();
@@ -98,23 +98,23 @@ namespace PCP.WhichKey.Core
 			labelFrame.Clear();
 			if (Hints.Length == 0)
 			{
-				mHeight = lineHeight + 2 * mainFrame.resolvedStyle.paddingTop;
-				mWidth = mColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
-				maxSize = new Vector2(mWidth, mHeight);
+				WinHeight = lineHeight + 2 * mainFrame.resolvedStyle.paddingTop;
+				WinWidth = mColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
+				maxSize = new Vector2(WinWidth, WinHeight);
 			}
 			else
 			{
-				mHeight = lineHeight * (maxHintLines + 1) + 2 * mainFrame.resolvedStyle.paddingTop;
+				WinHeight = lineHeight * (maxHintLines + 1) + 2 * mainFrame.resolvedStyle.paddingTop;
 				var cols = Mathf.CeilToInt((float)Hints.Length / maxHintLines);
-				mWidth = cols * mColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
-				maxSize = new Vector2(mWidth, mHeight);
+				WinWidth = cols * mColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
+				maxSize = new Vector2(WinWidth, WinHeight);
 
 				for (int j = 0; j < cols; j++)
 				{
 					var col = new VisualElement();
 					col.style.flexDirection = FlexDirection.Column;
 					col.style.width = mColWidth;
-					col.style.height = mHeight;
+					col.style.height = WinHeight;
 					for (int i = 0; i < maxHintLines; i++)
 					{
 						int ind = i + j * maxHintLines;

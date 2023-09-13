@@ -8,19 +8,19 @@ namespace PCP.WhichKey.Types
 	{
 		//FIXME
 		private static WhichKeyPreferences pref => WhichKeyPreferences.instance;
-		protected float DefaultTimeoutLen => pref.Timeout;
 		private bool keyReleased = true;
 		private KeyCode prevKey;
 		private float hideTill;
 		private bool showHint;
 		private bool _changeUI;
 		private bool needClose;
-		protected float mWidth;
-		protected float mHeight;
-		protected float timeoutLen;
+		protected float DefaultTimeoutLen => pref.Timeout;
+		protected float WinWidth;
+		protected float WinHeight;
+		protected float TimeoutLen;
 		public virtual void OnActive()
 		{
-			timeoutLen = DefaultTimeoutLen;
+			TimeoutLen = DefaultTimeoutLen;
 		}
 
 		protected virtual void DummyWindow()
@@ -116,7 +116,7 @@ namespace PCP.WhichKey.Types
 		public void UpdateDelayTimer()
 		{
 			if (!showHint)
-				hideTill = Time.realtimeSinceStartup + timeoutLen;
+				hideTill = Time.realtimeSinceStartup + TimeoutLen;
 		}
 
 		private void CheckDelayTimer()
@@ -135,11 +135,11 @@ namespace PCP.WhichKey.Types
 			if (pref.WindowFollowMouse)
 			{
 				Vector2 mousePos = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
-				position = new Rect(mousePos.x - mWidth / 2, mousePos.y - mHeight / 2, mWidth, mHeight);
+				position = new Rect(mousePos.x - WinWidth / 2, mousePos.y - WinHeight / 2, WinWidth, WinHeight);
 			}
 			else
 			{
-				position = new Rect(pref.FixedPosition.x, pref.FixedPosition.y, mWidth, mHeight);
+				position = new Rect(pref.FixedPosition.x, pref.FixedPosition.y, WinWidth, WinHeight);
 			}
 		}
 
