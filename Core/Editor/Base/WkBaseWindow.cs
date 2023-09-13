@@ -7,15 +7,16 @@ namespace PCP.WhichKey.Types
 	public abstract class WkBaseWindow : EditorWindow
 	{
 		//FIXME
-		protected float DefaultTimeoutLen => WhichKeyPreferences.instance.Timeout;
+		private static WhichKeyPreferences pref => WhichKeyPreferences.instance;
 		private bool keyReleased = true;
 		private KeyCode prevKey;
 		private float hideTill;
 		private bool showHint;
 		private bool _changeUI;
 		private bool needClose;
-		protected float mWidth;
-		protected float mHeight;
+		protected float DefaultTimeoutLen => pref.Timeout;
+		protected float winWidth;
+		protected float winHeight;
 		protected float timeoutLen;
 		public virtual void OnActive()
 		{
@@ -127,6 +128,18 @@ namespace PCP.WhichKey.Types
 				//OPT cant get mouse position here,need to find a way to get mouse position
 				_changeUI = true;
 				Repaint();
+			}
+		}
+		protected void SetWindowPosition()
+		{
+			if (pref.WindowFollowMouse)
+			{
+				Vector2 mousePos = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
+				position = new Rect(mousePos.x - winWidth / 2, mousePos.y - winHeight / 2, winWidth, winHeight);
+			}
+			else
+			{
+				position = new Rect(pref.FixedPosition.x, pref.FixedPosition.y, winWidth, winHeight);
 			}
 		}
 

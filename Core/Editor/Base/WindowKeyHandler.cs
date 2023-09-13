@@ -5,26 +5,22 @@ namespace PCP.WhichKey.Types
 {
 	public abstract class WindowKeyHandler<T> : BaseWinKeyHandler where T : WkBaseWindow
 	{
-		protected T mWindow;
+		protected T window;
 
 		public override void ShowWindow()
 		{
-			if (mWindow == null)
+			if (window == null)
 			{
-				mWindow = ScriptableObject.CreateInstance<T>();
+				window = ScriptableObject.CreateInstance<T>();
 			}
 
-			mWindow.OnActive();
-			mWindow.UpdateDelayTimer();
+			window.OnActive();
+			window.UpdateDelayTimer();
 
-			mWindow.ShowPopup();
-			mWindow.minSize = new Vector2(0, 0);
-			mWindow.position = new Rect(0, 0, 0, 0);
+			window.ShowPopup();
+			window.minSize = new Vector2(0, 0);
+			window.position = new Rect(0, 0, 0, 0);
 		}
 
-		public override void CloseWindow()
-		{
-			mWindow.Close();
-		}
 	}
 }

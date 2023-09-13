@@ -16,8 +16,6 @@ namespace PCP.WhichKey.Core
 		//Maybe a structure
 		//OPT
 		internal static float lineHeight;
-		private static bool followMouse;
-		private static Vector2 fixedPosition;
 		private static int maxHintLines;
 		private static float maxColWidth;
 		private static VisualTreeAsset hintLabel;
@@ -51,8 +49,6 @@ namespace PCP.WhichKey.Core
 
 			var pref = WhichKeyPreferences.instance;
 			var uil = UILoader.instance;
-			followMouse = pref.WindowFollowMouse;
-			fixedPosition = pref.FixedPosition;
 			maxHintLines = pref.MaxHintLines;
 			maxColWidth = pref.ColWidth;
 			hintLabel = uil.HintLabel;
@@ -102,23 +98,23 @@ namespace PCP.WhichKey.Core
 			labelFrame.Clear();
 			if (Hints.Length == 0)
 			{
-				mHeight = lineHeight + 2 * mainFrame.resolvedStyle.paddingTop;
-				mWidth = mColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
-				maxSize = new Vector2(mWidth, mHeight);
+				winHeight = lineHeight + 2 * mainFrame.resolvedStyle.paddingTop;
+				winWidth = mColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
+				maxSize = new Vector2(winWidth, winHeight);
 			}
 			else
 			{
-				mHeight = lineHeight * (maxHintLines + 1) + 2 * mainFrame.resolvedStyle.paddingTop;
+				winHeight = lineHeight * (maxHintLines + 1) + 2 * mainFrame.resolvedStyle.paddingTop;
 				var cols = Mathf.CeilToInt((float)Hints.Length / maxHintLines);
-				mWidth = cols * mColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
-				maxSize = new Vector2(mWidth, mHeight);
+				winWidth = cols * mColWidth + mainFrame.resolvedStyle.paddingLeft * 2;
+				maxSize = new Vector2(winWidth, winHeight);
 
 				for (int j = 0; j < cols; j++)
 				{
 					var col = new VisualElement();
 					col.style.flexDirection = FlexDirection.Column;
 					col.style.width = mColWidth;
-					col.style.height = mHeight;
+					col.style.height = winHeight;
 					for (int i = 0; i < maxHintLines; i++)
 					{
 						int ind = i + j * maxHintLines;
@@ -136,16 +132,7 @@ namespace PCP.WhichKey.Core
 					labelFrame.Add(col);
 				}
 			}
-
-			if (followMouse)
-			{
-				Vector2 mousePos = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
-				position = new Rect(mousePos.x - mWidth / 2, mousePos.y - mHeight / 2, mWidth, mHeight);
-			}
-			else
-			{
-				position = new Rect(fixedPosition.x, fixedPosition.y, mWidth, mHeight);
-			}
+			SetWindowPosition();
 		}
 	}
 }
