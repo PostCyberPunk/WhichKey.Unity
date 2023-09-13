@@ -1,4 +1,4 @@
-namespace PCP.WhichKey.Core
+namespace PCP.WhichKey.Types
 {
 	public abstract class BaseWinKeyHandler
 	{
