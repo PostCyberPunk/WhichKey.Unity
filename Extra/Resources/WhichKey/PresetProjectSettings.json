@@ -1,0 +1,30 @@
+{
+    "LayerMap": [],
+    "MenuMap": [],
+    "KeyMap": [
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    102,
+                    97
+                ],
+                "_keyLabel": "f a "
+            },
+            "Hint": "AssetNav",
+            "CmdArg": "0",
+            "CmdType": 11
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    102,
+                    65
+                ],
+                "_keyLabel": "f A "
+            },
+            "Hint": "AssetNavSet",
+            "CmdArg": "0",
+            "CmdType": 12
+        }
+    ]
+}

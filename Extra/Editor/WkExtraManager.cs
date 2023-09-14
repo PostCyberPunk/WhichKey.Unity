@@ -5,6 +5,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using PCP.WhichKey.Log;
+using PCP.WhichKey.Core;
 
 namespace PCP.WhichKey.Extra
 {
@@ -54,6 +55,17 @@ namespace PCP.WhichKey.Extra
 		{
 			instance.SceneNav = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/SceneNav");
 			instance.NavSet = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/NavSet");
+		}
+		[MenuItem("WhichKey/Extra/Load Quickstart Example", false, 1)]
+		public static void LoadKeyMap()
+		{
+			WhichKeyPreferences.instance.LoadFromJson("Packages/com.postcyberpunk.whichkey/Extra/Resources/WhichKey/PresetPreferences.json");
+			WhichkeyProjectSettings.instance.LoadFromJson("Packages/com.postcyberpunk.whichkey/Extra/Resources/WhichKey/PresetProjectSettings.json");
+			var path = "Assets/AssetNavDemo.asset";
+			AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<AssetsNavData>(), path);
+			AssetDatabase.SaveAssets();
+			instance.NavAssetsDatas = new AssetsNavData[1] { AssetDatabase.LoadAssetAtPath<AssetsNavData>(path) };
+			Save();
 		}
 		#endregion
 

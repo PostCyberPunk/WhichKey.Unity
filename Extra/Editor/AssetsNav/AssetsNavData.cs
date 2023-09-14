@@ -7,7 +7,7 @@ namespace PCP.WhichKey.Extra
     [CreateAssetMenu(fileName = "AssetsNavData", menuName = "Whichkey/AssetsNavData", order = 1)]
     public class AssetsNavData : ScriptableObject
     {
-        public LayerHint[] LayerHints;
+        public LayerHint[] LayerHints = new LayerHint[0];
         [SerializeField] private List<AssetNavSet> NavSetList = new();
         public string GetAssetsPathByKey(int key)
         {
