@@ -3,7 +3,6 @@ using UnityEngine.UIElements;
 using PCP.WhichKey.Types;
 using PCP.WhichKey.Log;
 using PCP.WhichKey.UI;
-
 namespace PCP.WhichKey.Core
 {
 	internal class MainHintsWindow : WkBaseWindow
@@ -120,6 +119,7 @@ namespace PCP.WhichKey.Core
 						int ind = i + j * maxHintLines;
 						if (ind >= Hints.Length) break;
 						var row = hintLabel.CloneTree().Q<VisualElement>();
+						row.styleSheets.Add(hintLabelSS);
 						var k = row.Q<Label>("Key");
 						var h = row.Q<Label>("Hint");
 						k.text = Hints[ind].KeyLabel;
