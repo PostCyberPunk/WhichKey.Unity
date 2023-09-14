@@ -1,4 +1,5 @@
 using PCP.WhichKey.Types;
+using System.Linq;
 namespace PCP.WhichKey.Extra
 {
     [System.Serializable]
@@ -10,7 +11,7 @@ namespace PCP.WhichKey.Extra
         public AssetNavSet(int key, string path)
         {
             Key = new int[] { key };
-            Hint = path;
+            Hint = path.Split("/").Last();
             AssetPath = path;
         }
     }

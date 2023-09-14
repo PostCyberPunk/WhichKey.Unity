@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using PCP.WhichKey.Types;
 using UnityEngine;
 namespace PCP.WhichKey.Extra
@@ -26,7 +27,7 @@ namespace PCP.WhichKey.Extra
                 if (item.Key == key)
                 {
                     item.AssetPath = path;
-                    item.Hint = path;
+                    item.Hint = path.Split("/").Last();
                     NavSetList[i] = item;
                     // UpdateLayerHints(i);
                     OnAssetsChange();
