@@ -1,9 +1,9 @@
 .main {
-    background-color: rgb(30, 30, 46);
-    border-left-color: rgb(24, 24, 37);
-    border-right-color: rgb(24, 24, 37);
-    border-top-color: rgb(24, 24, 37);
-    border-bottom-color: rgb(24, 24, 37);
+    background-color: rgb(56, 56, 56);
+    border-left-color: rgb(47, 47, 47);
+    border-right-color: rgb(47, 47, 47);
+    border-top-color: rgb(47, 47, 47);
+    border-bottom-color: rgb(47, 47, 47);
     border-left-width: 5px;
     border-right-width: 5px;
     border-top-width: 5px;
@@ -23,10 +23,10 @@
     flex-direction: row;
     padding-top: 0;
     padding-bottom: 0;
-    border-left-color: rgb(24, 24, 37);
-    border-right-color: rgb(24, 24, 37);
-    border-top-color: rgb(24, 24, 37);
-    border-bottom-color: rgb(24, 24, 37);
+    border-left-color: rgb(47, 47, 47);
+    border-right-color: rgb(47, 47, 47);
+    border-top-color: rgb(47, 47, 47);
+    border-bottom-color: rgb(47, 47, 47);
     border-left-width: 2px;
     border-right-width: 2px;
     border-top-width: 2px;
@@ -37,14 +37,14 @@
 
 .key {
     font-size: 20px;
-    color: rgb(203, 166, 247);
+    color: rgb(210, 210, 210);
     width: auto;
-    background-color: rgb(24, 24, 37);
+    background-color: rgb(42, 42, 42);
     -unity-text-align: middle-center;
-    border-left-color: rgb(49, 50, 68);
-    border-right-color: rgb(49, 50, 68);
-    border-top-color: rgb(49, 50, 68);
-    border-bottom-color: rgb(49, 50, 68);
+    border-left-color: rgb(91, 91, 91);
+    border-right-color: rgb(91, 91, 91);
+    border-top-color: rgb(91, 91, 91);
+    border-bottom-color: rgb(91, 91, 91);
     border-left-width: 3px;
     border-right-width: 3px;
     border-top-width: 3px;
@@ -65,7 +65,7 @@
 
 .title {
     font-size: 20px;
-    color: rgb(245, 194, 231);
+    color: rgb(166, 173, 200);
     white-space: nowrap;
     align-self: center;
     -unity-font-style: bold;

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using PCP.WhichKey.Log;
+using PCP.WhichKey.Core;
 
 namespace PCP.WhichKey.UI
 {
@@ -29,7 +30,7 @@ namespace PCP.WhichKey.UI
 
 		public StyleSheet HintLabelSS { private set; get; }
 
- 
+
 		public UILoader()
 		{
 			if (instance != null)
@@ -53,9 +54,12 @@ namespace PCP.WhichKey.UI
 			LayerSet = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/LayerSet");
 			MenuSet = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/MenuSet");
 
-			HintLabel = Resources.Load<VisualTreeAsset>("WhichKey/UXML/UI/HintLabel");
 			KeyLabel = Resources.Load<VisualTreeAsset>("WhichKey/UXML/Templates/KeyLabel");
-			HintLabelSS = Resources.Load<StyleSheet>("WhichKey/UXML/UI/HintLabelSS");
+			HintLabel = Resources.Load<VisualTreeAsset>("WhichKey/UXML/UI/HintLabel");
+			if (WhichkeyProjectSettings.instance?.HintLabelSS != null)
+				HintLabelSS = WhichkeyProjectSettings.instance.HintLabelSS;
+			else
+				HintLabelSS = Resources.Load<StyleSheet>("WhichKey/UXML/UI/HintLabelSS");
 
 		}
 	}
