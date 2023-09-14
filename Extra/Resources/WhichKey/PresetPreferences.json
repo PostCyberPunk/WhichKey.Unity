@@ -1,0 +1,403 @@
+{
+    "LayerMap": [
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    113
+                ],
+                "_keyLabel": "q "
+            },
+            "Hint": "Project",
+            "CmdArg": "",
+            "CmdType": 0
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    119
+                ],
+                "_keyLabel": "w "
+            },
+            "Hint": "Window",
+            "CmdArg": "",
+            "CmdType": 0
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    101
+                ],
+                "_keyLabel": "e "
+            },
+            "Hint": "Edit",
+            "CmdArg": "",
+            "CmdType": 0
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    114
+                ],
+                "_keyLabel": "r "
+            },
+            "Hint": "Rfresh/RigidBody",
+            "CmdArg": "",
+            "CmdType": 0
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    97
+                ],
+                "_keyLabel": "a "
+            },
+            "Hint": "Asset",
+            "CmdArg": "",
+            "CmdType": 0
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    115
+                ],
+                "_keyLabel": "s "
+            },
+            "Hint": "Scene",
+            "CmdArg": "",
+            "CmdType": 0
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    102
+                ],
+                "_keyLabel": "f "
+            },
+            "Hint": "Find",
+            "CmdArg": "",
+            "CmdType": 0
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    103
+                ],
+                "_keyLabel": "g "
+            },
+            "Hint": "Game/GameObject",
+            "CmdArg": "",
+            "CmdType": 0
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    122
+                ],
+                "_keyLabel": "z "
+            },
+            "Hint": "More",
+            "CmdArg": "",
+            "CmdType": 0
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    120
+                ],
+                "_keyLabel": "x "
+            },
+            "Hint": "Application",
+            "CmdArg": "",
+            "CmdType": 0
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    99
+                ],
+                "_keyLabel": "c "
+            },
+            "Hint": "Componet/Console",
+            "CmdArg": "",
+            "CmdType": 0
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    118
+                ],
+                "_keyLabel": "v "
+            },
+            "Hint": "View",
+            "CmdArg": "",
+            "CmdType": 0
+        }
+    ],
+    "MenuMap": [
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    98
+                ],
+                "_keyLabel": "b "
+            },
+            "Hint": "Build",
+            "CmdArg": "/File/Build Settings...",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    113,
+                    115
+                ],
+                "_keyLabel": "q s "
+            },
+            "Hint": "Project Settngs",
+            "CmdArg": "/Edit/Project Settings...",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    119,
+                    100
+                ],
+                "_keyLabel": "w d "
+            },
+            "Hint": "Close",
+            "CmdArg": "/Window/Panels/Close all floating panels...",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    119,
+                    113
+                ],
+                "_keyLabel": "w q "
+            },
+            "Hint": "Project",
+            "CmdArg": "/Window/General/Project",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    119,
+                    115
+                ],
+                "_keyLabel": "w s "
+            },
+            "Hint": "SceneView",
+            "CmdArg": "/Window/General/Scene",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    119,
+                    103
+                ],
+                "_keyLabel": "w g "
+            },
+            "Hint": "GameView",
+            "CmdArg": "/Window/General/Game",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    119,
+                    120
+                ],
+                "_keyLabel": "w x "
+            },
+            "Hint": "Package",
+            "CmdArg": "/Window/Package Manager",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    119,
+                    116
+                ],
+                "_keyLabel": "w t "
+            },
+            "Hint": "Hierarchy(Tree)",
+            "CmdArg": "/Window/General//Window/General/Hierarchy",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    101,
+                    115
+                ],
+                "_keyLabel": "e s "
+            },
+            "Hint": "Shortcuts",
+            "CmdArg": "/Edit/Shortcuts...",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    97,
+                    115
+                ],
+                "_keyLabel": "a s "
+            },
+            "Hint": "C# script",
+            "CmdArg": "/Assets/Create/C# Script",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    97,
+                    102
+                ],
+                "_keyLabel": "a f "
+            },
+            "Hint": "Folder",
+            "CmdArg": "/Assets/Create/Folder",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    97,
+                    116
+                ],
+                "_keyLabel": "a t "
+            },
+            "Hint": "Material",
+            "CmdArg": "/Assets/Create/Material",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    97,
+                    97
+                ],
+                "_keyLabel": "a a "
+            },
+            "Hint": "Properties",
+            "CmdArg": "/Assets/Properties...",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    115,
+                    119
+                ],
+                "_keyLabel": "s w "
+            },
+            "Hint": "Scene Nav Window",
+            "CmdArg": "/WhichKey/Extra/SceneNav Setting",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    102,
+                    102
+                ],
+                "_keyLabel": "f f "
+            },
+            "Hint": "Find(Serach all)",
+            "CmdArg": "/Edit/Search All...",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    103,
+                    103
+                ],
+                "_keyLabel": "g g "
+            },
+            "Hint": "Play",
+            "CmdArg": "/Edit/Play",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    103,
+                    101
+                ],
+                "_keyLabel": "g e "
+            },
+            "Hint": "Empty",
+            "CmdArg": "/GameObject/Create Empty",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    103,
+                    97
+                ],
+                "_keyLabel": "g a "
+            },
+            "Hint": "Active",
+            "CmdArg": "/GameObject/Toggle Active State",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    120,
+                    115
+                ],
+                "_keyLabel": "x s "
+            },
+            "Hint": "Preferences",
+            "CmdArg": "/Edit/Preferences...",
+            "CmdType": 1
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    118,
+                    97
+                ],
+                "_keyLabel": "v a "
+            },
+            "Hint": "Move To View",
+            "CmdArg": "/GameObject/Move To View",
+            "CmdType": 1
+        }
+    ],
+    "KeyMap": [
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    102,
+                    115
+                ],
+                "_keyLabel": "f s "
+            },
+            "Hint": "Scene Nav",
+            "CmdArg": "",
+            "CmdType": 13
+        },
+        {
+            "KeySeq": {
+                "_keySeq": [
+                    102,
+                    83
+                ],
+                "_keyLabel": "f S "
+            },
+            "Hint": "Scene Nav Set",
+            "CmdArg": "",
+            "CmdType": 14
+        }
+    ]
+}
