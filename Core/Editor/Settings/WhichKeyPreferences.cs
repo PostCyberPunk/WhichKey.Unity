@@ -4,7 +4,7 @@ using PCP.WhichKey.Log;
 
 namespace PCP.WhichKey.Core
 {
-	[FilePath("Preferences/WhichkeyPreferences.asset", FilePathAttribute.Location.PreferencesFolder)]
+	[FilePath("WhichKey/Preferences.asset", FilePathAttribute.Location.PreferencesFolder)]
 	public class WhichKeyPreferences : WkSettingBase<WhichKeyPreferences>
 	{
 		public float Timeout = 0;
