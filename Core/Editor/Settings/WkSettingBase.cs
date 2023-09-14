@@ -34,13 +34,14 @@ namespace PCP.WhichKey.Core
 			WhichKeyManager.instance.Refresh();
 		}
 
-		public void LoadFromJson()
+		public void LoadFromJson() => LoadFromJson($"Assets/{jsonName}.json");
+		public void LoadFromJson(string path)
 		{
 			AssetDatabase.Refresh();
-			TextAsset jsonFile = AssetDatabase.LoadAssetAtPath<TextAsset>($"Assets/{jsonName}.json");
+			TextAsset jsonFile = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
 			if (jsonFile == null)
 			{
-				WkLogger.LogError($"{jsonName}.json not found");
+				WkLogger.LogError($"{path} not found");
 				return;
 			}
 
@@ -48,13 +49,13 @@ namespace PCP.WhichKey.Core
 			MenuMap = JsonUtility.FromJson<JSONArrayWrapper<KeySet>>(jsonFile.text).MenuMap;
 			KeyMap = JsonUtility.FromJson<JSONArrayWrapper<KeySet>>(jsonFile.text).KeyMap;
 		}
-
-		public void SaveToJson()
+		public void SaveToJson() => SaveToJson($"Assets/{jsonName}.json");
+		public void SaveToJson(string path)
 		{
 			JSONArrayWrapper<KeySet> keySetsWrapper = new JSONArrayWrapper<KeySet>(LayerMap, MenuMap, KeyMap);
 			string json = JsonUtility.ToJson(keySetsWrapper, true);
-			WkLogger.LogInfo($"Saved {json}");
-			System.IO.File.WriteAllText($"Assets/{jsonName}.json", json);
+			WkLogger.LogInfo($"Saved {path}");
+			System.IO.File.WriteAllText(path, json);
 			AssetDatabase.Refresh();
 		}
 	}
