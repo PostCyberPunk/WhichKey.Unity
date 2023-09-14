@@ -1,5 +1,12 @@
 # ⚡ WhichKey.Unity
 vim-like key sequence shortcut manager for unity inspired by whichkey.nvim.**faster** and **better** way to control Unity
+![showcase-s](https://github.com/PostCyberPunk/WhichKey.Unity/assets/134976996/0bd1dec9-9239-4a88-ae3e-8108680ab0de)
+![sv-s](https://github.com/PostCyberPunk/WhichKey.Unity/assets/134976996/20693c41-47ae-4f22-81de-9533fbd27182)
+![fa-s](https://github.com/PostCyberPunk/WhichKey.Unity/assets/134976996/a5bd8af1-f52b-42dc-93c3-8012565b46b7)
+![ad-s](https://github.com/PostCyberPunk/WhichKey.Unity/assets/134976996/da2ccc49-ee31-4e0b-87a8-c84d06234d2c)
+
+
+
 ## ❓What is WhichKey and why
 ### 1. More shortcuts and esay to remember<br>
 Instead of using modifiers key combination,WhichKey accepts key sequence follow by ``Active``,for example you assign ``Space`` as your active key:
