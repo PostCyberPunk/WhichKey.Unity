@@ -34,7 +34,7 @@ WhichKey还在开发状态，可能会有很多更新，建议使用OpenUPM安�
 - 添加 Scoped Registry:
   ```
   Name: OpenUPM
-  URL:  https://package.openupm.com/
+  URL:  https://package.openupm.cn/
   Scope(s): com.postcyberpunk.whichkey
   ```
 - 点击<kbd>Save</kbd>
