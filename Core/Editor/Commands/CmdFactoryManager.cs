@@ -9,10 +9,11 @@ namespace PCP.WhichKey.Core
 {
 	public class CmdFactoryManager
 	{
-		private Dictionary<int, WKCommandFactory> FactoryMap = new Dictionary<int, WKCommandFactory>();
+		private static Dictionary<int, WKCommandFactory> FactoryMap = new Dictionary<int, WKCommandFactory>();
 
 		//BAD
 		public static Dictionary<int, string> CommandTypeMap = new Dictionary<int, string>();
+
 
 		public CmdFactoryManager()
 		{
@@ -61,6 +62,18 @@ namespace PCP.WhichKey.Core
 					WkLogger.LogError($"Command Factory <color=red>{id}</color> create command failed\n{e}");
 				}
 				return cmd;
+			}
+			else
+			{
+				WkLogger.LogError($"Command Factory <color=red>{id}</color> not found");
+				return null;
+			}
+		}
+		public static WKCommandFactory GetFactory(int id)
+		{
+			if (FactoryMap.ContainsKey(id))
+			{
+				return FactoryMap[id];
 			}
 			else
 			{
