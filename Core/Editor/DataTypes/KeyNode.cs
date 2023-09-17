@@ -9,7 +9,6 @@ namespace PCP.WhichKey.Core
 	internal class KeyNode
 	{
 		public static int maxLine;
-		// private static readonly string layerHintFormat = "<color=yellow>{0}</color>  {1}\n";
 		public int Key { private set; get; }
 		public string Hint { private set; get; }
 		public string CmdArg { private set; get; }
@@ -106,30 +105,5 @@ namespace PCP.WhichKey.Core
 			}
 		}
 
-		// public void SetCachedLayerHints()
-		// {
-		// 	if (!hasChildren) return;
-		// 	LayerHints = new string[Mathf.CeilToInt(Children.Count / (float)maxLine)];
-		// 	StringBuilder sb = new StringBuilder();
-		// 	int i = 1;
-		// 	foreach (var child in Children)
-		// 	{
-		// 		child.SetCachedLayerHints();
-		// 		sb.AppendFormat(layerHintFormat, child.Key, child.Hint);
-		// 		if (i % maxLine == 0)
-		// 		{
-		// 			LayerHints[i / maxLine - 1] = sb.ToString();
-		// 			sb.Clear();
-		// 		}
-
-		// 		i++;
-		// 	}
-
-		// 	if (sb.Length > 0)
-		// 	{
-		// 		LayerHints[Mathf.FloorToInt(i / maxLine)] = sb.ToString();
-		// 		sb.Clear();
-		// 	}
-		// }
 	}
 }

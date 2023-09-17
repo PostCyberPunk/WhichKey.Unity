@@ -4,156 +4,160 @@ using Debug = UnityEngine.Debug;
 
 namespace PCP.WhichKey
 {
-	public interface IWkHintWindow
+	internal class Designer
 	{
-		int mDepth => -1;
-		float maxCol => WhichKeyPreferences.instance.ColWidth;
-		float timeOutLen => WhichKeyPreferences.instance.Timeout;
-		void Close();
-		void ForceClose();
-	}
 
-	// public abstract class WKCmdArg
-	// {
-	//     public string ArgStr;
-	//     public int ArgInt;
-	//     public abstract void Save();
-	//     public abstract void Load();
-	// }
-	// public interface WKHintSource
-	// {
-	//     String[] GetHint();
-	// }
-	// Cmd Factory Vs Cmd
-	public class SourceData
-	{
-		public List<string> mData = new() { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
-	}
-
-	public class PlanA
-	{
-		public interface CMD
+		public interface IWkHintWindow
 		{
-			void Excute();
+			int mDepth => -1;
+			float maxCol => WhichKeyPreferences.instance.ColWidth;
+			float timeOutLen => WhichKeyPreferences.instance.Timeout;
+			void Close();
+			void ForceClose();
 		}
 
-		public abstract class CmdFactory
+		// public abstract class WKCmdArg
+		// {
+		//     public string ArgStr;
+		//     public int ArgInt;
+		//     public abstract void Save();
+		//     public abstract void Load();
+		// }
+		// public interface WKHintSource
+		// {
+		//     String[] GetHint();
+		// }
+		// Cmd Factory Vs Cmd
+		public class SourceData
 		{
-			public abstract CMD Create(string data);
+			public List<string> mData = new() { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
 		}
-	}
 
-	public class ImplA
-	{
-		public class Cmd : PlanA.CMD
+		public class PlanA
 		{
-			public int mInt;
-
-			public Cmd(int arg)
+			public interface CMD
 			{
-				this.mInt = arg;
+				void Excute();
 			}
 
-			public void Excute()
+			public abstract class CmdFactory
 			{
-				Debug.Log(mInt + 1);
+				public abstract CMD Create(string data);
 			}
 		}
 
-		public class cmdfactoryImpl : PlanA.CmdFactory
+		public class ImplA
 		{
-			public override PlanA.CMD Create(string data)
+			public class Cmd : PlanA.CMD
 			{
-				if (int.TryParse(data, out int intger))
-					return (new Cmd(intger));
-				else return null;
-			}
-		}
-	}
+				public int mInt;
 
-	public class ApplicationA
-	{
-		public SourceData sourceData;
-		public PlanA.CmdFactory cmdFactory;
+				public Cmd(int arg)
+				{
+					this.mInt = arg;
+				}
 
-		public List<PlanA.CMD> cmdList = new();
-
-		void Init()
-		{
-			sourceData = new SourceData();
-			cmdFactory = new ImplA.cmdfactoryImpl();
-			foreach (var item in sourceData.mData)
-			{
-				var cmd = cmdFactory.Create(item);
-				if (cmd != null)
-					cmdList.Add(cmd);
-			}
-		}
-
-		void Excute()
-		{
-			foreach (var item in cmdList)
-			{
-				item.Excute();
-			}
-		}
-	}
-
-	public class PlanB
-	{
-		public abstract class Cmd
-		{
-			public abstract Arg CreateMyArg(string arg);
-			public abstract void Excute(Arg arg);
-		}
-
-		public class Arg
-		{
-			public int Data;
-		}
-	}
-
-	public class ImplementB
-	{
-		public class Cmd : PlanB.Cmd
-		{
-			public override PlanB.Arg CreateMyArg(string arg)
-			{
-				if (int.TryParse(arg, out int intger))
-					return (new PlanB.Arg() { Data = intger });
-				else return null;
+				public void Excute()
+				{
+					Debug.Log(mInt + 1);
+				}
 			}
 
-			public override void Excute(PlanB.Arg arg)
+			public class cmdfactoryImpl : PlanA.CmdFactory
 			{
-				Debug.Log(arg.Data + 1);
-			}
-		}
-	}
-
-	public class ApplicationB
-	{
-		public SourceData sourceData;
-		public PlanB.Cmd mCmd;
-		public List<PlanB.Arg> mArgList = new();
-
-		void Init()
-		{
-			sourceData = new SourceData();
-			mCmd = new ImplementB.Cmd();
-			foreach (var item in sourceData.mData)
-			{
-				var arg = mCmd.CreateMyArg(item);
-				if (arg != null)
-					mArgList.Add(arg);
+				public override PlanA.CMD Create(string data)
+				{
+					if (int.TryParse(data, out int intger))
+						return (new Cmd(intger));
+					else return null;
+				}
 			}
 		}
 
-		void Excute()
+		public class ApplicationA
 		{
-			foreach (var item in mArgList)
+			public SourceData sourceData;
+			public PlanA.CmdFactory cmdFactory;
+
+			public List<PlanA.CMD> cmdList = new();
+
+			void Init()
 			{
-				mCmd.Excute(item);
+				sourceData = new SourceData();
+				cmdFactory = new ImplA.cmdfactoryImpl();
+				foreach (var item in sourceData.mData)
+				{
+					var cmd = cmdFactory.Create(item);
+					if (cmd != null)
+						cmdList.Add(cmd);
+				}
+			}
+
+			void Excute()
+			{
+				foreach (var item in cmdList)
+				{
+					item.Excute();
+				}
+			}
+		}
+
+		public class PlanB
+		{
+			public abstract class Cmd
+			{
+				public abstract Arg CreateMyArg(string arg);
+				public abstract void Excute(Arg arg);
+			}
+
+			public class Arg
+			{
+				public int Data;
+			}
+		}
+
+		public class ImplementB
+		{
+			public class Cmd : PlanB.Cmd
+			{
+				public override PlanB.Arg CreateMyArg(string arg)
+				{
+					if (int.TryParse(arg, out int intger))
+						return (new PlanB.Arg() { Data = intger });
+					else return null;
+				}
+
+				public override void Excute(PlanB.Arg arg)
+				{
+					Debug.Log(arg.Data + 1);
+				}
+			}
+		}
+
+		public class ApplicationB
+		{
+			public SourceData sourceData;
+			public PlanB.Cmd mCmd;
+			public List<PlanB.Arg> mArgList = new();
+
+			void Init()
+			{
+				sourceData = new SourceData();
+				mCmd = new ImplementB.Cmd();
+				foreach (var item in sourceData.mData)
+				{
+					var arg = mCmd.CreateMyArg(item);
+					if (arg != null)
+						mArgList.Add(arg);
+				}
+			}
+
+			void Excute()
+			{
+				foreach (var item in mArgList)
+				{
+					mCmd.Excute(item);
+				}
 			}
 		}
 	}
