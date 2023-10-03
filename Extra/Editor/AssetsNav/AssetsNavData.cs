@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using PCP.WhichKey.Types;
+using UnityEditor;
 using UnityEngine;
 namespace PCP.WhichKey.Extra
 {
@@ -21,6 +22,7 @@ namespace PCP.WhichKey.Extra
         }
         public void SetAssetsPathByKey(int key, string path)
         {
+            bool result = false;
             for (int i = 0; i < NavSetList.Count; i++)
             {
                 AssetNavSet item = NavSetList[i];
@@ -29,19 +31,24 @@ namespace PCP.WhichKey.Extra
                     item.AssetPath = path;
                     item.Hint = path.Split("/").Last();
                     NavSetList[i] = item;
-                    // UpdateLayerHints(i);
-                    OnAssetsChange();
-                    return;
+                    result = true;
+                    break;
                 }
             }
-            var asset = new AssetNavSet(key, path);
-            NavSetList.Add(asset);
-            OnAssetsChange();
-            // UpdateLayerHints(AssetsDataList.Count - 1);
+            if (!result)
+            {
+                var asset = new AssetNavSet(key, path);
+                NavSetList.Add(asset);
+            }
+            OnValidate();
         }
         private void OnValidate()
         {
             OnAssetsChange();
+            Undo.RecordObject(this, "Add AssetNavSet");
+            EditorUtility.SetDirty(this);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
         private void OnAssetsChange()
         {
